@@ -69,4 +69,5 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy a Vercel
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd Frontend/FitRank
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes --cwd Frontend/FitRank --name fitrank-frontend
+
