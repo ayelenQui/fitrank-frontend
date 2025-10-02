@@ -3,7 +3,7 @@ name: CI/CD - Angular + Vercel
 on:
   push:
     branches: 
-      - master                
+      - master                 
       - nombre-de-tu-rama    
   pull_request:
     branches: 
@@ -23,16 +23,32 @@ jobs:
         with:
           node-version: 22.12
 
+      - name: Cache de npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('Frontend/FitRank/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache de node_modules
+        uses: actions/cache@v3
+        with:
+          path: Frontend/FitRank/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('Frontend/FitRank/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
       - name: Instalar dependencias
         run: npm install
         working-directory: Frontend/FitRank
 
       - name: Compilar Angular
-        run: npm run build --if-present
+        run: npm run build -- --configuration production
         working-directory: Frontend/FitRank
 
       - name: Ejecutar tests
-        run: npm test --if-present
+        run: npm test --if-present -- --browsers=ChromeHeadless --watch=false
         working-directory: Frontend/FitRank
 
   deploy:
