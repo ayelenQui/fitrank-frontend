@@ -4,11 +4,5 @@ dist/
 .angular/
 .env
 
-# .NET
-bin/
-obj/
-*.user
-*.vs
-
 # IDEs
 .vscode/
