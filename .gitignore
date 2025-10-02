@@ -1,0 +1,14 @@
+# Node.js / Angular
+node_modules/
+dist/
+.angular/
+.env
+
+# .NET
+bin/
+obj/
+*.user
+*.vs
+
+# IDEs
+.vscode/
