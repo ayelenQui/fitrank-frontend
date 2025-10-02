@@ -4,11 +4,11 @@ on:
   push:
     branches: 
       - master                 
-      - nombre-de-tu-rama    
+      - 'dev-*'    
   pull_request:
     branches: 
       - master
-      - nombre-de-tu-rama
+      - 'dev-*'
 
 jobs:
   build:
