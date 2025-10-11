@@ -1,0 +1,377 @@
+/* /* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #FFFFFF;
+  color: #333333;
+  line-height: 1.6; /* Line-height base para mejor legibilidad */
+  overflow-x: hidden;
+  font-size: 16px; /* Base para rem escalables */
+  font-weight: 400; /* Regular por defecto */
+}
+
+.container {
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  padding-bottom: 80px; /* Espacio para bottom nav */
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin-right: 12px;
+}
+
+  .back-btn:hover,
+  .back-btn:focus {
+    background-color: #F3F4F6;
+    color: #8B5CF6;
+    transform: scale(1.1);
+  }
+
+.header-title {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700; /* Bold */
+  color: #111827;
+  margin: 0;
+  flex: 1;
+  letter-spacing: -0.025em; /* Sutil para elegancia */
+  line-height: 1.2;
+}
+
+/* Tabs */
+.tabs-container {
+  padding: 16px 20px;
+  background-color: #FFFFFF;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  padding: 12px 20px;
+  border: 1px solid #D1D5DB;
+  border-radius: 20px;
+  background-color: #F9FAFB;
+  color: #6B7280;
+  font-weight: 500; /* Medium */
+  font-size: 0.875rem; /* 14px */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+  .tab.active {
+    background-color: #8B5CF6;
+    color: #FFFFFF;
+    border-color: #8B5CF6;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+  }
+
+  .tab:hover,
+  .tab:focus {
+    background-color: #A78BFA;
+    color: #FFFFFF;
+    border-color: #A78BFA;
+    transform: translateY(-1px);
+  }
+
+/* Categories (Pills) */
+.categories {
+  padding: 0 20px 16px;
+  background-color: #FFFFFF;
+  overflow-x: auto;
+}
+
+.category-pills {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.category-pill {
+  padding: 10px 16px;
+  border: 1px solid #D1D5DB;
+  border-radius: 20px;
+  background-color: #F9FAFB;
+  color: #6B7280;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+  .category-pill.active,
+  .category-pill:hover,
+  .category-pill:focus {
+    background-color: #8B5CF6;
+    color: #FFFFFF;
+    border-color: #8B5CF6;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+    transform: translateY(-1px);
+  }
+
+/* Rankings Section */
+.rankings-section {
+  flex: 1;
+  padding: 0 20px 20px;
+  background-color: #FFFFFF;
+}
+
+.ranking-title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600; /* Semi-bold */
+  color: #111827;
+  margin: 1.5rem 0 1rem; /* 24px 0 16px */
+  padding-bottom: 0.5rem; /* 8px */
+  border-bottom: 1px solid #E5E7EB;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-align: left; /* Alineación clara */
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem; /* 16px */
+  background-color: #F9FAFB;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid #E5E7EB;
+}
+
+  .ranking-item:hover,
+  .ranking-item:focus-within {
+    background-color: #F3F4F6;
+    border-color: #8B5CF6;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+    transform: translateY(-2px);
+  }
+
+.avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  background-color: #8B5CF6;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.125rem; /* 18px */
+  margin-right: 1rem; /* 16px */
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 1rem; /* 16px */
+  font-weight: 600; /* Semi-bold */
+  color: #111827;
+  margin-bottom: 0.25rem; /* 4px */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.user-stats {
+  font-size: 0.875rem; /* 14px */
+  color: #6B7280;
+  line-height: 1.4;
+  font-weight: 400; /* Regular */
+}
+
+  .user-stats strong {
+    color: #111827;
+    font-weight: 600; /* Semi-bold para énfasis */
+  }
+
+.action-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem; /* 20px */
+  color: #8B5CF6;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin-left: 0.75rem; /* 12px */
+  flex-shrink: 0;
+}
+
+  .action-btn:hover,
+  .action-btn:focus {
+    background-color: #8B5CF6;
+    color: #FFFFFF;
+    transform: scale(1.2) rotate(90deg);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+  }
+
+/* Empty States */
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1.25rem; /* 40px 20px */
+  color: #6B7280;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+}
+
+  .empty-state p {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 400;
+  }
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #FFFFFF;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  z-index: 10;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #6B7280; /* Gris por defecto para texto */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 500; /* Medium */
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 80px;
+  line-height: 1.3;
+}
+
+  .nav-item.active {
+    color: #8B5CF6; /* Violeta para texto del activo */
+  }
+
+  .nav-item:hover,
+  .nav-item:focus {
+    color: #8B5CF6;
+    background-color: #F3F4F6;
+    transform: translateY(-2px);
+  }
+
+.nav-icon {
+  font-size: 1.25rem; /* 20px */
+  margin-bottom: 0.25rem; /* 4px */
+  transition: filter 0.3s ease;
+  filter: grayscale(100%) brightness(0.8); /* Gris puro por defecto */
+}
+
+.nav-item.active .nav-icon {
+  filter: sepia(1) saturate(3) hue-rotate(260deg) brightness(1.1); /* Violeta para activo */
+}
+
+.nav-item:hover .nav-icon,
+.nav-item:focus .nav-icon {
+  filter: sepia(1) saturate(3) hue-rotate(260deg) brightness(1.1); /* Violeta en hover */
+}
+
+/* Responsive: Mejoras para tablets y desktop */
+@media (min-width: 768px) {
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 0;
+  }
+
+  .bottom-nav {
+    position: relative;
+    padding: 16px 0;
+  }
+
+  .ranking-item {
+    padding: 1.25rem; /* 20px */
+  }
+
+  .header {
+    padding: 20px 24px;
+  }
+
+  .header-title {
+    font-size: 1.75rem; /* 28px en desktop */
+  }
+
+  .tabs-container,
+  .categories {
+    padding: 20px 24px;
+  }
+
+  .rankings-section {
+    padding: 0 24px 24px;
+  }
+
+  .ranking-title {
+    font-size: 1.5rem; /* 24px en desktop */
+  }
+}
+
+/* Scrollbar sutil para categories */
+.category-pills::-webkit-scrollbar {
+  height: 4px;
+}
+
+.category-pills::-webkit-scrollbar-thumb {
+  background-color: #D1D5DB;
+  border-radius: 2px;
+}
+
+.category-pills::-webkit-scrollbar-track {
+  background: transparent;
+}

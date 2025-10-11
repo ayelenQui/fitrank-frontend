@@ -1,0 +1,286 @@
+/* Variables CSS para consistencia con ranking (tema violeta fitness) */
+:root {
+  --primary-color: #6f42c1; /* Violeta principal como en ranking */
+  --secondary-color: #6c757d; /* Gris para labels y texto */
+  --success-color: #28a745; /* Verde para éxito (opcional) */
+  --background-color: #f8f9fa; /* Fondo claro */
+  --card-background: #ffffff; /* Blanco para cards */
+  --border-color: #dee2e6; /* Borde sutil */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra suave */
+  --input-border: #ced4da; /* Borde de inputs */
+  --hover-color: #5a2d91; /* Violeta más oscuro para hover/active */
+  --text-size: 14px; /* Tamaño base legible */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Fuente moderna */
+  --spacing: 16px; /* Espaciado estándar para móvil */
+  --border-radius: 8px; /* Bordes redondeados suaves */
+}
+
+/* Contenedor principal - Centrado y con padding para móvil + nav fija */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing);
+  background-color: var(--background-color);
+  min-height: 100vh; /* Ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  box-sizing: border-box;
+  padding-bottom: 80px; /* Espacio extra para la bottom-nav fija (ajusta si cambias altura) */
+}
+
+  /* Títulos principales - Con línea violeta como en ranking */
+  .container h2,
+  .nuevo-ejercicio h3,
+  .ejercicios-registrados h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: var(--spacing);
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color); /* Línea violeta */
+    padding-bottom: 8px;
+  }
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: var(--spacing) * 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.nuevo-ejercicio {
+  background-color: var(--card-background);
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  margin-bottom: var(--spacing) * 2;
+  border-left: 4px solid var(--primary-color); /* Borde violeta izquierdo para acento ranking-style */
+}
+
+/* Labels */
+.form-group label {
+  font-size: var(--text-size);
+  font-weight: 500;
+  color: var(--secondary-color);
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Inputs - Focus con violeta */
+.form-control {
+  width: 100%;
+  padding: 12px var(--spacing);
+  font-size: var(--text-size);
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Violeta en focus */
+    box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.1); /* Glow violeta */
+    background-color: #fafbff;
+  }
+
+  .form-control:invalid {
+    border-color: #dc3545;
+  }
+
+/* Botón - Violeta como en ranking */
+.btn {
+  padding: 12px 24px;
+  font-size: var(--text-size);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color); /* Violeta */
+  color: white;
+}
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: var(--hover-color); /* Violeta oscuro */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+/* Sección de ejercicios */
+.ejercicios-registrados {
+  flex: 1;
+  margin-top: var(--spacing) * 2;
+}
+
+.mt-4 {
+  margin-top: var(--spacing) * 2.5;
+}
+
+/* Cards - Con acento violeta en hover */
+.ejercicio-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition: box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+}
+
+  .ejercicio-card:hover {
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transform: translateY(-2px);
+    border-color: var(--primary-color); /* Violeta en hover como ranking */
+  }
+
+  .ejercicio-card p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  .ejercicio-card strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+
+/* Mensaje de no ejercicios */
+ng-template p,
+.ejercicios-registrados p {
+  text-align: center;
+  color: var(--secondary-color);
+  font-style: italic;
+  padding: var(--spacing);
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  border: 1px dashed var(--border-color);
+}
+
+/* Responsive: Móvil */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+    padding-bottom: 100px; /* Más espacio para nav en móvil */
+  }
+
+    .container h2,
+    .nuevo-ejercicio h3,
+    .ejercicios-registrados h3 {
+      font-size: 20px;
+    }
+
+  .form-control {
+    padding: 14px var(--spacing);
+    font-size: 16px; /* Evita zoom iOS */
+  }
+
+  .ejercicio-card {
+    padding: 12px;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 769px) {
+  .container {
+    max-width: 600px;
+    padding: 24px;
+    padding-bottom: 40px; /* Menos en desktop si nav no es fija */
+  }
+
+  .nuevo-ejercicio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing);
+  }
+
+    .nuevo-ejercicio label,
+    .nuevo-ejercicio .form-control {
+      grid-column: span 1;
+    }
+
+  #observacion,
+  #fecha {
+    grid-column: span 2;
+  }
+
+  .ejercicios-registrados {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing);
+  }
+
+  .ejercicio-card {
+    margin-bottom: 0;
+  }
+
+  .container h2,
+  .nuevo-ejercicio h3,
+  .ejercicios-registrados h3 {
+    font-size: 28px;
+  }
+
+  .form-control {
+    padding: 16px 20px;
+  }
+
+  .btn {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+}
+
+/* Tema oscuro opcional */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #343a40;
+    --card-background: #495057;
+    --border-color: #6c757d;
+    --secondary-color: #adb5bd;
+    --input-border: #6c757d;
+  }
+
+  .container {
+    background-color: var(--background-color);
+    color: #fff;
+  }
+
+  .ejercicio-card,
+  .nuevo-ejercicio {
+    background-color: var(--card-background);
+    color: #fff;
+  }
+
+  .form-control {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: var(--input-border);
+  }
+
+    .form-control:focus {
+      background-color: #5a6268;
+    }
+}
+
+@media (hover: hover) {
+  .ejercicio-card:hover {
+    border-color: var(--primary-color);
+  }
+}
