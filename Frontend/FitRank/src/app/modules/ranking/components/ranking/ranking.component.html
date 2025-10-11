@@ -1,138 +1,127 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ranking Gimnasio</title>
-</head>
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn">←</button>
+    <h1 class="header-title">Ranking</h1>
+  </div>
 
-<body>
-
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <button class="back-btn">←</button>
-      <h1 class="header-title">Ranking</h1>
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <div class="tabs">
+      <div class="tab active">Global</div>
+      <!-- Si quieres más tabs (ej. "Por Grupo"), agrega aquí y lógica en componente -->
     </div>
+  </div>
 
-    <!-- Tabs -->
-    <div class="tabs-container">
-      <div class="tabs">
-        <div class="tab active">Global</div>
+  <!-- Category Pills (dinámico para grupos musculares) -->
+  <div class="categories">
+    <div class="category-pills">
+      <!-- ✅ Botón "Todos" para limpiar filtro -->
+      <button class="category-pill"
+              [class.active]="!grupoSeleccionado()"
+              (click)="seleccionarGrupo(null)">
+        Todos
+      </button>
 
-      </div>
+      <!-- ✅ *ngFor en gruposMusculares (number[]), muestra nombre con mapper, pasa ID number al click -->
+      <button *ngFor="let grupoId of gruposMusculares"
+              class="category-pill"
+              [class.active]="grupoSeleccionado() === grupoId"
+              (click)="seleccionarGrupo(grupoId)">
+        {{ getGrupoName(grupoId) }}  <!-- Muestra "Pecho" en lugar de 0 -->
+      </button>
     </div>
+  </div>
 
-    <!-- Category Pills (dinámico) -->
-    <div class="categories">
-      <div class="category-pills">
-        <button *ngFor="let grupo of gruposMusculares"
-                class="category-pill"
-                [class.active]="grupoSeleccionado() === grupo"
-                (click)="seleccionarGrupo(grupo)">
-          {{ grupo }}
-        </button>
-      </div>
-    </div>
+  <!-- Rankings Section -->
+  <div class="rankings-section">
 
-    <!-- Rankings Section -->
-    <div class="rankings-section">
-
-      <!-- Ranking General -->
-      <div *ngIf="rankings.length > 0; else noGeneral">
-        <h2 class="ranking-title">Ranking General</h2>
-        <div class="ranking-list">
-          <div class="ranking-item" *ngFor="let user of rankings; let i = index">
-
-            <!-- Avatar -->
-            <div class="avatar-placeholder">
-              {{ user.username.charAt(0).toUpperCase() }}
-            </div>
-
-            <!-- User Info -->
-            <div class="user-info">
-              <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
-              <div class="user-stats">
-                Puntos: <strong>{{ user.Totalpuntos }}</strong> •
-                Nivel: <strong>{{ user.Nivel }}</strong>
-              </div>
-            </div>
-
-            <!-- Action Button -->
-            <button class="action-btn">⚡</button>
+    <!-- Ranking General (usa rankings: MostrarRankingDTO[]) -->
+    <div *ngIf="rankings.length > 0; else noGeneral">
+      <h2 class="ranking-title">Ranking General</h2>
+      <div class="ranking-list">
+        <div class="ranking-item" *ngFor="let user of rankings; let i = index">
+          <!-- Avatar -->
+          <div class="avatar-placeholder">
+            {{ getUserInitial(user.username) }}  <!-- Usa el método del servicio si lo importas, o inline: user.username.charAt(0).toUpperCase() -->
           </div>
-        </div>
-      </div>
 
-      <ng-template #noGeneral>
-        <div class="empty-state">
-          <p>No hay datos de ranking general.</p>
-        </div>
-      </ng-template>
-
-      <!-- Ranking por Grupo Muscular -->
-      <div *ngIf="filtrarPorGrupo().length > 0; else noGrupo">
-        <h2 class="ranking-title">
-          Ranking {{ grupoSeleccionado() || 'por grupo muscular' }}
-        </h2>
-        <div class="ranking-list">
-          <div class="ranking-item" *ngFor="let user of filtrarPorGrupo(); let i = index">
-
-            <!-- Avatar -->
-            <div class="avatar-placeholder">
-              {{ user.username.charAt(0).toUpperCase() }}
+          <!-- User Info -->
+          <div class="user-info">
+            <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
+            <div class="user-stats">
+              Puntos: <strong>{{ user.Totalpuntos }}</strong> •  <!-- PascalCase del servicio -->
+              Nivel: <strong>{{ user.Nivel }}</strong>  <!-- PascalCase -->
             </div>
-
-            <!-- User Info -->
-            <div class="user-info">
-              <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
-              <div class="user-stats">
-                {{ user.GrupoMuscular }} • {{ user.Nombre }}<br>
-                Puntos: <strong>{{ user.Totalpuntos }}</strong> •
-                Nivel: <strong>{{ user.Nivel }}</strong>
-              </div>
-            </div>
-
-            <!-- Action Button -->
-            <button class="action-btn">⚡</button>
           </div>
+
+          <!-- Action Button -->
+          <button class="action-btn">⚡</button>
         </div>
       </div>
+    </div>
 
-      <ng-template #noGrupo>
-        <div class="empty-state">
-          <p>No hay datos de ranking por grupo muscular.</p>
+    <ng-template #noGeneral>
+      <div class="empty-state">
+        <p>No hay datos de ranking general.</p>
+      </div>
+    </ng-template>
+
+    <!-- Ranking por Grupo Muscular (usa filtrarPorGrupo(): MostrarRankingDTOGrupo[]) -->
+    <div *ngIf="filtrarPorGrupo().length > 0; else noGrupo">
+      <!-- ✅ Título dinámico: Muestra nombre del grupo con mapper (ej. "Ranking Glúteo") -->
+      <h2 class="ranking-title">
+        Ranking {{ getGrupoName(grupoSeleccionado() || 0) || 'por grupo muscular' }}
+      </h2>
+      <div class="ranking-list">
+        <div class="ranking-item" *ngFor="let user of filtrarPorGrupo(); let i = index">
+          <!-- Avatar -->
+          <div class="avatar-placeholder">
+            {{ getUserInitial(user.username) }}  <!-- Inline o del servicio -->
+          </div>
+
+          <!-- User Info -->
+          <div class="user-info">
+            <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
+            <div class="user-stats">
+              <!-- ✅ GrupoMuscular como number → Muestra nombre con mapper (ej. "Pecho") -->
+              {{ getGrupoName(user.GrupoMuscular) }} • {{ user.Nombre }}<br>
+              Puntos: <strong>{{ user.Totalpuntos }}</strong> •  <!-- PascalCase -->
+              Nivel: <strong>{{ user.Nivel }}</strong>  <!-- PascalCase -->
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button class="action-btn">⚡</button>
         </div>
-      </ng-template>
-
-    </div>
-    <!-- Bottom Navigation -->
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-      <a href="#" class="nav-item">
-        <div class="nav-icon">⌂</div>
-        <div>Inicio</div>
-      </a>
-      <a href="#" class="nav-item active">
-        <div class="nav-icon">⭐</div>
-        <div>Ranking</div>
-      </a>
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🔥</div>
-        <div>Actividad</div>
-      </a>
-    
-      <a routerLink="/EjercicioRealizado" routerLinkActive="active" class="nav-item" [routerLinkActiveOptions]="{exact: true}">
-        <div class="nav-icon">🧍</div>
-        <div>Registrar</div>
-      </a>
+      </div>
     </div>
 
-
-
-
+    <ng-template #noGrupo>
+      <div class="empty-state">
+        <p>No hay datos de ranking por grupo muscular.</p>
+      </div>
+    </ng-template>
 
   </div>
 
-</body>
-</html>
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="#" class="nav-item">
+      <div class="nav-icon">⌂</div>
+      <div>Inicio</div>
+    </a>
+    <a href="#" class="nav-item active">
+      <div class="nav-icon">⭐</div>
+      <div>Ranking</div>
+    </a>
+    <a href="#" class="nav-item">
+      <div class="nav-icon">🔥</div>
+      <div>Actividad</div>
+    </a>
+    <a routerLink="/EjercicioRealizado" routerLinkActive="active" class="nav-item" [routerLinkActiveOptions]="{exact: true}">
+      <div class="nav-icon">🧍</div>
+      <div>Registrar</div>
+    </a>
+  </div>
+</div>

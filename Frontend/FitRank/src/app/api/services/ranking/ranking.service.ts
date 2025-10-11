@@ -13,23 +13,23 @@ export class RankingService {
     return this.http.get<any[]>(`${this.apiUrl}`).pipe(
       map(data =>
         data.map(item => ({
-          username: item.username ?? item.username ?? '',
-          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,
-          Nivel: item.Nivel ?? item.nivel ?? ''
+          username: item.username ?? item.Username ?? '',  // ✅ Fallback: camel o Pascal
+          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,  // ✅ Number, fallback
+          Nivel: item.Nivel ?? item.nivel ?? ''  // ✅ Fallback
         }))
       )
     );
   }
-
   getRankingGrupoMuscular(): Observable<MostrarRankingDTOGrupo[]> {
     return this.http.get<any[]>(`${this.apiUrl}/Grupomuscular`).pipe(
       map(data =>
         data.map(item => ({
-          username: item.username ?? item.username ?? '',
-          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,
-          Nivel: item.Nivel ?? item.nivel ?? '',
-          GrupoMuscular: item.GrupoMuscular ?? item.grupoMuscular ?? '',
-          Nombre: item.Nombre ?? item.nombre ?? ''
+          username: item.username ?? item.Username ?? '',  // ✅ Fallback
+          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,  // ✅ Number
+          Nivel: item.Nivel ?? item.nivel ?? '',  // ✅ Fallback
+          GrupoMuscular: (item.GrupoMuscular ?? item.grupoMuscular ?? 0) as number,  // ✅ Number para enum (default 0=pecho), fallback y casteo
+          Nombre: item.Nombre ?? item.nombre ?? '',  // ✅ Fallback, string
+          divisionPorGrupo: item.DivisionPorGrupo ?? item.divisionPorGrupo ?? ''  // ✅ Agregada para matching con interfaz (fallback Pascal/camel)
         }))
       )
     );
@@ -38,7 +38,4 @@ export class RankingService {
   getUserInitial(userName: string): string {
     return userName ? userName.charAt(0).toUpperCase() : '?';
   }
-
-
 }
-
