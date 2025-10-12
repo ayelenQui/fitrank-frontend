@@ -1,0 +1,19 @@
+.user-home__hero__minicardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    padding: 10px;
+    gap: 10px;
+}
+
+.user-home__hero__minicardTitle {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.user-home__hero__minicardDescription {
+    margin: 0;
+}
