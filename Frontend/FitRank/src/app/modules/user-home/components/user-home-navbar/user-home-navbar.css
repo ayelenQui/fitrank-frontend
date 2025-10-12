@@ -19,6 +19,14 @@
     gap: 20px;
 }
 
+.user-home__navbar__link{
+    cursor: pointer;
+}
+
+.user-home__navbar__link:hover {
+    color: var(--color-acento-secundario);
+}
+
 .user-home__navbar__actions {
     display: flex;
     gap: 10px;

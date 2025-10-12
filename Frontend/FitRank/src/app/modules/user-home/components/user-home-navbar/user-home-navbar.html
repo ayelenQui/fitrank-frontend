@@ -10,10 +10,10 @@
     />
   </svg>
   <nav class="user-home__navbar__links hidden">
-    <a routerLink="#" routerLinkActive="active">Inicio</a>
-    <a routerLink="#" routerLinkActive="active">Servicios</a>
-    <a routerLink="#" routerLinkActive="active">Clases</a>
-    <a routerLink="#" routerLinkActive="active">Contacto</a>
+    <a routerLink="#" routerLinkActive="active" class="user-home__navbar__link">Inicio</a>
+    <a routerLink="#" routerLinkActive="active" class="user-home__navbar__link">Servicios</a>
+    <a routerLink="#" routerLinkActive="active" class="user-home__navbar__link">Clases</a>
+    <a routerLink="#" routerLinkActive="active" class="user-home__navbar__link">Contacto</a>
   </nav>
   <div class="user-home__navbar__actions hidden">
     <button class="btn user-home__navbar__ingresar">Ingresar</button>
@@ -28,10 +28,34 @@
   />
 
   <div class="user-home__navbar__menuDesplegable" [class.hidden]="menuHidden">
-    <a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Inicio</a>
-    <a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Servicios</a>
-    <a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Clases</a>
-    <a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Contacto</a>
+    <a
+      class="user-home__navbar__link"
+      routerLink="#"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+      >Inicio</a
+    >
+    <a
+      class="user-home__navbar__link"
+      routerLink="#"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+      >Servicios</a
+    >
+    <a
+      class="user-home__navbar__link"
+      routerLink="#"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+      >Clases</a
+    >
+    <a
+      class="user-home__navbar__link"
+      routerLink="#"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+      >Contacto</a
+    >
     <button class="btn user-home__navbar__ingresar" (click)="toggleMenu()">Ingresar</button>
     <button class="btn user-home__navbar__registrarse" (click)="toggleMenu()">Registrarse</button>
   </div>
