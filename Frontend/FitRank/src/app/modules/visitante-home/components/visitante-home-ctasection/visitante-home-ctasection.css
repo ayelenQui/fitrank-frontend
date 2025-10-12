@@ -1,0 +1,39 @@
+.visitante-home__ctasection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-acento);
+    padding: 40px 20px;
+    gap: 20px;
+}
+
+.visitante-home__ctasection_button {
+    background-color: var(--color-acento-secundario);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.visitante-home__ctasection_title,
+.visitante-home__ctasection_description {
+    margin: 0;
+}
+
+.visitante-home__ctasection_title {
+    font-size: 36px;
+    font-weight: bolder;
+}
+
+.visitante-home__ctasection_infoContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
