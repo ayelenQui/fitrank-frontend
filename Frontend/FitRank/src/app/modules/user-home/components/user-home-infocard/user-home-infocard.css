@@ -1,0 +1,26 @@
+.user-home__infocard__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    text-align: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid var(--color-acento);
+    border-radius: 10px;
+}
+
+.user-home__infocard__image {
+    width: 60px;
+    height: 60px;
+}
+
+.user-home__infocard__descripcion,
+.user-home__infocard__titulo {
+    margin: 0;
+}
+
+.user-home__infocard__titulo {
+    color: var(--color-acento-secundario);
+}
