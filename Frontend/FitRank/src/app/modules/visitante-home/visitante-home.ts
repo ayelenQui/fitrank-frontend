@@ -4,11 +4,12 @@ import { VisitanteHomeHero } from './components/visitante-home-hero/visitante-ho
 import { VisitanteHomeInfosection } from './components/visitante-home-infosection/visitante-home-infosection';
 import { VisitanteHomeServiciossection } from './components/visitante-home-serviciossection/visitante-home-serviciossection';
 import { VisitanteHomeCtasection } from './components/visitante-home-ctasection/visitante-home-ctasection';
+import { VisitanteHomeFooter } from './components/visitante-home-footer/visitante-home-footer';
 
 
 @Component({
   selector: 'app-visitante-home',
-  imports: [VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection, VisitanteHomeServiciossection, VisitanteHomeCtasection],
+  imports: [VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection, VisitanteHomeServiciossection, VisitanteHomeCtasection, VisitanteHomeFooter],
   templateUrl: './visitante-home.html',
   styleUrl: './visitante-home.css'
 })

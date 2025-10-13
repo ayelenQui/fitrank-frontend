@@ -8,6 +8,13 @@
     gap: 20px;
 }
 
+.visitante-home__ctasection_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .visitante-home__ctasection_button {
     background-color: var(--color-acento-secundario);
     color: white;
@@ -22,6 +29,7 @@
 .visitante-home__ctasection_title,
 .visitante-home__ctasection_description {
     margin: 0;
+    text-align: center;
 }
 
 .visitante-home__ctasection_title {
@@ -29,11 +37,18 @@
     font-weight: bolder;
 }
 
-.visitante-home__ctasection_infoContainer{
+.visitante-home__ctasection_infoContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+}
+
+@media screen and (min-width: 768px) {
+
+    .visitante-home__ctasection_buttons {
+        flex-direction: row;
+    }
 }
