@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './modules/login/components/login.component';
 import { HomeComponent } from './modules/home/components/home.component';
-import { VisitanteHome } from './modules/visitante-home/visitante-home';
+import { VisitanteHome } from '../app/modules/visitante-home/visitante-home';
 import { HomeAdminComponent } from './modules/homeAdmin/components/homeAdmin.component';
 import { RankingComponent } from './modules/ranking/components/ranking/ranking.component';
 import { RegistrarEntrenamientoComponent } from './modules/entrenamiento/components/registrarEntrenamiento/registrar-entrenamiento.component';
@@ -12,30 +12,14 @@ import { LoginGuard } from './guards/login.guards';
 import { AdminGuard } from './guards/admin.guards';
 
 export const appRoutes: Route[] = [
-  // primera ruta por defecto axel :visitante 
-  { path: '', redirectTo: '/visitante', pathMatch: 'full' },
-  // Login
+  { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-
-  // Home público (sin login)
-  { path: 'visitante', component: VisitanteHome },
-
-
-  // Home socio logueado
+  { path: 'visitante-home', component: VisitanteHome },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-
-  // Home admin logueado
-  { path: 'home-admin', component: HomeAdminComponent, canActivate: [AuthGuard, AdminGuard] },
-
-  // Rutas compartidas (logueados)
+  { path: 'homeAdmin', component: HomeAdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
-
-  // Rutas solo admin
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'activar', component: ActivacionComponent, canActivate: [AuthGuard, AdminGuard] },
-
-  // Redirecciones
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'activar-cuenta', component: ActivacionComponent },
   { path: '**', redirectTo: 'login' }
 ];

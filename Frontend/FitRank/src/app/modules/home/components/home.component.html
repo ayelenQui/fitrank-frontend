@@ -7,7 +7,7 @@
           <h2>Bienvenido al Home - FitRank Gym</h2>
         </div>
         <div class="card-body">
-          <p *ngIf="user">¡Hola, {{ user.Nombre }} {{ user.Apellidos }}! ({{ user.Username }})</p>
+          <p *ngIf="user">¡Hola, {{ user.Nombre }} {{ user.Apellidos }}! </p>
           <p *ngIf="user">Tu rol: {{ user.Rol }} | Cuota pagada hasta: {{ user.CuotaPagadaHasta | date:'shortDate' }}</p>
           <p>Esta es tu página principal. Aquí puedes ver tu perfil, asistencia, etc.</p>
 

@@ -8,7 +8,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     if (!this.authService.isLoggedIn() || !this.authService.isAdmin()) {
-      this.router.navigate(['/homeAdmin']); 
+      this.router.navigate(['/home']); // redirige a home si no es admin
       return false;
     }
     return true;

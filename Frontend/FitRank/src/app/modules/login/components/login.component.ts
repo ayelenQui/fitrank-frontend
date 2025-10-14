@@ -52,10 +52,22 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.form.value;
 
     this.authService.login(email, password).subscribe({
-      next: () => {
+      next: (response) => {
         this.loading = false;
         this.mensaje = 'Login exitoso. Redirigiendo...';
-        setTimeout(() => this.router.navigate(['/home']), 1000);  // Delay para ver mensaje
+
+        const user = this.authService.obtenerUser();
+        if (user) {
+          const rol = (user.Rol || user.role || '').toLowerCase();
+
+          setTimeout(() => {
+            if (rol === 'Admin') {
+              this.router.navigate(['/homeAdmin']);
+            } else {
+              this.router.navigate(['/home']);
+            }
+          }, 1000);
+        }
       },
       error: (err) => {
         this.loading = false;

@@ -10,10 +10,11 @@
     {{ mensaje }}
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="login()">
+  <form [formGroup]="form" (ngSubmit)="login()" autocomplete="on">
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" formControlName="email"
+             autocomplete="username"
              [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched">
       <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="invalid-feedback">
         Email inválido.
@@ -23,6 +24,7 @@
     <div class="mb-3">
       <label for="password" class="form-label">Contraseña</label>
       <input type="password" class="form-control" id="password" formControlName="password"
+             autocomplete="current-password"
              [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched">
       <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="invalid-feedback">
         Contraseña mínima de 6 caracteres.
