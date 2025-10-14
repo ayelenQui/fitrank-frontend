@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './modules/login/components/login.component';
 import { HomeComponent } from './modules/home/components/home.component';
-import { VisitanteComponent } from './modules/visitante/components/visitante.component';
+import { VisitanteHome } from './modules/visitante-home/visitante-home';
 import { HomeAdminComponent } from './modules/homeAdmin/components/homeAdmin.component';
 import { RankingComponent } from './modules/ranking/components/ranking/ranking.component';
 import { RegistrarEntrenamientoComponent } from './modules/entrenamiento/components/registrarEntrenamiento/registrar-entrenamiento.component';
@@ -18,7 +18,7 @@ export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
 
   // Home público (sin login)
-  { path: 'visitante', component: VisitanteComponent },
+  { path: 'visitante', component: VisitanteHome },
 
 
   // Home socio logueado
@@ -36,6 +36,6 @@ export const appRoutes: Route[] = [
   { path: 'activar', component: ActivacionComponent, canActivate: [AuthGuard, AdminGuard] },
 
   // Redirecciones
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];
