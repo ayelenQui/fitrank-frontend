@@ -38,6 +38,8 @@
 
 .visitante-home__navbar__link {
     cursor: pointer;
+    text-decoration: none;
+    color: var(--color-texto-principal);
 }
 
 .visitante-home__navbar__link:hover {

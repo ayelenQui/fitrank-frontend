@@ -20,8 +20,10 @@
     <a routerLink="#" routerLinkActive="active" class="visitante-home__navbar__link">Contacto</a>
   </nav>
   <div class="visitante-home__navbar__actions hidden">
-    <button class="btn visitante-home__navbar__ingresar">Ingresar</button>
-    <button class="btn visitante-home__navbar__registrarse">Registrarse</button>
+    <button class="btn visitante-home__navbar__ingresar" routerLink="/ingresar">Ingresar</button>
+    <button class="btn visitante-home__navbar__registrarse" routerLink="/registrarse">
+      Registrarse
+    </button>
   </div>
 
   <img
@@ -60,7 +62,19 @@
       (click)="toggleMenu()"
       >Contacto</a
     >
-    <button class="btn visitante-home__navbar__ingresar" (click)="toggleMenu()">Ingresar</button>
-    <button class="btn visitante-home__navbar__registrarse" (click)="toggleMenu()">Registrarse</button>
+    <button
+      class="btn visitante-home__navbar__ingresar"
+      (click)="toggleMenu()"
+      routerLink="/ingresar"
+    >
+      Ingresar
+    </button>
+    <button
+      class="btn visitante-home__navbar__registrarse"
+      (click)="toggleMenu()"
+      routerLink="/registrarse"
+    >
+      Registrarse
+    </button>
   </div>
 </header>
