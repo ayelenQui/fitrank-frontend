@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --color-fondo-principal: #FAFAFA;
+    --color-fondo-secundario: #E0E0E0;
+    --color-fondo-tarjetas: #EAEAEA;
+    --color-texto-principal: #121212;
+    --color-texto-secundario: #808080;
+    --color-hover-exito: #5A9A00;
+    --color-error-alerta: #FF4C4C;
+    --color-acento: #FAEB92;
+    --color-acento-secundario: #8B52FF;
+}
+
+
+html,
+body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
