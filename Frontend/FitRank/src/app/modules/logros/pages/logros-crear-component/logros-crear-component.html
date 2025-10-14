@@ -1,0 +1,47 @@
+<section class="container">
+  <h1>Crear logro</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" class="input" formControlName="nombre" placeholder='p.ej. "Completar 10.000 pasos"'>
+      <small *ngIf="f.nombre.touched && f.nombre.errors" class="error">
+        <span *ngIf="f.nombre.errors['required']">El nombre es obligatorio.</span>
+        <span *ngIf="f.nombre.errors['minlength']">Mínimo 3 caracteres.</span>
+        <span *ngIf="f.nombre.errors['maxlength']">Máximo 80 caracteres.</span>
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" rows="3" class="input" formControlName="descripcion" placeholder="Describe el criterio del logro"></textarea>
+      <small *ngIf="f.descripcion.touched && f.descripcion.errors" class="error">
+        <span *ngIf="f.descripcion.errors['required']">La descripción es obligatoria.</span>
+        <span *ngIf="f.descripcion.errors['minlength']">Mínimo 5 caracteres.</span>
+        <span *ngIf="f.descripcion.errors['maxlength']">Máximo 400 caracteres.</span>
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="puntos">Puntos</label>
+      <input id="puntos" type="number" class="input" formControlName="puntos">
+      <small *ngIf="f.puntos.touched && f.puntos.errors" class="error">
+        <span *ngIf="f.puntos.errors['required']">Los puntos son obligatorios.</span>
+        <span *ngIf="f.puntos.errors['min']">No puede ser negativo.</span>
+        <span *ngIf="f.puntos.errors['max']">Demasiado alto.</span>
+      </small>
+    </div>
+
+    <div class="form-field form-field--inline">
+      <input id="activo" type="checkbox" formControlName="activo">
+      <label for="activo">Activo</label>
+    </div>
+
+    <div *ngIf="serverError()" class="error">{{ serverError() }}</div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid || loading()">{{ loading() ? 'Guardando…' : 'Guardar' }}</button>
+      <button type="button" (click)="form.reset({ nombre:'', descripcion:'', puntos:10, activo:true })" [disabled]="loading()">Limpiar</button>
+    </div>
+  </form>
+</section>

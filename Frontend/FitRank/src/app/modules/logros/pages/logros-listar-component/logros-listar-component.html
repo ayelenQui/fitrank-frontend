@@ -1,0 +1,43 @@
+<div class="logros-container">
+  <header class="logros-header">
+    <h1>🏆 Logros globales</h1>
+    <button class="btn btn-refresh" (click)="listarLogros()" [disabled]="loading">
+      🔄 Refrescar
+    </button>
+  </header>
+
+  <!-- Estados -->
+  <div *ngIf="loading" class="status loading">Cargando logros…</div>
+  <div *ngIf="errorMsg" class="status error">{{ errorMsg }}</div>
+  <div *ngIf="!loading && !errorMsg && logros.length === 0" class="status empty">
+    <em>No hay logros registrados.</em>
+  </div>
+
+  <!-- Tabla -->
+  <div class="tabla-wrapper" *ngIf="!loading && !errorMsg && logros.length > 0">
+    <table class="tabla-logros">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th class="col-descripcion">Descripción</th>
+          <th class="col-num">Puntos</th>
+          <th class="col-estado">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let logro of logros">
+          <td>{{ logro.id }}</td>
+          <td class="nombre">{{ logro.nombre }}</td>
+          <td class="descripcion">{{ logro.descripcion }}</td>
+          <td class="puntos">{{ logro.puntos }}</td>
+          <td class="estado">
+            <span class="badge" [class.activo]="logro.activo" [class.inactivo]="!logro.activo">
+              {{ logro.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

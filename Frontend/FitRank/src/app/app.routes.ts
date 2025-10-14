@@ -21,5 +21,23 @@ export const appRoutes: Route[] = [
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },
+
+  //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)
+    {
+    path: 'logros',
+    loadChildren: () =>
+      import('./modules/logros/logros.routes').then(r => r.logrosRoutes)
+  },
+    {
+  path: 'gimnasios/:gimnasioId/logros',
+  loadChildren: () =>
+    import('./modules/gimnasios/logros/gim-logros.routes').then(r => r.gimnasioLogrosRoutes)
+  },
+  {
+    path: 'socios/:socioId/gimnasios/:gimnasioId/logros',
+    loadChildren: () =>
+      import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
+  },
+
   { path: '**', redirectTo: 'login' }
 ];
