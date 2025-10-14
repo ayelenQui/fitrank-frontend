@@ -1,0 +1,45 @@
+
+/* ===== Bottom Nav ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 20;
+}
+
+  .bottom-nav a {
+    color: dimgrey;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+
+
+    flex-direction: column;
+    align-items: center;
+  }
+    .bottom-nav a:hover {
+      color: #8B52FF;
+    }
+    .bottom-nav a i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .bottom-nav a span {
+      font-size: 12px;
+    }
+    .bottom-nav a.active {
+      color: #8B52FF;
+      font-weight: bold;
+    }
+      .bottom-nav a.active i {
+        color: #8B52FF;
+      }
+      .bottom-nav a.active span {
+        font-weight: bold;
+      }

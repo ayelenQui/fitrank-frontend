@@ -1,9 +1,6 @@
 <div class="container">
-  <!-- Header -->
-  <div class="header">
-    <button class="back-btn">←</button>
-    <h1 class="header-title">Ranking</h1>
-  </div>
+
+   
 
   <!-- Tabs -->
   <div class="tabs-container">
@@ -49,11 +46,14 @@
           <!-- User Info -->
           <div class="user-info">
             <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
+
             <div class="user-stats">
               Puntos: <strong>{{ user.Totalpuntos }}</strong> •  <!-- PascalCase del servicio -->
+
               Nivel: <strong>{{ user.Nivel }}</strong>  <!-- PascalCase -->
             </div>
           </div>
+
 
           <!-- Action Button -->
           <button class="action-btn">⚡</button>
@@ -80,14 +80,14 @@
             {{ getUserInitial(user.username) }}  <!-- Inline o del servicio -->
           </div>
 
-          <!-- User Info -->
+
           <div class="user-info">
             <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
             <div class="user-stats">
-              <!-- ✅ GrupoMuscular como number → Muestra nombre con mapper (ej. "Pecho") -->
+
               {{ getGrupoName(user.GrupoMuscular) }} • {{ user.Nombre }}<br>
-              Puntos: <strong>{{ user.Totalpuntos }}</strong> •  <!-- PascalCase -->
-              Nivel: <strong>{{ user.Nivel }}</strong>  <!-- PascalCase -->
+              Puntos: <strong>{{ user.Totalpuntos }}</strong> •
+              Nivel: <strong>{{ user.Nivel }}</strong>
             </div>
           </div>
 
@@ -105,23 +105,6 @@
 
   </div>
 
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <a href="#" class="nav-item">
-      <div class="nav-icon">⌂</div>
-      <div>Inicio</div>
-    </a>
-    <a href="#" class="nav-item active">
-      <div class="nav-icon">⭐</div>
-      <div>Ranking</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-icon">🔥</div>
-      <div>Actividad</div>
-    </a>
-    <a routerLink="/EjercicioRealizado" routerLinkActive="active" class="nav-item" [routerLinkActiveOptions]="{exact: true}">
-      <div class="nav-icon">🧍</div>
-      <div>Registrar</div>
-    </a>
-  </div>
+ 
+
 </div>

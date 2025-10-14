@@ -1,0 +1,22 @@
+<!-- src/app/home/home.component.html -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2>Bienvenido al Home - FitRank Gym</h2>
+        </div>
+        <div class="card-body">
+          <p *ngIf="user">¡Hola, {{ user.Nombre }} {{ user.Apellidos }}! ({{ user.Username }})</p>
+          <p *ngIf="user">Tu rol: {{ user.Rol }} | Cuota pagada hasta: {{ user.CuotaPagadaHasta | date:'shortDate' }}</p>
+          <p>Esta es tu página principal. Aquí puedes ver tu perfil, asistencia, etc.</p>
+
+          <div class="mt-4">
+            <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+            <a routerLink="/perfil" class="btn btn-primary ms-2">Mi Perfil</a>  <!-- Ejemplo de otra ruta -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

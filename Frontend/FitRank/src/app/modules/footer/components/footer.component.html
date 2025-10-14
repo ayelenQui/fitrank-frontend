@@ -1,0 +1,27 @@
+
+<div class="bottom-nav">
+  <a href="#" class="nav-item">
+    <div class="nav-icon">
+      <span class="material-symbols-outlined">home</span>  <!-- Línea simple para Inicio -->
+    </div>
+    <div>Inicio</div>
+  </a>
+  <a href="#" class="nav-item active">
+    <div class="nav-icon">
+      <span class="material-symbols-outlined">emoji_events</span>  <!-- Trofeo lineal para Ranking -->
+    </div>
+    <div>Ranking</div>
+  </a>
+  <a href="#" class="nav-item">
+    <div class="nav-icon">
+      <span class="material-symbols-outlined">monitoring</span>  <!-- Gráfico lineal para Actividad -->
+    </div>
+    <div>Actividad</div>
+  </a>
+  <a routerLink="/EjercicioRealizado" routerLinkActive="active" class="nav-item" [routerLinkActiveOptions]="{exact: true}">
+    <div class="nav-icon">
+      <span class="material-symbols-outlined">add_circle</span>  <!-- + lineal para Registrar -->
+    </div>
+    <div>Registrar</div>
+  </a>
+</div>
