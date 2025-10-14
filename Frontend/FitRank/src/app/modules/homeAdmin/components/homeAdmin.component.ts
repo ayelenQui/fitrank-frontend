@@ -21,6 +21,9 @@ export class HomeAdminComponent {
     this.router.navigate([ruta]);
   }
 
+  irAGenerarInvitacion() {
+    this.router.navigate(['/admin-invitacion']);
+  }
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

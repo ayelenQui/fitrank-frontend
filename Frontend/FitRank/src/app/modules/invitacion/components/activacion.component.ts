@@ -19,7 +19,7 @@ export class ActivacionComponent implements OnInit {
   mensaje: string = '';
   loading: boolean = false;
   error: string = '';
-  tokenValido: boolean = false;
+  tokenValido: boolean = false; 
 
   constructor(
     private route: ActivatedRoute,

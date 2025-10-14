@@ -18,6 +18,7 @@ import { AdminInvitacionComponent } from './modules/admin-invitacion/components/
 })
 
 export class App {
-  
+  constructor(private authService: AuthService, private router: Router) {
+   
   }
-
+}
