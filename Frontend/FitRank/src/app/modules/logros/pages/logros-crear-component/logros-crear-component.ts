@@ -10,6 +10,7 @@ selector: 'app-logros-crear',
 standalone: true,
 imports: [CommonModule, ReactiveFormsModule],
 templateUrl: './logros-crear-component.html',
+styleUrls: ['./logros-crear-component.css'],
 })
 export class LogrosCrearComponent {
 private fb = inject(FormBuilder);
