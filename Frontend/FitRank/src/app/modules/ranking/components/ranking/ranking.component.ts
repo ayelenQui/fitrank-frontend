@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.css']
 })
-export class Ranking implements OnInit {
+export class RankingComponent implements OnInit {
   rankings: MostrarRankingDTO[] = [];
   rankingsGrupo: MostrarRankingDTOGrupo[] = [];
 

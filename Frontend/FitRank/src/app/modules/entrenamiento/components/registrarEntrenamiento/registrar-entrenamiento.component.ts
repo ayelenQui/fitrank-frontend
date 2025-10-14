@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EjercicioRealizadoDTOEntrada, EjercicioRealizadoDTOSalida } from '../../../../api/services/registroentrenamiento/interfaces/registroentrenamiento.interface';
 import { EjercicioRealizadoService } from '../../../../api/services/registroentrenamiento/registro-entrenamiento.service';
+import { AuthService } from '../../../../api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-registrar-entrenamiento',
@@ -14,22 +15,36 @@ import { EjercicioRealizadoService } from '../../../../api/services/registroentr
 export class RegistrarEntrenamientoComponent implements OnInit {
   usuarioId!: number;
   ejercicios: EjercicioRealizadoDTOSalida[] = [];
-  nuevoEjercicio: EjercicioRealizadoDTOEntrada = {
-    UsuarioId: 0,
-    EjercicioId: 0,
-    Series: 0,
-    Repeticiones: 0,
-    Peso: 0,
-    TipoEntrenamiento: '',
-    Observacion: '',
-    fecha: new Date().toISOString().split('T')[0]
-  };
+  nuevoEjercicio: EjercicioRealizadoDTOEntrada = this.inicializarEjercicio();
 
-  constructor(private ejercicioRealizadoService: EjercicioRealizadoService) { }
+  constructor(
+    private ejercicioRealizadoService: EjercicioRealizadoService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    // Si ya tenés usuarioId, carga ejercicios automáticamente
-    // this.cargarEjercicios();
+    // Obtengo usuario logueado del localStorage
+    const usuario = this.authService.obtenerUser();
+    if (usuario && usuario.id) {
+      this.usuarioId = usuario.id;
+      this.nuevoEjercicio.UsuarioId = this.usuarioId;
+      this.cargarEjercicios();
+    } else {
+      console.warn('No hay usuario logueado');
+    }
+  }
+
+  private inicializarEjercicio(): EjercicioRealizadoDTOEntrada {
+    return {
+      UsuarioId: 0,
+      EjercicioId: 0,
+      Series: 0,
+      Repeticiones: 0,
+      Peso: 0,
+      TipoEntrenamiento: '',
+      Observacion: '',
+      fecha: new Date().toISOString().split('T')[0]
+    };
   }
 
   cargarEjercicios(): void {
@@ -41,7 +56,13 @@ export class RegistrarEntrenamientoComponent implements OnInit {
   }
 
   registrarEjercicio(): void {
+    if (!this.usuarioId) {
+      console.error('Usuario no logueado');
+      return;
+    }
+
     this.nuevoEjercicio.UsuarioId = this.usuarioId;
+
     this.ejercicioRealizadoService.registrarEjercicio(this.nuevoEjercicio).subscribe({
       next: (res) => {
         console.log('Ejercicio registrado', res);
@@ -53,15 +74,7 @@ export class RegistrarEntrenamientoComponent implements OnInit {
   }
 
   resetFormulario(): void {
-    this.nuevoEjercicio = {
-      UsuarioId: this.usuarioId,
-      EjercicioId: 0,
-      Series: 0,
-      Repeticiones: 0,
-      Peso: 0,
-      TipoEntrenamiento: '',
-      Observacion: '',
-      fecha: new Date().toISOString().split('T')[0]
-    };
+    this.nuevoEjercicio = this.inicializarEjercicio();
+    this.nuevoEjercicio.UsuarioId = this.usuarioId;
   }
 }

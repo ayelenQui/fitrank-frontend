@@ -63,4 +63,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.obtenerToken();
   }
+  isAdmin(): boolean {
+    const user = this.obtenerUser();
+    return user?.role === 'Admin';
+  }
 }

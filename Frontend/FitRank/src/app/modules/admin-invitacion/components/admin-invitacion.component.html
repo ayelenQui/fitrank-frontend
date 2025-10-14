@@ -1,0 +1,21 @@
+<!-- src/app/admin-invitacion/admin-invitacion.component.html -->
+<div class="container mt-5" *ngIf="!error">
+  <h2>Generar Invitación - Admin</h2>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="mensaje" class="alert alert-success">{{ mensaje }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="generarInvitacion()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" formControlName="nombre">
+    </div>
+    <div class="mb-3">
+      <label for="apellidos" class="form-label">Apellidos</label>
+      <input type="text" class="form-control" formControlName="apellidos">
+    </div>
+    <!-- Agrega más campos como dni, telefono, etc. -->
+    <button type="submit" class="btn btn-primary" [disabled]="loading || form.invalid">
+      {{ loading ? 'Generando...' : 'Generar Invitación' }}
+    </button>
+  </form>
+</div>

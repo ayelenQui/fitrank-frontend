@@ -118,7 +118,7 @@ export class ActivacionComponent implements OnInit {
     });
   }
 
-  // Getter para errores en template
+  
   get passwordMismatch() {
     return this.form.hasError('mismatch', 'confirmarPassword');
   }
