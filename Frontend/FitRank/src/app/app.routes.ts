@@ -10,6 +10,12 @@ import { ActivacionComponent } from './modules/invitacion/components/activacion.
 import { AuthGuard } from './guards/auth.guards';
 import { LoginGuard } from './guards/login.guards';
 import { AdminGuard } from './guards/admin.guards';
+import { CrearRutinaComponent } from './modules/rutinas/crear-rutina/crear-rutina';
+import { CrearRutinaManualComponent } from './modules/rutinas/crear-rutina-manual/crear-rutina-manual';
+import { EditarRutinaComponent } from './modules/rutinas/editar-rutina/editar-rutina';
+import { VerRutinaComponent } from './modules/rutinas/ver-rutina/ver-rutina';
+import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/mis-rutinas';
+
 
 export const appRoutes: Route[] = [
   // primera ruta por defecto axel :visitante 
@@ -34,6 +40,13 @@ export const appRoutes: Route[] = [
   // Rutas solo admin
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar', component: ActivacionComponent, canActivate: [AuthGuard, AdminGuard] },
+
+  // Rutas rutinas
+  {path: 'rutina/crear', component: CrearRutinaComponent},
+  {path: 'rutina/crear-manual', component: CrearRutinaManualComponent},
+  {path: 'rutina/editar/:id', component: EditarRutinaComponent},
+  {path: 'rutina/ver/:id', component: VerRutinaComponent},
+  {path: 'rutina/mis-rutinas', component: MisRutinasComponent},
 
   // Redirecciones
   { path: '', redirectTo: 'login', pathMatch: 'full' },

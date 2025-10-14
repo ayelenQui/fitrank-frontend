@@ -1,0 +1,97 @@
+.crear-rutina-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2, h3, h4 {
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  width: 150px;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.ejercicio-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ejercicio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ejercicio-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ejercicio-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.ejercicio-card:hover {
+  transform: scale(1.05);
+  border-color: #8b52ff;
+}
+
+.ejercicio-card.selected {
+  border-color: #8b52ff;
+  background-color: #f3e8ff;
+}
+

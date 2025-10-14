@@ -1,0 +1,71 @@
+<div class="crear-rutina-container">
+    <img src="assets/img/pecho.png">
+  <h2>Crear Rutina Manual</h2>
+
+  <form [formGroup]="rutinaForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nombre:</label>
+      <input formControlName="nombre" type="text" />
+    </div>
+
+    <div>
+      <label>Fecha inicio:</label>
+      <input formControlName="fechaInicio" type="date" />
+    </div>
+
+    <div>
+      <label>Fecha fin:</label>
+      <input formControlName="fechaFin" type="date" />
+    </div>
+
+    <div>
+      <label>Días por semana:</label>
+      <input formControlName="diasPorSemana" type="number" min="1" max="7" />
+    </div>
+
+    <hr />
+
+    <div class="ejercicios-cards-container">
+      <label>Seleccionar ejercicios:</label>
+      <div class="cards-grid">
+        <div *ngFor="let e of ejerciciosDisponibles"
+     class="ejercicio-card"
+     [class.selected]="ejerciciosSeleccionados.includes(e)"
+     (click)="seleccionarEjercicio(e)">
+     
+  <img [src]="e.imagen" alt="{{ e.nombre }}" class="ejercicio-img" />
+
+  <h4>{{ e.nombre }}</h4>
+  <p>Dificultad: {{ e.dificultad }}</p>
+</div>
+
+      </div>
+
+      <button
+        type="button"
+        (click)="agregarEjerciciosSeleccionados()"
+        [disabled]="ejerciciosSeleccionados.length === 0"
+      >
+        Agregar ejercicios seleccionados
+      </button>
+    </div>
+
+    <div formArrayName="ejercicios">
+      <div
+        *ngFor="let ejercicio of ejerciciosFormGroups; let i = index"
+        [formGroup]="ejercicio"
+        class="ejercicio-item"
+      >
+        <h4>Ejercicio {{ i + 1 }}</h4>
+        <input formControlName="nombre" readonly />
+        <input type="number" formControlName="series" />
+        <input type="number" formControlName="repeticiones" />
+        <input type="number" formControlName="diaAsignado" />
+        <button type="button" (click)="eliminarEjercicio(i)">Eliminar</button>
+      </div>
+    </div>
+
+    <hr />
+    <button type="submit">Crear rutina</button>
+  </form>
+</div>

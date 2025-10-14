@@ -17,6 +17,7 @@ import { AdminInvitacionComponent } from './modules/admin-invitacion/components/
 })
 
 export class App {
+  /*
   constructor(private authService: AuthService, private router: Router) {
     // Al iniciar o recargar la app → cerrar sesión
     this.authService.logout();
@@ -24,4 +25,5 @@ export class App {
     // Redirigir al visitante
     this.router.navigate(['/visitante']);
   }
+    */
 }
