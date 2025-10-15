@@ -2,13 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GimnasioService } from '../../../../../api/services/gimnasio/gimnasio.service';
+import { HeaderComponent } from '@app/modules/header/components/header.component';
 
 type Order = 'nombre' | 'puntos';
 
 @Component({
   selector: 'app-logros-gim',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './listar-logros-component.html',
   styleUrls: ['./listar-logros-component.css'],
 })

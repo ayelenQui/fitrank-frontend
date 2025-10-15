@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LogroService } from '../../../../../api/services/logro/logro.service';
 import { LogroUsuarioDto } from '../../../../../api/services/socio/interfaces/socio-logro.rest';
+import { HeaderComponent } from '@app/modules/header/components/header.component';
 
 type Order = 'recientes' | 'antiguos' | 'puntos';
 
 @Component({
   selector: 'app-mis-logros',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './mis-logros-component.html',
   styleUrls: ['./mis-logros-component.css'],
 })
