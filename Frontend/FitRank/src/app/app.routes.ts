@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './modules/login/components/login.component';
-import { HomeComponent } from './modules/home/components/home.component';
+import { Home } from './modules/home/home';
 import { VisitanteHome } from '../app/modules/visitante-home/visitante-home';
 import { HomeAdminComponent } from './modules/homeAdmin/components/homeAdmin.component';
 import { RankingComponent } from './modules/ranking/components/ranking/ranking.component';
@@ -10,13 +10,12 @@ import { ActivacionComponent } from './modules/invitacion/components/activacion.
 import { AuthGuard } from './guards/auth.guards';
 import { LoginGuard } from './guards/login.guards';
 import { AdminGuard } from './guards/admin.guards';
-import { Sociohome } from './modules/sociohome/sociohome';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'visitante-home', component: VisitanteHome },
-  { path: 'home', component: Sociohome, canActivate: [AuthGuard] },
+  { path: 'home', component: Home, canActivate: [AuthGuard] },
   { path: 'homeAdmin', component: HomeAdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },

@@ -1,4 +1,4 @@
-.sociohome__tarjetaperfil {
+.home__tarjetaperfil {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,35 +10,35 @@
     width: fit-content;
 }
 
-.sociohome__tarjetaperfil__image {
+.home__tarjetaperfil__image {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.sociohome__tarjetaperfil__info {
+.home__tarjetaperfil__info {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-.sociohome__tarjetaperfil__contenedorInfo {
+.home__tarjetaperfil__contenedorInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-.sociohome__tarjetaperfil__contenedorInfoBasica {
+.home__tarjetaperfil__contenedorInfoBasica {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
 }
 
-.sociohome__tarjetaperfil__nombre {
+.home__tarjetaperfil__nombre {
     font-size: 24px;
     font-weight: bolder;
     margin-top: 10px;
@@ -52,15 +52,15 @@
 
 
 
-.sociohome__tarjetaperfil__posicion,
-.sociohome__tarjetaperfil__puntaje {
+.home__tarjetaperfil__posicion,
+.home__tarjetaperfil__puntaje {
     font-size: 18px;
     font-weight: 400;
     color: var(--color-texto-principal);
     margin: 0;
 }
 
-.sociohome__tarjetaperfil__contenedorMiniTarjetasInfo {
+.home__tarjetaperfil__contenedorMiniTarjetasInfo {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -69,21 +69,21 @@
 }
 
 @media screen and (min-width: 768px) {
-    .sociohome__tarjetaperfil {
+    .home__tarjetaperfil {
         flex-direction: row;
         text-align: left;
         gap: 30px;
     }
 
-    .sociohome__tarjetaperfil__contenedorInfoBasica {
+    .home__tarjetaperfil__contenedorInfoBasica {
         align-items: flex-start;
     }
 
-    .sociohome__tarjetaperfil__nombre {
+    .home__tarjetaperfil__nombre {
         align-self: flex-start;
     }
 
-    .sociohome__tarjetaperfil__contenedorInfo {
+    .home__tarjetaperfil__contenedorInfo {
         align-items: flex-start;
         flex-direction: row;
         justify-content: center;

@@ -1,4 +1,4 @@
- .sociohome__accionrapidaseccion__contenedor{
+ .home__accionrapidaseccion__contenedor{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     gap: 20px;
  }
 
- .sociohome__accionrapidaseccion__titulo{
+ .home__accionrapidaseccion__titulo{
       font-size: 18px;
       font-weight: bold;
       text-align: center;

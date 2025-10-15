@@ -1,4 +1,4 @@
-.sociohome__tarjetaperfil__minitarjetaInfo {
+.home__tarjetaperfil__minitarjetaInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,14 +8,14 @@
 
 }
 
-.sociohome__tarjetaperfil__minitarjetaInfo__contenedorImagenTitulo {
+.home__tarjetaperfil__minitarjetaInfo__contenedorImagenTitulo {
     display: flex;
     gap: 5px;
     justify-content: center;
     align-items: center;
 }
 
-.sociohome__tarjetaperfil__minitarjetaInfo__image {
+.home__tarjetaperfil__minitarjetaInfo__image {
     width: 20px;
     height: 20px;
     object-fit: cover;
@@ -23,18 +23,18 @@
 
 }
 
-.sociohome__tarjetaperfil__minitarjetaInfo__titulo {
+.home__tarjetaperfil__minitarjetaInfo__titulo {
     font-size: 18px;
     font-weight: bolder;
     color: var(--color-acento-secundario);
 }
 
-.sociohome__tarjetaperfil__minitarjetaInfo__texto {
+.home__tarjetaperfil__minitarjetaInfo__texto {
     font-size: 12px;
     font-weight: 500;
 }
 
-.sociohome__tarjetaperfil__minitarjetaInfo__texto,
-.sociohome__tarjetaperfil__minitarjetaInfo__titulo {
+.home__tarjetaperfil__minitarjetaInfo__texto,
+.home__tarjetaperfil__minitarjetaInfo__titulo {
     margin: 0;
 }

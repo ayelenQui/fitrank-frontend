@@ -1,0 +1,33 @@
+<div class="home__tarjetaperfil">
+  <img
+    src="assets/img/perfil-placeholder.webp"
+    alt="Perfil"
+    class="home__tarjetaperfil__image"
+  />
+  <div class="home__tarjetaperfil__info">
+    <h2 class="home__tarjetaperfil__nombre">{{ socio()?.Nombre }} {{ socio()?.Apellidos }}</h2>
+    <div class="home__tarjetaperfil__contenedorInfo">
+      <div class="home__tarjetaperfil__contenedorInfoBasica">
+        <p class="home__tarjetaperfil__puntaje">Puntaje: 100</p>
+        <p class="home__tarjetaperfil__posicion">Posicion: 30</p>
+      </div>
+      <div class="home__tarjetaperfil__contenedorMiniTarjetasInfo">
+        <app-home-targetaperfil-minitarjetainfo
+          imagen="assets/img/icons/diasactivos.png"
+          titulo="24"
+          texto="Días activo"
+        ></app-home-targetaperfil-minitarjetainfo>
+        <app-home-targetaperfil-minitarjetainfo
+          imagen="assets/img/icons/entrenamientos.png"
+          titulo="35"
+          texto="Entrenamientos"
+        ></app-home-targetaperfil-minitarjetainfo>
+        <app-home-targetaperfil-minitarjetainfo
+          imagen="assets/img/icons/progreso.png"
+          titulo="%23"
+          texto="Progreso"
+        ></app-home-targetaperfil-minitarjetainfo>
+      </div>
+    </div>
+  </div>
+</div>

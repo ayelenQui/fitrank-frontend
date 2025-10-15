@@ -2,12 +2,13 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-sociohome-accionrapidaseccion-tarjeta',
+  selector: 'app-home-accionrapidaseccion-tarjeta',
   imports: [RouterLink],
-  templateUrl: './sociohome-accionrapidaseccion-tarjeta.html',
-  styleUrl: './sociohome-accionrapidaseccion-tarjeta.css'
+  templateUrl: './home-accionrapidaseccion-tarjeta.html',
+  styleUrl: './home-accionrapidaseccion-tarjeta.css',
+  standalone: true
 })
-export class SociohomeAccionrapidaseccionTarjeta {
+export class HomeAccionrapidaseccionTarjeta {
   imagenSrc = input<string>();
   titulo = input<string>();
   descripcion = input<string>();
