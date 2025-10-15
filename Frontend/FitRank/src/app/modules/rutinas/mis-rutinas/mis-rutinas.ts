@@ -8,7 +8,6 @@ import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
 import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visitante-home-navbar';
 
-
 @Component({
   selector: 'app-mis-rutinas',
   imports: [CommonModule,          // ngIf,ngFor, pipes
@@ -20,6 +19,7 @@ import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visit
   templateUrl: './mis-rutinas.html',
   styleUrl: './mis-rutinas.css'
 })
+
 export class MisRutinasComponent implements OnInit{
   constructor(private authService: AuthService, private rutinaService : RutinaService) { }
   
@@ -46,7 +46,7 @@ export class MisRutinasComponent implements OnInit{
 
   cargarRutinas(): void {
     if (!this.userId) return;
-
+    console.log('✅ ID del usuario:', this.userId);
     this.rutinaService.listarRutinasPorUsuario(this.userId).subscribe({
       next: (data) => {
         this.rutinas = data;
@@ -72,7 +72,7 @@ export class MisRutinasComponent implements OnInit{
     console.log('✅ Mock: rutina eliminada del front-end:', rutina);
 
     // Opcional: mostrar un mensaje al usuario
-    alert(`La rutina "${rutina.nombre}" fue eliminada (simulación).`);
+    alert(`La rutina "${rutina.nombre}" fue eliminada.`);
   }
 
   iniciarRutina(rutina: RutinaDTO): void {

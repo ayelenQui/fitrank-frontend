@@ -10,6 +10,7 @@ usuarioId: number;
 }
 
 export interface EditarRutinaDTO {
+  id: number;
   nombre: string;
   fechaInicio: string;
   fechaFin: string;

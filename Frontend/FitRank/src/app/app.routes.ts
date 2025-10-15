@@ -14,6 +14,7 @@ import { CrearRutinaComponent } from './modules/rutinas/crear-rutina/crear-rutin
 import { CrearRutinaManualComponent } from './modules/rutinas/crear-rutina-manual/crear-rutina-manual';
 import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/mis-rutinas';
 import { EditarRutinaComponent } from './modules/rutinas/editar-rutina/editar-rutina';
+import { IniciarRutina } from './modules/rutinas/iniciar-rutina/iniciar-rutina/iniciar-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const appRoutes: Route[] = [
   {path: 'rutina/ver/:id', component: CrearRutinaComponent},
   {path: 'rutina/mis-rutinas', component: MisRutinasComponent},
   {path: 'rutina/editar-rutina/:id', component: EditarRutinaComponent},
+  {path: 'rutina/iniciar/:id', component: IniciarRutina},
   
 
   //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)

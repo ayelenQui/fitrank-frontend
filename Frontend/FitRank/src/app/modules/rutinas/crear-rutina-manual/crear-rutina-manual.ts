@@ -60,7 +60,7 @@ export class CrearRutinaManualComponent {
 
   ngOnInit(): void {
     this.rutinaForm = this.fb.group({
-      usuarioId: [1, Validators.required],
+      usuarioId: [7, Validators.required], //TODO cambiar a 1 el 7
       nombre: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],

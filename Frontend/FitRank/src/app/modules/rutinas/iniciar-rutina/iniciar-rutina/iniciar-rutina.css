@@ -1,0 +1,190 @@
+.mis-rutinas-container {
+  max-width: 900px;
+  margin: 25px auto 80px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.mis-rutinas-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+/* Botón crear nueva rutina */
+.crear-rutina-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn-crear {
+  background-color: #FAEB92;
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-crear:hover {
+  background-color: #e0d682;
+}
+
+/* Mensaje cuando no hay rutinas */
+.no-rutinas {
+  text-align: center;
+  padding: 30px;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Lista de rutinas */
+.rutinas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Tarjeta de cada rutina */
+.rutina-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.rutina-item:hover {
+  border-color: #8B52FF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Información de la rutina */
+.rutina-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rutina-titulo {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Botones de acción */
+.acciones-rutina {
+  display: flex;
+  gap: 12px;
+}
+
+.accion-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.accion-icon:hover {
+  transform: scale(1.2);
+}
+.rutina-header-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* columnas: botón - timer - botón */
+  align-items: center; /* centra verticalmente */
+  justify-items: center; /* centra horizontalmente cada columna */
+  gap: 15px; /* espacio entre columnas */
+  margin-bottom: 20px;
+}
+
+.btn-cancelar,
+.btn-terminar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #FAEB92;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover,
+.btn-terminar:hover {
+  background-color: #e0d682;
+}
+
+.timer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.ejercicio-item-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.ejercicio-item-container:hover {
+  border-color: #8B52FF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.ejercicio-item-img {
+  width: 50px;   /* más chica */
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.ejercicio-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ejercicio-nombre-clickable {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.ejercicio-nombre-clickable:hover {
+  color: #8B52FF;
+}
+
+.chevron {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.chevron.expanded {
+  transform: rotate(180deg);
+}
+
+
