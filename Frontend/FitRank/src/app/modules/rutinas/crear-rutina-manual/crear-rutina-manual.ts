@@ -125,6 +125,7 @@ export class CrearRutinaManualComponent {
       observaciones: [''],
       videoUrl: [ejercicio.videoUrl || ''],
       tipoEntrenamiento: [ejercicio.tipoEntrenamiento || 'General'],
+      imagen: [ejercicio.imagen || 'assets/imagenes/default.png']
     });
 
     this.ejercicios.push(ejercicioForm);
