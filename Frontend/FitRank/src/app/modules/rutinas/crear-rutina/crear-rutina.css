@@ -100,8 +100,8 @@ p {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .botones-tipo-rutina {
-    grid-template-columns: 1fr;
-  }
-}
+    grid-template-columns: 1fr;
+   }
+;} */

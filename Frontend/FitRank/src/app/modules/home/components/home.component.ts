@@ -24,7 +24,13 @@ export class HomeComponent implements OnInit {
       // Si no hay user (JWT inválido), redirige a login
       this.router.navigate(['/login']);
     }
+
+    // Si el usuario es admin, redirige a homeAdmin
+    if (this.authService.isAdmin()) {
+      this.router.navigate(['/homeAdmin']);
+    }
   }
+  
 
   logout() {
     this.authService.logout();

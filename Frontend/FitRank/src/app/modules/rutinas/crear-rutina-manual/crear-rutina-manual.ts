@@ -168,6 +168,6 @@ export class CrearRutinaManualComponent {
         console.error('Error al crear rutina', err);
         alert('Error al crear la rutina');
       },
-    });
-  }
+    });
+  }
 }

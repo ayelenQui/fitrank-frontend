@@ -6,13 +6,26 @@ import { VisitanteHomeServiciossection } from './components/visitante-home-servi
 import { VisitanteHomeCtasection } from './components/visitante-home-ctasection/visitante-home-ctasection';
 import { VisitanteHomeFooter } from './components/visitante-home-footer/visitante-home-footer';
 
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-visitante-home',
-  imports: [VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection, VisitanteHomeServiciossection, VisitanteHomeCtasection, VisitanteHomeFooter],
+  imports: [CommonModule, VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection, VisitanteHomeServiciossection, VisitanteHomeCtasection, VisitanteHomeFooter],
   templateUrl: './visitante-home.html',
-  styleUrl: './visitante-home.css'
+  styleUrl: './visitante-home.css',
+  standalone: true
 })
-export class VisitanteHome {
 
+  
+
+
+
+export class VisitanteHome {
+  constructor(private router: Router, private authService: AuthService) { }
+
+  irLogin() {
+    this.router.navigate(['/login']);
+  }
 }

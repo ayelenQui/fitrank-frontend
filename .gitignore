@@ -3,6 +3,9 @@ node_modules/
 dist/
 .angular/
 .env
+angular.json
+package-lock.json
+
 # IDEs
 .vscode/
 .vs/

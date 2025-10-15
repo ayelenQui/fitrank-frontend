@@ -37,5 +37,5 @@ export interface BloqueDTO {
   repeticionesRecomendadas: number;
   pesoRecomendado: number;
   rirRecomendado: number;
-  notas?: string;
+  notas?: string;
 }

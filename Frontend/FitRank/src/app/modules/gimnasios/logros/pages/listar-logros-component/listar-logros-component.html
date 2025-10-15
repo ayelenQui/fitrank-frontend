@@ -1,0 +1,36 @@
+<section class="wrap">
+  <header class="header">
+    <h1>Logros del gimnasio</h1>
+    <div class="toolbar">
+      <input #q type="search" placeholder="Buscar…" (input)="setFiltro(q.value)" />
+      <select #sel (change)="setOrden(sel.value)">
+        <option value="nombre" selected>Por nombre</option>
+        <option value="puntos">Por puntos</option>
+      </select>
+      <label class="chk">
+        <input type="checkbox" [checked]="soloActivos()" (change)="toggleActivos()" />
+        Solo activos
+      </label>
+    </div>
+  </header>
+
+  <div *ngIf="loading()">Cargando…</div>
+  <div *ngIf="!loading() && error()" class="alert">{{ error() }}</div>
+
+  <ul *ngIf="!loading() && !error()" class="grid">
+    <li class="card" *ngFor="let l of logrosFiltrados(); trackBy: trackById">
+      <div class="card-head">
+        <h3>{{ l.nombre }}</h3>
+        <span class="badge">{{ l.puntos }} pts</span>
+      </div>
+      <p class="desc">{{ l.descripcion }}</p>
+      <div class="meta">
+        Estado: <strong>{{ l.activo ? 'Activo' : 'Inactivo' }}</strong>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- debug opcional
+<pre>{{ logros() | json }}</pre>
+-->

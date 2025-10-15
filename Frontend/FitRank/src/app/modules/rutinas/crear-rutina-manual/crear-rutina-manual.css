@@ -257,5 +257,5 @@ button:disabled {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-end;
 }

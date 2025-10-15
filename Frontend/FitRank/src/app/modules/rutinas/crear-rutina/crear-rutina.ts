@@ -29,6 +29,6 @@ export class CrearRutinaComponent {
      case 'asistida':
        alert('Rutina asistida próximamente.');
        break;
-   }
- }
+   }
+ }
 }

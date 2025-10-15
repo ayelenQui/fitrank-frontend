@@ -1,0 +1,36 @@
+<section class="wrap">
+  <header class="header">
+    <h1>Mis logros</h1>
+
+    <div class="toolbar">
+      <input #q type="search" placeholder="Buscar por nombre…" (input)="onBuscar(q.value)" />
+      <select #sel (change)="setOrden(sel.value)">
+        <option value="recientes" selected>Más recientes</option>
+        <option value="antiguos">Más antiguos</option>
+        <option value="puntos">Más puntos</option>
+      </select>
+    </div>
+  </header>
+
+  <div *ngIf="loading()">Cargando…</div>
+  <div *ngIf="!loading() && error()" class="alert">{{ error() }}</div>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <p *ngIf="logrosFiltrados().length === 0" class="empty">
+      Aún no tenés logros registrados en este gimnasio.
+    </p>
+
+    <ul class="grid" *ngIf="logrosFiltrados().length > 0">
+      <li class="card" *ngFor="let l of logrosFiltrados(); trackBy: trackBylogroId">
+        
+        <div class="card-head">
+          <h3>{{ l.nombre }}</h3>
+          <span class="badge">{{ l.puntosOtorgados }} pts</span>
+        </div>
+        <div class="meta">
+          Obtenido: <strong>{{ l.fechaOtorgado | date:'mediumDate' }}</strong>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+</section>

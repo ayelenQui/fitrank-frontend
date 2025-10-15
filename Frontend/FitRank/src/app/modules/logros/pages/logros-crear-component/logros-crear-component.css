@@ -1,0 +1,114 @@
+:host {
+  display: block;
+  background: var(--color-fondo-principal);
+  color: var(--color-texto-principal);
+}
+
+/* ====== Layout contenedor ====== */
+.container {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem 1.25rem;
+  background: var(--color-fondo-tarjetas);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* ====== Título ====== */
+h1 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+}
+
+/* ====== Campos ====== */
+.form-field { margin-bottom: 1.25rem; }
+
+label {
+  display: block;
+  margin-bottom: .35rem;
+  font-weight: 600;
+  color: var(--color-texto-principal);
+}
+
+.input, textarea.input {
+  width: 100%;
+  padding: .6rem .8rem;
+  border: 1px solid var(--color-fondo-secundario);
+  border-radius: .6rem;
+  background: #fff;
+  color: var(--color-texto-principal);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.input:hover,
+textarea.input:hover {
+  border-color: var(--color-acento-secundario);
+}
+
+.input:focus,
+textarea.input:focus {
+  border-color: var(--color-acento-secundario);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-acento-secundario) 25%, transparent);
+}
+
+/* Checkbox en línea */
+.form-field--inline {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* Errores */
+.error {
+  margin-top: .35rem;
+  font-size: .85rem;
+  color: var(--color-error-alerta);
+}
+
+/* ====== Acciones ====== */
+.actions {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+button {
+  appearance: none;
+  border: none;
+  border-radius: .6rem;
+  padding: .65rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, transform .05s ease;
+}
+
+/* Primario = Guardar */
+button[type="submit"] {
+  background: var(--color-acento-secundario);
+  color: white;
+}
+button[type="submit"]:hover {
+  background: var(--color-hover-exito);
+  transform: translateY(-1px);
+}
+
+/* Secundario = Limpiar */
+button[type="button"] {
+  background: var(--color-fondo-secundario);
+  color: var(--color-texto-principal);
+}
+button[type="button"]:hover {
+  background: var(--color-acento);
+  color: var(--color-texto-principal);
+  transform: translateY(-1px);
+}
+
+/* Disabled */
+button[disabled] {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearRutina } from './crear-rutina';
+import { CrearRutinaComponent } from './crear-rutina';
 
-describe('CrearRutina', () => {
-  let component: CrearRutina;
-  let fixture: ComponentFixture<CrearRutina>;
+describe('CrearRutinaComponent', () => {
+  let component: CrearRutinaComponent;
+  let fixture: ComponentFixture<CrearRutinaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CrearRutina]
+      imports: [CrearRutinaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CrearRutina);
+    fixture = TestBed.createComponent(CrearRutinaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

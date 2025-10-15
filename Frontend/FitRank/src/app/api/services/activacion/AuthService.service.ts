@@ -11,6 +11,37 @@ export class AuthService {
   private baseUrl = 'https://localhost:7226/api/auth';  
   constructor(private http: HttpClient) { }
 
+  login(email: string, password: string): Observable<{ token: string; user: any }> {
+    const body = { email, password };
+    return this.http.post<{ token: string; user: any }>(`${this.baseUrl}/login`, body).pipe(
+      tap(response => {
+        if (response.token) {
+          const mappedUser = {
+            Id: response.user.id,
+            Nombre: response.user.nombre,
+            Apellidos: response.user.apellidos,
+            Username: response.user.username,
+            Rol: response.user.rol,
+            CuotaPagadaHasta: response.user.cuotaPagadaHasta
+          };
+          localStorage.setItem('jwt_token', response.token);
+          localStorage.setItem('user', JSON.stringify(mappedUser));
+
+
+        }
+      })
+    );
+  }
+
+  isAdmin(): boolean {
+    const user = this.obtenerUser();
+    if (user && user.Rol) {
+      console.log('Rol del usuario:', user.Rol); 
+      return user.Rol.toLowerCase() === 'admin'; 
+    }
+    return false;
+  }
+
  
   registerWithInvitacion(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/register-invitacion`, data);
@@ -27,18 +58,7 @@ export class AuthService {
   }
 
 
-  login(email: string, password: string): Observable<{ token: string; user: any }> {
-    const body = { email, password };
-    return this.http.post<{ token: string; user: any }>(`${this.baseUrl}/login`, body).pipe(
-      tap(response => {
-       
-        if (response.token) {
-          localStorage.setItem('jwt_token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-        }
-      })
-    );
-  }
+  
 
   
   guardarToken(token: string): void {
@@ -63,8 +83,6 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.obtenerToken();
   }
-  isAdmin(): boolean {
-    const user = this.obtenerUser();
-    return user?.role === 'Admin';
-  }
+
+
 }

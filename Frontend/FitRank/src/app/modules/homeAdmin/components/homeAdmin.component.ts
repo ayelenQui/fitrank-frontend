@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
 
 @Component({
-  selector: 'app-home-admin',
+  selector: 'app-homeAdmin',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './homeAdmin.component.html',
@@ -21,6 +21,9 @@ export class HomeAdminComponent {
     this.router.navigate([ruta]);
   }
 
+  irAGenerarInvitacion() {
+    this.router.navigate(['/admin-invitacion']);
+  }
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

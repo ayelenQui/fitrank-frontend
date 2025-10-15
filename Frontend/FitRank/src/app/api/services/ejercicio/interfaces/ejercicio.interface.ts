@@ -51,7 +51,5 @@ export enum Dificultad {
   Facil = 1,
   Intermedio = 2,
   Dificil = 3,
-  MuyDificil = 4
+  MuyDificil = 4
 }
-
-

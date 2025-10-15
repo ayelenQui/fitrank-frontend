@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearRutinaManual } from './crear-rutina-manual';
+import { CrearRutinaManualComponent } from './crear-rutina-manual';
 
-describe('CrearRutinaManual', () => {
-  let component: CrearRutinaManual;
-  let fixture: ComponentFixture<CrearRutinaManual>;
+describe('CrearRutinaManualComponent', () => {
+  let component: CrearRutinaManualComponent;
+  let fixture: ComponentFixture<CrearRutinaManualComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CrearRutinaManual]
+      imports: [CrearRutinaManualComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CrearRutinaManual);
+    fixture = TestBed.createComponent(CrearRutinaManualComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
