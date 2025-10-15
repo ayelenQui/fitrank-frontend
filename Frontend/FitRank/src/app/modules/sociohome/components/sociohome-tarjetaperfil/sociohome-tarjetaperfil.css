@@ -1,0 +1,92 @@
+.sociohome__tarjetaperfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--color-acento);
+    padding: 20px;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.sociohome__tarjetaperfil__image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sociohome__tarjetaperfil__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.sociohome__tarjetaperfil__contenedorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.sociohome__tarjetaperfil__contenedorInfoBasica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.sociohome__tarjetaperfil__nombre {
+    font-size: 24px;
+    font-weight: bolder;
+    margin-top: 10px;
+    color: var(--color-acento-secundario);
+    margin: 0;
+    text-align: center;
+
+
+}
+
+
+
+
+.sociohome__tarjetaperfil__posicion,
+.sociohome__tarjetaperfil__puntaje {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-texto-principal);
+    margin: 0;
+}
+
+.sociohome__tarjetaperfil__contenedorMiniTarjetasInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .sociohome__tarjetaperfil {
+        flex-direction: row;
+        text-align: left;
+        gap: 30px;
+    }
+
+    .sociohome__tarjetaperfil__contenedorInfoBasica {
+        align-items: flex-start;
+    }
+
+    .sociohome__tarjetaperfil__nombre {
+        align-self: flex-start;
+    }
+
+    .sociohome__tarjetaperfil__contenedorInfo {
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+}
