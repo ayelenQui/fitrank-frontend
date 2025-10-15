@@ -8,6 +8,7 @@ import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
 import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visitante-home-navbar';
 
+
 @Component({
   selector: 'app-mis-rutinas',
   imports: [CommonModule,          // ngIf,ngFor, pipes
@@ -15,8 +16,9 @@ import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visit
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    VisitanteHomeNavbar],
+    VisitanteHomeNavbar , CommonModule],
   templateUrl: './mis-rutinas.html',
+  standalone: true,
   styleUrl: './mis-rutinas.css'
 })
 

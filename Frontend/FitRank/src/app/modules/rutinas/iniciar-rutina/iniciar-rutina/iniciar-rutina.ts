@@ -7,8 +7,10 @@ import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { EditarRutinaDTO, RutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
-import { Router } from '@angular/router';
+
 import { interval, Subscription } from 'rxjs';
+
+import { Router, RouterLink } from '@angular/router';
 
 // extendemos DTO para agregar imagen y sets mockeados
 interface EjercicioConImagen extends EjercicioDTO {
@@ -20,6 +22,7 @@ interface EjercicioConImagen extends EjercicioDTO {
 @Component({
   selector: 'app-iniciar-rutina',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  standalone: true,
   templateUrl: './iniciar-rutina.html',
   styleUrl: './iniciar-rutina.css'
 })

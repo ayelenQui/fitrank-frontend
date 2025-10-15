@@ -15,6 +15,7 @@ import { CrearRutinaManualComponent } from './modules/rutinas/crear-rutina-manua
 import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/mis-rutinas';
 import { EditarRutinaComponent } from './modules/rutinas/editar-rutina/editar-rutina';
 import { IniciarRutina } from './modules/rutinas/iniciar-rutina/iniciar-rutina/iniciar-rutina';
+import { VerRutinaComponent } from './modules/rutinas/ver-rutina/ver-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -26,14 +27,14 @@ export const appRoutes: Route[] = [
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },// Rutas rutinas
-  {path: 'rutina/crear', component: CrearRutinaComponent},
-  {path: 'rutina/crear-manual', component: CrearRutinaManualComponent},
-  {path: 'rutina/editar/:id', component: CrearRutinaComponent},
-  {path: 'rutina/ver/:id', component: CrearRutinaComponent},
-  {path: 'rutina/mis-rutinas', component: MisRutinasComponent},
-  {path: 'rutina/editar-rutina/:id', component: EditarRutinaComponent},
-  {path: 'rutina/iniciar/:id', component: IniciarRutina},
-  
+  { path: 'rutina/crear', component: CrearRutinaComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/crear-manual', component: CrearRutinaManualComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/editar/:id', component: CrearRutinaComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/ver/:id', component: VerRutinaComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/mis-rutinas', component: MisRutinasComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/editar-rutina/:id', component: EditarRutinaComponent, canActivate: [AuthGuard] },
+  { path: 'rutina/iniciar/:id', component: IniciarRutina, canActivate: [AuthGuard] },
+
 
   //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)
     {

@@ -19,6 +19,7 @@ interface GrupoMuscular {
 @Component({
   selector: 'app-crear-rutina-manual',
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  standalone: true,
   templateUrl: './crear-rutina-manual.html',
   styleUrls: ['./crear-rutina-manual.css']
 })
