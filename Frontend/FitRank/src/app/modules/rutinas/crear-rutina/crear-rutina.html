@@ -9,7 +9,9 @@
       [class.seleccionada]="seleccion === 'automatica'" 
       (click)="seleccionar('automatica')">
       <h3 class="titulo-card">Automática</h3>
-        <img src="assets/icons/automatica.png" alt="Automática" class="icono-card" />
+      <div class="icono-circulo">
+        <img src="assets/img/icons/automatica.png" alt="Automática" class="icono-card" />
+      </div>
       <p>Respondé unas preguntas y te sugerimos una rutina adaptada a vos.</p>
     </div>
 
@@ -19,9 +21,9 @@
       [class.manual]="seleccion === 'manual'"
       (click)="seleccionar('manual')">
       <h3 class="titulo-card">Manual</h3>
-
-        <img src="assets/icons/manual.png" alt="Manual" class="icono-card" />
-
+      <div class="icono-circulo">
+        <img src="assets/img/icons/manual.png" alt="Manual" class="icono-card" />
+      </div>
       <p>Diseñá tu plan de entrenamiento paso a paso.</p>
     </div>
 
@@ -30,9 +32,9 @@
       [class.seleccionada]="seleccion === 'asistida'" 
       (click)="seleccionar('asistida')">
       <h3 class="titulo-card">Asistida por profesor</h3>
-   
-        <img src="assets/icons/profesor.png" alt="Profesor" class="icono-card" />
-  
+      <div class="icono-circulo">
+        <img src="assets/img/icons/profesor.png" alt="Profesor" class="icono-card" />
+      </div>
       <p>Avísale a tu entrenador que te prepare una rutina personalizada.</p>
     </div>
 

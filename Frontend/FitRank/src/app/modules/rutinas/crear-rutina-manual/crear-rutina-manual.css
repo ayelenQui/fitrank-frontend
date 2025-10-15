@@ -1,97 +1,197 @@
 .crear-rutina-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: #f9fafb;
-  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  padding: 25px 20px 80px 20px; /* padding-bottom mayor para separar del footer */
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-h2, h3, h4 {
-  color: #222;
-  margin-bottom: 1rem;
+/* Título */
+.crear-rutina-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1.8rem;
 }
 
-.form-section {
-  margin-bottom: 2rem;
+/* Formulario - spacing entre secciones */
+.crear-rutina-container form > div {
+  margin-bottom: 20px;
 }
 
-.form-field {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.form-field label {
-  width: 150px;
+/* Labels más visibles */
+.crear-rutina-container label {
+  display: block;
   font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
 }
 
-.form-field input,
-.form-field select {
-  flex: 1;
-  padding: 0.4rem 0.6rem;
+/* Inputs más estilizados */
+.crear-rutina-container input[type="text"],
+.crear-rutina-container input[type="date"],
+.crear-rutina-container input[type="number"] {
+  width: 100%;
+  padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
-button {
-  padding: 0.5rem 1rem;
+.crear-rutina-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+  outline: none;
+}
+
+/* Separadores */
+.crear-rutina-container hr {
+  margin: 25px 0;
   border: none;
-  border-radius: 6px;
-  background-color: #1976d2;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Botones principales */
+.crear-rutina-container button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #28a745;
+  border-radius: 8px;
+  border: none;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  margin-top: 15px;
 }
 
-button:hover {
-  background-color: #1565c0;
+.crear-rutina-container button[type="submit"]:hover {
+  background-color: #218838;
 }
 
-.ejercicio-item {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
+/* Ajuste de botones de eliminar */
+.form-group button {
+  background-color: #dc3545;
+  margin-top: 20px;
 }
 
-.ejercicio-header {
+.form-group button:hover {
+  background-color: #c82333;
+}
+
+.filtro-grupo-muscular {
   display: flex;
-  justify-content: space-between;
+  gap: 15px;
   align-items: center;
+  margin-bottom: 20px;
 }
 
-.ejercicio-fields {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-  margin-top: 0.5rem;
+.filtro-grupo-muscular label {
+  font-weight: bold;
+  margin-right: 10px;
 }
+
+.filtro-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain; /* antes: cover */
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f0f0f0; /* opcional, para ver el contorno si la imagen no llena */
+  padding: 5px; /* opcional, espacio interno para que no toque los bordes */
+}
+
+.filtro-img:hover {
+  transform: scale(1.1);
+}
+
+.filtro-img.selected {
+  border-color: #007bff; /* azul para resaltar */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
+
+.ejercicios-cards-container {
+  margin-top: 20px;
+}
+
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+  margin-bottom: 10px;
 }
 
 .ejercicio-card {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 10px;
+  text-align: center;
   cursor: pointer;
-  transition: 0.2s all;
-}
-
-.ejercicio-card:hover {
-  transform: scale(1.05);
-  border-color: #8b52ff;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
 }
 
 .ejercicio-card.selected {
-  border-color: #8b52ff;
-  background-color: #f3e8ff;
+  border-color: #28a745; /* verde cuando está seleccionado */
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
 }
 
+.ejercicio-img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain; /* antes: cover */
+  border-radius: 4px;
+  margin-bottom: 5px;
+  background-color: #f8f8f8; /* opcional, para que no se vea vacío si la imagen no tiene el mismo ratio */
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

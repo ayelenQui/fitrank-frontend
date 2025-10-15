@@ -2,15 +2,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
   min-height: 100vh;
   text-align: center;
-  gap: 1.5rem;
+  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
+  padding-top: 2rem; /* espacio desde el header */
 }
 
 h2 {
   font-size: 2rem;
   color: #222;
+  margin-top: 0;   /* elimina margen extra del h2 */
+  margin-bottom: 0.5rem; /* reduce espacio con el p */
+}
+
+p {
+  color: black;
+  font-size: 1.2rem;
+  margin-top: 0;    /* elimina espacio por defecto */
+  margin-bottom: 1rem; /* separa un poco del grid de tarjetas */
 }
 
 .titulo-card {
@@ -18,10 +28,6 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-p {
-  color: black;
-  font-size: 1.2rem;
-}
 
 .botones-tipo-rutina {
   display: grid;
@@ -53,21 +59,22 @@ p {
 }
 
 .icono-circulo {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-color: #FAEB92;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto; /* centrado horizontal y espacio abajo */
 }
 
 .icono-card {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
+
 
 .btn-empezar {
   margin-top: 2rem;
@@ -87,8 +94,8 @@ p {
 }
 
 .btn-empezar.manual-activo {
-  background-color: #8B52FF;
-  color: white;
+  background-color: #FAEB92;
+  color: black;
   cursor: pointer;
 }
 

@@ -1,8 +1,8 @@
 <div class="crear-rutina-container">
-    <img src="assets/img/pecho.png">
   <h2>Crear Rutina Manual</h2>
 
   <form [formGroup]="rutinaForm" (ngSubmit)="onSubmit()">
+    <!-- Datos de la rutina -->
     <div>
       <label>Nombre:</label>
       <input formControlName="nombre" type="text" />
@@ -25,20 +25,36 @@
 
     <hr />
 
+    <!-- Filtro por grupo muscular -->
+<div class="filtro-grupo-muscular">
+  <label>Filtrar por grupo muscular:</label>
+  <img
+    *ngFor="let g of gruposMusculares"
+    [src]="grupoMuscularFiltroImagenMap[g.id]"
+    [class.selected]="grupoSeleccionado === g.id"
+    (click)="filtrarPorGrupo(g.id)"
+    [alt]="g.nombre"
+    class="filtro-img"
+  />
+</div>
+
+
+    <hr />
+
+    <!-- Listado de ejercicios disponibles -->
     <div class="ejercicios-cards-container">
       <label>Seleccionar ejercicios:</label>
       <div class="cards-grid">
-        <div *ngFor="let e of ejerciciosDisponibles"
-     class="ejercicio-card"
-     [class.selected]="ejerciciosSeleccionados.includes(e)"
-     (click)="seleccionarEjercicio(e)">
-     
-  <img [src]="e.imagen" alt="{{ e.nombre }}" class="ejercicio-img" />
-
-  <h4>{{ e.nombre }}</h4>
-  <p>Dificultad: {{ e.dificultad }}</p>
-</div>
-
+        <div
+          *ngFor="let e of ejerciciosFiltrados"
+          class="ejercicio-card"
+          [class.selected]="ejerciciosSeleccionados.includes(e)"
+          (click)="seleccionarEjercicio(e)"
+        >
+          <img [src]="e.imagen" alt="{{ e.nombre }}" class="ejercicio-img" />
+          <h4>{{ e.nombre }}</h4>
+          <p>Dificultad: {{ e.dificultad }}</p>
+        </div>
       </div>
 
       <button
@@ -50,6 +66,9 @@
       </button>
     </div>
 
+    <hr />
+
+    <!-- Ejercicios seleccionados en el formArray -->
     <div formArrayName="ejercicios">
       <div
         *ngFor="let ejercicio of ejerciciosFormGroups; let i = index"
@@ -57,11 +76,23 @@
         class="ejercicio-item"
       >
         <h4>Ejercicio {{ i + 1 }}</h4>
-        <input formControlName="nombre" readonly />
-        <input type="number" formControlName="series" />
-        <input type="number" formControlName="repeticiones" />
-        <input type="number" formControlName="diaAsignado" />
-        <button type="button" (click)="eliminarEjercicio(i)">Eliminar</button>
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              Series (recomendadas)
+            </label>
+            <input type="number" formControlName="series" />
+          </div>
+          <div class="form-group">
+            <label>
+              Repeticiones (recomendadas)
+            </label>
+            <input type="number" formControlName="repeticiones" />
+          </div>
+          <div class="form-group">
+            <button type="button" (click)="eliminarEjercicio(i)">Eliminar</button>
+          </div>
+        </div>
       </div>
     </div>
 

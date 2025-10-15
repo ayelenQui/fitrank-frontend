@@ -11,6 +11,11 @@ interface EjercicioConImagen extends EjercicioDTO {
   imagen: string;
 }
 
+interface GrupoMuscular {
+  id: number;
+  nombre: string;
+}
+
 @Component({
   selector: 'app-crear-rutina-manual',
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
@@ -20,16 +25,32 @@ interface EjercicioConImagen extends EjercicioDTO {
 export class CrearRutinaManualComponent {
   rutinaForm!: FormGroup;
 
-  // ahora ambos arrays son EjercicioConImagen
   ejerciciosDisponibles: EjercicioConImagen[] = [];
   ejerciciosSeleccionados: EjercicioConImagen[] = [];
+  ejerciciosFiltrados: EjercicioConImagen[] = []; // para mostrar los ejercicios filtrados
+
+  grupoSeleccionado: number | null = null;
 
   grupoMuscularImagenMap: { [key: number]: string } = {
-    0: 'img/pecho.png',
-    1: 'img/espalda.png',
-    2: 'img/piernas.png',
-    3: 'img/hombros.png',
+    0: 'assets/img/pecho.png',
+    1: 'assets/img/espalda.png',
+    2: 'assets/img/piernas.png',
+    3: 'assets/img/hombros.png',
   };
+
+  grupoMuscularFiltroImagenMap: { [key: number]: string } = {
+  0: 'assets/img/pechofiltro.png',
+  1: 'assets/img/espaldafiltro.png',
+  2: 'assets/img/piernasfiltro.png',
+  3: 'assets/img/hombrosfiltro.png',
+};
+
+    gruposMusculares: GrupoMuscular[] = [
+    { id: 0, nombre: 'Pecho' },
+    { id: 1, nombre: 'Espalda' },
+    { id: 2, nombre: 'Piernas' },
+    { id: 3, nombre: 'Hombros' },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -53,14 +74,28 @@ export class CrearRutinaManualComponent {
   cargarEjercicios(): void {
     this.ejercicioService.getAll().subscribe({
       next: (data) => {
-        // hacemos el map para agregar la propiedad imagen
+        // agregamos la propiedad imagen
         this.ejerciciosDisponibles = data.map((e): EjercicioConImagen => ({
           ...e,
           imagen: this.grupoMuscularImagenMap[e.grupoMuscular] || 'assets/imagenes/default.png'
         }));
+        // inicialmente mostramos todos
+        this.ejerciciosFiltrados = [...this.ejerciciosDisponibles];
       },
       error: (err) => console.error('Error al cargar ejercicios', err),
     });
+  }
+
+    // Filtro mockeado
+  filtrarPorGrupo(grupoId: number) {
+    if (this.grupoSeleccionado === grupoId) {
+      // si clickea de nuevo, deselecciona
+      this.grupoSeleccionado = null;
+      this.ejerciciosFiltrados = [...this.ejerciciosDisponibles];
+    } else {
+      this.grupoSeleccionado = grupoId;
+      this.ejerciciosFiltrados = this.ejerciciosDisponibles.filter(e => e.grupoMuscular === grupoId);
+    }
   }
 
   seleccionarEjercicio(ejercicio: EjercicioConImagen): void {
