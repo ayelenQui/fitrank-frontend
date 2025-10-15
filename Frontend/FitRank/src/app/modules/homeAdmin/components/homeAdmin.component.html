@@ -30,35 +30,38 @@
         </div>
         <h1 class="h5 font-bold text-dark dark:text-light">Fitrank</h1> <!-- Usando h5 para un tamaño similar -->
       </div>
-      <nav class="d-flex flex-column gap-2 flex-grow-1">
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded  bg-opacity-10 text-primary font-semibold" href="#">
+      <nav class="sidebar-nav d-flex flex-column gap-2 flex-grow-1">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">dashboard</span>
           <span>Inicio</span>
         </a>
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded  hover-bg-opacity-10" href="#">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">groups</span>
           <span>Socios</span>
         </a>
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded  hover-bg-opacity-10" href="#">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">sports_gymnastics</span>
           <span>Profesores</span>
         </a>
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded  hover-bg-opacity-10" href="#">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">calendar_month</span>
           <span>Clases</span>
         </a>
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded  hover-bg-opacity-10" href="#">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">payments</span>
           <span>Finanzas</span>
         </a>
-      </nav>
-      <div class="d-flex flex-column gap-1 mt-auto">
-        <!-- mt-auto para empujarlo al final -->
-        <a class="d-flex align-items-center gap-3 px-3 py-2 rounded hover-bg-primary hover-bg-opacity-10" href="#">
+        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
           <span class="material-symbols-outlined">settings</span>
-          <span>Ajustes</span>
+          <span>Personalizacion</span>
         </a>
-      </div>
+      </nav>
+
+      <button class="btn btn-outline-danger mt-auto w-100"(click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Cerrar sesión
+      </button>
+
     </aside>
 
     <!-- Main Content -->
@@ -72,9 +75,9 @@
           <h3 class="h6 font-semibold mb-3">Accesos directos</h3>
           <div class="d-flex gap-3">
             <div class="admin-home">
-              <h2>Panel de Administrador</h2>
+              <p>Activar Socio </p>
 
-              <button (click)="irAGenerarInvitacion()">
+              <button class="boton"(click)="irAGenerarInvitacion()">
                 ➕ Generar Invitación
               </button>
 
