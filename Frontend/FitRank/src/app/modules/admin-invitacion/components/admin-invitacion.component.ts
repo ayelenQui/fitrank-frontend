@@ -28,11 +28,10 @@ export class AdminInvitacionComponent implements OnInit {
 
 
   ngOnInit() {
-    // ✅ obtenemos el admin solo para mostrar su nombre
+   
     const user = this.authService.obtenerUser();
     this.adminNombre = user?.Nombre || 'Administrador';
 
-    // ✅ armamos el formulario directamente
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
