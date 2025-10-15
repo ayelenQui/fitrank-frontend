@@ -1,0 +1,261 @@
+.crear-rutina-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 25px 20px 80px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.crear-rutina-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+/* Formulario - spacing entre secciones */
+.crear-rutina-container form > div {
+  margin-bottom: 20px;
+}
+
+/* Labels */
+.crear-rutina-container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+/* Inputs */
+.crear-rutina-container input[type="text"],
+.crear-rutina-container input[type="date"],
+.crear-rutina-container input[type="number"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.crear-rutina-container input:focus {
+  border-color: #FAEB92;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+  outline: none;
+}
+
+/* Separadores */
+.crear-rutina-container hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Botón crear rutina (submit) */
+.crear-rutina-container button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #FAEB92;
+  border-radius: 8px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.crear-rutina-container button[type="submit"]:hover {
+  background-color: #e0d682;
+}
+
+/* Botones de eliminar */
+.form-group button {
+  background-color: #dc3545;
+  margin-top: 20px;
+}
+
+.form-group button:hover {
+  background-color: #c82333;
+}
+
+/* Filtro por grupo muscular */
+.filtro-grupo-muscular {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filtro-grupo-muscular label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.filtro-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f0f0f0;
+  padding: 5px;
+}
+
+.filtro-img:hover {
+  transform: scale(1.1);
+}
+
+.filtro-img.selected {
+  border-color: #8B52FF;
+}
+
+/* Contenedor de tarjetas de ejercicios */
+.ejercicios-cards-container {
+  margin-top: 20px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.ejercicio-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.ejercicio-card.selected {
+  border: 2px solid #8B52FF;
+}
+
+.ejercicio-img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  background-color: #f8f8f8;
+}
+
+/* Botón agregar ejercicios seleccionado - centrado y amarillo */
+.agregar-ejercicios-btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.agregar-ejercicios-btn button {
+  background-color: #FAEB92;
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agregar-ejercicios-btn button:hover {
+  background-color: #e0d682;
+}
+
+.agregar-ejercicios-btn button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Form-row y grupos */
+.form-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Regla genérica para otros botones */
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* azul solo para botones genéricos */
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.ejercicio-item-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px; /* un poquito más de espacio */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.ejercicio-item-img {
+  width: 80px;   /* más grande */
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.ejercicio-item-content {
+  flex: 1; /* ocupa todo el espacio restante */
+}
+
+.ejercicio-item-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+}
+
+/* Form-row */
+.form-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}

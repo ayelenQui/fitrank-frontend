@@ -10,6 +10,10 @@ import { ActivacionComponent } from './modules/invitacion/components/activacion.
 import { AuthGuard } from './guards/auth.guards';
 import { LoginGuard } from './guards/login.guards';
 import { AdminGuard } from './guards/admin.guards';
+import { CrearRutinaComponent } from './modules/rutinas/crear-rutina/crear-rutina';
+import { CrearRutinaManualComponent } from './modules/rutinas/crear-rutina-manual/crear-rutina-manual';
+import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/mis-rutinas';
+import { EditarRutinaComponent } from './modules/rutinas/editar-rutina/editar-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -20,7 +24,14 @@ export const appRoutes: Route[] = [
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'activar-cuenta', component: ActivacionComponent },
+  { path: 'activar-cuenta', component: ActivacionComponent },// Rutas rutinas
+  {path: 'rutina/crear', component: CrearRutinaComponent},
+  {path: 'rutina/crear-manual', component: CrearRutinaManualComponent},
+  {path: 'rutina/editar/:id', component: CrearRutinaComponent},
+  {path: 'rutina/ver/:id', component: CrearRutinaComponent},
+  {path: 'rutina/mis-rutinas', component: MisRutinasComponent},
+  {path: 'rutina/editar-rutina/:id', component: EditarRutinaComponent},
+  
 
   //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)
     {
