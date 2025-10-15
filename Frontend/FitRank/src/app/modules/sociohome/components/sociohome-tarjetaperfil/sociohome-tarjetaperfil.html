@@ -5,11 +5,11 @@
     class="sociohome__tarjetaperfil__image"
   />
   <div class="sociohome__tarjetaperfil__info">
-    <h2 class="sociohome__tarjetaperfil__nombre">Juan Perez</h2>
+    <h2 class="sociohome__tarjetaperfil__nombre">{{ socio()?.Nombre }} {{ socio()?.Apellidos }}</h2>
     <div class="sociohome__tarjetaperfil__contenedorInfo">
       <div class="sociohome__tarjetaperfil__contenedorInfoBasica">
         <p class="sociohome__tarjetaperfil__puntaje">Puntaje: 100</p>
-        <p class="sociohome__tarjetaperfil__posicion">Posicion: 5</p>
+        <p class="sociohome__tarjetaperfil__posicion">Posicion: 30</p>
       </div>
       <div class="sociohome__tarjetaperfil__contenedorMiniTarjetasInfo">
         <app-sociohome-targetaperfil-minitarjetainfo
@@ -27,7 +27,6 @@
           titulo="%23"
           texto="Progreso"
         ></app-sociohome-targetaperfil-minitarjetainfo>
-        
       </div>
     </div>
   </div>

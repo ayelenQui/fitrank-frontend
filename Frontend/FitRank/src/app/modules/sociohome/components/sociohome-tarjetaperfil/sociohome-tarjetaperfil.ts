@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SociohomeTargetaperfilMinitarjetainfo } from '../sociohome-targetaperfil-minitarjetainfo/sociohome-targetaperfil-minitarjetainfo';
+import type { SocioType } from '../../type/SocioType';
 
 @Component({
   selector: 'app-sociohome-tarjetaperfil',
@@ -8,5 +9,5 @@ import { SociohomeTargetaperfilMinitarjetainfo } from '../sociohome-targetaperfi
   styleUrls: ['./sociohome-tarjetaperfil.css']
 })
 export class SociohomeTarjetaperfil {
-
+  socio = input<SocioType | null>();
 }

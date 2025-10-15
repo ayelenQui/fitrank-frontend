@@ -16,12 +16,11 @@ export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'visitante-home', component: VisitanteHome },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: Sociohome, canActivate: [AuthGuard] },
   { path: 'homeAdmin', component: HomeAdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },
-  { path: 'sociohome', component: Sociohome },
   { path: '**', redirectTo: 'login' }
 ];
