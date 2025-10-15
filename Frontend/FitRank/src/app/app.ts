@@ -16,7 +16,6 @@ import { AdminInvitacionComponent } from './modules/admin-invitacion/components/
   templateUrl: './app.html',
   styleUrls: ['./app.css'], 
 })
-
 export class App {
   constructor(private authService: AuthService, private router: Router) {
    
