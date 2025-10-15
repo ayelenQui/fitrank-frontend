@@ -1,0 +1,140 @@
+.editar-rutina-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 25px 20px 50px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.editar-rutina-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.btn-cancelar, .btn-guardar {
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+}
+
+.btn-cancelar:hover {
+  background-color: #b3b3b3;
+}
+
+.btn-guardar {
+  background-color: #FAEB92;
+}
+
+.btn-guardar:hover {
+  background-color: #e0d682;
+}
+
+.rutina-nombre {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ejercicios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ejercicio-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fafafa;
+  position: relative;
+}
+
+.ejercicio-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 15px;
+}
+
+.ejercicio-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ejercicio-info p {
+  margin: 2px 0 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.ejercicio-opciones {
+  position: relative;
+}
+
+.tres-puntos {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.menu-ejercicio {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #666;
+  color: #fff;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 5px;
+  z-index: 10;
+}
+
+.menu-ejercicio button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #666;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.menu-ejercicio button:hover {
+  background-color: #555;
+}
+
+.agregar-ejercicios-btn {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.agregar-ejercicios-btn button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background-color: #FAEB92;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agregar-ejercicios-btn button:hover {
+  background-color: #e0d682;
+}

@@ -1,0 +1,37 @@
+<app-visitante-home-navbar></app-visitante-home-navbar>
+
+<div class="mis-rutinas-container">
+  <h2>Mis Rutinas</h2>
+
+  <!-- Botón centrado para crear nueva rutina -->
+  <div class="crear-rutina-btn-container">
+    <button class="btn-crear" (click)="crearRutina()">+ Crear nueva rutina</button>
+  </div>
+
+  <!-- Si no hay rutinas -->
+  <div *ngIf="rutinas.length === 0; else listaRutinas" class="no-rutinas">
+    <p>No tienes rutinas creadas todavía.</p>
+  </div>
+
+  <!-- Lista de rutinas -->
+  <ng-template #listaRutinas>
+    <div class="rutinas-list">
+      <div *ngFor="let rutina of rutinas" class="rutina-item">
+        <!-- Imagen y título -->
+        <div class="rutina-info">
+          <span class="rutina-titulo">{{ rutina.nombre }}</span>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="acciones-rutina">
+          <img src="assets/img/mis-rutinas/play.png" alt="Iniciar" title="Iniciar rutina"
+               (click)="iniciarRutina(rutina)" class="accion-icon" />
+          <img src="assets/img/mis-rutinas/editar.png" alt="Editar" title="Editar rutina"
+               (click)="editarRutina(rutina)" class="accion-icon" />
+          <img src="assets/img/mis-rutinas/eliminar.png" alt="Eliminar" title="Eliminar rutina"
+               (click)="eliminarRutina(rutina)" class="accion-icon" />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

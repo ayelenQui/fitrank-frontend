@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EjercicioRealizadoDTOEntrada, EjercicioRealizadoDTOSalida } from '../../../../api/services/registroentrenamiento/interfaces/registroentrenamiento.interface';
 import { EjercicioRealizadoService } from '../../../../api/services/registroentrenamiento/registro-entrenamiento.service';

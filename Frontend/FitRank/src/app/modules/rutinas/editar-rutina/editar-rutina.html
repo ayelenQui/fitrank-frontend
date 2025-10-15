@@ -1,0 +1,42 @@
+<div class="editar-rutina-container">
+  <!-- Header con botones -->
+  <div class="editar-rutina-header">
+    <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+    <h2 class="rutina-nombre">{{ rutina?.nombre || 'Rutina' }}</h2>
+    <button class="btn-guardar" (click)="guardarCambios()">Guardar cambios</button>
+  </div>
+
+  <hr />
+
+  <!-- Lista de ejercicios -->
+  <div *ngFor="let ejercicio of rutina?.ejercicios" class="ejercicio-item">
+    <!-- Imagen del ejercicio -->
+    <img [src]="ejercicio.imagen || 'assets/placeholder.png'" alt="{{ ejercicio.nombre }}" class="ejercicio-img">
+
+    <!-- Info del ejercicio -->
+    <div class="ejercicio-info">
+      <h4>{{ ejercicio.nombre }}</h4>
+      <p>Grupo muscular: {{ ejercicio.grupoMuscular }} - Dificultad: {{ ejercicio.dificultad }}</p>
+      <p *ngIf="ejercicio.peso">Peso: {{ ejercicio.peso }}kg</p>
+      <p *ngIf="ejercicio.repeticiones">Reps: {{ ejercicio.repeticiones }}</p>
+      <p *ngIf="ejercicio.rir">RIR: {{ ejercicio.rir }}</p>
+    </div>
+
+    <!-- Menú de opciones -->
+    <div class="ejercicio-opciones">
+      <span class="tres-puntos" (click)="abrirOpcionesEjercicio(ejercicio)">&#8942;</span>
+      <div *ngIf="menuAbierto[ejercicio.id]" class="menu-ejercicio">
+        <button (click)="editarEjercicio(ejercicio)">Editar</button>
+        <!-- <button (click)="reemplazarEjercicio(ejercicio)">Reemplazar ejercicio</button> -->
+        <button (click)="eliminarEjercicio(ejercicio)">Eliminar ejercicio</button>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Botón agregar ejercicios -->
+  <div class="agregar-ejercicios-btn">
+    <button (click)="irAAgregarEjercicio()">Agregar Ejercicio</button>
+  </div>
+</div>

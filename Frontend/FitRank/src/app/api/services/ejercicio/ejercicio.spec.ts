@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-
-import { RutinaService } from './rutinaService';
+import { EjercicioService } from './ejercicioService';
 
 describe('Rutina', () => {
-  let service: RutinaService;
+  let service: EjercicioService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RutinaService);
+    service = TestBed.inject(EjercicioService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
+  });
 });

@@ -1,0 +1,107 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
+  min-height: 100vh;
+  text-align: center;
+  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
+  padding-top: 2rem; /* espacio desde el header */
+}
+
+h2 {
+  font-size: 2rem;
+  color: #222;
+  margin-top: 0;   /* elimina margen extra del h2 */
+  margin-bottom: 0.5rem; /* reduce espacio con el p */
+}
+
+p {
+  color: black;
+  font-size: 1.2rem;
+  margin-top: 0;    /* elimina espacio por defecto */
+  margin-bottom: 1rem; /* separa un poco del grid de tarjetas */
+}
+
+.titulo-card {
+  color: #8B52FF;
+  margin-bottom: 0.5rem;
+}
+
+
+.botones-tipo-rutina {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 1rem;
+}
+
+.card {
+  background: #EAEAEA;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 2rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card.seleccionada {
+  border-color: #8B52FF;
+  box-shadow: 0 0 15px rgba(139,82,255,0.3);
+}
+
+.icono-circulo {
+  width: 120px;
+  height: 120px;
+  background-color: #FAEB92;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto; /* centrado horizontal y espacio abajo */
+}
+
+.icono-card {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+
+.btn-empezar {
+  margin-top: 2rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #ccc;
+  color: black;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.btn-empezar:not(:disabled) {
+  background-color: grey; /* default si no es manual */
+  color:white
+}
+
+.btn-empezar.manual-activo {
+  background-color: #FAEB92;
+  color: black;
+  cursor: pointer;
+}
+
+/* Responsive */
+/* @media (max-width: 768px) {
+  .botones-tipo-rutina {
+    grid-template-columns: 1fr;
+   }
+;} */
