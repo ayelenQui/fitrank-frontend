@@ -1,7 +1,7 @@
 .crear-rutina-container {
   max-width: 900px;
   margin: auto;
-  padding: 25px 20px 80px 20px; /* padding-bottom mayor para separar del footer */
+  padding: 25px 20px 80px 20px;
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   border-radius: 12px;
@@ -21,7 +21,7 @@
   margin-bottom: 20px;
 }
 
-/* Labels más visibles */
+/* Labels */
 .crear-rutina-container label {
   display: block;
   font-weight: 600;
@@ -29,7 +29,7 @@
   color: #555;
 }
 
-/* Inputs más estilizados */
+/* Inputs */
 .crear-rutina-container input[type="text"],
 .crear-rutina-container input[type="date"],
 .crear-rutina-container input[type="number"] {
@@ -43,7 +43,7 @@
 }
 
 .crear-rutina-container input:focus {
-  border-color: #007bff;
+  border-color: #FAEB92;
   box-shadow: 0 0 6px rgba(0,123,255,0.3);
   outline: none;
 }
@@ -55,26 +55,26 @@
   border-top: 1px solid #e0e0e0;
 }
 
-/* Botones principales */
+/* Botón crear rutina (submit) */
 .crear-rutina-container button[type="submit"] {
   width: 100%;
   padding: 12px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: #28a745;
+  background-color: #FAEB92;
   border-radius: 8px;
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 15px;
 }
 
 .crear-rutina-container button[type="submit"]:hover {
-  background-color: #218838;
+  background-color: #e0d682;
 }
 
-/* Ajuste de botones de eliminar */
+/* Botones de eliminar */
 .form-group button {
   background-color: #dc3545;
   margin-top: 20px;
@@ -84,6 +84,7 @@
   background-color: #c82333;
 }
 
+/* Filtro por grupo muscular */
 .filtro-grupo-muscular {
   display: flex;
   gap: 15px;
@@ -99,13 +100,13 @@
 .filtro-img {
   width: 60px;
   height: 60px;
-  object-fit: contain; /* antes: cover */
+  object-fit: contain;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: #f0f0f0; /* opcional, para ver el contorno si la imagen no llena */
-  padding: 5px; /* opcional, espacio interno para que no toque los bordes */
+  background-color: #f0f0f0;
+  padding: 5px;
 }
 
 .filtro-img:hover {
@@ -113,10 +114,10 @@
 }
 
 .filtro-img.selected {
-  border-color: #007bff; /* azul para resaltar */
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+  border-color: #8B52FF;
 }
 
+/* Contenedor de tarjetas de ejercicios */
 .ejercicios-cards-container {
   margin-top: 20px;
 }
@@ -139,19 +140,45 @@
 }
 
 .ejercicio-card.selected {
-  border-color: #28a745; /* verde cuando está seleccionado */
-  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+  border: 2px solid #8B52FF;
 }
 
 .ejercicio-img {
   width: 100%;
   height: 100px;
-  object-fit: contain; /* antes: cover */
+  object-fit: contain;
   border-radius: 4px;
   margin-bottom: 5px;
-  background-color: #f8f8f8; /* opcional, para que no se vea vacío si la imagen no tiene el mismo ratio */
+  background-color: #f8f8f8;
 }
 
+/* Botón agregar ejercicios seleccionado - centrado y amarillo */
+.agregar-ejercicios-btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.agregar-ejercicios-btn button {
+  background-color: #FAEB92;
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agregar-ejercicios-btn button:hover {
+  background-color: #e0d682;
+}
+
+.agregar-ejercicios-btn button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Form-row y grupos */
 .form-row {
   display: flex;
   gap: 15px;
@@ -177,12 +204,13 @@
   border: 1px solid #ccc;
 }
 
+/* Regla genérica para otros botones */
 button {
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff; /* azul solo para botones genéricos */
+  color: black;
   cursor: pointer;
   transition: all 0.3s ease;
 }

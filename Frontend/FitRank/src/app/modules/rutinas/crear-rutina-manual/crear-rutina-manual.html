@@ -57,13 +57,16 @@
         </div>
       </div>
 
-      <button
-        type="button"
-        (click)="agregarEjerciciosSeleccionados()"
-        [disabled]="ejerciciosSeleccionados.length === 0"
-      >
-        Agregar ejercicios seleccionados
-      </button>
+      <div class="agregar-ejercicios-btn">
+  <button
+    type="button"
+    (click)="agregarEjerciciosSeleccionados()"
+    [disabled]="ejerciciosSeleccionados.length === 0"
+  >
+    Agregar ejercicios seleccionados
+  </button>
+</div>
+
     </div>
 
     <hr />
