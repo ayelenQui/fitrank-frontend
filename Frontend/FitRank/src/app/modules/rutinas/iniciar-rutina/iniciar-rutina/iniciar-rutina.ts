@@ -23,6 +23,7 @@ interface EjercicioConImagen extends EjercicioDTO {
 @Component({
   selector: 'app-iniciar-rutina',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  standalone: true,
   templateUrl: './iniciar-rutina.html',
   styleUrl: './iniciar-rutina.css'
 })

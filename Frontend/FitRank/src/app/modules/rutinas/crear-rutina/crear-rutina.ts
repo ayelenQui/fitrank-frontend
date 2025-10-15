@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crear-rutina',
-  imports: [],
+  imports: [CommonModule, RouterLink],
+  standalone: true,
   templateUrl: './crear-rutina.html',
-  styleUrl: './crear-rutina.css'
+  styleUrl: './crear-rutina.css',
+ 
 })
 export class CrearRutinaComponent {
    seleccion: string | null = null;

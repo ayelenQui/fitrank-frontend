@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--color-acento);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.contenedorDatosPersonales {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.contenedorDatosPago {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.contenerdorLabelInput {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+input {
+    flex-grow: 1;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--color-acento-secundario);
+    box-shadow: 0 0 0 3px rgba(139, 82, 255, 0.1);
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--color-acento-secundario);
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+}
+
+@media screen and (min-width: 500px) {
+    form {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 40px;
+    }
+
+    .contenedorDatosPago{
+        height: 290px;
+    }
+    .btn-generarInvitacion {
+
+        margin-top: auto;
+    }
+}

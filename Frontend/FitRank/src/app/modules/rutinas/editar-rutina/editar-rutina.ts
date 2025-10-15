@@ -26,8 +26,9 @@ interface Rutina {
 @Component({
   selector: 'app-editar-rutina',
   templateUrl: './editar-rutina.html',
-  styleUrls: ['./editar-rutina.css'],
   standalone: true,
+  styleUrls: ['./editar-rutina.css'],
+  
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class EditarRutinaComponent implements OnInit {
