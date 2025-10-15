@@ -10,6 +10,7 @@ import { ActivacionComponent } from './modules/invitacion/components/activacion.
 import { AuthGuard } from './guards/auth.guards';
 import { LoginGuard } from './guards/login.guards';
 import { AdminGuard } from './guards/admin.guards';
+import { Sociohome } from './modules/sociohome/sociohome';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -21,5 +22,6 @@ export const appRoutes: Route[] = [
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },
+  { path: 'sociohome', component: Sociohome },
   { path: '**', redirectTo: 'login' }
 ];
