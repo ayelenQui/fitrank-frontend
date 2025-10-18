@@ -1,0 +1,17 @@
+:host {
+  width: 100%;
+  display: block;
+}
+
+.bg-dark {
+
+}
+
+i {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+  i:hover {
+    transform: scale(1.2);
+  }

@@ -1,0 +1,22 @@
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-header mb-4 text-center">
+      <h1>Tu logo Aqui </h1>
+      <small>Administrador</small>
+    </div>
+
+    <nav>
+      <a *ngFor="let it of items"
+         [routerLink]="it.route"
+         routerLinkActive="active"
+         class="nav-item">
+        <span class="material-symbols-outlined">{{ it.icon }}</span>
+        {{ it.label }}
+      </a>
+    </nav>
+  </div>
+
+  <div class="sidebar-footer text-center">
+    <p class="m-0">© FitRank 2025</p>
+  </div>
+</aside>

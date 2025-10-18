@@ -1,11 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { VisitanteHomeHeroMinicard } from '../visitante-home-hero-minicard/visitante-home-hero-minicard';
+
 import { gsap } from 'gsap';
 import SplitType from 'split-type';
 
 @Component({
   selector: 'app-visitante-home-hero',
-  imports: [VisitanteHomeHeroMinicard],
+ 
   templateUrl: './visitante-home-hero.html',
   styleUrl: './visitante-home-hero.css'
 })
@@ -84,6 +84,18 @@ export class VisitanteHomeHero implements AfterViewInit {
       stagger: 0.1
     });
    
+    gsap.from('.feature-card-3d', {
+      opacity: 0,
+      y: 50,
+      rotationY: -20,
+      stagger: 0.1,
+      duration: 1.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#features',
+        start: 'top 80%',
+      }
+    });
 
   }
 
