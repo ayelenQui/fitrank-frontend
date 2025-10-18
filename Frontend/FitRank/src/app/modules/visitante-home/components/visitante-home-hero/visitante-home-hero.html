@@ -1,31 +1,257 @@
-<section class="visitante-home__hero">
-  <img
-    src="/assets/img/UserHero.webp"
-    alt="UserHero image"
-    class="visitante-home__hero__image"
-    
-  />
-  <!-- <img src="../../assets/img/UserHero.webp" alt=""> -->
-  <h1 class="visitante-home__hero__title">Transformá tu cuerpo, transformá tu vida</h1>
-  <p class="visitante-home__hero__description">
-    Únete a la comunidad de fitness más motivadora. Entrena con los mejores, alcanza tus metas.
-  </p>
-  <div class="visitante-home__hero__buttons">
-    <button class="btn visitante-home__hero__registrarse">Registrate y comienzá hoy</button>
-    <button class="btn visitante-home__hero__ver-clases">Ver clases disponibles</button>
-  </div>
-  <div class="visitante-home__hero__contenedorTarjetas">
-    <app-visitante-home-hero-minicard
-      titulo="500+"
-      descripcion="Miembros activos"
-    ></app-visitante-home-hero-minicard>
-    <app-visitante-home-hero-minicard
-      titulo="20+"
-      descripcion="Clases semanales"
-    ></app-visitante-home-hero-minicard>
-    <app-visitante-home-hero-minicard
-      titulo="15+"
-      descripcion="Entrenadores expertos"
-    ></app-visitante-home-hero-minicard>
+<section class="container-fluid hero-section bg-dark text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Texto -->
+      <div class="col-lg-6">
+        <h1><span class="titulo">FITRANK</span><br>Tu gimnasio bajo control,<br>tus socios motivados.</h1>
+        <p>La plataforma integral para gimnasios que impulsa el crecimiento y la retención de socios.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="#contacto" class="btn btn-primary">Contactanos</a>
+          <button class="btn btn-outline-light">Ver cómo funciona</button>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <div class="col-lg-6 text-center mt-4 mt-lg-0">
+        <img src="assets/img/hero.png" alt="Dueño de gimnasio relajado">
+      </div>
+    </div>
   </div>
 </section>
+
+
+
+
+
+<section class="py-5 my-5 bg-light">
+  <div class="container text-center">
+    <!-- Título principal -->
+    <h2 class=" fade-card fw-bold mb-4">
+      ¿Tus socios abandonan o tu equipo pierde control?
+    </h2>
+    <p class="lead text-muted mb-5">
+      En el competitivo mundo del fitness, mantener a tus socios comprometidos y a tu equipo eficiente es crucial.
+      <br>
+      FitRank te ofrece las herramientas para superar estos desafíos y llevar tu gimnasio al siguiente nivel.
+    </p>
+
+    <!-- Tarjetas de características -->
+    <div class="row gy-4">
+      <div class="col-md-4">
+        <div class="p-4 h-100 border rounded-3 bg-white shadow-sm">
+          <h5 class="fade-card fw-bold mb-3">🏋️‍♀️ Motivación y Competencia</h5>
+          <p class="text-muted">
+            Transformá cada entrenamiento en una competencia amistosa con el sistema de rankings de FitRank.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-4 h-100 border rounded-3 bg-white shadow-sm">
+          <h5 class="fade-card fw-bold mb-3">📊 Gestión Eficiente</h5>
+          <p class="text-muted">
+            Controlá todos los aspectos de tu gimnasio desde un panel inteligente y tomá decisiones informadas.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="fade-card p-4 h-100 border rounded-3 bg-white shadow-sm">
+          <h5 class="fw-bold mb-3">💬 Retención Personalizada</h5>
+          <p class="text-muted">
+            Reducí la tasa de abandono con estrategias de retención personalizadas para socios en riesgo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 my-5 bg-white text-dark">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-5 text-dark">
+      Innová la gestión de tu gimnasio con FitRank
+    </h2>
+
+    <div class="row gy-4 justify-content-center">
+      <!-- Card 1 -->
+      <div class="col-10 col-sm-6 col-md-4 col-lg-2">
+        <div class="feature-card p-4 h-100">
+          <i class="bi bi-credit-card-2-front-fill fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Integración de Pagos</h5>
+          <p class="text-muted small">Conectá tu sistema con Mercado Pago y simplificá tus cobros.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-10 col-sm-6 col-md-4 col-lg-2">
+        <div class="feature-card p-4 h-100">
+          <i class="bi bi-lightning-charge-fill fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Motivación</h5>
+          <p class="text-muted small">Desafíos, logros y ranking en tiempo real para tus socios.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-10 col-sm-6 col-md-4 col-lg-2">
+        <div class="feature-card p-4 h-100">
+          <i class="bi bi-person-x-fill fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Control de Ausentismo</h5>
+          <p class="text-muted small">Detectá socios inactivos y generá alertas automáticas.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-10 col-sm-6 col-md-4 col-lg-2">
+        <div class="feature-card p-4 h-100">
+          <i class="bi bi-graph-up-arrow fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Progresos</h5>
+          <p class="text-muted small">Seguimiento de rendimiento y evolución de usuarios.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-10 col-sm-6 col-md-4 col-lg-2">
+        <div class="feature-card p-4 h-100">
+          <i class="bi bi-cpu-fill fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Rutinas con IA</h5>
+          <p class="text-muted small">Generá rutinas personalizadas según objetivos y nivel físico.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="py-5 my-5 bg-light" id="acceso-qr">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Texto -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <h2 class="fw-bold text-dark mb-3">Acceso rápido con QR inteligente</h2>
+        <p class="text-muted mb-4">
+          Olvidate de planillas o tarjetas físicas. Con FitRank, tus socios pueden ingresar al gimnasio simplemente escaneando su código QR desde la app.
+          El sistema valida la membresía al instante, muestra su progreso y actualiza automáticamente la asistencia.
+        </p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-qr-code me-2 text-dark"></i>Ingreso sin contacto</li>
+          <li class="mb-2"><i class="bi bi-lightning-charge me-2 text-dark"></i>Validación instantánea</li>
+          <li class="mb-2"><i class="bi bi-person-check me-2 text-dark"></i>Control de socios en tiempo real</li>
+        </ul>
+      </div>
+
+      <!-- Imagen -->
+      <div class="col-md-6 text-center">
+        <img src="assets/img/home/qrok.png" alt="Acceso QR FitRank" class="img-fluid rounded shadow-sm" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 my-5 bg-dark text-white" id="ranking">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Imagen / Mockup -->
+      <div class="col-lg-6 text-center mb-4 mb-lg-0">
+        <img src="assets/img/home/motivcacion.png"
+             alt="Ranking FitRank"
+             class="img-fluid rounded shadow-lg">
+      </div>
+
+      <!-- Texto -->
+      <div class="col-lg-6 py-6">
+        <h2 class="fw-bold display-6 mb-3 text-white">
+          Competí, progresá y alcanzá logros con <span class="text-white">FITRANK</span>
+        </h2>
+        <p class="lead mb-4 text-light">
+          El sistema de puntos y logros convierte cada entrenamiento en una oportunidad para mejorar.
+          Tus socios pueden seguir su progreso, competir amistosamente y celebrar sus logros.
+        </p>
+
+        <ul class="list-unstyled fs-5">
+          <li class="mb-2">
+            <i class="bi bi-trophy-fill text-white me-2"></i>
+            <strong>Ranking dinámico:</strong> actualización automática según rendimiento.
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-graph-up-arrow text-white me-2"></i>
+            <strong>Progreso visual:</strong> seguimiento diario y semanal.
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-stars text-white me-2"></i>
+            <strong>Logros y medallas:</strong> desbloqueá recompensas por objetivos.
+          </li>
+        </ul>
+
+        <a href="#contact-form" class="btn btn-primary btn-lg mt-3">
+          Implementar Ranking
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<!-- SECCIÓN CONTACTANOS -->
+<section class="py-5 my-5 border-top" id="contact-form">
+  <div class="container text-center">
+    <!-- Título -->
+    <div class="mb-5">
+      <h2 class="fw-bold mb-3">Contactanos</h2>
+      <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        ¿Tenés alguna pregunta? Envianos un mensaje y te responderemos a la brevedad.
+      </p>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Formulario -->
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <form class="row g-3 needs-validation" novalidate>
+          <div class="col-md-6">
+            <label for="nombre" class="form-label fw-semibold text-start w-100">Nombre</label>
+            <input type="text" class="form-control" id="nombre" required />
+          </div>
+
+          <div class="col-md-6">
+            <label for="apellido" class="form-label fw-semibold text-start w-100">Apellido</label>
+            <input type="text" class="form-control" id="apellido" required />
+          </div>
+
+          <div class="col-12">
+            <label for="email" class="form-label fw-semibold text-start w-100">Email</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+
+          <div class="col-12">
+            <label for="mensaje" class="form-label fw-semibold text-start w-100">Mensaje</label>
+            <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+          </div>
+
+          <div class="col-12 mt-3">
+            <button class="btn btn-primary w-100 py-2 fw-bold" type="submit">Enviar Mensaje</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
