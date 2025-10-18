@@ -5,6 +5,8 @@ import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { CrearRutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
+import { Router } from '@angular/router';
+
 
 // extendemos el DTO para agregar imagen
 interface EjercicioConImagen extends EjercicioDTO {
@@ -56,12 +58,13 @@ export class CrearRutinaManualComponent {
   constructor(
     private fb: FormBuilder,
     private rutinaService: RutinaService,
-    private ejercicioService: EjercicioService
+    private ejercicioService: EjercicioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.rutinaForm = this.fb.group({
-      usuarioId: [7, Validators.required], //TODO cambiar a 1 el 7
+      usuarioId: [1, Validators.required], //TODO cambiar a 1 el 7
       nombre: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
@@ -150,25 +153,28 @@ export class CrearRutinaManualComponent {
   }
 
   onSubmit(): void {
-    if (this.rutinaForm.invalid) {
-      this.rutinaForm.markAllAsTouched();
-      return;
-    }
+  if (this.rutinaForm.invalid) {
+    this.rutinaForm.markAllAsTouched();
+    return;
+  }
 
-    const rutina: CrearRutinaDTO = this.rutinaForm.value;
-    rutina.fechaInicio = new Date(rutina.fechaInicio);
-    rutina.fechaFin = new Date(rutina.fechaFin);
+  const rutina: CrearRutinaDTO = this.rutinaForm.value;
+  rutina.fechaInicio = new Date(rutina.fechaInicio);
+  rutina.fechaFin = new Date(rutina.fechaFin);
 
-    this.rutinaService.crearRutina(rutina).subscribe({
-      next: () => {
-        alert('Rutina creada correctamente');
-        this.rutinaForm.reset();
-        this.ejercicios.clear();
-      },
-      error: (err) => {
-        console.error('Error al crear rutina', err);
-        alert('Error al crear la rutina');
-      },
-    });
-  }
+  this.rutinaService.crearRutina(rutina).subscribe({
+    next: () => {
+      alert('Rutina creada correctamente');
+      this.rutinaForm.reset();
+      this.ejercicios.clear();
+
+      // Redirigir a la vista de mis rutinas
+      this.router.navigate(['/rutina/mis-rutinas']);
+    },
+    error: (err) => {
+      console.error('Error al crear rutina', err);
+      alert('Error al crear la rutina');
+    },
+  });
+}
 }
