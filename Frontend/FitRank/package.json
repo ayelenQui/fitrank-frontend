@@ -32,7 +32,9 @@
     "@angular/ssr": "^20.3.4",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@ngneat/tailwind": "^7.0.3",
+    "bootstrap": "^5.3.8",
     "express": "^4.19.2",
+    "gsap": "^3.13.0",
     "rxjs": "~7.8.0",
     "zone.js": "~0.15.0"
   },

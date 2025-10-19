@@ -8,11 +8,12 @@ import { LoginComponent } from './modules/login/components/login.component';
 import { VisitanteHome } from './modules/visitante-home/visitante-home'; 
 import { AuthService } from './api/services/activacion/AuthService.service'; 
 import { AdminInvitacionComponent } from './modules/admin-invitacion/components/admin-invitacion.component'; 
+import { HeaderSocioComponent } from './public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [VisitanteHome, RouterOutlet, HeaderComponent, FooterComponent, Home, LoginComponent, AdminInvitacionComponent],
+  imports: [VisitanteHome, RouterOutlet, HeaderComponent, FooterComponent, Home, LoginComponent, AdminInvitacionComponent, HeaderSocioComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css'], 
 })

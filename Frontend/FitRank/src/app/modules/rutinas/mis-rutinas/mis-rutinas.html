@@ -1,11 +1,12 @@
-<app-visitante-home-navbar></app-visitante-home-navbar>
-
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
 <div class="mis-rutinas-container">
-  <h2>Mis Rutinas</h2>
+  <h2 class="titulo">Mis Rutinas</h2>
 
   <!-- Botón centrado para crear nueva rutina -->
   <div class="crear-rutina-btn-container">
-    <button class="btn-crear" (click)="crearRutina()">+ Crear nueva rutina</button>
+    <button class="btn-principal" (click)="crearRutina()">+ Crear nueva rutina</button>
   </div>
 
   <!-- Si no hay rutinas -->

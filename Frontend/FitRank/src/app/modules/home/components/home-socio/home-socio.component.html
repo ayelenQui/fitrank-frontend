@@ -1,0 +1,53 @@
+<div class="home">
+  <!-- Perfil del socio -->
+  <section class="perfil">
+    <div class="perfil__info">
+      <h2 class="perfil__saludo">¡Hola, {{ user?.nombre }}!</h2>
+      <p class="perfil__rol">Socio FitRank</p>
+    </div>
+  </section>
+
+  <!-- Acciones rápidas -->
+  <section class="acciones">
+    <h3 class="acciones__titulo titulo">Acciones rápidas</h3>
+
+    <div class="acciones__contenedor">
+      <!-- Ranking -->
+      <div class="tarjeta" (click)="navegarA('/rutina/ranking')">
+        <h4 class="titulo-tarjeta">Ranking</h4>
+        <img src="assets/img/icons/ranking.png" alt="Ranking" />
+        <div>
+          <p class="texto-tarjeta">Compara tu progreso con otros miembros</p>
+        </div>
+      </div>
+
+      <!-- Crear Rutina -->
+      <div class="tarjeta" (click)="navegarA('/rutina/crear/')">
+        <h4 class="titulo-tarjeta">Rutinas</h4>
+        <img src="assets/img/icons/agregar.png" alt="Rutinas" />
+        <div>
+          <p class="texto-tarjeta">Crea y administra tus rutinas de entrenamiento</p>
+        </div>
+      </div>
+
+      <!-- Mis Rutinas -->
+      <div class="tarjeta" (click)="navegarA('/rutina/mis-rutinas')">
+        <h4 class="titulo-tarjeta">Mis Rutinas</h4>
+        <img src="assets/img/icons/lista.png" alt="Mis Rutinas" />
+        <div>
+          <p class="texto-tarjeta">Visualiza y sigue tus rutinas personalizadas</p>
+        </div>
+      </div>
+
+      <!-- Mis Logros -->
+      <div class="tarjeta" (click)="navegarA('/socios/1/gimnasios/1/logros')">
+        <h4 class="titulo-tarjeta">Mis Logros</h4>
+        <img src="assets/img/icons/logros.png" alt="Logros" />
+        <div>
+          <p class="texto-tarjeta">Revisa los logros que has desbloqueado</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

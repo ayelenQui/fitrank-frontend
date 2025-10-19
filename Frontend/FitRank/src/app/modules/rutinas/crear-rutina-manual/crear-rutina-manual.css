@@ -1,261 +1,281 @@
 .crear-rutina-container {
   max-width: 900px;
   margin: auto;
-  padding: 25px 20px 80px 20px;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 25px 20px 60px 20px;
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* Título */
-.crear-rutina-container h2 {
+.titulo{
+  font-family: var(--font-titulo);
   text-align: center;
-  margin-bottom: 25px;
-  color: #333;
-  font-size: 1.8rem;
-}
-
-/* Formulario - spacing entre secciones */
-.crear-rutina-container form > div {
+  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+  color: #2c2c2c;
   margin-bottom: 20px;
 }
 
-/* Labels */
-.crear-rutina-container label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #555;
+.section {
+  margin-bottom: 30px;
+}
+
+h3 {
+  margin-bottom: 15px;
+  font-size: clamp(1rem, 1vw + 0.5rem, 3rem);
+  font-family: var(--font-titulo);
+  color: #333;
+  border-left: 4px solid #8B52FF;
+  padding-left: 8px;
 }
 
 /* Inputs */
-.crear-rutina-container input[type="text"],
-.crear-rutina-container input[type="date"],
-.crear-rutina-container input[type="number"] {
+input[type="text"], input[type="date"], input[type="number"] {
   width: 100%;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-.crear-rutina-container input:focus {
-  border-color: #FAEB92;
-  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+input:focus {
+  border-color: #8B52FF;
   outline: none;
 }
 
-/* Separadores */
-.crear-rutina-container hr {
-  margin: 25px 0;
-  border: none;
-  border-top: 1px solid #e0e0e0;
+label {
+  display: block;
+  font-family: var(--font-secundaria);
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #555;
 }
 
-/* Botón crear rutina (submit) */
-.crear-rutina-container button[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: #FAEB92;
-  border-radius: 8px;
-  border: none;
-  color: black;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
+.titulo-ejercicio{
+  font-family: var(--font-titulo);
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 2rem);
+  margin: 8px 0 4px 0;
+  color: var(--color-texto-principal);
 }
 
-.crear-rutina-container button[type="submit"]:hover {
-  background-color: #e0d682;
+.texto-ejercicio{
+  font-family: var(--font-secundaria);
+  font-size: clamp(0.7rem, .5vw + 0.5rem, 1.2rem);
+  margin: 0;
+  color: var(--color-texto-secundario);
 }
 
-/* Botones de eliminar */
-.form-group button {
-  background-color: #dc3545;
-  margin-top: 20px;
-}
-
-.form-group button:hover {
-  background-color: #c82333;
-}
-
-/* Filtro por grupo muscular */
-.filtro-grupo-muscular {
-  display: flex;
+/* Grid para datos básicos */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
-.filtro-grupo-muscular label {
-  font-weight: bold;
-  margin-right: 10px;
+/* Filtro muscular */
+.grupos-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.filtro-img {
+.grupos-filtro img {
   width: 60px;
   height: 60px;
-  object-fit: contain;
   border-radius: 50%;
-  border: 2px solid transparent;
   cursor: pointer;
+  background: #f5f5f5;
+  border: 2px solid transparent;
   transition: all 0.3s ease;
-  background-color: #f0f0f0;
-  padding: 5px;
 }
 
-.filtro-img:hover {
-  transform: scale(1.1);
-}
-
-.filtro-img.selected {
+.grupos-filtro img.selected {
   border-color: #8B52FF;
+  transform: scale(1.05);
 }
 
-/* Contenedor de tarjetas de ejercicios */
-.ejercicios-cards-container {
-  margin-top: 20px;
-}
-
+/* Cards de ejercicios */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 15px;
-  margin-bottom: 10px;
 }
 
 .ejercicio-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background: #fafafa;
+  border-radius: 10px;
   padding: 10px;
   text-align: center;
-  cursor: pointer;
+  border: 1px solid #ddd;
   transition: all 0.3s ease;
-  background-color: #fafafa;
+  cursor: pointer;
+}
+
+.ejercicio-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 5px;
 }
 
 .ejercicio-card.selected {
   border: 2px solid #8B52FF;
+  box-shadow: 0 0 8px rgba(139, 82, 255, 0.3);
 }
 
-.ejercicio-img {
-  width: 100%;
-  height: 100px;
-  object-fit: contain;
-  border-radius: 4px;
-  margin-bottom: 5px;
-  background-color: #f8f8f8;
-}
-
-/* Botón agregar ejercicios seleccionado - centrado y amarillo */
-.agregar-ejercicios-btn {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.agregar-ejercicios-btn button {
-  background-color: #FAEB92;
-  color: black;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.agregar-ejercicios-btn button:hover {
-  background-color: #e0d682;
-}
-
-.agregar-ejercicios-btn button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Form-row y grupos */
-.form-row {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  margin-top: 10px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.form-group input {
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Regla genérica para otros botones */
-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff; /* azul solo para botones genéricos */
-  color: black;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
+/* Ejercicios agregados */
 .ejercicio-item-container {
   display: flex;
-  align-items: flex-start;
-  gap: 15px; /* un poquito más de espacio */
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  align-items: center;
+  gap: 15px;
   padding: 10px;
   border-radius: 8px;
-  background-color: #fafafa;
+  border: 1px solid #ddd;
+  background: #fefefe;
+  margin-bottom: 10px;
 }
 
-.ejercicio-item-img {
-  width: 80px;   /* más grande */
-  height: 80px;
-  object-fit: cover;
+.ejercicio-item-container img {
+  width: 70px;
+  height: 70px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  object-fit: cover;
 }
 
-.ejercicio-item-content {
-  flex: 1; /* ocupa todo el espacio restante */
-}
-
-.ejercicio-item-content h4 {
-  margin: 0 0 8px 0;
-  font-size: 1rem;
-}
-
-/* Form-row */
 .form-row {
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
-  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  margin-top: 8px;
+    align-items: end;
+
+}
+
+.btn-delete {
+  font-family: var(--font-titulo);
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0rem  2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 3rem;
+  height: 3rem;
+  /* max-height: 2rem; */
+}
+
+.btn-delete:hover {
+  background: #e33d3f;
+}
+
+/* Botón principal */
+.btn-principal {
+   margin-top: 2rem;
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+  padding: 0.6rem 5rem;
+  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 10px;
+  background-color: #e0d682;
+  color: black;
+  transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
+}
+
+.btn-principal:hover {
+  scale: 1.1;
+}
+
+.form-container {
+  /* border: 2px solid #ccc; borde gris suave */
+  border-radius: 16px;
+  padding: 20px;
+  background-color: var(--color-fondo-tarjetas); /* fondo blanco */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: aparecerFormulario 0.8s ease forwards;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.agregar-ejercicios-btn{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-agregar-ejercicios {
+
+  margin-top: 2rem;
+  padding: 0.8rem 3rem;
+  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 10px;
+  background-color: #ccc;
+  color: black;
+  cursor: not-allowed;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Solo hover si NO está deshabilitado */
+.btn-agregar-ejercicios:not([disabled]):hover {
+  transform: scale(1.1);
+}
+/* .agregar-ejercicios-btn:hover {
+  transform: scale(1.1);
+  background-color: #222;
+} */
+/* Cuando está habilitado */
+
+
+/* Cuando es manual */
+.btn-agregar-ejercicios:not([disabled]) {
+  background-color: #FAEB92;
+  color: black;
+  cursor: pointer;
+}
+
+
+@media (max-width: 1400px) {
+
+
+
+  .btn-principal {
+    padding: 0.7rem 2rem;
+    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
+  }
+
+  .btn-agregar-ejercicios {
+    padding: 0.7rem 2rem;
+    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .crear-rutina-container {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  label{
+    font-size: 0.7rem;
+  }
+  .grupos-filtro img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ejercicio-item-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

@@ -7,6 +7,8 @@ import { RutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
 import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visitante-home-navbar';
+import { Location } from '@angular/common';
+import gsap from 'gsap';
 
 
 @Component({
@@ -19,11 +21,15 @@ import { VisitanteHomeNavbar } from '../../../public/visitante-home-navbar/visit
     VisitanteHomeNavbar , CommonModule],
   templateUrl: './mis-rutinas.html',
   standalone: true,
-  styleUrl: './mis-rutinas.css'
+  styleUrls: ['./mis-rutinas.css', '../../css-socio/socio-common.css'],
 })
 
 export class MisRutinasComponent implements OnInit{
-  constructor(private authService: AuthService, private rutinaService : RutinaService) { }
+  constructor(
+    private authService: AuthService, 
+    private rutinaService : RutinaService, 
+    private location: Location
+  ) { }
   
   userId?: number;
   rutinas: RutinaDTO[] = [];
@@ -45,14 +51,47 @@ export class MisRutinasComponent implements OnInit{
       }
     }
 
+    ngAfterViewInit(): void {
+      const tl = gsap.timeline();
+      tl.fromTo(
+        ".titulo",
+        { opacity: 0, y: -40 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
+      );
+      tl.fromTo(
+        ".btn-principal",
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+        "-=0.3"
+      );
+    }
 
   cargarRutinas(): void {
     if (!this.userId) return;
     console.log('✅ ID del usuario:', this.userId);
     this.rutinaService.listarRutinasPorUsuario(this.userId).subscribe({
+
       next: (data) => {
         this.rutinas = data;
         console.log('✅ Rutinas del usuario:', data);
+
+          setTimeout(() => {
+            // 🔹 Aseguramos que todas las rutinas arranquen transparentes
+        gsap.set(".rutina-item", { opacity: 0, y: 30 });
+
+        // 🔹 Animamos con fromTo
+        gsap.fromTo(
+          ".rutina-item",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.15,
+            ease: "power2.out"
+          }
+        );
+        }, 150);
       },
       error: (error) => {
         console.error('❌ Error al obtener rutinas:', error);
@@ -97,5 +136,10 @@ crearRutina(): void {
     })
     .catch(err => console.error(err));
 }
+
+  volverAtras(): void {
+    this.location.back();
+  }
+
 
 }
