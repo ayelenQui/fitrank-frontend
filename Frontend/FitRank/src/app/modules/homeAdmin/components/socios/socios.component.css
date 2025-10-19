@@ -1,0 +1,27 @@
+.socios-page {
+  background-color: #f7f6f8;
+  min-height: 100vh;
+}
+
+.btn-primary {
+  background-color: #5911d4;
+  border: none;
+}
+
+  .btn-primary:hover {
+    background-color: #4a0eb3;
+  }
+
+.table thead th {
+  color: #666;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.75em;
+}
+
+.table-responsive {
+  border-radius: 1rem;
+}

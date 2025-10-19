@@ -1,0 +1,22 @@
+.resumen-bg {
+
+  min-height: 100vh;
+}
+
+.resumen-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  background: #8B52FF
+}
+
+  .resumen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(89, 17, 212, 0.5);
+  }
+
+.table-dark th,
+.table-dark td {
+  vertical-align: middle;
+}

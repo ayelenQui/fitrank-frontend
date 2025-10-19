@@ -1,0 +1,54 @@
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark">Socios</h2>
+    <button class="btn btn-violet d-flex align-items-center gap-2">
+      <i class="bi bi-person-plus-fill"></i> Nuevo socio
+    </button>
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <input type="text"
+           class="form-control"
+           placeholder="Buscar socio..."
+           [(ngModel)]="searchTerm"
+           (ngModelChange)="onSearchChange()" />
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Membresía</th>
+          <th>Estado</th>
+          <th>Puntos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let socio of socios$ | async">
+          <td><img [src]="socio.avatar" class="rounded-circle" width="40" /></td>
+          <td>{{ socio.nombre }}</td>
+          <td><span class="badge bg-violet">{{ socio.membresia }}</span></td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{
+                'bg-success': socio.estado === 'Activo',
+                'bg-secondary': socio.estado === 'Inactivo'
+              }">
+              {{ socio.estado }}
+            </span>
+          </td>
+          <td>{{ socio.puntos }}</td>
+          <td>
+            <button class="btn btn-outline-violet btn-sm" (click)="verDetalle(socio.id)">
+              Ver perfil
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

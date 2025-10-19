@@ -15,8 +15,107 @@
 
 html,
 body {
-    font-family: sans-serif;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+  .preloader
+
+{
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.5s ease;
+  overflow: hidden;
+}
+
+.preloader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- LOGO --- */
+.logo-3d {
+  width: 600px;
+  height: auto;
+  transform-style: preserve-3d;
+ 
+
+  margin-bottom: 10px; /* 💥 separa el texto del logo */
+}
+
+@keyframes rotateLogo {
+  0% {
+    transform: rotateY(0deg) rotateX(0deg) scale(1);
+  }
+
+  100% {
+    transform: rotateY(0deg) rotateX(10deg) scale(1);
+  }
+}
+
+
+
+/* --- CONTADOR --- */
+#counter {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #8B52FF;
+  
+  margin-bottom: 20px; /* 🔽 separa del texto principal */
+}
+
+/* --- FRASE --- */
+#phrase {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fff;
+  border-right: 3px solid #8B52FF;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 3px;
+  
+  margin-top: 30px; /* 🟣 espacio entre contador y frase */
+}
+
+/* --- CURSOR --- */
+.cursor {
+  border-color: transparent;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .logo-3d {
+    width: 350px;
+    margin-bottom: 50px;
+  }
+
+  #counter {
+    font-size: 1.8rem;
+  }
+
+  #phrase {
+    font-size: 1.4rem;
+  }
+
+
+  .dark-theme {
+    background-color: #0e0a1f !important;
+    color: #ffffff !important;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+    .dark-theme .card,
+    .dark-theme .table,
+    .dark-theme .bg-light {
+      background-color: #1a1033 !important;
+      color: #fff !important;
+    }
 }

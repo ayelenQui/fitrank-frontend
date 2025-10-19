@@ -1,146 +1,19 @@
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <title>Fitrank</title>
-  <!-- Enlace a Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Enlace a la fuente Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Opcional: Si quieres un tema oscuro, puedes agregar un script o CSS personalizado, pero por ahora usamos clases de Bootstrap -->
-</head>
-
-<body class="bg-light dark:bg-dark font-display text-body">
-  <div class="d-flex min-vh-100">
-    <!-- Sidebar -->
-    <aside class="bg-light dark:bg-dark border-end p-4" style="width: 260px;">
-      <!-- Ancho fijo para el sidebar -->
-      <div class="d-flex align-items-center gap-2 mb-5">
-        <div>
-          <!-- Usando bg-primary de Bootstrap, asumiendo que primary es tu color -->
-          <svg width="30" height="30" viewBox="0 0 365 338" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M289.769 150.778C230.894 210.42 172.502 269.621 114.093 328.805C102.911 340.135 98.9323 340.099 87.7148 328.704C61.3571 301.928 34.987 275.166 8.67214 248.347C-1.78232 237.693 -1.68568 233.539 8.73868 223.027C14.8096 216.905 20.7476 210.647 26.8325 204.539C35.6796 195.66 41.0967 195.704 50.0343 204.863C64.6582 219.848 79.3688 234.755 93.6608 250.061C98.3276 255.059 101.372 255.3 106.257 250.315C166.799 188.533 227.512 126.924 288.179 65.2675C297.247 56.0521 306.172 46.6881 315.402 37.643C323.004 30.194 328.237 30.2477 336.005 37.6966C343.114 44.5134 349.914 51.6602 356.886 58.6246C366.435 68.1618 366.539 73.2185 357.181 82.6874C334.883 105.25 312.559 127.785 289.769 150.778Z"
-                  fill="black" />
-            <path d="M254.686 2.91606C270.394 -4.4482 283.422 3.78702 296.197 9.45135C302.489 12.2412 298.96 18.2749 294.852 22.4368C272.991 44.588 251.245 66.8564 229.368 88.9928C189.949 128.881 150.508 168.747 110.98 208.524C101.333 218.232 99.534 218.095 90.05 208.583C82.4342 200.945 74.9027 193.22 67.3574 185.51C59.5159 177.497 59.3864 176.268 67.2755 168.244C99.8951 135.063 132.571 101.938 165.351 68.921C167.669 66.5858 171.621 63.2968 172.933 61.0821C174.355 58.6798 166.064 57.2437 163.006 56.2784C148.992 51.8542 134.897 47.6906 120.894 43.2293C117.121 42.027 112.669 40.4207 113.92 35.1157C114.979 30.6229 119.146 30.195 122.92 30.7336C169.889 37.4376 213.597 28.2902 254.686 2.91606Z"
-                  fill="#8B52FF" />
-          </svg>
-
-        </div>
-        <h1 class="h5 font-bold text-dark dark:text-light">Fitrank</h1> <!-- Usando h5 para un tamaño similar -->
-      </div>
-      <nav class="sidebar-nav d-flex flex-column gap-2 flex-grow-1">
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">dashboard</span>
-          <span>Inicio</span>
-        </a>
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">groups</span>
-          <span>Socios</span>
-        </a>
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">sports_gymnastics</span>
-          <span>Profesores</span>
-        </a>
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">calendar_month</span>
-          <span>Clases</span>
-        </a>
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">payments</span>
-          <span>Finanzas</span>
-        </a>
-        <a class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded" href="#">
-          <span class="material-symbols-outlined">settings</span>
-          <span>Personalizacion</span>
-        </a>
-      </nav>
-
-      <button class="btn btn-outline-danger mt-auto w-100"(click)="logout()">
-        <span class="material-symbols-outlined">logout</span>
-        Cerrar sesión
-      </button>
-
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-grow-1 p-4">
-      <div class="container-xl">
-        <header class="mb-5">
-          <h2 class="h4 font-bold">Panel de control</h2> <!-- Usando h4 para un tamaño similar -->
-        </header>
-
-        <section class="mb-5">
-          <h3 class="h6 font-semibold mb-3">Accesos directos</h3>
-          <div class="d-flex gap-3">
-            <div class="admin-home">
-              <p>Activar Socio </p>
-
-              <button class="boton"(click)="irAGenerarInvitacion()">
-                ➕ Generar Invitación
-              </button>
-
-            </div>
-
-          </div>
-        </section>
-
-        <section class="mb-5">
-          <h3 class="h6 font-semibold mb-3">Resumen</h3>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="card p-4 border">
-                <p class="card-text mb-2 text-muted">Socios activos</p>
-                <p class="h3 font-bold">125</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card p-4 border">
-                <p class="card-text mb-2 text-muted">Profesores</p>
-                <p class="h3 font-bold">15</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card p-4 border">
-                <p class="card-text mb-2 text-muted">Clases programadas</p>
-                <p class="h3 font-bold">30</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div class="row g-4">
-          <section class="col-lg-4">
-            <h3 class="h6 font-semibold mb-3">Notificaciones</h3>
-            <div class="list-group">
-              <div class="list-group-item d-flex gap-3 p-3 rounded border">
-                <div class="bg-opacity-20 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px;">
-                  <span class="material-symbols-outlined">notifications</span>
-                </div>
-                <div>
-                  <p class="font-semibold">Clase de yoga</p>
-                  <p class="text-muted small">Nueva clase de yoga programada para el 15 de julio</p>
-                </div>
-              </div>
-              <div class="list-group-item d-flex gap-3 p-3 rounded border">
-                <div class="bg-opacity-20 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px;">
-                  <span class="material-symbols-outlined">person_add</span>
-                </div>
-                <div>
-                  <p class="font-semibold">Nuevo socio</p>
-                  <p class="text-muted small">Carlos Pérez se ha unido al gimnasio</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          
-        </div>
-      </div>
-    </main>
+<div class="dashboard-wrapper">
+  <div class="sidebar-fixed">
+    <app-sidebar></app-sidebar>
   </div>
 
-  <!-- Scripts de Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <h2 class="dashboard-title">Bienvenido, Admin</h2>
+      <div class="dashboard-user">
+        <img src="assets/avatar-admin.png" alt="Admin" class="avatar">
+        <span>Administrador</span>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

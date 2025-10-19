@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-homeAdmin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SidebarComponent, RouterOutlet],
   templateUrl: './homeAdmin.component.html',
 })
 export class HomeAdminComponent {
