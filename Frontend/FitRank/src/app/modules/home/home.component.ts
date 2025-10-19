@@ -1,23 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HomeTarjetaperfil } from './components/home-tarjetaperfil/home-tarjetaperfil';
 import { HomeAccionrapidaseccion } from './components/home-accionrapidaseccion/home-accionrapidaseccion';
-import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import { AuthService } from '../../api/services/activacion/AuthService.service';
+
+import { Avatar3DComponent } from '../../modules/avatar/avatar.component';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [HomeTarjetaperfil, HomeAccionrapidaseccion],
+    imports: [HomeTarjetaperfil, HomeAccionrapidaseccion, Avatar3DComponent],
     templateUrl: './home.html',
     styleUrls: ['./home.css'],
-    standalone: true
+  standalone: true
 })
-export class Home implements OnInit {
+export class HomeComponent implements OnInit {
     user: any = null;
 
     constructor(
         private authService: AuthService,
         private router: Router
-    ) { }
+  ) { }
+  @ViewChild(Avatar3DComponent) avatar3D!: Avatar3DComponent;
+
+  actualizarAvatar() {
+    const medidas = { cintura: 90, altura: 165 }; // simuladas
+    this.avatar3D.actualizarMedidas(medidas.cintura, medidas.altura);
+  }
 
     ngOnInit() {
         this.user = this.authService.obtenerUser();

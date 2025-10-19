@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './modules/login/components/login.component';
-import { Home } from './modules/home/home';
+import { HomeComponent } from './modules/home/home.component';
 import { VisitanteHome } from '../app/modules/visitante-home/visitante-home';
 import { homeAdminRoutes } from '../app/homeAdmin.routes';
 import { RankingComponent } from './modules/ranking/components/ranking/ranking.component';
@@ -21,9 +21,9 @@ import { VerRutinaComponent } from './modules/rutinas/ver-rutina/ver-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent},
   { path: 'visitante-home', component: VisitanteHome },
-  { path: 'home', component: Home, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [] },
   { path: 'homeAdmin', children: homeAdminRoutes },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },
@@ -67,5 +67,5 @@ export const appRoutes: Route[] = [
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },
 
-  { path: '**', redirectTo: 'login' }
+ 
 ];

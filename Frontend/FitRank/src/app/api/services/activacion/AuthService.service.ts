@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';  // guarda token después de login
   providedIn: 'root'
 })
 export class AuthService {
+  public modoDev = true;
   private baseUrl = 'https://localhost:7226/api/auth';  
   constructor(private http: HttpClient) { }
 
