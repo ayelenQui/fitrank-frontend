@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './socio-detalle.component.html',
-  styleUrls: ['./socio-detalle.component.css']
+
 })
 export class SocioDetalleComponent implements OnInit {
   socio$!: Observable<Socio | undefined>;
