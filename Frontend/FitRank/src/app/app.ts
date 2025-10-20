@@ -4,8 +4,10 @@ import { HeaderComponent } from '../app/modules/header/components/header.compone
 import { FooterComponent } from '../app/modules/footer/components/footer.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/components/login.component';
-import { VisitanteHome } from './modules/visitante-home/visitante-home';
-import { AdminInvitacionComponent } from './modules/admin-invitacion/components/admin-invitacion.component';
+import { VisitanteHome } from './modules/visitante-home/visitante-home'; 
+import { AuthService } from './api/services/activacion/AuthService.service'; 
+import { AdminInvitacionComponent } from './modules/admin-invitacion/components/admin-invitacion.component'; 
+import { HeaderSocioComponent } from './public/header-socio/header-socio.component';
 import gsap from 'gsap';
 
 @Component({

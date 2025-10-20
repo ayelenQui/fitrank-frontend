@@ -1,37 +1,81 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import gsap from 'gsap';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-crear-rutina',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './crear-rutina.html',
-  styleUrl: './crear-rutina.css',
- 
+  styleUrls: ['./crear-rutina.css', '../../css-socio/socio-common.css'],
 })
-export class CrearRutinaComponent {
-   seleccion: string | null = null;
+export class CrearRutinaComponent implements AfterViewInit {
+  seleccion: string | null = null;
 
- constructor(private router: Router) {}
+  constructor(private router: Router, private location : Location) {}
 
- seleccionar(tipo: string) {
-   this.seleccion = tipo;
- }
+  ngAfterViewInit() {
+    gsap.fromTo(
+    '.titulo',
+    { y: -30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
+  );
 
- empezar() {
-   if (!this.seleccion) return;
+  gsap.fromTo(
+    '.subtitulo',
+    { y: -15, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
+  );
 
-   switch (this.seleccion) {
-     case 'manual':
-       this.router.navigate(['/rutina/crear-manual']);
-       break;
-     case 'automatica':
-       alert('Rutina automática aún no disponible.');
-       break;
-     case 'asistida':
-       alert('Rutina asistida próximamente.');
-       break;
-   }
- }
+  // Animación tarjetas
+  gsap.fromTo(
+    '.card',
+    { y: 20, opacity: 0, scale: 0.95 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, delay: 0.4, ease: 'power3.out' }
+  );
+
+  // Animación botón
+  gsap.fromTo(
+    '.btn-empezar',
+    { scale: 0.85, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.4, delay: 0.8, ease: 'power3.out' }
+  );
+
+  const boton = document.querySelector('.btn-empezar');
+    boton?.addEventListener('mouseenter', () => {
+    gsap.to(boton, { scale: 1.1, duration: 0.1, ease: 'power1.out' });
+  });
+  boton?.addEventListener('mouseleave', () => {
+    gsap.to(boton, { scale: 1, duration: 0.1, ease: 'power1.out' });
+  });
+
+  }
+  
+
+  seleccionar(tipo: string) {
+    this.seleccion = tipo;
+  }
+
+  empezar() {
+    if (!this.seleccion) return;
+
+    switch (this.seleccion) {
+      case 'manual':
+        this.router.navigate(['/rutina/crear-manual']);
+        break;
+      case 'automatica':
+        alert('Rutina automática aún no disponible.');
+        break;
+      case 'asistida':
+        alert('Rutina asistida próximamente.');
+        break;
+    }
+  }
+
+  volverAtras(): void {
+    this.location.back();
+  }
 }

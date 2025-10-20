@@ -1,0 +1,88 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #fff;
+  border-bottom: 2px solid var(--color-texto-secundario);
+  height: 80px;
+}
+.header__logo {
+  display: flex;
+  justify-content: flex-start;
+}
+/* LOGO */
+.header__imagologo {
+  width: 50px;   /* <-- ajustá el tamaño que prefieras */
+  height: auto;
+}
+
+.header__imagologo:hover {
+  cursor: pointer;
+}
+
+
+/* Perfil */
+.header__perfil {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__imagen {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.header__nombre {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--color-acento);
+  font-size: 1.2em;
+}
+
+/* Navegación */
+.header__nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.header__navboton {
+  background-color: var(--color-acento-secundario);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 15px;
+  font-family: 'Bebas Neue', sans-serif;
+  cursor: pointer;
+    transition: transform 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+.header__navboton:hover {
+  transform: scale(1.1);
+  color: black;
+  background-color: var(--color-acento);
+    transition-timing-function: cubic-bezier(0.25, 1.25, 0.5, 1);
+
+}
+
+/* Logout */
+.header__logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-acento-secundario);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  font-family: var(--font-titulo);
+}
+
+.header__logout:hover {
+  transform: scale(1.1);
+}

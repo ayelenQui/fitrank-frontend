@@ -18,6 +18,7 @@ import { IniciarRutina } from './modules/rutinas/iniciar-rutina/iniciar-rutina/i
 import { TerminarRutinaComponent } from './modules/rutinas/terminar-rutina/terminar-rutina';
 import { Ranking } from './modules/rutinas/ranking/ranking';
 import { VerRutinaComponent } from './modules/rutinas/ver-rutina/ver-rutina';
+import { HomeSocioComponent } from './modules/home/components/home-socio/home-socio.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -38,6 +39,7 @@ export const appRoutes: Route[] = [
   {path: 'rutina/iniciar/:id', component: IniciarRutina},
   {path: 'rutina/terminar-rutina', component: TerminarRutinaComponent},
   {path: 'rutina/ranking', component: Ranking},
+  {path: 'home/home-socio', component: HomeSocioComponent},
 
 
   

@@ -1,0 +1,162 @@
+:root {
+  --color-acento: #8b52ff;
+  --color-acento-secundario: #a372ff;
+  --color-fondo: #f8f8ff;
+  --color-texto: #333;
+}
+
+/* General */
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--color-fondo);
+  min-height: 100vh;
+  gap: 30px;
+}
+
+/* Perfil */
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  border-radius: 15px;
+  padding: 15px 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.perfil__imagen {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.perfil__saludo {
+  font-size: 2em;
+  color: var(--color-acento-secundario);
+  margin: 0;
+}
+
+.perfil__rol {
+  font-size: 0.9em;
+  color: gray;
+  margin: 0;
+}
+
+/* Acciones rápidas */
+.acciones {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.acciones__titulo {
+  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-texto);
+  margin-bottom: 20px;
+}
+
+.acciones__contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* siempre 4 columnas */
+  gap: 20px;
+  justify-items: center;
+  padding: 10px;
+}
+
+
+/* Tarjetas */
+.tarjeta {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background: #EAEAEA;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 100%; /* ocupa todo el ancho de la columna */
+  max-width: 280px; /* opcional, limita tamaño de tarjeta */
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.texto-tarjeta {
+  text-align: center;
+  font-weight: 500;
+}
+
+.titulo-tarjeta{
+  font-size: clamp(1rem, .5vw + 1rem, 3rem);
+  color: var(--color-acento-secundario);
+  margin: 0;
+}
+.tarjeta:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  border-color: var(--color-acento-secundario);
+}
+.tarjeta img {
+  width: 50px;
+  height: 50px;
+  filter: invert(39%) sepia(83%) saturate(749%) hue-rotate(234deg)
+    brightness(95%) contrast(90%);
+}
+
+
+.tarjeta p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9em;
+}
+
+/* Botón */
+.boton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-acento-secundario);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* transición suave para el scale */
+}
+
+.boton:hover {
+  /* background-color: var(--color-acento-secundario); */
+  /* que se agrande un 10% con transicion*/
+  transform: scale(1.1);
+
+}
+
+.material-symbols-outlined {
+  font-size: 20px;
+}
+
+h2, h3, h4, .boton {
+  font-family: var(--font-titulo);
+}
+
+p, .perfil__rol, .tarjeta p {
+  font-family: var(--font-secundaria);
+}
+
+/* Responsive para tablets */
+@media (max-width: 1024px) {
+  .acciones__contenedor {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
+}
+
+
+@media (max-width: 600px) {
+  .acciones__contenedor {
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+}

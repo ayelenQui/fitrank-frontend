@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
@@ -6,6 +7,8 @@ import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.i
 import { CrearRutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
+import gsap from 'gsap';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 
 // extendemos el DTO para agregar imagen
@@ -23,7 +26,7 @@ interface GrupoMuscular {
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   standalone: true,
   templateUrl: './crear-rutina-manual.html',
-  styleUrls: ['./crear-rutina-manual.css']
+  styleUrls: ['./crear-rutina-manual.css', '../../css-socio/socio-common.css']
 })
 export class CrearRutinaManualComponent {
   rutinaForm!: FormGroup;
@@ -59,12 +62,15 @@ export class CrearRutinaManualComponent {
     private fb: FormBuilder,
     private rutinaService: RutinaService,
     private ejercicioService: EjercicioService,
-    private router: Router
+    private router: Router,
+    private location: Location,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.rutinaForm = this.fb.group({
       usuarioId: [1, Validators.required], //TODO cambiar a 1 el 7
+      // user: [this.authService.obtenerUser().Id, Validators.required],
       nombre: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
@@ -74,6 +80,50 @@ export class CrearRutinaManualComponent {
 
     this.cargarEjercicios();
   }
+
+  volverAtras(): void {
+    this.location.back();
+  }
+
+  ngAfterViewInit(): void {
+  // Esperamos un tick para que Angular renderice completamente el formulario
+  setTimeout(() => {
+    const tl = gsap.timeline();
+
+    // ✅ Contenedor general entra suave desde abajo
+    tl.from(".form-container", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      ease: "power2.out"
+    });
+
+    // ✅ El título aparece desde arriba (y hacia su lugar)
+    tl.from(".titulo-form", {
+      opacity: 0,
+      y: -30,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.4");
+
+    // ✅ Campos del formulario uno por uno
+    tl.from(".campo-form", {
+      opacity: 0,
+      y: 20,
+      duration: 0.5,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // ✅ Botón final con rebote, aparece claramente
+    // tl.from(".boton-enviar", {
+    //   opacity: 0,
+    //   scale: 0.7,
+    //   duration: 0.6,
+    //   ease: "back.out(1.7)"
+    // }, "-=0.2");
+  });
+}
 
   cargarEjercicios(): void {
     this.ejercicioService.getAll().subscribe({
