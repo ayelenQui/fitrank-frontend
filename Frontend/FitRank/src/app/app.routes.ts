@@ -24,7 +24,7 @@ export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'visitante-home', component: VisitanteHome },
-  { path: 'home', component: Home, canActivate: [AuthGuard] },
+  { path: 'home/home-socio', component: Home, canActivate: [AuthGuard] },
   { path: 'homeAdmin', children: homeAdminRoutes },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'EjercicioRealizado', component: RegistrarEntrenamientoComponent, canActivate: [AuthGuard] },

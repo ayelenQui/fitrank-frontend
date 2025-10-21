@@ -1,42 +1,56 @@
-import { CrearEjercicioDTO, EjercicioDTO } from "../../ejercicio/interfaces/ejercicio.interface";
+// src/app/api/interfaces/rutina.interfaces.ts
 
-export interface CrearRutinaDTO {
-usuarioId: number;
-  nombre: string;
-  fechaInicio: Date;
-  fechaFin: Date;
-  diasPorSemana: number;
-  ejercicios: CrearEjercicioDTO[];
-}
-
-export interface EditarRutinaDTO {
+export interface DificultadDTO {
   id: number;
-  nombre: string;
-  fechaInicio: string;
-  fechaFin: string;
-  diasPorSemana: number;
-  ejercicios: CrearEjercicioDTO[]; // se pueden editar o reemplazar
+  descripcion: string;
 }
 
 export interface RutinaDTO {
   id: number;
-  idUsuario: number;
   nombre: string;
-  fechaInicio: string;
-  fechaFin: string;
-  diasPorSemana: number;
-  bloques: BloqueDTO[];
-  ejercicios: EjercicioDTO[];
+  frecuencia: number;
+  dificultadId: number;
+  dificultad?: DificultadDTO | null;
 }
 
-export interface BloqueDTO {
+export interface RutinaCreateDTO {
+  nombre: string;
+  frecuencia: number;
+  dificultadId: number;
+}
+
+export interface EjercicioDTO {
+  id: number;
+  nombre: string;
+  urlVideo: string;
+  grupoMuscularId: number;
+}
+
+export interface RutinaEjercicioDTO {
   id: number;
   rutinaId: number;
+  rutina?: RutinaDTO | null;
   ejercicioId: number;
-  dia: number; // DayOfWeek → número 0-6
-  seriesRecomendadas: number;
-  repeticionesRecomendadas: number;
-  pesoRecomendado: number;
-  rirRecomendado: number;
-  notas?: string;
+  ejercicio?: EjercicioDTO | null;
+  numeroDeSesion: number;
+  orden: number;
+}
+
+export interface EjercicioAsignadoDTO {
+  id?: number;
+  orden: number;
+  observaciones?: string;
+  sesion: number;
+  rutinaId: number;
+  ejercicioId: number;
+  socioId: number;
+}
+
+export interface SerieAsignadaDTO {
+  id?: number;
+  peso: number;
+  repeticiones: number;
+  rir: number; // Repeticiones en reserva
+  nroSerie: number;
+  ejercicioAsignadoId: number;
 }

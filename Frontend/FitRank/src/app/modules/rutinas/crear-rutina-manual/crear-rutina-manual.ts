@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
-import { CrearRutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
+import { RutinaCreateDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
 import gsap from 'gsap';

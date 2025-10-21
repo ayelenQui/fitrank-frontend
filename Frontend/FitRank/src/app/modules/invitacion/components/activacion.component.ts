@@ -73,7 +73,7 @@ export class ActivacionComponent implements OnInit {
         this.loading = false;
         this.error = 'Error al validar token. Intenta de nuevo.';
         console.error(err);
-        this.router.navigate(['/login']);
+        // ⚠️ NO redirigimos inmediatamente. Dejamos que Angular muestre el mensaje.
       }
     });
   }

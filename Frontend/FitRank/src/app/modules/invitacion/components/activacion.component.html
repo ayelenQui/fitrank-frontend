@@ -1,48 +1,56 @@
-<!-- src/app/activacion/activacion.component.html -->
 <div class="container mt-5" style="max-width: 500px; margin: auto;">
-  <h2 *ngIf="!error">Activar Cuenta - FitRank Gym</h2>
+  <h2>Activar Cuenta - FitRank Gym</h2>
+
+  <!-- Estado de error -->
   <div *ngIf="error" class="alert alert-danger">
     {{ error }}
-    <a routerLink="/login">Ir al login</a>
+    <a routerLink="/login" class="btn btn-link">Ir al login</a>
   </div>
 
-  <div *ngIf="tokenValido && !error">
-    <p class="text-info">{{ mensaje }}</p>
-    <form [formGroup]="form" (ngSubmit)="activarCuenta()">
-      <div class="mb-3">
-        <label for="nuevaPassword" class="form-label">Nueva Contraseña (mín. 8 caracteres)</label>
-        <input type="password" class="form-control" id="nuevaPassword" formControlName="nuevaPassword"
-               [class.is-invalid]="form.get('nuevaPassword')?.invalid && form.get('nuevaPassword')?.touched">
-        <div *ngIf="form.get('nuevaPassword')?.invalid && form.get('nuevaPassword')?.touched" class="invalid-feedback">
-          La contraseña debe tener al menos 8 caracteres.
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="confirmarPassword" class="form-label">Confirmar Nueva Contraseña</label>
-        <input type="password" class="form-control" id="confirmarPassword" formControlName="confirmarPassword"
-               [class.is-invalid]="(form.get('confirmarPassword')?.invalid || passwordMismatch) && form.get('confirmarPassword')?.touched">
-        <div *ngIf="form.get('confirmarPassword')?.invalid && form.get('confirmarPassword')?.touched" class="invalid-feedback">
-          Confirma la contraseña correctamente.
-        </div>
-        <div *ngIf="passwordMismatch" class="invalid-feedback d-block">
-          Las contraseñas no coinciden.
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary" [disabled]="loading || form.invalid">
-        {{ loading ? 'Activando...' : 'Cambiar Contraseña e Iniciar Sesión' }}
-      </button>
-    </form>
-
-    <div *ngIf="mensaje" class="alert alert-success mt-3">
-      {{ mensaje }}
-    </div>
-  </div>
-
-  <div *ngIf="loading" class="text-center">
+  <!-- Loader siempre visible si está cargando -->
+  <div *ngIf="loading" class="text-center mt-4">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Cargando...</span>
     </div>
   </div>
+
+  <!-- Formulario visible solo si el token fue validado -->
+  <form *ngIf="!loading && tokenValido && !error"
+        [formGroup]="form"
+        (ngSubmit)="activarCuenta()"
+        autocomplete="off">
+
+    <p class="text-info">{{ mensaje }}</p>
+
+    <div class="mb-3">
+      <label for="nuevaPassword" class="form-label">Nueva Contraseña (mín. 8 caracteres)</label>
+      <input type="password"
+             id="nuevaPassword"
+             class="form-control"
+             formControlName="nuevaPassword"
+             [class.is-invalid]="form.get('nuevaPassword')?.invalid && form.get('nuevaPassword')?.touched">
+      <div *ngIf="form.get('nuevaPassword')?.invalid && form.get('nuevaPassword')?.touched"
+           class="invalid-feedback">
+        La contraseña debe tener al menos 8 caracteres.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="confirmarPassword" class="form-label">Confirmar Nueva Contraseña</label>
+      <input type="password"
+             id="confirmarPassword"
+             class="form-control"
+             formControlName="confirmarPassword"
+             [class.is-invalid]="(form.get('confirmarPassword')?.invalid || passwordMismatch) && form.get('confirmarPassword')?.touched">
+      <div *ngIf="passwordMismatch" class="invalid-feedback d-block">
+        Las contraseñas no coinciden.
+      </div>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="loading || form.invalid">
+      {{ loading ? 'Activando...' : 'Cambiar Contraseña e Iniciar Sesión' }}
+    </button>
+  </form>
 </div>

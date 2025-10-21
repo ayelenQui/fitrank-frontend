@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
             if (rol === 'Admin') {
               this.router.navigate(['/homeAdmin']);
             } else {
-              this.router.navigate(['/home']);
+              this.router.navigate(['/home/home-socio']);
             }
           }, 1000);
         }
