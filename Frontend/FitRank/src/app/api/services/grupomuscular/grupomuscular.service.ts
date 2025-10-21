@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GrupoMuscularDTO } from '../../services/grupomuscular/interfaces/grupomuscular.interface';
+import { GrupoMuscularDTO } from '../../services/grupoMuscular/interfaces/grupomuscular.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GrupoMuscularService {
