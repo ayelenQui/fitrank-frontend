@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Ejercicio, EjercicioRealizadoDTOEntrada, EjercicioRealizadoDTOSalida } from '../../services/registroentrenamiento/interfaces/registroentrenamiento.interface'; 
+import { Ejercicio, EjercicioRealizadoDTOEntrada, EjercicioRealizadoDTOSalida } from './interfaces/registroentrenamiento.interface'; 
 import { environment } from '../../../../environments/environment';
 
 @Injectable({

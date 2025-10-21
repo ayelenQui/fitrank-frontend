@@ -1,0 +1,66 @@
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
+
+<div class="crear-rutina-container">
+  <h2 class="titulo titulo-form">Agregar Ejercicios a Sesiones</h2>
+
+  <form [formGroup]="ejerciciosForm" (ngSubmit)="onSubmit()" class="form-container">
+
+  <!-- Agregamos este contenedor -->
+  <div formArrayName="sesiones">
+    <div
+      *ngFor="let sesion of sesiones.controls; let sIndex = index"
+      [formGroupName]="sIndex"
+      class="section sesion-form"
+    >
+      <h3>Sesión {{ sIndex + 1 }}</h3>
+
+      <!-- Filtro de grupos musculares -->
+      <div class="section filtro-grupo-muscular">
+        <h4>Filtrar por grupo muscular</h4>
+        <div class="grupos-filtro">
+          <button
+            type="button"
+            *ngFor="let g of gruposMuscularesDisponibles"
+            [class.selected]="grupoSeleccionado[sIndex] === g.id"
+            (click)="filtrarPorGrupo(g.id!, sIndex)"
+          >
+            {{ g.nombre }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Ejercicios seleccionados -->
+      <div class="section ejercicios-seleccionados" formArrayName="ejerciciosAsignados">
+        <h4>Ejercicios de la sesión</h4>
+
+        <div
+          *ngFor="let ejercicio of getEjercicios(sIndex).controls; let i = index"
+          [formGroupName]="i"
+          class="ejercicio-item"
+        >
+          <div class="ejercicio-item-container">
+            <h5>{{ ejercicio.value.nombre }}</h5>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Orden</label>
+                <input type="number" formControlName="orden" />
+              </div>
+              <div class="form-group">
+                <label>Observaciones</label>
+                <input type="text" formControlName="observaciones" />
+              </div>
+              <button type="button" (click)="eliminarEjercicio(sIndex, i)" class="btn-delete">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-principal boton-enviar">Guardar Ejercicios</button>
+</form>
+</div>

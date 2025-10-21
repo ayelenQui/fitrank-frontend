@@ -19,6 +19,7 @@ import { TerminarRutinaComponent } from './modules/rutinas/terminar-rutina/termi
 import { Ranking } from './modules/rutinas/ranking/ranking';
 import { VerRutinaComponent } from './modules/rutinas/ver-rutina/ver-rutina';
 import { HomeSocioComponent } from './modules/home/components/home-socio/home-socio.component';
+import { CrearSesionesRutina } from './modules/rutinas/crear-sesiones-rutina/crear-sesiones-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -50,6 +51,7 @@ export const appRoutes: Route[] = [
   { path: 'rutina/mis-rutinas', component: MisRutinasComponent, canActivate: [AuthGuard] },
   { path: 'rutina/editar-rutina/:id', component: EditarRutinaComponent, canActivate: [AuthGuard] },
   { path: 'rutina/iniciar/:id', component: IniciarRutina, canActivate: [AuthGuard] },
+  { path: 'rutina/crear-sesiones-rutina/:id', component: CrearSesionesRutina, canActivate: [AuthGuard] },
 
 
   //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)

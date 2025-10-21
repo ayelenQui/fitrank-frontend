@@ -1,42 +1,25 @@
-import { CrearEjercicioDTO, EjercicioDTO } from "../../ejercicio/interfaces/ejercicio.interface";
 
-export interface CrearRutinaDTO {
-usuarioId: number;
-  nombre: string;
-  fechaInicio: Date;
-  fechaFin: Date;
-  diasPorSemana: number;
-  ejercicios: CrearEjercicioDTO[];
+export interface AgregarRutinaDTO {
+  nombre?: string | null;
+  /** @format int32 */
+  frecuencia?: number | null;
+  /** @format int64 */
+  dificultadId?: number;
 }
 
 export interface EditarRutinaDTO {
-  id: number;
-  nombre: string;
-  fechaInicio: string;
-  fechaFin: string;
-  diasPorSemana: number;
-  ejercicios: CrearEjercicioDTO[]; // se pueden editar o reemplazar
+  /** @format int64 */
+  id?: number;
+  nombre?: string | null;
+  /** @format int32 */
+  frecuencia?: number | null;
+  /** @format int64 */
+  dificultadId?: number;
 }
 
 export interface RutinaDTO {
   id: number;
-  idUsuario: number;
   nombre: string;
-  fechaInicio: string;
-  fechaFin: string;
-  diasPorSemana: number;
-  bloques: BloqueDTO[];
-  ejercicios: EjercicioDTO[];
-}
-
-export interface BloqueDTO {
-  id: number;
-  rutinaId: number;
-  ejercicioId: number;
-  dia: number; // DayOfWeek → número 0-6
-  seriesRecomendadas: number;
-  repeticionesRecomendadas: number;
-  pesoRecomendado: number;
-  rirRecomendado: number;
-  notas?: string;
+  dificultadId?: number;
+  frecuencia?: number;
 }

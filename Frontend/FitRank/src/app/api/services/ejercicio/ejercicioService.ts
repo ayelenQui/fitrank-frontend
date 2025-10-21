@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { CrearEjercicioDTO, EjercicioDTO } from "./interfaces/ejercicio.interface";
+import { AgregarEjercicioDTO, EjercicioDTO } from "./interfaces/ejercicio.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class EjercicioService{
     return this.http.get<EjercicioDTO>(`${this.apiUrl}/${id}`);
   }
 
-  create(ejercicio: CrearEjercicioDTO): Observable<EjercicioDTO> {
+  create(ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
     return this.http.post<EjercicioDTO>(this.apiUrl, ejercicio);
   }
 

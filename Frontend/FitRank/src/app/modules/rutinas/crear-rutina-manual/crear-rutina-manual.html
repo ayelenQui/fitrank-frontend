@@ -5,106 +5,56 @@
 <div class="crear-rutina-container">
   <h2 class="titulo titulo-form">Crear Rutina Manual</h2>
 
-  <form [formGroup]="rutinaForm" (ngSubmit)="onSubmit()" class="form-container">
+<form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="form-container">
 
     <!-- Sección datos de la rutina -->
     <div class="section datos-rutina">
       <h3>Datos de la rutina</h3>
       <div class="form-grid">
         <div class="form-group campo-form">
-          <label>Nombre</label>
-          <input formControlName="nombre" type="text" placeholder="Ej: Full Body Principiante" />
+          <label for="nombre">Nombre</label>
+          <input id="nombre" formControlName="nombre" type="text" placeholder="Ej: Full Body Principiante" />
+        </div>
+
+    <!-- Select de dificultad -->
+        <div class="form-group campo-form">
+          <label for="dificultad">Dificultad</label>
+          <select id="dificultad" formControlName="dificultadId">
+            <option value="" disabled selected>Seleccionar dificultad</option>
+            <option value="3">Principiante</option>
+            <option value="2">Intermedia</option>
+            <option value="1">Avanzada</option>
+          </select>
+
+        </div>
+
+   <!-- Select de frecuencia (1 a 7 días) -->
+        <div class="form-group campo-form">
+          <label for="frecuencia">Frecuencia (días por semana)</label>
+          <select id="frecuencia" formControlName="frecuencia">
+            <option value="" disabled selected>Seleccionar días</option>
+            <option *ngFor="let dia of diasFrecuencia" [value]="dia">{{ dia }}</option>
+          </select>
+        </div>
+
+        <!-- <div class="form-group campo-form">
+          <label for="fechaInicio">Fecha inicio</label>
+          <input id="fechaInicio" formControlName="fechaInicio" type="date" />
         </div>
 
         <div class="form-group campo-form">
-          <label>Fecha inicio</label>
-          <input formControlName="fechaInicio" type="date" />
-        </div>
+          <label for="fechaFin">Fecha fin</label>
+          <input id="fechaFin" formControlName="fechaFin" type="date" />
+        </div> -->
 
-        <div class="form-group campo-form">
-          <label>Fecha fin</label>
-          <input formControlName="fechaFin" type="date" />
-        </div>
-
-        <div class="form-group campo-form">
+        <!-- <div class="form-group campo-form">
           <label>Días por semana</label>
           <input formControlName="diasPorSemana" type="number" min="1" max="7" />
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <!-- Filtro de grupos musculares -->
-    <div class="section filtro-grupo-muscular">
-      <h3>Filtrar por grupo muscular</h3>
-      <div class="grupos-filtro">
-        <img
-          *ngFor="let g of gruposMusculares"
-          [src]="grupoMuscularFiltroImagenMap[g.id]"
-          [alt]="g.nombre"
-          [class.selected]="grupoSeleccionado === g.id"
-          (click)="filtrarPorGrupo(g.id)"
-        />
-      </div>
-    </div>
 
-    <!-- Listado de ejercicios -->
-    <div class="section ejercicios-disponibles">
-      <h3>Ejercicios disponibles</h3>
-      <div class="cards-grid">
-        <div
-          *ngFor="let e of ejerciciosFiltrados"
-          class="ejercicio-card"
-          [class.selected]="ejerciciosSeleccionados.includes(e)"
-          (click)="seleccionarEjercicio(e)"
-        >
-          <img [src]="e.imagen" alt="{{ e.nombre }}" />
-          <h4 class="titulo-ejercicio">{{ e.nombre }}</h4>
-          <p class="texto-ejercicio">Dificultad: {{ e.dificultad }}</p>
-        </div>
-      </div>
-
-      <div class="agregar-ejercicios-btn">
-        <button
-        class="btn-agregar-ejercicios"
-          type="button"
-          (click)="agregarEjerciciosSeleccionados()"
-          [disabled]="ejerciciosSeleccionados.length === 0"
-        >
-          Agregar ejercicios seleccionados
-        </button>
-      </div>
-    </div>
-
-    <!-- Ejercicios agregados a la rutina -->
-    <div class="section ejercicios-seleccionados" formArrayName="ejercicios">
-      <h3>Ejercicios en la rutina</h3>
-
-      <div
-        *ngFor="let ejercicio of ejerciciosFormGroups; let i = index"
-        [formGroup]="ejercicio"
-        class="ejercicio-item"
-      >
-        <div class="ejercicio-item-container">
-          <img [src]="ejercicio.value.imagen" alt="{{ ejercicio.value.nombre }}" />
-          <div class="ejercicio-item-content">
-            <h4 class="titulo-ejercicio">{{ ejercicio.value.nombre }}</h4>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Series</label>
-                <input type="number" formControlName="series" />
-              </div>
-              <div class="form-group">
-                <label>Repeticiones</label>
-                <input type="number" formControlName="repeticiones" />
-              </div>
-              <button type="button" (click)="eliminarEjercicio(i)" class="btn-delete">
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Botón principal -->
     <button type="submit" class="btn-principal boton-enviar">Crear rutina</button>

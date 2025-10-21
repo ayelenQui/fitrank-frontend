@@ -58,7 +58,7 @@ export class IniciarRutina implements OnInit, OnDestroy {
     if (user) {
       this.usuarioId = user.Id;
       this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
-      this.cargarRutina();
+      // this.cargarRutina();
       this.iniciarTimer();
     }
   }
@@ -76,20 +76,20 @@ export class IniciarRutina implements OnInit, OnDestroy {
     });
   }
 
-  cargarRutina() {
-    this.rutinaService.obtenerRutinaPorId(this.rutinaId).subscribe({
-      next: (rutina) => {
-        this.rutina = rutina;
-        this.ejercicios = rutina.ejercicios.map(ej => ({
-          ...ej,
-          imagen: this.grupoMuscularImagenMap[ej.grupoMuscular] || 'assets/imagenes/default.png',
-          sets: Array.from({ length: ej.series || 3 }).map(() => ({ completado: false })),
-          expandido: false
-        }));
-      },
-      error: (err) => console.error('Error al cargar la rutina:', err)
-    });
-  }
+  // cargarRutina() {
+  //   this.rutinaService.obtenerRutinaPorId(this.rutinaId).subscribe({
+  //     next: (rutina) => {
+  //       this.rutina = rutina;
+  //       this.ejercicios = rutina.ejercicios.map(ej => ({
+  //         ...ej,
+  //         imagen: this.grupoMuscularImagenMap[ej.grupoMuscular] || 'assets/imagenes/default.png',
+  //         sets: Array.from({ length: ej.series || 3 }).map(() => ({ completado: false })),
+  //         expandido: false
+  //       }));
+  //     },
+  //     error: (err) => console.error('Error al cargar la rutina:', err)
+  //   });
+  // }
 
   toggleEjercicio(ejercicioId: number) {
     const ejercicio = this.ejercicios.find(e => e.id === ejercicioId);
@@ -108,24 +108,24 @@ export class IniciarRutina implements OnInit, OnDestroy {
   if (!confirm('¿Deseás finalizar y registrar los ejercicios realizados?')) return;
 
   // recorremos los ejercicios y creamos DTOs de registro
-  const registros: EjercicioRealizadoDTOEntrada[] = this.ejercicios.map(e => ({
-    UsuarioId: this.usuarioId,
-    EjercicioId: e.id,
-    Series: e.series ?? 0,
-    Repeticiones: e.repeticiones ?? 0,
-    Peso: e.peso ?? 0,
-    TipoEntrenamiento: e.tipoEntrenamiento ?? 'Normal',
-    Observacion: e.observaciones ?? '',
-    fecha: new Date().toISOString()
-  }));
+  // const registros: EjercicioRealizadoDTOEntrada[] = this.ejercicios.map(e => ({
+  //   UsuarioId: this.usuarioId,
+  //   EjercicioId: e.id,
+  //   Series: e.series ?? 0,
+  //   Repeticiones: e.repeticiones ?? 0,
+  //   Peso: e.peso ?? 0,
+  //   TipoEntrenamiento: e.tipoEntrenamiento ?? 'Normal',
+  //   Observacion: e.observaciones ?? '',
+  //   fecha: new Date().toISOString()
+  // }));
 
   // enviamos cada registro al backend
-  registros.forEach(dto => {
-    this.ejercicioRealizadoService.registrarEjercicio(dto).subscribe({
-      next: () => console.log(`Ejercicio ${dto.EjercicioId} registrado correctamente`),
-      error: err => console.error('Error al registrar ejercicio', err)
-    });
-  });
+  // registros.forEach(dto => {
+  //   this.ejercicioRealizadoService.registrarEjercicio(dto).subscribe({
+  //     next: () => console.log(`Ejercicio ${dto.EjercicioId} registrado correctamente`),
+  //     error: err => console.error('Error al registrar ejercicio', err)
+  //   });
+  // });
 
   alert('Rutina finalizada y ejercicios registrados ✅');
   this.router.navigate(['/rutina/terminar-rutina']);

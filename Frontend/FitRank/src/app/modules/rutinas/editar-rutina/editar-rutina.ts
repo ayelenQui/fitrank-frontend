@@ -63,23 +63,23 @@ export class EditarRutinaComponent implements OnInit {
     const rutinaId = this.ruta.snapshot.paramMap.get('id');
     if (!rutinaId) return;
 
-    this.rutinaService.listarRutinasPorUsuario(userId).subscribe({
-      next: (rutinas) => {
-        const encontrada = rutinas.find(r => r.id === +rutinaId);
-        if (encontrada) {
-          // agregamos mock de imagen a cada ejercicio
-          encontrada.ejercicios = encontrada.ejercicios.map(e => ({
-            ...e,
-            imagen: this.grupoMuscularImagenMap[e.grupoMuscular] || 'assets/placeholder.png'
-          }));
-          this.rutina = {...encontrada}; // asignamos nuevo objeto para que Angular detecte cambios
-          console.log('✅ Rutina cargada con ejercicios:', this.rutina);
-        } else {
-          console.error('Rutina no encontrada');
-        }
-      },
-      error: (err) => console.error('Error cargando rutina', err)
-    });
+    // this.rutinaService.listarRutinasPorUsuario(userId).subscribe({
+    //   next: (rutinas) => {
+    //     const encontrada = rutinas.find(r => r.id === +rutinaId);
+    //     if (encontrada) {
+    //       // agregamos mock de imagen a cada ejercicio
+    //       encontrada.ejercicios = encontrada.ejercicios.map(e => ({
+    //         ...e,
+    //         imagen: this.grupoMuscularImagenMap[e.grupoMuscular] || 'assets/placeholder.png'
+    //       }));
+    //       this.rutina = {...encontrada}; // asignamos nuevo objeto para que Angular detecte cambios
+    //       console.log('✅ Rutina cargada con ejercicios:', this.rutina);
+    //     } else {
+    //       console.error('Rutina no encontrada');
+    //     }
+    //   },
+    //   error: (err) => console.error('Error cargando rutina', err)
+    // });
   }
 
   abrirOpcionesEjercicio(ejercicio: Ejercicio) {

@@ -1,9 +1,9 @@
 <div class="mis-rutinas-container">
   <!-- Header con botones y timer -->
   <div class="rutina-header-grid">
-    <button class="btn-cancelar" (click)="cancelarRutina()">Cancelar</button>
+    <!-- <button class="btn-cancelar" (click)="cancelarRutina()">Cancelar</button> -->
     <div class="timer">{{ tiempoFormateado }}</div>
-    <button class="btn-terminar" (click)="terminarRutina()">Terminar</button>
+    <!-- <button class="btn-terminar" (click)="terminarRutina()">Terminar</button> -->
   </div>
 
   <!-- Lista de ejercicios -->
@@ -15,7 +15,8 @@
       
       <!-- Contenido de la tarjeta -->
       <div class="ejercicio-item-content">
-        <h4 (click)="toggleEjercicio(ejercicio.id)" class="ejercicio-nombre-clickable">
+        <h4>
+         <!-- (click)="toggleEjercicio(ejercicio.id)" class="ejercicio-nombre-clickable"> -->
           {{ ejercicio.nombre }}
           <span class="chevron" [class.expanded]="ejercicio.expandido">▼</span>
         </h4>
@@ -31,8 +32,8 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="number" [(ngModel)]="ejercicio.peso" /></td>
-                <td><input type="number" [(ngModel)]="ejercicio.repeticiones" /></td>
+                <!-- <td><input type="number" [(ngModel)]="ejercicio.peso" /></td> -->
+                <!-- <td><input type="number" [(ngModel)]="ejercicio.repeticiones" /></td> -->
               </tr>
             </tbody>
           </table>
