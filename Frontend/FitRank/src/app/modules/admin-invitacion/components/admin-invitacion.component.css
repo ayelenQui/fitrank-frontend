@@ -1,81 +1,61 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 60px;
+.invitacion-background {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f6ff, #f3f0ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    background-color: var(--color-acento);
-    padding: 20px;
-    border-radius: 12px;
+/* Logo detrás flotante */
+.logo-fondo {
+  position: absolute;
+  top: 50%;
+  left: 300%;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  z-index: 1;
+  animation: logoFloat 10s ease-in-out infinite alternate;
+  background: url('/assets/img/home/fondo.jpg') no-repeat center;
+  background-size: contain;
+  width: 1200px;
+  height: 1200px;
+}
+#typing-text::after {
+  content: '|';
+  animation: blink 1s infinite;
+  color: #8B52FF;
+  font-weight: 700;
 }
 
-.contenedorDatosPersonales {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    width: 100%;
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
-.contenedorDatosPago {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    width: 100%;
+@keyframes logoFloat {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-48%, -52%) scale(1.05) rotate(5deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(-5deg);
+  }
 }
 
-.contenerdorLabelInput {
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
-}
-
-input {
-    flex-grow: 1;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 5px;
-}
-
-
-.form-control:focus,
-.form-select:focus {
-    outline: none;
-    border-color: var(--color-acento-secundario);
-    box-shadow: 0 0 0 3px rgba(139, 82, 255, 0.1);
-}
-
-.btn {
-    width: 100%;
-    background-color: var(--color-acento-secundario);
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    color: white;
-}
-
-@media screen and (min-width: 500px) {
-    form {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 40px;
-        padding: 40px;
-    }
-
-    .contenedorDatosPago{
-        height: 290px;
-    }
-    .btn-generarInvitacion {
-
-        margin-top: auto;
-    }
+/* Formulario centrado y visible arriba */
+.container.generar-invitacion {
+  position: relative;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  max-width: 850px;
+  width: 100%;
 }

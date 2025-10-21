@@ -1,15 +1,18 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
+import { Router } from '@angular/router';
 import gsap from 'gsap';
 import { HostListener } from '@angular/core';
 import SplitType from 'split-type';
+import { AuthService } from '../../../../api/services/activacion/AuthService.service'; 
 @Component({
   selector: 'app-visitante-home-navbar',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './visitante-home-navbar.html',
   styleUrl: './visitante-home-navbar.css'
 })
-export class VisitanteHomeNavbar  implements AfterViewInit  {
+export class VisitanteHomeNavbar implements AfterViewInit  {
+  constructor(private authService: AuthService, private router: Router) { }
   ngAfterViewInit(): void {
     
 
@@ -17,8 +20,8 @@ export class VisitanteHomeNavbar  implements AfterViewInit  {
 
 
     gsap.from('.hero-title', { y: 50, opacity: 0, duration: 1, ease: 'power3.out' });
-    gsap.from('.hero-sub', { y: 40, opacity: 0, duration: 1.2, delay: 0.3, ease: 'power3.out' });
-    gsap.from('.cta-demo', { scale: 0.9, opacity: 0, duration: 1, delay: 0.6, ease: 'back.out(1.7)' });
+    gsap.from('.hero-sub', { y: 40, opacity: 0, duration: 1.2, delay: 0.2, ease: 'power3.out' });
+    gsap.from('.cta-demo', { scale: 0.9, opacity: 0, duration: 1, delay: 0.2, ease: 'back.out(1.7)' });
     gsap.utils.toArray('.fade-card').forEach((card: any, i: number) => {
       gsap.to(card, {
         scrollTrigger: {
@@ -27,7 +30,7 @@ export class VisitanteHomeNavbar  implements AfterViewInit  {
         },
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.2,
         delay: i * 0.1,
         ease: 'power2.out'
       });
@@ -38,8 +41,8 @@ export class VisitanteHomeNavbar  implements AfterViewInit  {
         start: 'top 80%',
       },
       opacity: 0,
-      scale: 0.9,
-      duration: 1,
+      scale: 0.3,
+      duration: 0.2,
       ease: 'power3.out'
     });
   }
@@ -48,5 +51,10 @@ export class VisitanteHomeNavbar  implements AfterViewInit  {
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
   }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 
+  
 }

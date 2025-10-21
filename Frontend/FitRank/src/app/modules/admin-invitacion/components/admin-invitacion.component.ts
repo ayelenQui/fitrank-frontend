@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
 import { RouterModule } from '@angular/router';
-
+import { gsap } from 'gsap';
+import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { TypingService } from '../../../api/services/typingService';
 @Component({
   selector: 'app-admin-invitacion',
   templateUrl: './admin-invitacion.component.html',
@@ -13,7 +15,9 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
-export class AdminInvitacionComponent implements OnInit {
+export class AdminInvitacionComponent implements OnInit, AfterViewInit{
+
+
   form!: FormGroup;
   loading = false;
   error = '';
@@ -23,11 +27,24 @@ export class AdminInvitacionComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private typingService: TypingService
   ) { }
 
+  @ViewChild('logo-fondo', { static: true }) logoAnim!: ElementRef;
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // Espera un pequeño tiempo para asegurarse de que el DOM esté cargado
+    setTimeout(() => {
+      this.typingService.startTypingEffect(
+        'Generar Invitación',
+        'typing-text',
+        50
+      );
+    }, 200);
+  }
+
+  ngOnInit() {  
    
     const user = this.authService.obtenerUser();
     this.adminNombre = user?.Nombre || 'Administrador';

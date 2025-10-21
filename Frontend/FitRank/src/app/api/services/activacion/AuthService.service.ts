@@ -8,8 +8,7 @@ import { tap } from 'rxjs/operators';  // guarda token después de login
   providedIn: 'root'
 })
 export class AuthService {
-  public modoDev = true;
-  private baseUrl = 'https://localhost:7226/api/auth';  
+  private baseUrl = 'https://localhost:7226/api/Auth';  
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<{ token: string; user: any }> {

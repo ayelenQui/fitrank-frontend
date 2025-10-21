@@ -13,11 +13,6 @@
       <span class="ms-2">FITRANK</span>
     </a>
 
-    <!-- Botón de menú -->
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list fs-1 text-dark"></i>
-    </button>
 
     <!-- Navegación -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -31,13 +26,18 @@
         <li class="nav-item mx-2">
           <a class="nav-link text-dark fs-5" href="#contacto"><i class="bi bi-envelope"></i></a>
         </li>
+     
         <li class="nav-item mx-2">
-          <a href="#login" class="btn btn-outline-dark btn-sm">
-            <i class="bi bi-person"></i>
-          </a>
+          
+            <button class="btn btn-outline-fitrank px-4 py-2" (click)="logout()">
+              <span class="material-symbols-outlined me-2">logout</span> INICIAR SESION 
+            </button>
+      
         </li>
+
+
       </ul>
-    </div>
+  </div>
   </div>
 </header>
 

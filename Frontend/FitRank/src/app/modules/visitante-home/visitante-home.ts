@@ -86,6 +86,10 @@ export class VisitanteHome {
       }, 50);
     }
   }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
   
 

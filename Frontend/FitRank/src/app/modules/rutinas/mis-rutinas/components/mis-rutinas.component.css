@@ -1,0 +1,59 @@
+.text-fitrank {
+  color: #8B52FF;
+}
+
+.bg-fitrank {
+  background-color: #8B52FF;
+}
+
+.btn-fitrank {
+  background-color: #8B52FF;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+  .btn-fitrank:hover {
+    background-color: #7139ef;
+    transform: translateY(-2px);
+  }
+
+.btn-outline-fitrank {
+  border: 2px solid #8B52FF;
+  color: #8B52FF;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+  .btn-outline-fitrank:hover {
+    background-color: #8B52FF;
+    color: #fff;
+  }
+
+.bg-fitrank-subtle {
+  background-color: rgba(139, 82, 255, 0.15);
+}
+
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(139, 82, 255, 0.2);
+  }
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+.spinner-border.text-fitrank {
+  color: #8B52FF !important;
+}
+
+.alert {
+  border-radius: 10px;
+}

@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Asignar ejercicios y series a la rutina</h2>
+  <p class="text-muted">Rutina #{{ rutinaId }}</p>
+
+  <form [formGroup]="form" (ngSubmit)="guardarTodo()">
+    <div formArrayName="ejercicios">
+      <div class="card mb-3"
+           *ngFor="let ej of ejercicios.controls; let i = index"
+           [formGroupName]="i">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">Ejercicio {{ i+1 }}</h5>
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminarEjercicio(i)">
+              Quitar ejercicio
+            </button>
+          </div>
+
+          <!-- fila 1 -->
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label">Ejercicio</label>
+              <select class="form-select" formControlName="ejercicioId">
+                <option [ngValue]="null">Seleccionar...</option>
+                <option *ngFor="let e of ejerciciosDisponibles" [ngValue]="e.id">
+                  {{ e.nombre }}
+                </option>
+              </select>
+              <div class="text-danger small" *ngIf="ej.get('ejercicioId')?.invalid && ej.get('ejercicioId')?.touched">
+                Seleccioná un ejercicio.
+              </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+              <label class="form-label">N° sesión</label>
+              <input type="number" class="form-control" formControlName="numeroDeSesion" min="1">
+            </div>
+
+            <div class="col-6 col-md-3">
+              <label class="form-label">Orden</label>
+              <input type="number" class="form-control" formControlName="orden" min="1">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Observaciones</label>
+              <input type="text" class="form-control" formControlName="observaciones" placeholder="Opcional">
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- SERIES -->
+          <div formArrayName="series">
+            <div class="row g-2 align-items-end mb-2"
+                 *ngFor="let s of series(i).controls; let j = index"
+                 [formGroupName]="j">
+              <div class="col-6 col-md-2">
+                <label class="form-label">Peso (kg)</label>
+                <input type="number" class="form-control" formControlName="peso" min="0">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">Reps</label>
+                <input type="number" class="form-control" formControlName="repeticiones" min="1">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">RIR</label>
+                <input type="number" class="form-control" formControlName="rir" min="0">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label"># Serie</label>
+                <input type="number" class="form-control" formControlName="nroSerie" min="1">
+              </div>
+              <div class="col-12 col-md-4 text-end">
+                <button type="button" class="btn btn-outline-danger" (click)="eliminarSerie(i, j)">
+                  Quitar serie
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="agregarSerie(i)">
+              + Agregar serie
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-outline-secondary" (click)="agregarEjercicio()">
+        + Agregar otro ejercicio
+      </button>
+
+      <button type="submit" class="btn btn-primary ms-auto" [disabled]="loading">
+        {{ loading ? 'Guardando...' : 'Guardar todo' }}
+      </button>
+    </div>
+  </form>
+</div>

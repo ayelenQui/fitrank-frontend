@@ -38,60 +38,60 @@ export class App implements AfterViewInit {
     
     // 🔢 Contador
     const progress = { value: 0 };
-    gsap.to(progress, {
-      value: 100,
-      duration: 3.5,
-      ease: 'power1.out',
-      onUpdate: () => {
-        if (counter) counter.textContent = `${Math.round(progress.value)}%`;
-      },
-      onComplete: () => {
-        this.mostrarFrase(preloader, phrase);
-      }
-    });
+    // gsap.to(progress, {
+    //   value: 100,
+    //   duration: 3.5,
+    //   ease: 'power1.out',
+    //   onUpdate: () => {
+    //     if (counter) counter.textContent = `${Math.round(progress.value)}%`;
+    //   },
+    //   onComplete: () => {
+    //     this.mostrarFrase(preloader, phrase);
+    //   }
+    // });
   }
 
-  private mostrarFrase(preloader: HTMLElement, phrase: HTMLElement): void {
-    const text = 'Potenciá tu gimnasio';
-    phrase.textContent = '';
-    let index = 0;
+  // private mostrarFrase(preloader: HTMLElement, phrase: HTMLElement): void {
+  //   const text = 'Potenciá tu gimnasio';
+  //   phrase.textContent = '';
+  //   let index = 0;
 
-    // ✍️ Sonido de tipeo (opcional)
-    const typingSound = new Audio('assets/sounds/typing.mp3');
-    typingSound.volume = 0.3;
-    typingSound.loop = true;
-    typingSound.play();
+  //   // ✍️ Sonido de tipeo (opcional)
+  //   const typingSound = new Audio('assets/sounds/typing.mp3');
+  //   typingSound.volume = 0.3;
+  //   typingSound.loop = true;
+  //   typingSound.play();
 
-    const typeInterval = setInterval(() => {
-      phrase.textContent += text[index];
-      index++;
+  //   const typeInterval = setInterval(() => {
+  //     phrase.textContent += text[index];
+  //     index++;
 
-      // Efecto de cursor titilante
-      phrase.classList.toggle('cursor');
+  //     // Efecto de cursor titilante
+  //     phrase.classList.toggle('cursor');
 
-      if (index >= text.length) {
-        clearInterval(typeInterval);
-        typingSound.pause();
-        typingSound.currentTime = 0;
-        setTimeout(() => this.finalizarPreloader(preloader), 1200);
-      }
-    }, 100);
-  }
+  //     if (index >= text.length) {
+  //       clearInterval(typeInterval);
+  //       typingSound.pause();
+  //       typingSound.currentTime = 0;
+  //       setTimeout(() => this.finalizarPreloader(preloader), 1200);
+  //     }
+  //   }, 100);
+  // }
 
-  private finalizarPreloader(preloader: HTMLElement): void {
-    // 🔄 Fade out suave
-    gsap.to(preloader, {
-      opacity: 0,
-      duration: 1.5,
-      ease: 'power2.out',
-      onComplete: () => {
-        preloader.classList.add('hide');
-        setTimeout(() => {
-          preloader.remove();
-          document.body.classList.add('loaded'); // activa el fade-in del visitante-home
-        }, 400);
-      }
-    });
-  }
+  // private finalizarPreloader(preloader: HTMLElement): void {
+  //   // 🔄 Fade out suave
+  //   gsap.to(preloader, {
+  //     opacity: 0,
+  //     duration: 1.5,
+  //     ease: 'power2.out',
+  //     onComplete: () => {
+  //       preloader.classList.add('hide');
+  //       setTimeout(() => {
+  //         preloader.remove();
+  //         document.body.classList.add('loaded'); // activa el fade-in del visitante-home
+  //       }, 400);
+  //     }
+  //   });
+  // }
 }
 

@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "api:generate": "nswag openapi2tsclient /input:https://localhost:7226/swagger/v1/swagger.json /output:src/app/api/generated/api-client.ts /template:Angular",
     "serve:ssr:FitRank": "node dist/FitRank/server/server.mjs"
   },
   "prettier": {

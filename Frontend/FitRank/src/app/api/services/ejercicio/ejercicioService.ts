@@ -2,35 +2,31 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { CrearEjercicioDTO, EjercicioDTO } from "./interfaces/ejercicio.interface";
+import { AgregarEjercicioDTO, EjercicioDTO } from "./interfaces/ejercicio.interface";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
+export class EjercicioService {
+  private baseUrl = `${environment.apiUrl}/Ejercicio`;
 
-export class EjercicioService{
-    private apiUrl = `${environment.apiUrl}/ejercicio`;
+  constructor(private http: HttpClient) { }
 
-    constructor(private http: HttpClient){}
-
+  // Traer todos los ejercicios
   getAll(): Observable<EjercicioDTO[]> {
-    return this.http.get<EjercicioDTO[]>(this.apiUrl);
+    return this.http.get<EjercicioDTO[]>(this.baseUrl);
   }
 
+  // Traer un ejercicio por ID
   getById(id: number): Observable<EjercicioDTO> {
-    return this.http.get<EjercicioDTO>(`${this.apiUrl}/${id}`);
+    return this.http.get<EjercicioDTO>(`${this.baseUrl}/${id}`);
   }
 
-  create(ejercicio: CrearEjercicioDTO): Observable<EjercicioDTO> {
-    return this.http.post<EjercicioDTO>(this.apiUrl, ejercicio);
+  // Crear nuevo ejercicio
+  create(ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
+    return this.http.post<EjercicioDTO>(this.baseUrl, ejercicio);
   }
 
-  update(id: number, ejercicio: EjercicioDTO): Observable<EjercicioDTO> {
-    return this.http.put<EjercicioDTO>(`${this.apiUrl}/${id}`, ejercicio);
+  // Actualizar un ejercicio existente
+  update(id: number, ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
+    return this.http.put<EjercicioDTO>(`${this.baseUrl}/${id}`, ejercicio);
   }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
 }
