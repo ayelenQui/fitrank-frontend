@@ -1,0 +1,69 @@
+<div class="container py-4">
+  <h3 class="text-center mb-4">🏋️ Iniciar Rutina</h3>
+
+  <!-- Lista de ejercicios -->
+  <div *ngIf="!ejercicioActivo">
+    <div *ngFor="let e of ejerciciosAsignados" class="card p-3 mb-3 shadow-sm rutina-item">
+      <h5 class="mb-1">{{ e.ejercicio?.nombre || ('Ejercicio #' + e.ejercicioId) }}</h5>
+      <p class="text-muted mb-2">
+        Orden {{ e.orden }} | Sesión {{ e.sesion }}
+      </p>
+      <button class="btn btn-outline-primary btn-sm" (click)="seleccionarEjercicio(e)">
+        ▶ Iniciar ejercicio
+      </button>
+    </div>
+  </div>
+
+  <!-- Ejercicio activo -->
+  <div *ngIf="ejercicioActivo" class="card p-4 shadow-sm mt-3">
+    <h4 class="mb-3">
+      {{ ejercicioActivo.ejercicio?.nombre || ('Ejercicio #' + ejercicioActivo.ejercicioId) }}
+    </h4>
+
+    <div *ngIf="seriesActuales.length > 0">
+      <h5 class="mb-3">Series asignadas</h5>
+
+      <div *ngFor="let s of seriesActuales; let i = index" class="border rounded bg-light p-3 mb-3 shadow-sm">
+        <strong>Serie {{ s.nroSerie }}</strong>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-4">
+            <label class="form-label">Peso (kg)</label>
+            <input type="number"
+                   class="form-control form-control-sm"
+                   [(ngModel)]="s.peso"
+                   [readonly]="!puedeEditar || i !== serieActivaIndex" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Repeticiones</label>
+            <input type="number"
+                   class="form-control form-control-sm"
+                   [(ngModel)]="s.repeticiones"
+                   [readonly]="!puedeEditar || i !== serieActivaIndex" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">RIR</label>
+            <input type="number"
+                   class="form-control form-control-sm"
+                   [(ngModel)]="s.rir"
+                   [readonly]="!puedeEditar || i !== serieActivaIndex" />
+          </div>
+        </div>
+
+        <div *ngIf="enEjecucion && i === serieActivaIndex" class="text-center mt-3">
+          <h5 class="text-primary">⏱ Tiempo restante: {{ tiempoRestante }}s</h5>
+          <button class="btn btn-danger btn-sm mt-2" (click)="finalizarSerie()">⏸ Finalizar serie</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-3 d-flex justify-content-center flex-wrap gap-2">
+      <button class="btn btn-success" [disabled]="enEjecucion" (click)="iniciarSerie()">▶ Comenzar Serie</button>
+      <button class="btn btn-outline-primary" [disabled]="enEjecucion" (click)="siguienteSerie()">➡ Siguiente Serie</button>
+      <button class="btn btn-outline-secondary" (click)="volver()">← Volver</button>
+      <button class="btn btn-outline-success" (click)="finalizarRutina()">🏁 Finalizar Rutina</button>
+    </div>
+  </div>
+</div>

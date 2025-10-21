@@ -1,56 +1,61 @@
-<!-- src/app/modules/rutinas/crear-rutina/crear-rutina.component.html -->
-<div class="container mt-5" style="max-width: 600px;">
-  <h2 class="text-center mb-4">Crear Nueva Rutina</h2>
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
 
-  <form [formGroup]="form" (ngSubmit)="crearRutina()" autocomplete="off">
+<div class="crear-rutina-container">
+  <h2 class="titulo titulo-form">Crear Rutina Manual</h2>
 
-    <!-- Nombre -->
-    <div class="mb-3">
-      <label for="nombre" class="form-label fw-semibold">Nombre de la rutina</label>
-      <input type="text" id="nombre" class="form-control" formControlName="nombre"
-             placeholder="Ej: Fuerza de Piernas"
-             [class.is-invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched">
-      <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="invalid-feedback">
-        El nombre es obligatorio.
+  <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="form-container">
+
+    <!-- Sección datos de la rutina -->
+    <div class="section datos-rutina">
+      <h3>Datos de la rutina</h3>
+      <div class="form-grid">
+        <div class="form-group campo-form">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" formControlName="nombre" type="text" placeholder="Ej: Full Body Principiante" />
+        </div>
+
+        <!-- Select de dificultad -->
+        <div class="form-group campo-form">
+          <label for="dificultad">Dificultad</label>
+          <select id="dificultad" formControlName="dificultadId">
+            <option value="" disabled selected>Seleccionar dificultad</option>
+            <option value="3">Principiante</option>
+            <option value="2">Intermedia</option>
+            <option value="1">Avanzada</option>
+          </select>
+
+        </div>
+
+        <!-- Select de frecuencia (1 a 7 días) -->
+        <div class="form-group campo-form">
+          <label for="frecuencia">Frecuencia (días por semana)</label>
+          <select id="frecuencia" formControlName="frecuencia">
+            <option value="" disabled selected>Seleccionar días</option>
+            <option *ngFor="let dia of diasFrecuencia" [value]="dia">{{ dia }}</option>
+          </select>
+        </div>
+
+        <!-- <div class="form-group campo-form">
+          <label for="fechaInicio">Fecha inicio</label>
+          <input id="fechaInicio" formControlName="fechaInicio" type="date" />
+        </div>
+
+        <div class="form-group campo-form">
+          <label for="fechaFin">Fecha fin</label>
+          <input id="fechaFin" formControlName="fechaFin" type="date" />
+        </div> -->
+        <!-- <div class="form-group campo-form">
+          <label>Días por semana</label>
+          <input formControlName="diasPorSemana" type="number" min="1" max="7" />
+        </div> -->
       </div>
     </div>
 
-    <!-- Frecuencia -->
-    <div class="mb-3">
-      <label for="frecuencia" class="form-label fw-semibold">Frecuencia semanal</label>
-      <input type="number" id="frecuencia" class="form-control" formControlName="frecuencia"
-             placeholder="Ej: 3 (veces por semana)"
-             [class.is-invalid]="form.get('frecuencia')?.invalid && form.get('frecuencia')?.touched">
-      <div *ngIf="form.get('frecuencia')?.invalid && form.get('frecuencia')?.touched" class="invalid-feedback">
-        Ingresá un número válido entre 1 y 7.
-      </div>
-    </div>
 
-    <!-- Dificultad -->
-    <div class="mb-4">
-      <label for="dificultadId" class="form-label fw-semibold">Nivel de dificultad</label>
-      <select id="dificultadId" class="form-select" formControlName="dificultadId"
-              [class.is-invalid]="form.get('dificultadId')?.invalid && form.get('dificultadId')?.touched">
-        <option value="">Seleccionar dificultad</option>
-        <option *ngFor="let d of dificultades" [value]="d.id">
-          {{ d.descripcion }}
-        </option>
-      </select>
-      <div *ngIf="form.get('dificultadId')?.invalid && form.get('dificultadId')?.touched" class="invalid-feedback">
-        Debés seleccionar un nivel de dificultad.
-      </div>
-    </div>
 
-    <!-- Botón -->
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary px-4"
-              [disabled]="loading || form.invalid">
-        {{ loading ? 'Creando...' : 'Crear Rutina' }}
-      </button>
-    </div>
+    <!-- Botón principal -->
+    <button type="submit" class="btn-principal boton-enviar">Crear rutina</button>
   </form>
-
-  <!-- Mensajes -->
-  <div *ngIf="mensaje" class="alert alert-success mt-3">{{ mensaje }}</div>
-  <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
 </div>

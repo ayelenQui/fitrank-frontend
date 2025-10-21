@@ -1,110 +1,28 @@
-<div class="container">
+<div class="container mt-4">
+  <h2 class="text-center mb-4">🏆 Ranking de Socios</h2>
 
-   
+  <div *ngIf="cargando" class="text-center text-muted">Cargando ranking...</div>
 
-  <!-- Tabs -->
-  <div class="tabs-container">
-    <div class="tabs">
-      <div class="tab active">Global</div>
-      <!-- Si quieres más tabs (ej. "Por Grupo"), agrega aquí y lógica en componente -->
-    </div>
+  <table *ngIf="!cargando && ranking.length" class="table table-striped table-hover text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>Posición</th>
+        <th>Socio</th>
+        <th>Puntos Totales</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of ranking; let i = index">
+        <td><strong>#{{ i + 1 }}</strong></td>
+        <td>{{ r.nombre }}</td>
+        <td>{{ r.totalPuntos }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!cargando && !ranking.length" class="text-center text-muted">
+    No hay puntajes registrados todavía.
   </div>
-
-  <!-- Category Pills (dinámico para grupos musculares) -->
-  <div class="categories">
-    <div class="category-pills">
-      <!-- ✅ Botón "Todos" para limpiar filtro -->
-      <button class="category-pill"
-              [class.active]="!grupoSeleccionado()"
-              (click)="seleccionarGrupo(null)">
-        Todos
-      </button>
-
-      <!-- ✅ *ngFor en gruposMusculares (number[]), muestra nombre con mapper, pasa ID number al click -->
-      <button *ngFor="let grupoId of gruposMusculares"
-              class="category-pill"
-              [class.active]="grupoSeleccionado() === grupoId"
-              (click)="seleccionarGrupo(grupoId)">
-        {{ getGrupoName(grupoId) }}  <!-- Muestra "Pecho" en lugar de 0 -->
-      </button>
-    </div>
-  </div>
-
-  <!-- Rankings Section -->
-  <div class="rankings-section">
-
-    <!-- Ranking General (usa rankings: MostrarRankingDTO[]) -->
-    <div *ngIf="rankings.length > 0; else noGeneral">
-      <h2 class="ranking-title">Ranking General</h2>
-      <div class="ranking-list">
-        <div class="ranking-item" *ngFor="let user of rankings; let i = index">
-          <!-- Avatar -->
-          <div class="avatar-placeholder">
-            {{ getUserInitial(user.username) }}  <!-- Usa el método del servicio si lo importas, o inline: user.username.charAt(0).toUpperCase() -->
-          </div>
-
-          <!-- User Info -->
-          <div class="user-info">
-            <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
-
-            <div class="user-stats">
-              Puntos: <strong>{{ user.Totalpuntos }}</strong> •  <!-- PascalCase del servicio -->
-
-              Nivel: <strong>{{ user.Nivel }}</strong>  <!-- PascalCase -->
-            </div>
-          </div>
-
-
-          <!-- Action Button -->
-          <button class="action-btn">⚡</button>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #noGeneral>
-      <div class="empty-state">
-        <p>No hay datos de ranking general.</p>
-      </div>
-    </ng-template>
-
-    <!-- Ranking por Grupo Muscular (usa filtrarPorGrupo(): MostrarRankingDTOGrupo[]) -->
-    <div *ngIf="filtrarPorGrupo().length > 0; else noGrupo">
-      <!-- ✅ Título dinámico: Muestra nombre del grupo con mapper (ej. "Ranking Glúteo") -->
-      <h2 class="ranking-title">
-        Ranking {{ getGrupoName(grupoSeleccionado() || 0) || 'por grupo muscular' }}
-      </h2>
-      <div class="ranking-list">
-        <div class="ranking-item" *ngFor="let user of filtrarPorGrupo(); let i = index">
-          <!-- Avatar -->
-          <div class="avatar-placeholder">
-            {{ getUserInitial(user.username) }}  <!-- Inline o del servicio -->
-          </div>
-
-
-          <div class="user-info">
-            <div class="user-name">{{ i + 1 }}. {{ user.username }}</div>
-            <div class="user-stats">
-
-              {{ getGrupoName(user.GrupoMuscular) }} • {{ user.Nombre }}<br>
-              Puntos: <strong>{{ user.Totalpuntos }}</strong> •
-              Nivel: <strong>{{ user.Nivel }}</strong>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <button class="action-btn">⚡</button>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #noGrupo>
-      <div class="empty-state">
-        <p>No hay datos de ranking por grupo muscular.</p>
-      </div>
-    </ng-template>
-
-  </div>
-
- 
-
 </div>
+
+
