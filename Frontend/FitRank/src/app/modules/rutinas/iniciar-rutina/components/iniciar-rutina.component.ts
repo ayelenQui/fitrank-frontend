@@ -16,13 +16,15 @@ import { CrearSesionRealizadaDeEjerciciosDTO } from '@app/api/services/sesionRea
 import { CrearEjercicioRealizadoDTO } from '@app/api/services/ejercicioRealizado/interfaces/ejercicioRealizado.interface.rest';
 import { CrearSerieRealizadaDTO } from '@app/api/services/serieRealizada/interfaces/serieRealizada.interface';
 import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
+import { Location } from '@angular/common';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-iniciar-rutina',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderSocioComponent],
   templateUrl: './iniciar-rutina.component.html',
-  styleUrls: ['./iniciar-rutina.component.css']
+styleUrls: ['./iniciar-rutina.component.css', '../../../css-socio/socio-common.css']
 })
 export class IniciarRutinaComponent implements OnInit, OnDestroy {
   rutinaId!: number;
@@ -48,7 +50,8 @@ export class IniciarRutinaComponent implements OnInit, OnDestroy {
     private serieRealizadaService: SerieRealizadaService,
     private sesionRealizadaDeEjerciciosService: SesionRealizadaDeEjerciciosService,
     private auth: AuthService,
-    private puntajeService: PuntajeService
+    private puntajeService: PuntajeService,
+    private location : Location
 
   ) { }
 
@@ -168,6 +171,7 @@ export class IniciarRutinaComponent implements OnInit, OnDestroy {
             next: (serieCreada) => {
               console.log('✅ Serie realizada guardada:', serieCreada);
 
+              
               // 🔹 Al finalizar cada serie, asignamos un puntaje
               const puntaje = {
                 serieRealizadaId: serieCreada.id,
@@ -214,6 +218,10 @@ export class IniciarRutinaComponent implements OnInit, OnDestroy {
   volver(): void {
         this.router.navigate(['/rutina/mis-rutinas']);
       }
+
+      volverAtras(): void {
+    this.location.back();
+  }
 
   ngOnDestroy(): void {
         if (this.cronometro) clearInterval(this.cronometro);

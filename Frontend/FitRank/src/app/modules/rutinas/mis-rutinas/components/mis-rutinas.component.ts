@@ -4,13 +4,15 @@ import { Router, RouterLink } from '@angular/router';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import gsap from 'gsap';
+import { Location } from '@angular/common';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-mis-rutinas',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, HeaderSocioComponent],
   templateUrl: './mis-rutinas.component.html',
-  styleUrls: ['./mis-rutinas.component.css']
+  styleUrls: ['./mis-rutinas.component.css', '../../../css-socio/socio-common.css']
 })
 export class MisRutinasComponent implements OnInit {
   rutinas: any[] = [];
@@ -21,7 +23,8 @@ export class MisRutinasComponent implements OnInit {
   constructor(
     private rutinaService: RutinaService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private location : Location
   ) { }
 
   ngOnInit(): void {
@@ -102,5 +105,9 @@ export class MisRutinasComponent implements OnInit {
 
   crearRutina(): void {
     this.router.navigate(['/rutina/crear-manual']);
+  }
+
+  volverAtras(): void {
+    this.location.back();
   }
 }

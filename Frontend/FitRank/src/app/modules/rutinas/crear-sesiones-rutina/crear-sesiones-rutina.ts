@@ -3,25 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { VisualizadorSvgComponent } from '@app/modules/visualizador3d/components/visualizador-svg.component';
-
+import { Location } from '@angular/common';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
 import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsignada.service';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupomuscular.service'; 
 
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, VisualizadorSvgComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent],
   templateUrl: './crear-sesiones-rutina.html',
-  styleUrls: ['./crear-sesiones-rutina.css']
+  styleUrls: ['./crear-sesiones-rutina.css', '../../css-socio/socio-common.css']
 })
 export class CrearSesionesRutinaComponent implements OnInit {
   rutinaId!: number;
   socioId!: number;
+  rutinaNombre!: string;
   ejerciciosDisponibles: Array<{ id: number; nombre: string; urlVideo?: string }> = [];
 
   gruposMusculares: { id: number; nombre: string }[] = [];
@@ -49,17 +50,13 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private ejAsignadoService: EjercicioAsignadoService,
     private serieService: SerieAsignadaService,
     private router: Router,
-    private grupoMuscularService: GrupoMuscularService
-
-
-
-
-
+    private location : Location
   ) { }
 
   ngOnInit(): void {
     // rutinaId por ruta
     this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
+    this.rutinaNombre = this.route.snapshot.queryParamMap.get('nombre') || 'Rutina';
     // socioId desde user logueado
     const user = this.auth.obtenerUser();
     this.socioId = user?.Id;
@@ -224,6 +221,10 @@ export class CrearSesionesRutinaComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  volverAtras(): void {
+    this.location.back();
   }
 
 }

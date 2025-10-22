@@ -1,16 +1,21 @@
-<div class="container mt-4">
-  <h2 class="mb-3">Asignar ejercicios y series a la rutina</h2>
-  <p class="text-muted">Rutina #{{ rutinaId }}</p>
+<app-header-socio></app-header-socio>
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
 
-  <form [formGroup]="form" (ngSubmit)="guardarTodo()">
+<div class="container mt-4 contenedor">
+  <h2 class="mb-3 titulo">Asignar ejercicios y series a la rutina</h2>
+  <!-- <p class="text-muted"> {{ rutinaNombre }}</p> -->
+
+  <form [formGroup]="form" (ngSubmit)="guardarTodo()" >
     <div formArrayName="ejercicios">
-      <div class="card mb-3"
+      <div class=" mb-3"
            *ngFor="let ej of ejercicios.controls; let i = index"
            [formGroupName]="i">
-        <div class="card-body">
+        <div class=" form-container">
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="mb-0">Ejercicio {{ i+1 }}</h5>
-            <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminarEjercicio(i)">
+            <h5 class="mb-0 titulo-ejercicio">Ejercicio {{ i+1 }}</h5>
+            <button type="button" class="btn btn-outline-danger quitar-btn" (click)="eliminarEjercicio(i)">
               Quitar ejercicio
             </button>
           </div>
@@ -18,7 +23,7 @@
           <!-- fila 1 -->
           <div class="row g-3">
             <div class="col-12 col-md-6">
-              <label class="form-label">Ejercicio</label>
+              <label class="form-label label">Ejercicio</label>
               <select class="form-select" formControlName="ejercicioId">
                 <option [ngValue]="null">Seleccionar...</option>
                 <option *ngFor="let e of ejerciciosDisponibles" [ngValue]="e.id">
@@ -31,17 +36,17 @@
             </div>
 
             <div class="col-6 col-md-3">
-              <label class="form-label">N° sesión</label>
+              <label class="form-label label">N° sesión</label>
               <input type="number" class="form-control" formControlName="numeroDeSesion" min="1">
             </div>
 
             <div class="col-6 col-md-3">
-              <label class="form-label">Orden</label>
+              <label class="form-label label">Orden</label>
               <input type="number" class="form-control" formControlName="orden" min="1">
             </div>
 
             <div class="col-12">
-              <label class="form-label">Observaciones</label>
+              <label class="form-label label">Observaciones</label>
               <input type="text" class="form-control" formControlName="observaciones" placeholder="Opcional">
             </div>
           </div>
@@ -54,29 +59,29 @@
                  *ngFor="let s of series(i).controls; let j = index"
                  [formGroupName]="j">
               <div class="col-6 col-md-2">
-                <label class="form-label">Peso (kg)</label>
+                <label class="form-label label">Peso (kg)</label>
                 <input type="number" class="form-control" formControlName="peso" min="0">
               </div>
               <div class="col-6 col-md-2">
-                <label class="form-label">Reps</label>
+                <label class="form-label label">Reps</label>
                 <input type="number" class="form-control" formControlName="repeticiones" min="1">
               </div>
               <div class="col-6 col-md-2">
-                <label class="form-label">RIR</label>
+                <label class="form-label label">RIR</label>
                 <input type="number" class="form-control" formControlName="rir" min="0">
               </div>
               <div class="col-6 col-md-2">
-                <label class="form-label"># Serie</label>
+                <label class="form-label label"># Serie</label>
                 <input type="number" class="form-control" formControlName="nroSerie" min="1">
               </div>
               <div class="col-12 col-md-4 text-end">
-                <button type="button" class="btn btn-outline-danger" (click)="eliminarSerie(i, j)">
+                <button type="button" class="btn btn-outline-danger quitar-btn" (click)="eliminarSerie(i, j)">
                   Quitar serie
                 </button>
               </div>
             </div>
 
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="agregarSerie(i)">
+            <button type="button" class="btn btn-sm btn-outline-primary agregar-serie-button" (click)="agregarSerie(i)">
               + Agregar serie
             </button>
           </div>
@@ -92,13 +97,18 @@
 
 
     <div class="d-flex gap-2">
-      <button type="button" class="btn btn-outline-secondary" (click)="agregarEjercicio()">
+      <button type="button" class="btn btn-outline-secondary agregar-ejercicio-button" (click)="agregarEjercicio()">
         + Agregar otro ejercicio
       </button>
 
-      <button type="submit" class="btn btn-primary ms-auto" [disabled]="loading">
-        {{ loading ? 'Guardando...' : 'Guardar todo' }}
-      </button>
     </div>
+<<<<<<< HEAD
 
 
+=======
+    <button type="submit" class="btn btn-primary ms-auto btn-principal" [disabled]="loading">
+      {{ loading ? 'Guardando...' : 'Guardar todo' }}
+    </button>
+  </form>
+</div>
+>>>>>>> origin/dev-lautaro

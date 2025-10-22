@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import gsap from 'gsap';
 import { Location } from '@angular/common';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 
 @Component({
   selector: 'app-crear-rutina',
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderSocioComponent],
   standalone: true,
   templateUrl: './crear-rutina.html',
   styleUrls: ['./crear-rutina.css', '../../css-socio/socio-common.css'],

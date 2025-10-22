@@ -14,6 +14,8 @@ import { HomeSocioComponent } from './modules/home/components/home-socio/home-so
 import { CrearSesionesRutinaComponent } from './modules/rutinas/crear-sesiones-rutina/crear-sesiones-rutina';
 import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/components/mis-rutinas.component';
 import { IniciarRutinaComponent } from './modules/rutinas/iniciar-rutina/components/iniciar-rutina.component';
+import { ListaTorneosComponent } from './modules/torneo/lista-torneo/lista-torneo.component';
+import { RankingTorneoComponent } from './modules/torneo/ver-torneo/ver-torneo.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -30,6 +32,8 @@ export const appRoutes: Route[] = [
   { path: 'rutina/crear-manual', component: CrearRutinaManualComponent },
   { path: 'rutina/editar/:id', component: CrearRutinaComponent },
   { path: 'rutina/mis-rutinas', component: MisRutinasComponent, canActivate: [AuthGuard] },
+  { path: 'torneo/lista-torneo', component: ListaTorneosComponent, canActivate: [AuthGuard] },
+  { path: 'torneo/ver-torneo/:id', component: RankingTorneoComponent, canActivate: [AuthGuard] },
 
 
 

@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HomeTarjetaperfil } from './components/home-tarjetaperfil/home-tarjetaperfil';
 import { HomeAccionrapidaseccion } from './components/home-accionrapidaseccion/home-accionrapidaseccion';
 import { AuthService } from '../../api/services/activacion/AuthService.service';
-
+import { HeaderSocioComponent } from '../../public/header-socio/header-socio.component';
 import { Avatar3DComponent } from '../../modules/avatar/avatar.component';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [HomeTarjetaperfil, HomeAccionrapidaseccion, Avatar3DComponent],
+    imports: [HomeTarjetaperfil, HomeAccionrapidaseccion, Avatar3DComponent, HeaderSocioComponent],
     templateUrl: './home.html',
     styleUrls: ['./home.css'],
   standalone: true

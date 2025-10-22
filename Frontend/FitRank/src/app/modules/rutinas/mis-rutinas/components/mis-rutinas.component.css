@@ -6,13 +6,12 @@
   background-color: #8B52FF;
 }
 
-.btn-fitrank {
-  background-color: #8B52FF;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.3s ease;
+
+
+.titulo-rutina{
+  font-family: var(--font-titulo);
+    font-size: clamp(0.5rem, .5vw + 1.5rem, 2rem);
+
 }
 
   .btn-fitrank:hover {
@@ -33,12 +32,31 @@
     color: #fff;
   }
 
+  .iniciar-btn {
+    background-color: var(--color-acento);
+    font-family: var(--font-titulo);
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    width: 70px;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+}
+
+    .iniciar-btn:hover {
+      color: black;
+      /* background-color: #7139ef; */
+        transform: translateY(-2px);
+    }
+
 .bg-fitrank-subtle {
   background-color: rgba(139, 82, 255, 0.15);
 }
 
 .card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 10px;
 }
 
   .card:hover {
@@ -56,4 +74,22 @@
 
 .alert {
   border-radius: 10px;
+}
+
+
+.rutinas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+width: 100%;}
+
+.rutinas {
+  /* border: 2px solid #ccc; borde gris suave */
+  border-radius: 16px;
+  padding: 20px;
+  background-color: var(--color-fondo-tarjetas); /* fondo blanco */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: aparecerFormulario 0.8s ease forwards;
+  max-width: 1100px;
+  margin: 0 auto;
 }

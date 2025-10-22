@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { RankingService } from '@app/api/services/ranking/ranking.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
+=======
+import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
+>>>>>>> origin/dev-lautaro
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
+<<<<<<< HEAD
   imports: [CommonModule, FormsModule],
+=======
+  imports: [CommonModule, HeaderSocioComponent],
+>>>>>>> origin/dev-lautaro
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.css']
 })

@@ -1,11 +1,12 @@
 .crear-rutina-container {
-  max-width: 900px;
-  margin: auto;
-  padding: 25px 20px 60px 20px;
-  font-family: "Poppins", sans-serif;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
+  min-height: 80vh;
+  text-align: center;
+  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
+  padding-top: 2rem; /* espacio desde el header */
 }
 
 .titulo{
@@ -20,7 +21,7 @@
   margin-bottom: 30px;
 }
 
-h3 {
+h5 {
   margin-bottom: 15px;
   font-size: clamp(1rem, 1vw + 0.5rem, 3rem);
   font-family: var(--font-titulo);
@@ -153,7 +154,7 @@ label {
 
 }
 
-.btn-delete {
+.quitar-btn {
   font-family: var(--font-titulo);
   background: #ff4d4f;
   color: #fff;
@@ -162,13 +163,50 @@ label {
   padding: 0rem  2rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  line-height: 3rem;
-  height: 3rem;
+  /* line-height: 3rem; */
+  height: 2rem;
   /* max-height: 2rem; */
 }
 
-.btn-delete:hover {
+.quitar-btn:hover {
+  scale: 1.1;
   background: #e33d3f;
+}
+
+.agregar-serie-button {
+  font-family: var(--font-titulo);
+  background: #2eb9e4;
+  color: var(--font-titulo);
+  border: none;
+  border-radius: 6px;
+  padding: 0rem  2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 2rem;
+  height: 2rem;
+}
+
+.agregar-serie-button:hover {
+  scale: 1.1;
+  background: #69dafc;
+}
+
+.agregar-ejercicio-button {
+  font-family: var(--font-titulo);
+  background: #bec6c9;
+  color: var(--font-titulo);
+  border: none;
+  border-radius: 6px;
+  padding: 0rem  2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 2rem;
+  height: 2rem;
+}
+
+.agregar-ejercicio-button:hover {
+  scale: 1.1;
+  background: #e4c973;
 }
 
 /* Botón principal */
@@ -198,8 +236,7 @@ label {
   background-color: var(--color-fondo-tarjetas); /* fondo blanco */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   animation: aparecerFormulario 0.8s ease forwards;
-  max-width: 1100px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .agregar-ejercicios-btn{

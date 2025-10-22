@@ -1,4 +1,4 @@
-.header {
+.header-socio {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -85,4 +85,15 @@
 
 .header__logout:hover {
   transform: scale(1.1);
+}
+/* cuando la medida sea de celular que se oculte todo el header */
+@media (max-width: 600px) {
+  .header-socio {
+    grid-template-columns: 1fr auto;
+    padding: 10px 20px;
+  }
+
+  .header-socio {
+    display: none;
+  }
 }

@@ -30,18 +30,21 @@ h3 {
 }
 
 /* Inputs */
-input[type="text"], input[type="date"], input[type="number"] {
+input[type="text"], input[type="date"], input[type="number"], select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
   transition: border-color 0.3s ease;
+  background-color: #fff;
 }
 
-input:focus {
+input:focus,
+select:focus {
   border-color: #8B52FF;
   outline: none;
 }
+
 
 label {
   display: block;
@@ -49,6 +52,13 @@ label {
   margin-bottom: 6px;
   font-weight: 600;
   color: #555;
+}
+
+.error {
+  color: #ff4d4f;
+  font-size: 0.8rem;
+  margin-top: 2px;
+  display: block;
 }
 
 .titulo-ejercicio{
