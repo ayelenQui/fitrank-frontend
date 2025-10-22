@@ -11,7 +11,6 @@ import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsign
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { VisualizadorSvgComponent } from '@app/modules/visualizador3d/components/visualizador-svg.component';
 
-import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupomuscular.service';
 
 
 
@@ -55,7 +54,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private serieService: SerieAsignadaService,
     private router: Router,
     private location: Location,
-     private grupoMuscularService: GrupoMuscularService
+
   ) { }
 
   ngOnInit(): void {
@@ -83,13 +82,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
       error: (err) => console.error('Error cargando ejercicios', err)
     });
 
-    // Cargar grupos musculares
-    this.grupoMuscularService.getAll().subscribe({
-      next: (data: any[]) => {
-        console.log('Grupos musculares:', data);
-      },
-      error: (err: any) => console.error('Error cargando grupos musculares', err)
-    });
+ 
 
   }
 
