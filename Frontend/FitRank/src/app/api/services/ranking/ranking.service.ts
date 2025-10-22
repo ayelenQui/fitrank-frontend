@@ -2,40 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';  
-import { MostrarRankingDTO, MostrarRankingDTOGrupo } from './interfaces/ranking.interface';  
 @Injectable({
   providedIn: 'root'
 })
 export class RankingService {
   private apiUrl = `${environment.apiUrl}/Ranking`;
+
   constructor(private http: HttpClient) { }
-  getRanking(): Observable<MostrarRankingDTO[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`).pipe(
-      map(data =>
-        data.map(item => ({
-          username: item.username ?? item.Username ?? '',  
-          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,  
-          Nivel: item.Nivel ?? item.nivel ?? ''  
-        }))
-      )
-    );
+
+  obtenerRankingGeneral(cantidad: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/top/${cantidad}`);
   }
-  getRankingGrupoMuscular(): Observable<MostrarRankingDTOGrupo[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Grupomuscular`).pipe(
-      map(data =>
-        data.map(item => ({
-          username: item.username ?? item.Username ?? '', 
-          Totalpuntos: item.TotalPuntos ?? item.totalPuntos ?? 0,  
-          Nivel: item.Nivel ?? item.nivel ?? '',  
-          GrupoMuscular: (item.GrupoMuscular ?? item.grupoMuscular ?? 0) as number, 
-          Nombre: item.Nombre ?? item.nombre ?? '',
-          divisionPorGrupo: item.DivisionPorGrupo ?? item.divisionPorGrupo ?? ''  
-        }))
-      )
-    );
-  }
-  
-  getUserInitial(userName: string): string {
-    return userName ? userName.charAt(0).toUpperCase() : '?';
+
+  obtenerPuntajePorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}/puntaje`);
   }
 }
