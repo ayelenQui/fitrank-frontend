@@ -11,9 +11,9 @@ import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsign
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { VisualizadorSvgComponent } from '@app/modules/visualizador3d/components/visualizador-svg.component';
 
+import { GrupoMuscularService } from './../../../api/services/grupoMuscular/grupomuscular.service';
 
 
-import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupomuscular.service'; 
 
 @Component({
   selector: 'app-crear-sesiones-rutina',
