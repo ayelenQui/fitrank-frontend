@@ -1,48 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
+import { RankingService } from '@app/api/services/ranking/ranking.service';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.css']
 })
 export class RankingComponent implements OnInit {
-  ranking: { socioId: number; nombre: string; totalPuntos: number }[] = [];
-  cargando = true;
+  ranking: any[] = [];
+  miPuntaje: any;
+  cantidadSeleccionada: number = 10;
+  opciones = [1,2,10, 25, 100];
+  usuarioId!: number;
 
-  constructor(private puntajeService: PuntajeService) { }
+  constructor(private rankingService: RankingService, 
+    private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.cargarRanking();
+    const usuario = this.authService.obtenerUser();
+    console.log('Usuario obtenido del AuthService:', usuario);
+    if (usuario && usuario.Id) {
+      this.usuarioId = usuario.Id;
+
+      //this.usuarioId = 13;
+
+      this.cargarRanking(this.cantidadSeleccionada);
+      this.cargarMiPosicion();
+    } else {
+      console.warn('No hay usuario logueado');
+    }
   }
 
-  cargarRanking(): void {
-    this.puntajeService.getAll().subscribe({
-      next: (puntajes) => {
-        const acumulado: { [key: number]: number } = {};
-
-        for (const p of puntajes) {
-          const socioId = p.serieRealizada?.ejercicioRealizadoId ?? 0;
-          acumulado[socioId] = (acumulado[socioId] || 0) + p.valor;
-        }
-
-        this.ranking = Object.entries(acumulado)
-          .map(([socioId, totalPuntos]) => ({
-            socioId: +socioId,
-            nombre: `Socio #${socioId}`, // (si tu backend trae nombres, los reemplazás)
-            totalPuntos
-          }))
-          .sort((a, b) => b.totalPuntos - a.totalPuntos);
-
-        this.cargando = false;
+  cargarRanking(cantidad: number): void {
+    console.log('Solicitando ranking con cantidad:', cantidad);
+    this.rankingService.obtenerRankingGeneral(cantidad).subscribe({
+      next: (data) => {
+        console.log('Ranking general recibido del backend:', data);
+        this.ranking = data;
       },
-      error: (err) => {
-        console.error('❌ Error al cargar ranking:', err);
-        this.cargando = false;
-      }
+      error: (err) => console.error('Error al obtener ranking general:', err)
     });
+  }
+
+  cargarMiPosicion(): void {
+    if (!this.usuarioId) return;
+console.log('Solicitando posición del usuario con ID:', this.usuarioId);
+    this.rankingService.obtenerPuntajePorId(this.usuarioId).subscribe({
+      next: (data) => {
+        console.log('Posición del usuario recibido del backend:', data);
+        this.miPuntaje = data;
+      },
+      error: (err) => console.error('Error al obtener posición del socio:', err)
+    });
+  }
+
+  onCambioCantidad(): void {
+     console.log('Cantidad seleccionada cambiada a:', this.cantidadSeleccionada);
+    this.cargarRanking(this.cantidadSeleccionada);
   }
 }
