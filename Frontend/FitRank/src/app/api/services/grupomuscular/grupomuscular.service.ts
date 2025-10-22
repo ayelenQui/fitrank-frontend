@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GrupoMuscularDTO } from './interfaces/grupomuscular.interface';
+import { environment } from 'src/environments/environment';
 
-
+export interface GrupoMuscularDTO {
+  id: number;
+  nombre: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class GrupoMuscularService {
-  private baseUrl = 'https://localhost:7226/api/GrupoMuscular';
+  private baseUrl = `${environment.apiUrl}/GrupoMuscular`;
 
   constructor(private http: HttpClient) { }
 
-  obtenerGrupos(): Observable<GrupoMuscularDTO[]> {
+  getAll(): Observable<GrupoMuscularDTO[]> {
     return this.http.get<GrupoMuscularDTO[]>(this.baseUrl);
   }
 }

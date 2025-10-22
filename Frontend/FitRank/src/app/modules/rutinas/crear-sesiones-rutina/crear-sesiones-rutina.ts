@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { VisualizadorSvgComponent } from '@app/modules/visualizador3d/components/visualizador-svg.component';
 
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
 import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsignada.service';
 
+import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupomuscular.service'; 
+
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, VisualizadorSvgComponent],
   templateUrl: './crear-sesiones-rutina.html',
   styleUrls: ['./crear-sesiones-rutina.css']
 })
@@ -20,6 +23,9 @@ export class CrearSesionesRutinaComponent implements OnInit {
   rutinaId!: number;
   socioId!: number;
   ejerciciosDisponibles: Array<{ id: number; nombre: string; urlVideo?: string }> = [];
+
+  gruposMusculares: { id: number; nombre: string }[] = [];
+  grupoMuscularActual: string | null = null;
 
   form!: FormGroup;
   loading = false;
@@ -32,6 +38,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private ejAsignadoService: EjercicioAsignadoService,
     private serieService: SerieAsignadaService,
     private router: Router,
+    private grupoMuscularService: GrupoMuscularService
   ) { }
 
   ngOnInit(): void {
@@ -41,9 +48,12 @@ export class CrearSesionesRutinaComponent implements OnInit {
     const user = this.auth.obtenerUser();
     this.socioId = user?.Id;
 
+
     // Reactive form con arrays anidados
     this.form = this.fb.group({
       ejercicios: this.fb.array([])
+
+
     });
 
     // 1 bloque inicial
@@ -53,6 +63,14 @@ export class CrearSesionesRutinaComponent implements OnInit {
     this.ejService.getAll().subscribe({
       next: (data) => this.ejerciciosDisponibles = data || [],
       error: (err) => console.error('Error cargando ejercicios', err)
+    });
+
+    // Cargar grupos musculares
+    this.grupoMuscularService.getAll().subscribe({
+      next: (data) => {
+        this.gruposMusculares = data || [];
+      },
+      error: (err) => console.error('Error cargando grupos musculares', err)
     });
   }
 
@@ -101,6 +119,25 @@ export class CrearSesionesRutinaComponent implements OnInit {
   eliminarSerie(indexEj: number, indexSerie: number): void {
     this.series(indexEj).removeAt(indexSerie);
   }
+  onEjercicioSeleccionado(ejercicioId: number): void {
+    const ejercicio = this.ejerciciosDisponibles.find(e => e.id === +ejercicioId);
+    if (!ejercicio) return;
+
+    // 📌 Detectamos si el grupoMuscularId está directo o anidado en ejercicio
+    const grupoMuscularId =
+      (ejercicio as any).grupoMuscularId ||
+      (ejercicio as any).ejercicio?.grupoMuscularId;
+
+    if (!grupoMuscularId) {
+      this.grupoMuscularActual = null;
+      console.warn('No se encontró grupoMuscularId en el ejercicio seleccionado:', ejercicio);
+      return;
+    }
+
+    const grupo = this.gruposMusculares.find(g => g.id === grupoMuscularId);
+    this.grupoMuscularActual = grupo ? grupo.nombre : null;
+  }
+
 
   async guardarTodo(): Promise<void> {
     if (this.form.invalid) {

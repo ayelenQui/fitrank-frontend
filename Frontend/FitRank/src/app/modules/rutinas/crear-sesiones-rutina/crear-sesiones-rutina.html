@@ -46,7 +46,7 @@
             </div>
           </div>
 
-          <hr>
+
 
           <!-- SERIES -->
           <div formArrayName="series">
@@ -84,6 +84,11 @@
       </div>
     </div>
 
+    <app-visualizador-svg [gruposMusculares]="[grupoMuscularActual]"></app-visualizador-svg>
+
+
+
+
     <div class="d-flex gap-2">
       <button type="button" class="btn btn-outline-secondary" (click)="agregarEjercicio()">
         + Agregar otro ejercicio
@@ -93,5 +98,5 @@
         {{ loading ? 'Guardando...' : 'Guardar todo' }}
       </button>
     </div>
-  </form>
-</div>
+
+

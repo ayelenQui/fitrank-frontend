@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TypingService } from '../../../api/services/typingService';
 
 @Component({
   selector: 'app-login',
