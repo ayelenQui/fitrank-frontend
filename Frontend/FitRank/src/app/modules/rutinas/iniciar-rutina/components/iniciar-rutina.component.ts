@@ -178,51 +178,39 @@ export class IniciarRutinaComponent implements OnInit, OnDestroy {
     });
   }
 
-  iniciarSerie(): void {
+  // 🔹 Método para iniciar el cronómetro
+  iniciarSerie() {
+    if (this.enEjecucion) return; // evita doble inicio
     this.enEjecucion = true;
-    this.puedeEditar = false;
-    this.tiempoRestante = this.tiempoTotal;
 
-    // obtener referencia al círculo
-    this.circle = document.getElementById('timerCircle') as unknown as SVGCircleElement;
+    // Inicializa el tiempo
+    this.tiempoRestante = 0;
 
+    // Configura el círculo (vacío al inicio)
     if (this.circle) {
-      gsap.set(this.circle, { strokeDasharray: this.circleLength, strokeDashoffset: 0 });
+      this.circleLength = this.circle.getTotalLength();
+
+      gsap.set(this.circle, {
+        strokeDasharray: this.circleLength,
+        strokeDashoffset: this.circleLength
+      });
+
+      // 🔹 Animación de rotación infinita del trazo
+      gsap.to(this.circle, {
+        strokeDashoffset: 0,
+        duration: 3, // velocidad de la vuelta
+        ease: 'linear',
+        repeat: -1, // infinito
+        yoyo: true  // va y vuelve
+      });
     }
 
-    const intervalo = 1000;
+    // 🔹 Inicia el contador numérico (aumenta sin límite)
     this.cronometro = setInterval(() => {
-      this.tiempoRestante--;
-
-      // porcentaje completado
-      const progress = 1 - this.tiempoRestante / this.tiempoTotal;
-      const offset = progress * this.circleLength;
-
-      // animar trazo
-      if (this.circle) {
-        gsap.to(this.circle, { strokeDashoffset: offset, duration: 0.4, ease: 'none' });
-      }
-
-      if (this.tiempoRestante <= 0) {
-        this.finalizarSerie();
-      }
-    }, intervalo);
+      this.tiempoRestante++;
+    }, 1000);
   }
-  // Nueva animación con GSAP
-  animarBarraProgreso(index: number, duracion: number): void {
-    const bar = document.getElementById(`progressBar${index}`);
-    if (!bar) return;
 
-    gsap.killTweensOf(bar); // por si había una barra anterior corriendo
-    gsap.fromTo(bar,
-      { width: '0%' },
-      {
-        width: '100%',
-        duration: duracion,
-        ease: 'linear'
-      }
-    );
-  }
 
   // 🔹 Propiedades visuales del countdown
   showCountdown = false;
@@ -266,10 +254,22 @@ export class IniciarRutinaComponent implements OnInit, OnDestroy {
 
 
   finalizarSerie(): void {
+    // Detiene el contador
     clearInterval(this.cronometro);
     this.enEjecucion = false;
     this.puedeEditar = true;
     this.tiempoRestante = 0;
+    // Detiene animación de GSAP
+    gsap.killTweensOf(this.circle);
+
+    // Deja el trazo en estado final (por ejemplo, completado)
+    if (this.circle) {
+      gsap.to(this.circle, {
+        strokeDashoffset: 0,
+        duration: 0.4,
+        ease: 'power1.out'
+      });
+    }
   }
 
   // 🔹 Pasar a la siguiente serie o registrar ejercicio si termina
