@@ -1,95 +1,161 @@
-.text-fitrank {
-  color: #8B52FF;
+.fitrank-dashboard {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 1300px;
+  margin: 2rem auto;
 }
 
-.bg-fitrank {
-  background-color: #8B52FF;
+/* Encabezado */
+.welcome-section h2 {
+  font-size: 1.8rem;
+  color: #222;
 }
 
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
 
+/* Panel principal */
+.panel-principal img {
+  height: 100%;
+  object-fit: cover;
+}
 
-.titulo-rutina{
-  font-family: var(--font-titulo);
-    font-size: clamp(0.5rem, .5vw + 1.5rem, 2rem);
-
+.btn-fitrank {
+  background-color: #8b52ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 8px 18px;
+  transition: all 0.3s;
 }
 
   .btn-fitrank:hover {
-    background-color: #7139ef;
-    transform: translateY(-2px);
+    background-color: #7036e0;
   }
 
-.btn-outline-fitrank {
-  border: 2px solid #8B52FF;
-  color: #8B52FF;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: all 0.3s ease;
+/* Stats */
+.stats-panel {
+  background: #faf8ff;
 }
 
-  .btn-outline-fitrank:hover {
-    background-color: #8B52FF;
-    color: #fff;
+.stat-line {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Acciones rápidas */
+.quick-actions .action-card {
+  transition: all 0.25s;
+  cursor: pointer;
+  background: #faf8ff;
+}
+
+  .quick-actions .action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(139, 82, 255, 0.15);
   }
 
-  .iniciar-btn {
-    background-color: var(--color-acento);
-    font-family: var(--font-titulo);
-    height: 30px;
-    line-height: 30px;
-    padding: 0 12px;
-    width: 70px;
-    transition: all 0.3s ease;
-    border: none;
-    border-radius: 10px;
+.quick-actions h6 {
+  margin: 0;
+  color: #333;
 }
 
-    .iniciar-btn:hover {
-      color: black;
-      /* background-color: #7139ef; */
-        transform: translateY(-2px);
-    }
-
-.bg-fitrank-subtle {
-  background-color: rgba(139, 82, 255, 0.15);
-}
-
-.card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  border-radius: 10px;
-}
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(139, 82, 255, 0.2);
-  }
-
-.material-symbols-outlined {
-  vertical-align: middle;
-}
-
-.spinner-border.text-fitrank {
-  color: #8B52FF !important;
-}
-
-.alert {
-  border-radius: 10px;
-}
-
-
-.rutinas-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-width: 100%;}
-
-.rutinas {
-  /* border: 2px solid #ccc; borde gris suave */
+/* Rutinas */
+.rutina-item {
   border-radius: 16px;
-  padding: 20px;
-  background-color: var(--color-fondo-tarjetas); /* fondo blanco */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  animation: aparecerFormulario 0.8s ease forwards;
-  max-width: 1100px;
-  margin: 0 auto;
+  transition: all 0.25s;
+}
+
+  .rutina-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(139, 82, 255, 0.15);
+  }
+
+.rutina-img {
+  height: 200px;
+  overflow: hidden;
+}
+
+  .rutina-img img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+  }
+
+.rutina-item:hover .rutina-img img {
+  transform: scale(1.05);
+}
+
+.card-header-text {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+}
+
+/* Botón iniciar */
+.iniciar-btn {
+  background-color: #8b52ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.25s;
+}
+
+  .iniciar-btn:hover {
+    background-color: #7036e0;
+    transform: scale(1.05);
+  }
+
+/* Progress */
+.bg-fitrank {
+  background-color: #8b52ff !important;
+}
+/* === Fondos suaves gris + violeta predominante === */
+
+.bg-gradient-1 {
+  background: linear-gradient(135deg, #8b52ff, #dcd6f8);
+}
+
+.bg-gradient-2 {
+  background: linear-gradient(135deg, #9b6cff, #e7e3fa);
+}
+
+.bg-gradient-3 {
+  background: linear-gradient(135deg, #a480ff, #f0edf9);
+}
+
+.bg-gradient-4 {
+  background: linear-gradient(135deg, #7a47e0, #e6e1f9);
+}
+
+
+/* Contenedor y estilo del ícono */
+.rutina-img {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid #fff;
+}
+
+.icono-rutina {
+  font-size: 3rem;
+  color: #fff;
+  opacity: 0.9;
+  transition: transform 0.3s ease;
+}
+
+.rutina-item:hover .icono-rutina {
+  transform: scale(1.1);
 }

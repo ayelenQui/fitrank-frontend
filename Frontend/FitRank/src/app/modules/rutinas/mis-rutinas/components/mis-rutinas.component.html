@@ -2,64 +2,73 @@
 <button type="button" class="btn-volver" (click)="volverAtras()">
   Volver
 </button>
+<div class="fitrank-dashboard container py-4">
 
-<div class=" contenedor-socio">
-  <!-- 🏋️‍♀️ Título -->
-  <h2 class="fw-bold text-center mb-4 text-fitrank titulo">Mis Rutinas</h2>
-
-  <!-- ⏳ Loader -->
-  <div *ngIf="loading" class="text-center mt-4">
-    <div class="spinner-border text-fitrank" role="status"></div>
-    <p class="mt-3 text-muted">Cargando tus rutinas...</p>
-  </div>
-
-  <!-- ⚠️ Error -->
-  <div *ngIf="error" class="alert alert-danger text-center mt-3 shadow-sm">
-    {{ error }}
-  </div>
-
-  <!-- ✅ Listado de rutinas -->
-  <div *ngIf="!loading && rutinas.length > 0" class="rutinas-lista">
-    <div *ngFor="let r of rutinas" class="card rutina-item shadow-sm mb-4  overflow-hidden">
-      <div class="card-header d-flex justify-content-between align-items-center bg-fitrank text-white py-3 px-4">
-        <h5 class="mb-0 titulo-rutina">{{ r.rutina.nombre }}</h5>
-        <button class="btn  iniciar-btn"
-                (click)="iniciarRutina(r.rutina)">
-          <!-- <span class="material-symbols-outlined fs-5">play_arrow</span> -->
-          Iniciar
-        </button>
-      </div>
-
-      <div class="card-body px-4 py-3 bg-white">
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let e of r.ejercicios"
-              class="list-group-item border-0 d-flex justify-content-between align-items-center px-0 py-2">
-            <div>
-              <strong class="text-fitrank">#{{ e.orden }}</strong>
-              <span class="ms-2">{{ e.nombre }}</span>
-            </div>
-            <span class="badge bg-fitrank-subtle text-fitrank">Sesión {{ e.sesion }}</span>
-          </li>
-        </ul>
-      </div>
-
-      
+  <!-- 🔝 Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold text-fitrank mb-1">Mis Rutinas</h2>
+      <p class="text-muted">Tu plan de entrenamiento personalizado</p>
     </div>
+
+
   </div>
 
-  <!-- 🚫 Sin rutinas -->
-  <div *ngIf="!loading && rutinas.length === 0" class="text-center text-muted mt-5">
-    <span class="material-symbols-outlined fs-1 d-block mb-2 text-fitrank">hourglass_empty</span>
-    <p class="fs-5">Aún no tenés rutinas creadas.</p>
-    <p>¡Creá tu primera rutina y empezá a progresar! 💪</p>
-  </div>
+  <!-- 🏋️‍♀️ Rutina destacada de hoy -->
+  <section class="featured-routine card border-0 shadow-lg rounded-4 overflow-hidden mb-5 bg-gradient-1">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-5 position-relative">
+        <img src="/assets/img/home/gym.jpg"
+             class="img-fluid h-100 object-fit-cover"
+             alt="Rutina destacada" />
+        <div class="overlay-fitrank"></div>
+      </div>
 
-  <!-- ➕ Crear nueva -->
-  <div class="text-center mt-5">
-    <button class=" btn-principal"
-            (click)="crearRutina()">
-      <!-- <span class="material-symbols-outlined">add_circle</span> -->
-      Crear nueva rutina
-    </button>
-  </div>
+      <div class="col-md-7 p-4 text-dark">
+        <h6 class="text-uppercase text-fitrank fw-semibold mb-2">Hoy</h6>
+        <h3 class="fw-bold mb-2">Full Body Strength</h3>
+        <p class="text-muted">10 ejercicios · 45 minutos</p>
+
+        <div class="d-flex align-items-center gap-3 mt-3">
+          <span class="material-symbols-outlined icono-rutina">auto_graph</span>
+          <p class="mb-0 fw-semibold text-secondary">“Transformá tu energía en progreso ”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🧩 Rutinas guardadas -->
+  <section>
+    <h5 class="fw-semibold text-dark mb-3">Mis rutinas Activas</h5>
+    <div class="row g-4">
+      <div *ngFor="let r of rutinas; let i = index" class="col-sm-6 col-lg-4">
+        <div class="card rutina-item border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="rutina-img position-relative d-flex align-items-center justify-content-center"
+               [ngClass]="{
+       'bg-gradient-1': i % 4 === 0,
+       'bg-gradient-2': i % 4 === 1,
+       'bg-gradient-3': i % 4 === 2,
+       'bg-gradient-4': i % 4 === 3
+     }">
+            <span class="material-symbols-outlined icono-rutina">auto_graph</span>
+          </div>
+          <div class="card-body p-3">
+            <h6 class="text-fitrank fw-semibold mb-1">{{ r.rutina.nombre }}</h6>
+            <p class="text-muted small mb-3">{{ r.ejercicios.length }} ejercicios · 30 min</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <button class="btn btn-sm btn-fitrank-light" (click)="iniciarRutina(r.rutina)">
+                <span class="material-symbols-outlined align-middle me-1">play_arrow</span>
+                Iniciar
+              </button>
+              <div class="d-flex gap-2">
+                <button class="btn btn-light btn-sm"><span class="material-symbols-outlined">edit</span></button>
+                <button class="btn btn-light btn-sm"><span class="material-symbols-outlined">delete</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>

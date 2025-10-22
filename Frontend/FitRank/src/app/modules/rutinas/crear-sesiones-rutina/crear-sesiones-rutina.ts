@@ -9,13 +9,16 @@ import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
 import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsignada.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
+import { VisualizadorSvgComponent } from '@app/modules/visualizador3d/components/visualizador-svg.component';
+
+
 
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupomuscular.service'; 
 
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent, VisualizadorSvgComponent],
   templateUrl: './crear-sesiones-rutina.html',
   styleUrls: ['./crear-sesiones-rutina.css', '../../css-socio/socio-common.css']
 })
@@ -50,7 +53,8 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private ejAsignadoService: EjercicioAsignadoService,
     private serieService: SerieAsignadaService,
     private router: Router,
-    private location : Location
+    private location: Location,
+     private grupoMuscularService: GrupoMuscularService
   ) { }
 
   ngOnInit(): void {

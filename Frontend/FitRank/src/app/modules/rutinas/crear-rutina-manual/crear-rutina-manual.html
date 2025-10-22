@@ -1,70 +1,91 @@
 <app-header-socio></app-header-socio>
+
+<!-- Botón volver -->
 <button type="button" class="btn-volver" (click)="volverAtras()">
-  Volver
+  ← Volver
 </button>
 
-<div class="crear-rutina-container">
-  <h2 class="titulo titulo-form">Crear Rutina Manual</h2>
+<!-- Contenedor principal -->
+<div class="crear-rutina-wrapper container py-5">
+  <!-- Título -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-fitrank display-6">✨ Crear Rutina Manual</h2>
+    <p class="text-muted">Personalizá tu plan de entrenamiento paso a paso.</p>
+  </div>
 
-  <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="form-container">
-
-    <!-- Sección datos de la rutina -->
-    <div class="section datos-rutina">
-      <h3>Datos de la rutina</h3>
-      <div class="form-grid">
-        <div class="form-group campo-form">
-          <label for="nombre">Nombre</label>
-          <input id="nombre" formControlName="nombre" type="text" placeholder="Ej: Full Body Principiante" />
-          <small class="error" *ngIf="rutinaForm.get('nombre')?.invalid && rutinaForm.get('nombre')?.touched">
+  <!-- Card principal -->
+  <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <h4 class="fw-semibold text-dark mb-3">Comenzemos dando un nombre </h4>
+    <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="form-container">
+      <div class="row g-4">
+        <!-- Nombre -->
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input id="nombre"
+                 formControlName="nombre"
+                 type="text"
+                 class="form-control form-control-lg"
+                 placeholder="Ej: Full Body Principiante" />
+          <small class="error text-danger" *ngIf="rutinaForm.get('nombre')?.invalid && rutinaForm.get('nombre')?.touched">
             El nombre es obligatorio
           </small>
         </div>
 
-        <!-- Select de dificultad -->
-        <div class="form-group campo-form">
-          <label for="dificultad">Dificultad</label>
-          <select id="dificultad" formControlName="dificultadId">
-            <option value="" disabled selected>Seleccionar dificultad</option>
+        <!-- Dificultad -->
+        <div class="col-md-3">
+          <label for="dificultad" class="form-label">Dificultad</label>
+          <select id="dificultad" formControlName="dificultadId" class="form-select form-select-lg">
+            <option value="" disabled selected>Seleccionar</option>
             <option value="3">Principiante</option>
             <option value="2">Intermedia</option>
             <option value="1">Avanzada</option>
           </select>
-          <small class="error" *ngIf="rutinaForm.get('dificultadId')?.invalid && rutinaForm.get('dificultadId')?.touched">
-              La dificultad es obligatoria
-            </small>
+          <small class="error text-danger" *ngIf="rutinaForm.get('dificultadId')?.invalid && rutinaForm.get('dificultadId')?.touched">
+            La dificultad es obligatoria
+          </small>
         </div>
 
-        <!-- Select de frecuencia (1 a 7 días) -->
-        <div class="form-group campo-form">
-          <label for="frecuencia">Frecuencia (días por semana)</label>
-          <select id="frecuencia" formControlName="frecuencia">
-            <option value="" disabled selected>Seleccionar días</option>
+        <!-- Frecuencia -->
+        <div class="col-md-3">
+          <label for="frecuencia" class="form-label">Frecuencia (días por semana)</label>
+          <select id="frecuencia" formControlName="frecuencia" class="form-select form-select-lg">
+            <option value="" disabled selected>Seleccionar</option>
             <option *ngFor="let dia of diasFrecuencia" [value]="dia">{{ dia }}</option>
           </select>
-          <small class="error" *ngIf="rutinaForm.get('frecuencia')?.invalid && rutinaForm.get('frecuencia')?.touched">
-              La frecuencia es obligatoria
-            </small>
+          <small class="error text-danger" *ngIf="rutinaForm.get('frecuencia')?.invalid && rutinaForm.get('frecuencia')?.touched">
+            La frecuencia es obligatoria
+          </small>
         </div>
+      </div>
 
-        <!-- <div class="form-group campo-form">
-          <label for="fechaInicio">Fecha inicio</label>
-          <input id="fechaInicio" formControlName="fechaInicio" type="date" />
-        </div>
+      <!-- Botón principal -->
+      <div class="text-center mt-5">
+        <button type="submit" class="btn btn-fitrank-lg px-5 py-3">
+          ✨ Crear rutina
+        </button>
+      </div>
+    </form>
+  </div>
 
-        <div class="form-group campo-form">
-          <label for="fechaFin">Fecha fin</label>
-          <input id="fechaFin" formControlName="fechaFin" type="date" />
-        </div> -->
-        <!-- <div class="form-group campo-form">
-          <label>Días por semana</label>
-          <input formControlName="diasPorSemana" type="number" min="1" max="7" />
-        </div> -->
+  <!-- Sección informativa tipo cards -->
+  <div class="row g-4 mt-5">
+    <div class="col-md-4">
+      <div class="info-card p-4 rounded-4 shadow-sm h-100">
+        <h5 class="fw-bold">🧩 Crea manualmente</h5>
+        <p class="text-muted">Agregá ejercicios uno por uno y personalizá cada detalle.</p>
       </div>
     </div>
-
-
-
-    <!-- Botón principal -->
-    <button type="submit" class="btn-principal boton-enviar">Crear rutina</button>
-  </form>
+    <div class="col-md-4">
+      <div class="info-card p-4 rounded-4 shadow-sm h-100">
+        <h5 class="fw-bold">🤖 Crear con IA</h5>
+        <p class="text-muted">Generá una rutina adaptada a tus objetivos y progreso automáticamente.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="info-card p-4 rounded-4 shadow-sm h-100">
+        <h5 class="fw-bold">👩‍🏫 Con un profesor</h5>
+        <p class="text-muted">Solicitá una rutina guiada por un entrenador certificado.</p>
+      </div>
+    </div>
+  </div>
 </div>

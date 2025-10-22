@@ -1,318 +1,173 @@
-.crear-rutina-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
-  min-height: 80vh;
+:root {
+  --color-fondo-principal: #FAFAFA;
+  --color-fondo-secundario: #E0E0E0;
+  --color-fondo-tarjetas: #EAEAEA;
+  --color-texto-principal: #121212;
+  --color-texto-secundario: #808080;
+  --color-hover-exito: #5A9A00;
+  --color-error-alerta: #FF4C4C;
+  --color-acento: #FAEB92;
+  --color-acento-secundario: #8B52FF;
+  --font-titulo: 'Bebas Neue', sans-serif;
+  --font-secundaria: 'Work Sans', sans-serif;
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === TÍTULOS === */
+.titulo {
+  font-weight: 800;
+  color: #222;
+  font-size: 1.8rem;
+  text-transform: uppercase;
   text-align: center;
-  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
-  padding-top: 2rem; /* espacio desde el header */
+  margin-bottom: 1.5rem;
+  font-family : --font-titulo;
 }
 
-.titulo{
-  font-family: var(--font-titulo);
-  text-align: center;
-  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
-  color: #2c2c2c;
-  margin-bottom: 20px;
-}
-
-.section {
-  margin-bottom: 30px;
-}
-
-h5 {
-  margin-bottom: 15px;
-  font-size: clamp(1rem, 1vw + 0.5rem, 3rem);
-  font-family: var(--font-titulo);
-  color: #333;
-  border-left: 4px solid #8B52FF;
-  padding-left: 8px;
-}
-
-/* Inputs */
-input[type="text"], input[type="date"], input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-}
-
-input:focus {
-  border-color: #8B52FF;
-  outline: none;
-}
-
-label {
-  display: block;
-  font-family: var(--font-secundaria);
-  margin-bottom: 6px;
+.label {
   font-weight: 600;
   color: #555;
 }
 
-.titulo-ejercicio{
-  font-family: var(--font-titulo);
-  font-size: clamp(0.8rem, 1vw + 0.5rem, 2rem);
-  margin: 8px 0 4px 0;
-  color: var(--color-texto-principal);
+.titulo-ejercicio {
+  color: #8b52ff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: --font-titulo;
 }
 
-.texto-ejercicio{
-  font-family: var(--font-secundaria);
-  font-size: clamp(0.7rem, .5vw + 0.5rem, 1.2rem);
-  margin: 0;
-  color: var(--color-texto-secundario);
-}
-
-/* Grid para datos básicos */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-}
-
-/* Filtro muscular */
-.grupos-filtro {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.grupos-filtro img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
-  background: #f5f5f5;
-  border: 2px solid transparent;
+/* === CARDS DE EJERCICIOS === */
+.form-container {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem 1.5rem 2rem;
+  margin-bottom: 2rem;
   transition: all 0.3s ease;
 }
 
-.grupos-filtro img.selected {
-  border-color: #8B52FF;
-  transform: scale(1.05);
-}
+  .form-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(139, 82, 255, 0.1);
+  }
 
-/* Cards de ejercicios */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 15px;
-}
-
-.ejercicio-card {
-  background: #fafafa;
+/* === INPUTS Y SELECTS === */
+.form-control,
+.form-select {
   border-radius: 10px;
-  padding: 10px;
-  text-align: center;
   border: 1px solid #ddd;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.ejercicio-card img {
-  width: 100%;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 5px;
-}
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #8b52ff;
+    box-shadow: 0 0 0 0.15rem rgba(139, 82, 255, 0.25);
+  }
 
-.ejercicio-card.selected {
-  border: 2px solid #8B52FF;
-  box-shadow: 0 0 8px rgba(139, 82, 255, 0.3);
-}
-
-/* Ejercicios agregados */
-.ejercicio-item-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px;
+/* === BOTONES === */
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #fefefe;
-  margin-bottom: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
 }
 
-.ejercicio-item-container img {
-  width: 70px;
-  height: 70px;
-  border-radius: 6px;
-  object-fit: cover;
-}
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+  }
 
-.form-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  gap: 10px;
-  margin-top: 8px;
-    align-items: end;
-
-}
-
+/* Botones de acción (quitar / agregar) */
 .quitar-btn {
-  font-family: var(--font-titulo);
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0rem  2rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  /* line-height: 3rem; */
-  height: 2rem;
-  /* max-height: 2rem; */
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
-.quitar-btn:hover {
-  scale: 1.1;
-  background: #e33d3f;
-}
+  .quitar-btn:hover {
+    background-color: #ffccd1;
+    color: #a10000;
+  }
 
-.agregar-serie-button {
-  font-family: var(--font-titulo);
-  background: #2eb9e4;
-  color: var(--font-titulo);
-  border: none;
-  border-radius: 6px;
-  padding: 0rem  2rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 2rem;
-  height: 2rem;
-}
-
-.agregar-serie-button:hover {
-  scale: 1.1;
-  background: #69dafc;
-}
-
+.agregar-serie-button,
 .agregar-ejercicio-button {
-  font-family: var(--font-titulo);
-  background: #bec6c9;
-  color: var(--font-titulo);
-  border: none;
-  border-radius: 6px;
-  padding: 0rem  2rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 2rem;
-  height: 2rem;
+  margin-top: 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #8b52ff;
+  border: 2px solid #8b52ff;
+  background: #fff;
+  transition: all 0.3s ease;
 }
 
-.agregar-ejercicio-button:hover {
-  scale: 1.1;
-  background: #e4c973;
-}
+  .agregar-serie-button:hover,
+  .agregar-ejercicio-button:hover {
+    background-color: #8b52ff;
+    color: #fff;
+    transform: translateY(-2px);
+  }
 
 /* Botón principal */
 .btn-principal {
-   margin-top: 2rem;
-   margin-left: auto;
-   margin-right: auto;
-   display: block;
-  padding: 0.6rem 5rem;
-  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
-  font-family: var(--font-titulo);
+  background-color: #8b52ff;
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  background-color: #e0d682;
-  color: black;
-  transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
-}
-
-.btn-principal:hover {
-  scale: 1.1;
-}
-
-.form-container {
-  /* border: 2px solid #ccc; borde gris suave */
-  border-radius: 16px;
-  padding: 20px;
-  background-color: var(--color-fondo-tarjetas); /* fondo blanco */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  animation: aparecerFormulario 0.8s ease forwards;
-  /* margin: 0 auto; */
-}
-
-.agregar-ejercicios-btn{
-    display: flex;
-    justify-content: center;
-}
-
-.btn-agregar-ejercicios {
-
+  border-radius: 40px;
+  font-weight: 600;
+  padding: 10px 35px;
+  font-size: 1rem;
   margin-top: 2rem;
-  padding: 0.8rem 3rem;
-  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
-  font-family: var(--font-titulo);
-  border: none;
-  border-radius: 10px;
-  background-color: #ccc;
-  color: black;
-  cursor: not-allowed;
-  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Solo hover si NO está deshabilitado */
-.btn-agregar-ejercicios:not([disabled]):hover {
-  transform: scale(1.1);
-}
-/* .agregar-ejercicios-btn:hover {
-  transform: scale(1.1);
-  background-color: #222;
-} */
-/* Cuando está habilitado */
+  .btn-principal:hover {
+    background-color: #733ed9;
+    transform: translateY(-2px);
+  }
 
-
-/* Cuando es manual */
-.btn-agregar-ejercicios:not([disabled]) {
-  background-color: #FAEB92;
-  color: black;
-  cursor: pointer;
+/* === SERIES === */
+.row.g-2 {
+  background-color: #faf8ff;
+  border-radius: 12px;
+  border: 1px solid #f0eaff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
+  .row.g-2:hover {
+    background-color: #f6f1ff;
+    box-shadow: 0 3px 10px rgba(139, 82, 255, 0.1);
+  }
 
-@media (max-width: 1400px) {
+/* === GRUPO MUSCULAR VISUAL === */
+app-visualizador-svg {
+  display: block;
+  margin: 2rem auto;
+  max-width: 600px;
+}
 
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1rem;
+  }
 
+  .titulo {
+    font-size: 1.4rem;
+  }
 
   .btn-principal {
-    padding: 0.7rem 2rem;
-    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
-  }
-
-  .btn-agregar-ejercicios {
-    padding: 0.7rem 2rem;
-    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
-  }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .crear-rutina-container {
-    padding: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  }
-
-  label{
-    font-size: 0.7rem;
-  }
-  .grupos-filtro img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .ejercicio-item-container {
-    flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
   }
 }

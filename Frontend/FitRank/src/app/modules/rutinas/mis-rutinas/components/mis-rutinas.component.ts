@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
@@ -14,7 +14,7 @@ import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.comp
   templateUrl: './mis-rutinas.component.html',
   styleUrls: ['./mis-rutinas.component.css', '../../../css-socio/socio-common.css']
 })
-export class MisRutinasComponent implements OnInit {
+export class MisRutinasComponent implements OnInit, AfterViewInit {
   rutinas: any[] = [];
   loading = true;
   error = '';
@@ -26,8 +26,44 @@ export class MisRutinasComponent implements OnInit {
     private router: Router,
     private location : Location
   ) { }
+    ngAfterViewInit(): void {
+      gsap.fromTo(
+        '.titulo',
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
+      );
+
+      gsap.fromTo(
+        '.subtitulo',
+        { y: -15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
+      );
+
+      // Animación tarjetas
+      gsap.fromTo(
+        '.card',
+        { y: 20, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, delay: 0.4, ease: 'power3.out' }
+      );
+
+      // Animación botón
+      gsap.fromTo(
+        '.btn-empezar',
+        { scale: 0.85, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, delay: 0.8, ease: 'power3.out' }
+      );
+
+      const boton = document.querySelector('.btn-empezar');
+      boton?.addEventListener('mouseenter', () => {
+        gsap.to(boton, { scale: 1.1, duration: 0.1, ease: 'power1.out' });
+      });
+      boton?.addEventListener('mouseleave', () => {
+        gsap.to(boton, { scale: 1, duration: 0.1, ease: 'power1.out' });
+      });
+    }
 
   ngOnInit(): void {
+    
     const user = this.auth.obtenerUser();
     this.userId = user?.Id;
 
@@ -38,6 +74,7 @@ export class MisRutinasComponent implements OnInit {
     }
 
     this.cargarRutinas();
+
   }
 
   cargarRutinas(): void {
@@ -110,4 +147,8 @@ export class MisRutinasComponent implements OnInit {
   volverAtras(): void {
     this.location.back();
   }
+}
+
+function ngAfterViewInit() {
+    throw new Error('Function not implemented.');
 }

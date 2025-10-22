@@ -14,7 +14,7 @@
            [formGroupName]="i">
         <div class=" form-container">
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="mb-0 titulo-ejercicio">Ejercicio {{ i+1 }}</h5>
+            <h5 class="mb-0 titulo-ejercicio">✨Primer ejercicio {{ i+1 }}</h5>
             <button type="button" class="btn btn-outline-danger quitar-btn" (click)="eliminarEjercicio(i)">
               Quitar ejercicio
             </button>
@@ -82,14 +82,13 @@
             </div>
 
             <button type="button" class="btn btn-sm btn-outline-primary agregar-serie-button" (click)="agregarSerie(i)">
-              + Agregar serie
+              ✨ Agregar serie
             </button>
           </div>
         </div>
       </div>
     </div>
-    <app-visualizador-svg [gruposMusculares]="grupoMuscularActual ? [grupoMuscularActual] : []">
-    </app-visualizador-svg>
+  
 
 
 
@@ -98,17 +97,12 @@
 
     <div class="d-flex gap-2">
       <button type="button" class="btn btn-outline-secondary agregar-ejercicio-button" (click)="agregarEjercicio()">
-        + Agregar otro ejercicio
+        ✨ Agregar otro ejercicio
       </button>
 
     </div>
-<<<<<<< HEAD
-
-
-=======
     <button type="submit" class="btn btn-primary ms-auto btn-principal" [disabled]="loading">
       {{ loading ? 'Guardando...' : 'Guardar todo' }}
     </button>
   </form>
 </div>
->>>>>>> origin/dev-lautaro

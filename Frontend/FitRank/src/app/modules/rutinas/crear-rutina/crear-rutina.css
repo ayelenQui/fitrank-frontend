@@ -1,234 +1,161 @@
+/* CONTENEDOR PRINCIPAL */
 .contenedor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
-  min-height: 80vh;
+  max-width: 950px;
+  margin: 0 auto;
   text-align: center;
-  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
-  padding-top: 2rem; /* espacio desde el header */
+  padding: 4rem 1.5rem;
 }
 
+/* TÍTULOS */
 .titulo {
-  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+  font-weight: 800;
+  font-size: 2.2rem;
   color: #222;
-  /* margin-top: 1rem;   elimina margen extra del h2 */
-  margin-bottom: 0rem; /* reduce espacio con el p */
-  font-family: var(--font-titulo);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
 
 .subtitulo {
-  color: var(--color-texto-secundario);
-  font-family: var(--font-titulo);
-  font-size: clamp(1rem, .5vw + 1rem, 3rem);
-  margin-top: 0;    /* elimina espacio por defecto */
-  margin-bottom:  1rem; /* separa un poco del grid de tarjetas */
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 3rem;
 }
 
-.titulo-card {
-  font-family: var(--font-titulo);
-  color: #8B52FF;
-  margin-bottom: 0.5rem;
-}
-
-.subtitulo-card {
-  font-size: clamp(0.5rem, .5vw + 0.5rem, 1rem);
-  color: var(--font-texto-principal);
-  font-family: var(--font-secundaria);
-  font-weight: 500;
-  margin: 0 1rem; /* margen lateral para que no pegue al borde */
-}
-
-
+/* CONTENEDOR DE CARDS */
 .botones-tipo-rutina {
-  /* display: grid; */
   display: flex;
-  justify-content: center;
-  align-items: stretch;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-  /* max-width: 900px; */
   flex-wrap: wrap;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
+/* CARD BASE */
 .card {
-  background: #EAEAEA;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  padding: 2rem 1rem;
+  flex: 1 1 280px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
-  opacity: 1;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: #8b52ff;
+    box-shadow: 0 6px 20px rgba(139, 82, 255, 0.15);
+  }
+
+  /* CARD SELECCIONADA */
+  .card.seleccionada {
+    border: 2px solid #8b52ff;
+    box-shadow: 0 8px 25px rgba(139, 82, 255, 0.25);
+    transform: translateY(-6px);
+  }
+
+/* TÍTULO DE CADA CARD */
+.titulo-card {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #222;
+  margin-bottom: 1rem;
 }
 
-.card.seleccionada {
-  border-color: #8B52FF;
-  box-shadow: 0 0 15px rgba(139,82,255,0.3);
-}
-
+/* CÍRCULO DE ÍCONO */
 .icono-circulo {
-  width: 120px;
-  height: 120px;
-  background-color: #FAEB92;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  background: rgba(139, 82, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem auto; /* centrado horizontal y espacio abajo */
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
 .icono-card {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
+.card.seleccionada .icono-circulo {
+  background: #8b52ff;
+}
 
+.card.seleccionada .icono-card {
+  filter: brightness(0) invert(1);
+}
+
+/* DESCRIPCIÓN DE LA CARD */
+.subtitulo-card {
+  font-size: 0.95rem;
+  color: #777;
+  margin: 0;
+  line-height: 1.4;
+  max-width: 260px;
+}
+
+/* BOTÓN PRINCIPAL */
 .btn-empezar {
-  margin-top: 2rem;
-  padding: 0.8rem 6rem;
-  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
-  font-family: var(--font-titulo);
+  background-color: #8b52ff;
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  background-color: #ccc;
-  color: black;
-  cursor: not-allowed;
-  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 12px 40px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
 }
 
-/* Solo hover si NO está deshabilitado */
-.btn-empezar:not([disabled]):hover {
-  transform: scale(1.1);
-}
-/* .btn-empezar:hover {
-  transform: scale(1.1);
-  background-color: #222;
-} */
-/* Cuando está habilitado */
-.btn-empezar:not([disabled]) {
-  background-color: grey; /* default si no es manual */
-  color: white;
-  cursor: pointer; /* importante */
-}
+  .btn-empezar:hover {
+    background-color: #733ed9;
+    transform: translateY(-2px);
+  }
 
-/* Cuando es manual */
-.btn-empezar.manual-activo:not([disabled]) {
-  background-color: #FAEB92;
-  color: black;
+  /* BOTÓN DESHABILITADO */
+  .btn-empezar:disabled {
+    background-color: #ddd;
+    color: #888;
+    cursor: not-allowed;
+  }
+
+/* ESTILO DIFERENCIAL SI ES MANUAL */
+.manual-activo {
+  background: linear-gradient(90deg, #8b52ff, #a67cff);
 }
 
-@media (max-width: 1400px) {
-  .card {
-    width: 260px;
-    padding: 1.5rem 1rem;
-  }
-
-  .icono-circulo {
-    width: 100px;
-    height: 100px;
-  }
-
-  .icono-card {
-    width: 65px;
-    height: 65px;
-  }
-
-  .titulo-card {
-    font-size: 1.5rem;
-  }
-
-  .subtitulo-card {
-    font-size: clamp(0.8rem, 0.5vw + 0.4rem, 0.9rem);
-  }
-
-  .botones-tipo-rutina {
-    gap: 1rem;
-  }
-
-  .btn-empezar {
-    padding: 0.7rem 4rem;
-    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
-  }
+/* BOTÓN VOLVER */
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
 }
 
-/* ✅ RESPONSIVE: En pantallas chicas las tarjetas se apilan */
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+  }
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-
-  /* .card {
-    width: 90%;
-    max-width: 320px;
-  } */
-
-  .contenedor {
-    padding: 1rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 80px); /* espacio extra para el footer */
-    gap: 1rem;  }
-
-    /* Títulos más chicos */
-  .titulo {padding-top: 2rem;
-    font-size: clamp(1.5rem, 4vw + 0.5rem, 2.5rem);
-  }
-
-  .subtitulo {
-    font-size: clamp(0.9rem, 3vw + 0.5rem, 1.5rem);
-  }
-
-  /* Tarjetas apiladas y más pequeñas */
   .botones-tipo-rutina {
-    margin-top: 0rem;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
   }
 
   .card {
-    transform: scale(1); /* antes 0.95 */
-    max-width: 180px; /* un poquito más anchas */
-    padding: 1.5rem 1rem;
-  }
-
-  .icono-circulo {
-    width: 50px;
-    height: 50px;
-  }
-
-  .icono-card {
-    width: 30px;
-    height: 30px;
-  }
-
-  .titulo-card {
-    font-size: 1.3rem; /* más legible */
-  }
-
-  .subtitulo-card {
-    display: none;
-    font-size: 0.7rem;
-  }
-
-  /* Botón más chico y separado del footer */
-  .btn-empezar {
-    padding: 0.6rem 4rem;
-    font-size: 1.1rem;
-    margin-bottom: calc(env(safe-area-inset-bottom, 20px) + 40px);
+    width: 90%;
   }
 }
-/* Responsive */
-/* @media (max-width: 768px) {
-  .botones-tipo-rutina {
-    grid-template-columns: 1fr;
-   }
-;} */
