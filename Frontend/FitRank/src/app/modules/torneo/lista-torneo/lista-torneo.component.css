@@ -1,0 +1,89 @@
+.torneos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* máximo 3 columnas */
+  gap: 15px; /* espacio entre tarjetas */
+  margin-bottom: 2rem;
+}
+
+
+.crear-torneo-container{
+  max-width: 900px;
+  margin: auto;
+  padding: 25px 20px 60px 20px;
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.torneo-btn {
+  padding: 10px 15px;
+  background-color: #FAEB92;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-titulo);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+h3 {
+  margin-bottom: 15px;
+  font-size: clamp(1rem, 1vw + 0.5rem, 3rem);
+  font-family: var(--font-titulo);
+  color: #333;
+  border-left: 4px solid #8B52FF;
+  padding-left: 8px;
+}
+
+
+.torneo-btn:hover {
+  background-color: #e0d682;
+  transform: scale(1.05);
+}
+
+/* Formulario crear torneo estilo similar a participante */
+.crear-torneo-form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.crear-torneo-form input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.crear-torneo-form input:focus {
+  border-color: #8B52FF;
+  outline: none;
+}
+
+.crear-torneo-form label {
+  display: block;
+  font-family: var(--font-secundaria);
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #555;
+}
+
+.mensaje {
+  color: #8B52FF;
+  font-weight: 500;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Responsive: en pantallas más chicas, que se adapte */
+@media (max-width: 900px) {
+  .torneos-grid {
+    grid-template-columns: repeat(2, 1fr); /* máximo 2 columnas */
+  }
+}
+
+@media (max-width: 600px) {
+  .torneos-grid {
+    grid-template-columns: 1fr; /* 1 columna en móviles */
+  }
+}

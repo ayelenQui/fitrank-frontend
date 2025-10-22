@@ -45,6 +45,20 @@
         font-family: var(--font-titulo);
 }
 
+.contenedor-socio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
+  min-height: 80vh;
+  text-align: center;
+  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
+  padding-top: 2rem; /* espacio desde el header */
+    max-width: 800px;
+margin: auto;
+}
+  
+
 
 @media (max-width: 1400px) {
 

@@ -1,6 +1,11 @@
-<div class="container py-5">
+<app-header-socio></app-header-socio>
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
+
+<div class=" contenedor-socio">
   <!-- 🏋️‍♀️ Título -->
-  <h2 class="fw-bold text-center mb-4 text-fitrank">Mis Rutinas</h2>
+  <h2 class="fw-bold text-center mb-4 text-fitrank titulo">Mis Rutinas</h2>
 
   <!-- ⏳ Loader -->
   <div *ngIf="loading" class="text-center mt-4">
@@ -14,13 +19,13 @@
   </div>
 
   <!-- ✅ Listado de rutinas -->
-  <div *ngIf="!loading && rutinas.length > 0">
-    <div *ngFor="let r of rutinas" class="card rutina-item shadow-sm border-0 mb-4 rounded-4 overflow-hidden">
+  <div *ngIf="!loading && rutinas.length > 0" class="rutinas-lista">
+    <div *ngFor="let r of rutinas" class="card rutina-item shadow-sm mb-4  overflow-hidden">
       <div class="card-header d-flex justify-content-between align-items-center bg-fitrank text-white py-3 px-4">
-        <h5 class="mb-0 fw-bold">{{ r.rutina.nombre }}</h5>
-        <button class="btn btn-light btn-sm fw-semibold text-fitrank d-flex align-items-center gap-1 px-3"
+        <h5 class="mb-0 titulo-rutina">{{ r.rutina.nombre }}</h5>
+        <button class="btn  iniciar-btn"
                 (click)="iniciarRutina(r.rutina)">
-          <span class="material-symbols-outlined fs-5">play_arrow</span>
+          <!-- <span class="material-symbols-outlined fs-5">play_arrow</span> -->
           Iniciar
         </button>
       </div>
@@ -51,9 +56,9 @@
 
   <!-- ➕ Crear nueva -->
   <div class="text-center mt-5">
-    <button class="btn btn-fitrank px-4 py-2 d-flex align-items-center mx-auto gap-2"
+    <button class=" btn-principal"
             (click)="crearRutina()">
-      <span class="material-symbols-outlined">add_circle</span>
+      <!-- <span class="material-symbols-outlined">add_circle</span> -->
       Crear nueva rutina
     </button>
   </div>

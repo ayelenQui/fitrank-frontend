@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderSocioComponent],
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.css']
 })

@@ -7,11 +7,12 @@ import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import gsap from 'gsap';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { AgregarRutinaDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-crear-rutina-manual',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent],
   templateUrl: './crear-rutina-manual.html',
   styleUrls: ['./crear-rutina-manual.css', '../../css-socio/socio-common.css']
 })

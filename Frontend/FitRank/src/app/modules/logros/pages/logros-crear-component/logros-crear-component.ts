@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogroService } from '../../../../api/services/logro/logro.service';
 import { LogroCrearRest } from '../../../../api/services/logro/interfaces/logro.crear.rest';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
 selector: 'app-logros-crear',
 standalone: true,
-imports: [CommonModule, ReactiveFormsModule],
+imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent],
 templateUrl: './logros-crear-component.html',
 styleUrls: ['./logros-crear-component.css'],
 })

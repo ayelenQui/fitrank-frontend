@@ -1,3 +1,4 @@
+<app-header-socio></app-header-socio>
 <button type="button" class="btn-volver" (click)="volverAtras()">
   Volver
 </button>
@@ -14,6 +15,9 @@
         <div class="form-group campo-form">
           <label for="nombre">Nombre</label>
           <input id="nombre" formControlName="nombre" type="text" placeholder="Ej: Full Body Principiante" />
+          <small class="error" *ngIf="rutinaForm.get('nombre')?.invalid && rutinaForm.get('nombre')?.touched">
+            El nombre es obligatorio
+          </small>
         </div>
 
         <!-- Select de dificultad -->
@@ -25,7 +29,9 @@
             <option value="2">Intermedia</option>
             <option value="1">Avanzada</option>
           </select>
-
+          <small class="error" *ngIf="rutinaForm.get('dificultadId')?.invalid && rutinaForm.get('dificultadId')?.touched">
+              La dificultad es obligatoria
+            </small>
         </div>
 
         <!-- Select de frecuencia (1 a 7 días) -->
@@ -35,6 +41,9 @@
             <option value="" disabled selected>Seleccionar días</option>
             <option *ngFor="let dia of diasFrecuencia" [value]="dia">{{ dia }}</option>
           </select>
+          <small class="error" *ngIf="rutinaForm.get('frecuencia')?.invalid && rutinaForm.get('frecuencia')?.touched">
+              La frecuencia es obligatoria
+            </small>
         </div>
 
         <!-- <div class="form-group campo-form">

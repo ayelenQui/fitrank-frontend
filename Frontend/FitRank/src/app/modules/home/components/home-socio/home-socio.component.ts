@@ -1,15 +1,17 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
-  selector: 'app-home-socio',
+  selector: 'app-home-socio', 
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true, // déjalo solo si tu proyecto usa componentes standalone
+  imports : [HeaderSocioComponent ]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;

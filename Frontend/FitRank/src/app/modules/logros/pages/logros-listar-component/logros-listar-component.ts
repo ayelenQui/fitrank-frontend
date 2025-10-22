@@ -2,11 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogroService } from '../../../../api/services/logro/logro.service';
 import { LogroRest } from '../../../../api/services/logro/interfaces/logro.rest';
+import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-logros-listar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderSocioComponent],
   templateUrl: './logros-listar-component.html',
   styleUrls: ['./logros-listar-component.css'],
 })
