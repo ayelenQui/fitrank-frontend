@@ -30,6 +30,17 @@ export class CrearSesionesRutinaComponent implements OnInit {
   form!: FormGroup;
   loading = false;
 
+  private svgMap: Record<string, string> = {
+    'glúteos': 'glutes',
+    'gluteos': 'glutes',
+    'pecho': 'chest',
+    'espalda': 'back',
+    'piernas': 'legs',
+    'brazos': 'arms',
+    'hombros': 'shoulders'
+  };
+
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -39,6 +50,11 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private serieService: SerieAsignadaService,
     private router: Router,
     private grupoMuscularService: GrupoMuscularService
+
+
+
+
+
   ) { }
 
   ngOnInit(): void {
@@ -123,7 +139,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
     const ejercicio = this.ejerciciosDisponibles.find(e => e.id === +ejercicioId);
     if (!ejercicio) return;
 
-    // 📌 Detectamos si el grupoMuscularId está directo o anidado en ejercicio
+    // Detectamos el grupoMuscularId
     const grupoMuscularId =
       (ejercicio as any).grupoMuscularId ||
       (ejercicio as any).ejercicio?.grupoMuscularId;
@@ -134,8 +150,16 @@ export class CrearSesionesRutinaComponent implements OnInit {
       return;
     }
 
+    // Buscamos el nombre según el id
     const grupo = this.gruposMusculares.find(g => g.id === grupoMuscularId);
-    this.grupoMuscularActual = grupo ? grupo.nombre : null;
+    if (!grupo) {
+      this.grupoMuscularActual = null;
+      return;
+    }
+
+    // Mapeamos el nombre a la key del SVG
+    const nombre = grupo.nombre.toLowerCase();
+    this.grupoMuscularActual = this.svgMap[nombre] || null;
   }
 
 

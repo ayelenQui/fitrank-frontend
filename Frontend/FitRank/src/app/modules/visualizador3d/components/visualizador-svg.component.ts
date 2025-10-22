@@ -2,9 +2,14 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-visualizador-svg',
-  standalone: true,
+
   templateUrl: './visualizador-svg.component.html',
-  styleUrls: ['./visualizador-svg.component.css']
+  styleUrls: ['./visualizador-svg.component.css'],
+  standalone: true,
+
+
+
+
 
 })
 export class VisualizadorSvgComponent implements OnChanges {
