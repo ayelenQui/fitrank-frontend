@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AgregarRutinaDTO, RutinaCompletaDTO, RutinaDTO } from './interfaces/rutina.interface.rest';
+import { AgregarRutinaDTO, RutinaCompletaDTO, RutinaDTO, RutinaRequestDTO } from './interfaces/rutina.interface.rest';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,7 @@ export class RutinaService {
     return this.http.get<RutinaCompletaDTO>(`${this.apiUrl}/detalle/${rutinaId}`);
   }
 
-
+  generarRutinaIA(idSocio: number, data: RutinaRequestDTO): Observable<any> {
+    return this.http.post(`${this.apiUrl}/generar?idSocio=${idSocio}`, data);
+  }
 }
