@@ -38,7 +38,6 @@ export class CrearRutinaComponent implements AfterViewInit {
     { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, delay: 0.4, ease: 'power3.out' }
   );
 
-  // Animación botón
   gsap.fromTo(
     '.btn-empezar',
     { scale: 0.85, opacity: 0 },

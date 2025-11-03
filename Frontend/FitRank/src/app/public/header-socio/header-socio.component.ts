@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
@@ -10,6 +10,8 @@ import { AuthService } from '@app/api/services/activacion/AuthService.service';
 })
 export class HeaderSocioComponent implements OnInit {
   @Input() user: any = null;
+  sidebarOpen = false;
+
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -17,6 +19,28 @@ export class HeaderSocioComponent implements OnInit {
     if (!this.user) {
       this.user = this.authService.obtenerUser();
     }
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+    const sidebar = document.querySelector('.fit-sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (this.sidebarOpen) {
+      sidebar?.classList.add('open');
+      overlay?.classList.add('visible');
+    } else {
+      sidebar?.classList.remove('open');
+      overlay?.classList.remove('visible');
+    }
+  }
+
+  closeSidebar(): void {
+    this.sidebarOpen = false;
+    const sidebar = document.querySelector('.fit-sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    sidebar?.classList.remove('open');
+    overlay?.classList.remove('visible');
   }
 
   logout() {

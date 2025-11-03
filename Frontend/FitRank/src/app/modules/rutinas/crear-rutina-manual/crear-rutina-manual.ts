@@ -18,9 +18,12 @@ import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.comp
 })
 export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
 
-  diasFrecuencia: number[] = [1, 2, 3, 4, 5, 6, 7]; // para el select de frecuencia
+
 
   rutinaForm!: FormGroup;
+  rolUsuario: string = '';           
+  sociosDisponibles: any[] = [];    
+  socioSeleccionadoId?: number;
 
   constructor(
     private fb: FormBuilder,
@@ -33,13 +36,37 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     const user = this.authService.obtenerUser();
+    
+    this.rolUsuario = user?.Rol;
 
     this.rutinaForm = this.fb.group({
       nombre: ['', Validators.required],
-      dificultadId: ['', Validators.required],
-      frecuencia: ['', Validators.required],
+      tipoCreacion: ['Manual', Validators.required],
+      descripcion: [''],
+      activa: [true, Validators.required],
+      socioId: [null, Validators.required],
+      usuarioId: [null, Validators.required]
     });
+    
+    if (user) {
+      if (this.rolUsuario === 'Socio') {
+        this.rutinaForm.patchValue({
+          socioId: user.Id,
+          usuarioId: user.Id
+        });
+      } else if (this.rolUsuario === 'Profesor' || this.rolUsuario === 'Admin') {
+        this.rutinaForm.patchValue({
+          usuarioId: user.Id
+        });
+        
+      }
+    }
   }
+
+  
+
+
+
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -64,7 +91,10 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
   }
 
   crearRutina(): void {
+    console.log("📤 Enviando rutina al backend:", this.rutinaForm.value);
+
     if (this.rutinaForm.invalid) {
+      console.warn("⚠️ Formulario inválido:", this.rutinaForm.value);
       this.rutinaForm.markAllAsTouched();
       return;
     }
@@ -73,13 +103,11 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
 
     this.rutinaService.crearRutina(rutina).subscribe({
       next: (resp) => {
-        console.log('✅ Rutina creada:', resp);
-        // Redirigir a la siguiente vista, pasando el ID de la rutina creada
+        console.log("✅ Rutina creada:", resp);
         this.router.navigate(['/rutina/crear-sesiones-rutina', resp.id]);
       },
       error: (err) => {
-        console.error('❌ Error al crear rutina', err);
-        alert('Hubo un error al crear la rutina');
+        console.error("❌ Error al crear rutina:", err);
       }
     });
   }

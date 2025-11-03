@@ -1,175 +1,241 @@
-<app-header-socio></app-header-socio>
+<!-- 🔙 Botón volver -->
+<button type="button" class="btn-volver" (click)="volverAtras()">Volver</button>
 
-<!-- 🔙 Botón Volver -->
-<button type="button" class="btn-volver" (click)="volverAtras()">
-  ← Volver
-</button>
 
-<div class="container py-4 iniciar-rutina">
 
-  <!-- 🏋️ Rutina actual -->
-  <div *ngIf="ejercicioActivo" class="row g-4">
-    <!-- PANEL IZQUIERDO -->
-    <div class="col-lg-4">
-      <div class="card shadow-sm border-0 rounded-4 p-4 panel-izquierdo">
-        <h5 class="fw-bold text-center mb-3 text-fitrank">Rutina actual</h5>
-        <p class="text-center text-muted mb-4">
-          {{ ejercicioActivo.ejercicio?.nombre || ('Ejercicio #' + ejercicioActivo.ejercicioId) }}<br />
-          Sesión {{ ejercicioActivo.sesion }} | Orden {{ ejercicioActivo.orden }}
-        </p>
-
-        <div class="timer-container text-center my-3">
-          <div class="progress-ring">
-            <svg class="progress-ring__svg" width="120" height="120">
-              <circle class="progress-ring__background"
-                      cx="60"
-                      cy="60"
-                      r="54" />
-              <circle class="progress-ring__circle"
-                      id="timerCircle"
-                      cx="60"
-                      cy="60"
-                      r="54" />
-            </svg>
-            <div class="timer-text">
-              <span *ngIf="!showCountdown">{{ tiempoRestante }}s</span>
-              <span *ngIf="showCountdown">{{ countdownNumber }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Botones de control -->
-        <div class="d-grid gap-2">
-          <button class="btn btn-fitrank" [disabled]="enEjecucion" (click)="iniciarSerie()">
-            ▶ Iniciar Serie
-          </button>
-          <button class="btn btn-outline-fitrank" [disabled]="enEjecucion" (click)="siguienteSerie()">
-            ➡ Siguiente Serie
-          </button>
-          <button class="btn btn-outline-secondary" (click)="volver()">
-            ← Volver
-          </button>
-          <button class="btn btn-outline-success" (click)="finalizarRutina()">
-            🏁 Finalizar Rutina
-          </button>
-          <button class="btn btn-danger" [disabled]="!enEjecucion" (click)="finalizarSerie()">
-            ⏹ Finalizar Serie
-          </button>
-        </div>
+<!-- 🔹 Bloque inferior con cards -->
+<div class="hero-cards container mt-5">
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-4">
+      <div class="card-fitrank">
+        <span class="material-symbols-outlined icono">fitness_center</span>
+        <h5>Rutinas Inteligentes</h5>
+        <p>Creá rutinas personalizadas según tus objetivos y nivel de entrenamiento.</p>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="card-fitrank">
+        <span class="material-symbols-outlined icono">timeline</span>
+        <h5>Seguimiento en Tiempo Real</h5>
+        <p>Visualizá tu progreso semanal y optimizá tu rendimiento día a día.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container py-4 main-content-with-sb">
+  <!-- 🟢 1️⃣ Listado de Rutinas -->
+  <div *ngIf="!rutinaSeleccionada && !sesionSeleccionada && !ejercicioSeleccionado">
+    <h1 class="titulo fw-bold text-center mb-4">Tus Rutinas</h1>
 
-    <!-- PANEL DERECHO -->
-    <div class="col-lg-8">
-      <div class="card shadow-sm border-0 rounded-4 p-4 panel-derecho">
+    <div class="sesiones-contenedor" #sesionesContainer>
+      <div *ngIf="rutinas.length === 0" class="text-center text-muted">
+        <p>No tenés rutinas registradas.</p>
+      </div>
 
-        <!-- Imagen y título del ejercicio -->
-        <div class="ejercicio-hero rounded-4 shadow-sm mb-3 overflow-hidden">
-          <img [src]="getImagenEjercicio(ejercicioActivo.ejercicio?.nombre)"
-               alt="Imagen del ejercicio"
-               class="hero-img" />
-
-          <div class="hero-overlay">
-            <h5 class="mb-1 fw-bold">
-              {{ ejercicioActivo.ejercicio?.nombre || ('Ejercicio #' + ejercicioActivo.ejercicioId) }}
-            </h5>
-            <p class="m-0 small">Sesión {{ ejercicioActivo.sesion }} · Orden {{ ejercicioActivo.orden }}</p>
-          </div>
-        </div>
-
-        <!-- Series -->
-        <div *ngIf="seriesActuales.length > 0">
-          <h6 class=" text-fitrank ">Series asignadas</h6>
-
-          <div *ngFor="let s of seriesActuales; let i = index"
-               class="serie-card-ui p-3 rounded-4 mb-3"
-               [class.activa]="i === serieActivaIndex">
-            <div class="serie-bar d-flex justify-content-between align-items-center mb-2">
-              <strong>Serie {{ s.nroSerie || (i + 1) }}</strong>
-
-              <div class="acciones-serie d-flex gap-2">
-                <button type="button"
-                        class="btn btn-fitrank-light btn-sm"
-                        [disabled]="enEjecucion"
-                        (click)="startCountdown(i)">
-                  ✨ Iniciar
-                </button>
-
-                <button type="button"
-                        class="btn btn-danger btn-sm"
-                        [disabled]="!(enEjecucion && i === serieActivaIndex)"
-                        (click)="finalizarSerie()">
-                  ⏹ Detener
-                </button>
-              </div>
-            </div>
-
-            <div class="row g-2">
-              <div class="col-4">
-                <label class="form-label small">Peso (kg)</label>
-                <input type="number"
-                       class="form-control form-control-sm"
-                       [(ngModel)]="s.peso"
-                       [readonly]="!puedeEditar || i !== serieActivaIndex" />
-              </div>
-              <div class="col-4">
-                <label class="form-label small">Reps</label>
-                <input type="number"
-                       class="form-control form-control-sm"
-                       [(ngModel)]="s.repeticiones"
-                       [readonly]="!puedeEditar || i !== serieActivaIndex" />
-              </div>
-              <div class="col-4">
-                <label class="form-label small">RIR</label>
-                <input type="number"
-                       class="form-control form-control-sm"
-                       [(ngModel)]="s.rir"
-                       [readonly]="!puedeEditar || i !== serieActivaIndex" />
-              </div>
-            </div>
-
-            <div *ngIf="enEjecucion && i === serieActivaIndex" class="text-end mt-2">
-              <span class="badge bg-fitrank-subtle text-fitrank">✨ En curso…</span>
-
-            </div>
-            <!-- Barra de progreso visual (solo visible cuando la serie está en ejecución) -->
-            <div *ngIf="enEjecucion && i === serieActivaIndex" class="progress-container mt-3">
-              <div class="progress-bar" id="progressBar{{i}}"></div>
-            </div>
-          </div>
+      <div>
+        <div *ngFor="let r of rutinas" class="card border-0 rounded-4 shadow-sm p-3">
+          <h5 class="titulo">{{ r.nombre }}</h5>
+          <p class="text-50 small">{{ r.descripcion }}</p>
+          <button class="btn btn-success mt-2 fw-bold" (click)="seleccionarRutina(r)">
+            Ver sesiones
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- LISTADO DE EJERCICIOS (si aún no seleccionó ninguno) -->
-  <div *ngIf="!ejercicioActivo" class="listado-ejercicios container py-4">
-    <h3 class="text-center titulo-fitrank">
-      ✨ Iniciar Rutina
-    </h3>
+  <!-- 🔹 2️⃣ Listado de Sesiones -->
+  <div *ngIf="rutinaSeleccionada && !sesionSeleccionada && !ejercicioSeleccionado" class="sesiones-container">
+    <h2 class="titulo text-center">{{ rutinaSeleccionada?.nombre }}</h2>
 
-    <div *ngFor="let e of ejerciciosAsignados" class="card ejercicio-card shadow-sm mb-4">
-      <div class="card-body d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-        <div class="text-start titulo-fitrank">
-          <h5 class="fw-semibold text-dark mb-1">
-            {{ e.ejercicio?.nombre || ('Ejercicio #' + e.ejercicioId) }}
-          </h5>
-          <p class="text-muted small mb-0">
-            <span class="me-2"><strong>Orden:</strong> {{ e.orden }}</span> |
-            <span class="ms-2"><strong>Sesión:</strong> {{ e.sesion }}</span>
+    <div *ngIf="rutinaSeleccionada?.sesiones?.length === 0" class="text-center text-muted">
+      <p>No hay sesiones cargadas todavía.</p>
+    </div>
+
+    <div class="sesiones-contenedor" #sesionesContainer>
+      <div *ngFor="let s of rutinaSeleccionada?.sesiones" class="sesion-card" [style.background-image]="'url(' + (s.ejerciciosAsignados[0]?.ejercicio?.urlImagen || 'assets/img/sessions/default-bg.jpg') + ')'">
+        <div class="overlay"></div>
+        <div class="sesion-header">
+          <h3 class="titulo sesion-dia text-white-50">Día {{ s.numeroDeSesion }}</h3>
+          <button class="btn-ver" (click)="seleccionarSesion(s)">
+
+            <span class="material-symbols-outlined fs-1">play_arrow</span>
+          </button>
+          <div class="sesion-info-box">
+            <p class="lista-ejercicios text-center">Tiempo</p>
+            <p class="duracion-total">⏱ {{ calcularDuracionTotal(s.ejerciciosAsignados) }} min</p>
+          </div>
+        </div>
+
+        <div class="sesion-detalle">
+          <ul class="lista-ejercicios">
+            <li *ngFor="let e of s.ejerciciosAsignados">
+              {{ e.ejercicio?.nombre }}
+              <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min</span>
+            </li>
+          </ul>
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 🔹 3️⃣ Listado de Ejercicios -->
+  <div *ngIf="sesionSeleccionada && !ejercicioSeleccionado">
+    <button class="btn btn-link mb-3" (click)="sesionSeleccionada = null">← Volver a sesiones</button>
+    <h4 class="fw-bold mb-4 text-center">{{ sesionSeleccionada.nombre }}</h4>
+
+    <div *ngFor="let e of sesionSeleccionada.ejerciciosAsignados"
+         class="card border-0 rounded-4 shadow-sm p-3 mb-3 position-relative"
+         [ngClass]="{ 'opacity-50': e.completadoHoy }">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold mb-0">{{ e.ejercicio?.nombre }}</h5>
+
+        <span *ngIf="e.completadoHoy" class="badge bg-secondary d-flex align-items-center gap-1">
+          <i class="bi bi-check-circle-fill"></i> Completado
+        </span>
+      </div>
+
+      <p class="small text-50 mb-2">{{ e.ejercicio?.descripcion }}</p>
+
+      <img *ngIf="e.ejercicio?.urlImagen"
+           [src]="e.ejercicio.urlImagen"
+           class="img-fluid rounded-3 mb-2"
+           alt="{{ e.ejercicio?.nombre }}" />
+
+      <video *ngIf="e.ejercicio?.urlVideo"
+             [src]="e.ejercicio.urlVideo"
+             controls
+             class="rounded-3 shadow-sm mt-2"
+             style="max-height: 200px"></video>
+
+      <h6 class="mt-3 text-dark">Series:</h6>
+      <ul class="list-group list-group-flush text-dark">
+        <li *ngFor="let serie of e.series" class="list-group-item text-dark">
+          {{ e.ejercicio?.nombre }}:
+          <span>{{ e.series?.length }} series x {{ serie?.repeticiones }} reps</span>
+        </li>
+      </ul>
+
+      <button class="btn mt-3 fw-bold py-2"
+              [disabled]="e.completadoHoy"
+              [ngClass]="e.completadoHoy ? 'btn-secondary' : 'btn-success'"
+              (click)="!e.completadoHoy && seleccionarEjercicio(e)">
+        {{ e.completadoHoy ? '✔ Ejercicio completado' : 'Iniciar ejercicio' }}
+      </button>
+    </div>
+
+    <button class="btn text-center mt-4 fw-bold py-2" (click)="finalizarSesionParcial()">
+      🏁 Finalizar sesión por hoy
+    </button>
+  </div>
+
+  <!-- 🔹 4️⃣ Ejercicio en curso -->
+  <div *ngIf="ejercicioSeleccionado">
+    <button class="btn btn-link text-white mb-3" (click)="ejercicioSeleccionado = null">← Volver a ejercicios</button>
+
+    <div class="entrenamiento-container  text-white p-4 rounded-4 mx-auto "
+         style="max-width: 400px; min-height: 600px">
+      <div class="d-flex justify-content-between align-items-center">
+
+        <span class="fw-bold">Hoy Entrenamiento</span>
+
+        <button class="btn btn-link text-success fw-bold">Finalizar</button>
+      </div>
+      <div *ngIf="!mostrarRegistro" class="text-center mt-5">
+        <h2 class="fw-bold">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h2>
+
+        <div class="ejercicio-visual mb-4">
+          <img *ngIf="ejercicioSeleccionado?.ejercicio?.urlImagen"
+               [src]="ejercicioSeleccionado.ejercicio.urlImagen"
+               alt="{{ ejercicioSeleccionado.ejercicio.nombre }}"
+               class="img-ejercicio" />
+
+          <video *ngIf="!ejercicioSeleccionado?.ejercicio?.urlImagen && ejercicioSeleccionado?.ejercicio?.urlVideo"
+                 [src]="ejercicioSeleccionado.ejercicio.urlVideo"
+                 class="img-ejercicio"
+                 autoplay
+                 muted
+                 loop>
+          </video>
+        </div>
+
+
+        <ng-container *ngIf="ejercicioSeleccionado?.series as series">
+          <div *ngIf="series.length > 0" class="serie-info mb-4 text-center">
+            <p class="text-white-50 mb-2">
+              Serie <strong class="text-light">{{ indiceSerieActual + 1 }}</strong> de
+              <strong class="text-light">{{ series?.length }}</strong>
+            </p>
+
+            <div class="d-flex justify-content-center gap-4">
+              <div class="serie-dato">
+                <span class="label text-white-50 d-block">Peso</span>
+                <span class="valor fw-bold fs-5 text-light">{{ series[indiceSerieActual]?.peso || 0 }} kg</span>
+              </div>
+              <div class="serie-dato">
+                <span class="label text-white-50 d-block">Reps</span>
+                <span class="valor fw-bold fs-5 text-light">{{ series[indiceSerieActual]?.repeticiones || 0 }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <h1 class="display-3 fw-bold mt-4">{{ tiempoFormateado }}</h1>
+        <p class="text-uppercase text-white-50">Tiempo de la serie</p>
+
+        <div class="mt-5 d-flex flex-column gap-3">
+          <!-- Botón de Play (idle animado) -->
+          <button *ngIf="!entrenando" class="btn-play idle" (click)="iniciarEntrenamiento()">
+            <span class="material-symbols-outlined fs-1">play_arrow</span>
+          </button>
+
+          <!-- Botón de Finalizar -->
+          <button *ngIf="entrenando" class="btn-stop" (click)="finalizarSerie()">
+            <span class="material-symbols-outlined fs-1">stop</span>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="mostrarRegistro" class="mt-5">
+        <button class="btn btn-link text-white mb-3" (click)="mostrarRegistro = false">← Volver al cronómetro</button>
+
+        <h4 class="text-center mb-4 text-white">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h4>
+
+        <div class="mb-3">
+          <label class="form-label text-white-50">Repeticiones realizadas</label>
+          <input type="number"
+                 [(ngModel)]="repeticionesReales"
+                 class="form-control bg-transparent text-white border-light"
+                 placeholder="Ej: 10" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white-50">Peso utilizado (kg)</label>
+          <input type="number"
+                 [(ngModel)]="pesoReal"
+                 class="form-control bg-transparent text-white border-light"
+                 placeholder="Ej: 50" />
+        </div>
+
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" id="checkCompletado" />
+          <label class="form-check-label text-white-50" for="checkCompletado">Marcar serie como completada</label>
+        </div>
+
+        <div class="d-flex flex-column gap-3">
+          <button class="btn btn-success rounded-pill fw-bold py-3" (click)="guardarActividad()">
+            Guardar / Iniciar Siguiente Serie
+          </button>
+
+          <p *ngIf="ejercicioCompletado" class="text-center text-success mt-3 fw-bold">
+            🏁 ¡Ejercicio completado! 🎉
           </p>
         </div>
-
-        <button class="btn btn-fitrank px-4 py-2 mt-3 mt-md-0" (click)="seleccionarEjercicio(e)">
-          <span class="material-symbols-outlined align-middle me-1">play_arrow</span>
-          ✨ Iniciar ejercicio
-        </button>
       </div>
     </div>
   </div>
-
-
-  <!-- Overlay cuenta regresiva GSAP -->
-  <div class="countdown-overlay" *ngIf="showCountdown">
-    <div id="countdownCircle">{{ countdownNumber }}</div>
-  </div>
+</div>

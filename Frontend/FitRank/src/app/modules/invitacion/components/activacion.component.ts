@@ -32,6 +32,7 @@ export class ActivacionComponent implements OnInit {
     // Tomar token de query params (del email: ?token=GUID)
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
+      console.log('Token recibido:', this.token); 
       if (!this.token) {
         this.error = 'Token no encontrado. Verifica el enlace del email.';
         this.router.navigate(['/login']);
@@ -90,24 +91,27 @@ export class ActivacionComponent implements OnInit {
 
     this.authService.activarCuenta(this.token, nuevaPassword!).subscribe({
       next: (response) => {
-        this.mensaje = response.mensaje;
-        // Login automático con email + nueva password
-        this.autoLogin(response.email);
+        this.mensaje = '✅ Cuenta activada con éxito. Iniciando sesión...';
+        const email = response.email || (response as any).Email;
+
+        // Esperar 1 segundo antes de intentar el login automático
+        setTimeout(() => {
+          this.autoLogin(email);
+        }, 1000);
       },
       error: (err) => {
         this.loading = false;
-        this.error = 'Error al activar cuenta. Verifica el token o intenta de nuevo.';
+        this.error = '❌ Error al activar cuenta. Verifica el token o intenta de nuevo.';
         console.error(err);
       }
     });
   }
-
   private autoLogin(email: string) {
     const nuevaPassword = this.form.get('nuevaPassword')?.value;
     this.authService.login(email, nuevaPassword!).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/home']);  // Redirige al home con JWT guardado
+        this.router.navigate(['/home/home-socio']); 
       },
       error: (err) => {
         this.loading = false;

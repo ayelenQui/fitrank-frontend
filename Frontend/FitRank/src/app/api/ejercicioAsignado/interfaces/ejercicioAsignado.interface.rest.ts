@@ -1,41 +1,39 @@
-import { SerieAsignadaCreateDTO } from "../../services/serieAsignada/interfaces/serieAsignada.interface.rest";
 
-export interface AgregarEjercicioAsignadoDTO {
-  orden: number;
-  observaciones?: string;
-  sesion: number;
-  rutinaId: number;
-  ejercicioId: number;
-  socioId: number;
+export interface EjercicioDTO {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  urlImagen: string;
+  duracionEstimada: number;
+  urlVideo: string;
+  grupoMuscularId: number;
+  nombreGrupoMuscular: string;
+  maquinaId: number;
+  nombreMaquina: string;
 }
-export interface EjercicioAsignadoCompletoDTO {
-  orden: number;
-  observaciones?: string;
-  sesion: number;
-  ejercicioId: number;
-  series: SerieAsignadaCreateDTO[];
-}
+
 
 export interface EjercicioAsignadoDTO {
   id: number;
   orden: number;
-  observaciones?: string;
-  sesion: number;
-  rutinaId: number;
+  observaciones: string;
   ejercicioId: number;
-  socioId: number;
+  ejercicio: EjercicioDTO;
+  sesionId: number;
+}
 
-  // Relaciones opcionales que suelen venir en el GET expandido
-  rutina?: {
-    id: number;
-    nombre: string;
-    frecuencia: number;
-    dificultadId: number;
-  };
-  ejercicio?: {
-    id: number;
-    nombre: string;
-    urlVideo?: string;
-    grupoMuscularId: number;
-  }
+
+export interface AgregarEjercicioAsignadoDTO {
+  orden: number;
+  observaciones: string;
+  ejercicioId: number;
+  sesionId: number;
+}
+
+export interface ActualizarEjercicioAsignadoDTO {
+  id: number;
+  orden: number;
+  observaciones: string;
+  ejercicioId: number;
+  sesionId: number;
 }

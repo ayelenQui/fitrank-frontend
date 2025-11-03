@@ -86,14 +86,29 @@
 .header__logout:hover {
   transform: scale(1.1);
 }
-/* cuando la medida sea de celular que se oculte todo el header */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .header-socio {
-    grid-template-columns: 1fr auto;
-    padding: 10px 20px;
+    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    padding: 10px 16px;
   }
 
-  .header-socio {
+  /* 🔹 Mostrar el icono hamburguesa */
+  .fit-sb-toggle {
+    display: block;
+    position: relative;
+    z-index: 1500;
+  }
+
+  /* 🔹 Ocultar navegación y perfil */
+  .header__nav,
+  .header__perfil {
     display: none;
   }
+
+  /* 🔹 Ajustar logo */
+  .header__imagologo {
+    width: 42px;
+  }
 }
+

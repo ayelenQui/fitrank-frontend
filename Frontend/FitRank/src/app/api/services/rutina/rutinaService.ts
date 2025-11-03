@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AgregarRutinaDTO, RutinaDTO } from './interfaces/rutina.interface.rest';
+import { AgregarRutinaDTO, RutinaCompletaDTO, RutinaDTO } from './interfaces/rutina.interface.rest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RutinaService {
+ 
   private apiUrl = `${environment.apiUrl}/Rutina`;
 
   constructor(private http: HttpClient) { }
@@ -29,6 +30,26 @@ export class RutinaService {
   }
   getRutinasPorUsuario(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${environment.apiUrl}/EjercicioAsignado?socioId=${userId}`);
+  }
+
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getRutinasPorSocio(socioId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`).pipe(
+      map((rutinas: any[]) => rutinas.filter(r => r.socioId === socioId))
+    );
+  }
+
+  getRutinaCompletaPorSocio(socioId: number): Observable<RutinaCompletaDTO[]> {
+    const url = `${this.apiUrl}/socio/${socioId}/detalle`;
+    console.log('🌐 GET:', url);
+    return this.http.get<RutinaCompletaDTO[]>(url);
+  }
+  // 🔹 Obtener rutina completa por ID
+  getRutinaCompletaPorId(rutinaId: number): Observable<RutinaCompletaDTO> {
+    return this.http.get<RutinaCompletaDTO>(`${this.apiUrl}/detalle/${rutinaId}`);
   }
 
 

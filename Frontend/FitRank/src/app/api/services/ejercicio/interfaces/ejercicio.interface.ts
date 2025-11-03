@@ -1,14 +1,23 @@
-// DTO que se usa para crear un ejercicio (POST)
+
 export interface AgregarEjercicioDTO {
-  nombre: string;
-  urlVideo: string;
-  grupoMuscularId: number;
+ nombre: string,
+ descripcion: string,
+ urlImagen: string,
+ duracionEstimada: number,
+ urlVideo: string,
+ grupoMuscularId: number,
+ maquinaId: number
 }
 
-// DTO que devuelve el backend (GET)
 export interface EjercicioDTO {
   id: number;
   nombre: string;
+  descripcion: string;
+  urlImagen: string;
+  duracionEstimada: number;
   urlVideo: string;
   grupoMuscularId: number;
+  nombreGrupoMuscular: string;
+  maquinaId: number;
+  nombreMaquina: string;
 }

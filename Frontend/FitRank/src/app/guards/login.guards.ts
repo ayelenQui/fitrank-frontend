@@ -17,7 +17,7 @@ export class LoginGuard implements CanActivate {
       if (this.authService.isAdmin()) {  
         this.router.navigate(['/homeAdmin']);
       } else {
-        this.router.navigate(['/home-socio']);
+        this.router.navigate(['/home/home-socio']);
       }
       return false;
     }

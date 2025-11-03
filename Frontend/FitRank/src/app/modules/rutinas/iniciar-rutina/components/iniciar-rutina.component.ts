@@ -1,367 +1,378 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {  AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
-import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
-import { SerieAsignadaService } from '@app/api/services/serieAsignada/serieAsignada.service';
-import { EjercicioRealizadoService } from '@app/api/services/ejercicioRealizado/ejercicioRealizado.service';
-import { SerieRealizadaService } from '@app/api/services/serieRealizada/serieRealizada.service';
-import { SesionRealizadaDeEjerciciosService } from '@app/api/services/sesionRealizadaDeEjercicios/sesionRealizadaDeEjercicios.service';
-import { AuthService } from '@app/api/services/activacion/AuthService.service';
-import { gsap } from 'gsap';
-import { EjercicioAsignadoDTO } from '@app/api/ejercicioAsignado/interfaces/ejercicioAsignado.interface.rest';
-import { SerieAsignadaCreateDTO } from '@app/api/services/serieAsignada/interfaces/serieAsignada.interface.rest';
-import { CrearSesionRealizadaDeEjerciciosDTO } from '@app/api/services/sesionRealizadaDeEjercicios/interfaces/sesionRealizadaDeEjercicios.interface';
-import { CrearEjercicioRealizadoDTO } from '@app/api/services/ejercicioRealizado/interfaces/ejercicioRealizado.interface.rest';
-import { CrearSerieRealizadaDTO } from '@app/api/services/serieRealizada/interfaces/serieRealizada.interface';
-import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
-import { Location } from '@angular/common';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
+import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component'; 
+import { RutinaService } from '@app/api/services/rutina/rutinaService';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import { EntrenamientoService } from '@app/api/services/entrenamiento/entrenamiento.service';
+import { ActividadService } from '@app/api/services/actividad/actividad.service';
+import { RutinaCompletaDTO, EjercicioAsignadoDTO, SerieDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
+import { AgregarActividadDTO } from '@app/api/services/actividad/interface/actividad.interface';
+import { AgregarEntrenamientoDTO, EntrenamientoDTO } from '@app/api/services/entrenamiento/interface/entrenamiento.interface';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import gsap from 'gsap';
+import { ActivatedRoute } from '@angular/router';
+import { SesionDTO } from '../../../../api/services/sesion/interface/sesion.interface';
+
 
 @Component({
   selector: 'app-iniciar-rutina',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderSocioComponent],
+  imports: [CommonModule, FormsModule, HeaderSocioComponent, SidebarSocioComponent],
   templateUrl: './iniciar-rutina.component.html',
-styleUrls: ['./iniciar-rutina.component.css', '../../../css-socio/socio-common.css']
-})
-export class IniciarRutinaComponent implements OnInit, OnDestroy {
-  rutinaId!: number;
-  socioId!: number;
-  ejerciciosAsignados: EjercicioAsignadoDTO[] = [];
-  seriesActuales: SerieAsignadaCreateDTO[] = [];
+  styleUrls: ['./iniciar-rutina.component.css'],
 
-  ejercicioActivo?: EjercicioAsignadoDTO;
-  serieActivaIndex = 0;
-  tiempoRestante = 0;
-  cronometro: any;
-  enEjecucion = false;
-  sesionInicio?: Date;
-  sesionDeEjerciciosId?: number;
-  puedeEditar = false;
-  private circle!: SVGCircleElement;
-  private circleLength = 339.292; // circunferencia del círculo
-  private tiempoTotal = 60; // segundos totales del cronómetro
+})
+export class IniciarRutinaComponent implements OnInit, AfterViewInit {
+  @ViewChild('sesionesContainer', { static: false }) sesionesContainer!: ElementRef;
+  sidebarOpen: boolean = false;
+  private anim?: gsap.core.Tween;
+  // 🔹 Identificación del socio
+  socioId!: number;
+  diaActual: any;
+  // 🔹 Datos del backend
+  rutinas: RutinaCompletaDTO[] = [];
+  
+ 
+
+  indiceSerieActual: number = 0;
+  rutinaSeleccionada: RutinaCompletaDTO | null = null;
+  sesionSeleccionada: any | null = null;
+  ejercicioSeleccionado: EjercicioAsignadoDTO | null = null;
+  serieActual: SerieDTO | null = null;
+  entrenamientoActivo: EntrenamientoDTO | null = null;
+
+ 
+
+
+
+  entrenando = false;
+  mostrarRegistro = false;
+  ejercicioCompletado = false;
+
+  
+  tiempo = 0;
+  intervalo: any;
+
+
+  pesoReal: number = 0;
+  repeticionesReales: number = 0;
+
+  fechaActual = new Date();
+  diasSemana: any[] = [];
+  indiceDiaActual = 0;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private ejercicioAsignadoService: EjercicioAsignadoService,
-    private serieAsignadaService: SerieAsignadaService,
-    private ejercicioRealizadoService: EjercicioRealizadoService,
-    private serieRealizadaService: SerieRealizadaService,
-    private sesionRealizadaDeEjerciciosService: SesionRealizadaDeEjerciciosService,
+    private rutinaService: RutinaService,
     private auth: AuthService,
-    private puntajeService: PuntajeService,
-    private location: Location
-
-
+    private entrenamientoService: EntrenamientoService,
+    private actividadService: ActividadService,
+    private router: Router,
+    private location: Location,
+    private route: ActivatedRoute
   ) { }
+
+  //Animaciones
+
+  ngAfterViewInit(): void {
+    const observer = new MutationObserver(() => {
+      const container = this.sesionesContainer?.nativeElement;
+      if (!container) return;
+
+      const cards = container.querySelectorAll('.sesion-card');
+      if (cards.length > 0) {
+        this.iniciarAnimacion(cards, container);
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  
+    private iniciarAnimacion(cards: NodeListOf<Element>, container: HTMLElement) {
+    gsap.killTweensOf(cards);
+
+    const total = cards.length;
+    const distance = -100 * total; 
+
+    // 🔹 Duplicamos visualmente con "modifiers" en GSAP (sin clonar nodos)
+    const anim = gsap.to(cards, {
+    
+      duration: 1 * total, // ⚡ velocidad del loop
+      repeat: -1, // infinito
+      modifiers: {
+        xPercent: gsap.utils.wrap(100, 0)
+      }
+    });
+
+      container.addEventListener('mouseenter', () => anim.pause());
+      container.addEventListener('touchstart', () => anim.pause());
+      container.addEventListener('touchend', () => anim.resume());
+    container.addEventListener('mouseleave', () => anim.resume());
+
+   
+  }
+
+
+
 
   ngOnInit(): void {
     const user = this.auth.obtenerUser();
     this.socioId = user?.Id;
-    this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
-    this.cargarEjercicios();
+    const hoy = new Date().getDay();
+    this.diaActual = this.rutinaSeleccionada?.sesiones?.[hoy % this.rutinaSeleccionada.sesiones.length];
+    this.cargarRutinas();
+    this.generarSemana();
+   
 
   }
-  getImagenEjercicio(nombre?: string): string {
-    if (!nombre) {
-      return 'https://images.unsplash.com/photo-1579758629934-095f22032a9b?auto=format&fit=crop&w=900&q=80';
-    }
+  generarSemana(): void {
+    const hoy = new Date();
+    const primerDia = new Date(hoy);
+    primerDia.setDate(hoy.getDate() - hoy.getDay() + 1); // lunes
 
-    const n = nombre.toLowerCase();
+    this.diasSemana = Array.from({ length: 7 }, (_, i) => {
+      const fecha = new Date(primerDia);
+      fecha.setDate(primerDia.getDate() + i);
+      return {
+        nombre: fecha.toLocaleDateString('es-ES', { weekday: 'short' }),
+        numero: fecha.getDate(),
+        fecha
+      };
+    });
 
-    const imagenes: { [key: string]: string } = {
-      // 👕 HOMBRO
-      'press militar con barra': 'https://images.unsplash.com/photo-1594737625785-c84f744de6a1?auto=format&fit=crop&w=900&q=80',
-      'elevaciones laterales con mancuernas': 'https://images.unsplash.com/photo-1605296867304-7e562d4dfd45?auto=format&fit=crop&w=900&q=80',
-      'face pull en polea': 'https://images.pexels.com/photos/4761793/pexels-photo-4761793.jpeg?auto=compress&cs=tinysrgb&w=900',
+    this.indiceDiaActual = this.diasSemana.findIndex(d => d.fecha.toDateString() === hoy.toDateString());
+  }
 
-      // 💪 BÍCEPS
-      'curl con barra': 'https://images.unsplash.com/photo-1605296867304-7e562d4dfd45?auto=format&fit=crop&w=900&q=80',
-      'curl alternado con mancuernas': 'https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'curl en banco scott': 'https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=900',
+  seleccionarDia(index: number): void {
+    this.indiceDiaActual = index;
+    this.fechaActual = this.diasSemana[index].fecha;
+  }
 
-      // 💪 TRÍCEPS
-      'fondos en paralelas': 'https://images.unsplash.com/photo-1605296867424-35fc25c9212c?auto=format&fit=crop&w=900&q=80',
-      'extensión en polea alta': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'press cerrado': 'https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=900',
-
-      // 🦵 PIERNA / CUÁDRICEPS / FEMORAL
-      'sentadillas con barra': 'https://images.unsplash.com/photo-1571019613914-85f342c85ddf?auto=format&fit=crop&w=900&q=80',
-      'prensa 45°': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'extensiones de cuádriceps': 'https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'peso muerto rumano': 'https://images.unsplash.com/photo-1605296867304-7e562d4dfd45?auto=format&fit=crop&w=900&q=80',
-      'curl femoral acostado': 'https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'nordic curl': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'curl femoral de pie en polea': 'https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'buenos días': 'https://images.unsplash.com/photo-1605296867304-7e562d4dfd45?auto=format&fit=crop&w=900&q=80',
-      'buenos días con mancuernas': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-
-      // 🦵 GEMELOS
-      'elevación de talones de pie': 'https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'elevación de talones sentado': 'https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'saltos de comba (gemelos)': 'https://images.unsplash.com/photo-1583454110558-3fb497c0c08d?auto=format&fit=crop&w=900&q=80',
-
-      // 🦴 ABDOMINALES
-      'crunch en colchoneta': 'https://images.unsplash.com/photo-1571019613914-85f342c85ddf?auto=format&fit=crop&w=900&q=80',
-      'plancha frontal': 'https://images.pexels.com/photos/4162442/pexels-photo-4162442.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'elevación de piernas': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-
-      // 🦵 ESPALDA
-      'dominadas pronas': 'https://images.pexels.com/photos/6453393/pexels-photo-6453393.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'remo con barra': 'https://images.unsplash.com/photo-1605296867304-7e562d4dfd45?auto=format&fit=crop&w=900&q=80',
-      'jalón al pecho': 'https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=900',
-
-      // 🫀 PECHO
-      'press de banca': 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80',
-      'aperturas con mancuernas': 'https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=900',
-      'fondos en paralelas (pecho)': 'https://images.pexels.com/photos/4761793/pexels-photo-4761793.jpeg?auto=compress&cs=tinysrgb&w=900'
-    };
-
-    const key = Object.keys(imagenes).find(k => n.includes(k));
-    return key ? imagenes[key] : 'https://images.unsplash.com/photo-1579758629934-095f22032a9b?auto=format&fit=crop&w=900&q=80';
+  irAHoy(): void {
+    this.generarSemana();
   }
 
 
-  // 🔹 1. Cargar ejercicios asignados
-  cargarEjercicios(): void {
-    this.ejercicioAsignadoService.getEjerciciosAsignados().subscribe({
+  cargarRutinas(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const rutinaId = idParam ? Number(idParam) : null;
+
+    this.rutinaService.getRutinaCompletaPorSocio(this.socioId).subscribe({
       next: (data) => {
-        this.ejerciciosAsignados = data.filter(e => e.rutinaId === this.rutinaId);
+        console.log('📦 Rutinas cargadas:', data);
+        this.rutinas = data || [];
+
+        if (rutinaId) {
+          this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId) ?? null;
+
+          if (this.rutinaSeleccionada) {
+            console.log('✅ Rutina seleccionada:', this.rutinaSeleccionada);
+          } else {
+            console.warn('⚠️ No se encontró la rutina con id', rutinaId);
+          }
+        }
       },
-      error: (err) => console.error('❌ Error al cargar ejercicios asignados:', err)
+      error: (err) => console.error('❌ Error al cargar rutinas', err),
     });
   }
 
-  // 🔹 2. Seleccionar ejercicio → cargar series
+
+  // 🟢 Seleccionar rutina
+  seleccionarRutina(r: RutinaCompletaDTO): void {
+    this.rutinaSeleccionada = r;
+    this.sesionSeleccionada = null;
+    this.ejercicioSeleccionado = null;
+  }
+
+  // 🔵 Seleccionar sesión
+  seleccionarSesion(s: any): void {
+    this.sesionSeleccionada = s;
+    this.ejercicioSeleccionado = null;
+  }
+
+  // 🟣 Seleccionar ejercicio
   seleccionarEjercicio(e: EjercicioAsignadoDTO): void {
-    this.ejercicioActivo = e;
-    this.iniciarSesionSiNoExiste();
-    this.cargarSeries(e.id);
+    this.ejercicioSeleccionado = e;
+    this.serieActual = e.series?.length ? e.series[0] : null;
   }
 
-  // 🔹 3. Cargar series de ese ejercicio asignado
-  cargarSeries(ejercicioAsignadoId: number): void {
-    // traemos TODAS las series y filtramos las que correspondan al ejercicio activo
-    this.serieAsignadaService.getAll().subscribe({
-      next: (data) => {
-        this.seriesActuales = data.filter(s => s.ejercicioAsignadoId === ejercicioAsignadoId);
-        console.log('📦 Series filtradas:', this.seriesActuales);
-        this.serieActivaIndex = 0;
-        this.puedeEditar = false;
-      },
-      error: (err) => console.error('❌ Error al cargar series asignadas:', err)
-    });
-  }
+  // ▶️ Iniciar entrenamiento (solo una vez por sesión)
+  iniciarEntrenamiento(): void {
+    if (this.entrenamientoActivo) {
+      // Ya hay un entrenamiento activo
+      this.iniciarSerie();
+      return;
+    }
 
-
-  // 🔹 Crear una sesión general de ejercicios si no existe
-  iniciarSesionSiNoExiste(): void {
-    if (this.sesionInicio) return; // ya existe
-
-    this.sesionInicio = new Date();
-    const payload: CrearSesionRealizadaDeEjerciciosDTO = {
-      fecha: this.sesionInicio.toISOString(),
-      duracion: '00:00:00',
-      numeroDeSesion: 1
+    const dto: AgregarEntrenamientoDTO = {
+      fecha: new Date(),
+      duracion: new Date(),
+      socioId: this.socioId
     };
 
-    this.sesionRealizadaDeEjerciciosService.crear(payload).subscribe({
+    this.entrenamientoService.crearEntrenamiento(dto).subscribe({
       next: (res) => {
-        this.sesionDeEjerciciosId = res.id;
-        console.log('✅ Sesión de ejercicios creada:', res);
+        this.entrenamientoActivo = res;
+        console.log('🏋️ Entrenamiento iniciado:', res);
+        this.iniciarSerie();
       },
-      error: (err) => console.error('❌ Error al crear sesión de ejercicios:', err)
+      error: (err) => console.error('Error al crear entrenamiento', err),
     });
   }
 
-  // 🔹 Método para iniciar el cronómetro
-  iniciarSerie() {
-    if (this.enEjecucion) return; // evita doble inicio
-    this.enEjecucion = true;
+  iniciarSerie(): void {
+    if (!this.ejercicioSeleccionado) return;
 
-    // Inicializa el tiempo
-    this.tiempoRestante = 0;
+    const series = this.ejercicioSeleccionado.series;
+    this.serieActual = series[this.indiceSerieActual] || null;
 
-    // Configura el círculo (vacío al inicio)
-    if (this.circle) {
-      this.circleLength = this.circle.getTotalLength();
+    this.tiempo = 0;
+    this.entrenando = true;
+    this.mostrarRegistro = false;
 
-      gsap.set(this.circle, {
-        strokeDasharray: this.circleLength,
-        strokeDashoffset: this.circleLength
-      });
-
-      // 🔹 Animación de rotación infinita del trazo
-      gsap.to(this.circle, {
-        strokeDashoffset: 0,
-        duration: 3, // velocidad de la vuelta
-        ease: 'linear',
-        repeat: -1, // infinito
-        yoyo: true  // va y vuelve
-      });
-    }
-
-    // 🔹 Inicia el contador numérico (aumenta sin límite)
-    this.cronometro = setInterval(() => {
-      this.tiempoRestante++;
-    }, 1000);
+    this.intervalo = setInterval(() => this.tiempo++, 1000);
   }
 
 
-  // 🔹 Propiedades visuales del countdown
-  showCountdown = false;
-  countdownNumber = 3;
-
-  /**
-   * ▶ Método de inicio con cuenta regresiva GSAP (3-2-1)
-   * i = índice de la serie sobre la que se hizo clic
-   */
-  startCountdown(i: number): void {
-    // no iniciar si ya hay una serie corriendo
-    if (this.enEjecucion) return;
-
-    // definimos qué serie está activa
-    this.serieActivaIndex = i;
-    this.showCountdown = true;
-    this.countdownNumber = 3;
-
-    // timeline GSAP para la animación de números
-    const tl = gsap.timeline({
-      defaults: { ease: 'back.out(1.7)' },
-      onComplete: () => {
-        this.showCountdown = false;
-        this.iniciarSerie(); // 👈 llama a tu método original
-      }
-    });
-
-    // secuencia de 3 → 2 → 1
-    [3, 2, 1].forEach((num) => {
-      tl.call(() => { this.countdownNumber = num; })
-        .fromTo(
-          '#countdownCircle',
-          { scale: 0.4, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.4 }
-        )
-        .to('#countdownCircle', { opacity: 0, duration: 0.2 });
-    });
-
-  }
-
-
-
+  // ⏹️ Detener serie
   finalizarSerie(): void {
-    // Detiene el contador
-    clearInterval(this.cronometro);
-    this.enEjecucion = false;
-    this.puedeEditar = true;
-    this.tiempoRestante = 0;
-    // Detiene animación de GSAP
-    gsap.killTweensOf(this.circle);
-
-    // Deja el trazo en estado final (por ejemplo, completado)
-    if (this.circle) {
-      gsap.to(this.circle, {
-        strokeDashoffset: 0,
-        duration: 0.4,
-        ease: 'power1.out'
-      });
-    }
+    clearInterval(this.intervalo);
+    this.entrenando = false;
+    this.mostrarRegistro = true; // muestra inputs de actividad real
   }
+  guardarActividad(): void {
+    if (!this.entrenamientoActivo || !this.serieActual || !this.ejercicioSeleccionado) return;
 
-  // 🔹 Pasar a la siguiente serie o registrar ejercicio si termina
-  siguienteSerie(): void {
-    if (this.serieActivaIndex < this.seriesActuales.length - 1) {
-      this.serieActivaIndex++;
-      this.puedeEditar = false;
-    } else {
-      alert('✅ Completaste todas las series');
-      this.registrarEjercicio();
-    }
-  }
-
-  // 🔹 Registrar ejercicio realizado + series realizadas
-  registrarEjercicio(): void {
-    if (!this.ejercicioActivo) return;
-
-    const payloadEjercicio: CrearEjercicioRealizadoDTO = {
-      ejercicioId: this.ejercicioActivo.ejercicioId,
-      socioId: this.socioId,
-      rutinaId: this.rutinaId
+    const dto: AgregarActividadDTO = {
+      duracion: new Date(), 
+      repeticiones: this.repeticionesReales,
+      peso: this.pesoReal,
+      punto: 0,
+      serieId: this.serieActual.id,
+      entrenamientoId: this.entrenamientoActivo.id,
+      ejercicioAsignadoId: this.ejercicioSeleccionado.id
     };
 
-    this.ejercicioRealizadoService.crear(payloadEjercicio).subscribe({
-      next: (ejRealizado) => {
-        const series = this.seriesActuales.map((s, i) => ({
-          repeticiones: s.repeticiones,
-          peso: s.peso,
-          rir: s.rir ?? 0,
-          numeroDeSerie: s.nroSerie ?? i + 1,
-          ejercicioRealizadoId: ejRealizado.id
-        }));
+    this.actividadService.crearActividad(dto).subscribe({
+      next: (res) => {
+        console.log('✅ Actividad registrada:', res);
 
-        series.forEach(serie => {
-          this.serieRealizadaService.crear(serie).subscribe({
-            next: (serieCreada) => {
-              console.log('✅ Serie realizada guardada:', serieCreada);
+        const series = this.ejercicioSeleccionado?.series || [];
 
-              
-              // 🔹 Al finalizar cada serie, asignamos un puntaje
-              const puntaje = {
-                serieRealizadaId: serieCreada.id,
-                motivo: 'Serie completada exitosamente',
-                fecha: new Date().toISOString(),
-                valor: 10 // o podés calcularlo dinámicamente
-              };
+        // 🔹 Avanzar índice
+        if (this.indiceSerieActual + 1 < series.length) {
+          this.indiceSerieActual++;
+          this.serieActual = series[this.indiceSerieActual];
+          this.repeticionesReales = 0;
+          this.pesoReal = 0;
+          this.mostrarRegistro = false;
 
-              this.puntajeService.crear(puntaje).subscribe({
-                next: (res) => console.log('🏆 Puntaje asignado:', res),
-                error: (err) => console.error('❌ Error al asignar puntaje:', err)
-              });
-            },
-            error: (err) => console.error('❌ Error al guardar serie', err)
-          });
-        });
-      }
+          
+          setTimeout(() => this.iniciarSerie(), 400);
+        } else {
+         
+          this.serieActual = null;
+          this.entrenando = false;
+          this.mostrarRegistro = false;
+          this.indiceSerieActual = 0;
+
+          
+          if (this.ejercicioSeleccionado) {
+            this.ejercicioSeleccionado.completadoHoy = true;
+          }
+         
+          const ejercicio = this.sesionSeleccionada?.ejerciciosAsignados.find(
+            (x: any) => x.id === this.ejercicioSeleccionado?.id
+          );
+          if (ejercicio) ejercicio.completadoHoy = true;
+
+         
+          const todosCompletados = this.sesionSeleccionada?.ejerciciosAsignados.every((x: any) => x.completadoHoy);
+
+          if (todosCompletados) {
+            alert('🏁 ¡Sesión completada por hoy! 🎉');
+            this.router.navigate(['/rutina/mis-rutinas']); 
+          } else {
+            alert('🏁 Ejercicio completado 🎉');
+            this.volverAEjercicios();
+          }
+        }
+
+      },
+      error: (err) => console.error('Error al registrar actividad', err),
     });
+
   }
-      
-      // 🔹 Finalizar rutina → guarda duración total
-      finalizarRutina(): void {
-        if (!this.sesionInicio) return;
 
-        const fin = new Date();
-        const duracionMs = fin.getTime() - this.sesionInicio.getTime();
-        const duracion = new Date(duracionMs).toISOString().substring(11, 19); // hh:mm:ss
 
-        const payload: CrearSesionRealizadaDeEjerciciosDTO = {
-          fecha: this.sesionInicio.toISOString(),
-          duracion,
-          numeroDeSesion: 1
-        };
 
-        this.sesionRealizadaDeEjerciciosService.crear(payload).subscribe({
-          next: () => {
-            alert('🏁 Rutina completada y sesión guardada');
-            this.router.navigate(['/rutina/mis-rutinas']);
-          },
-          error: (err) => console.error('❌ Error al guardar sesión final', err)
-        });
-      }
+  get tiempoFormateado(): string {
+    const min = Math.floor(this.tiempo / 60);
+    const seg = this.tiempo % 60;
+    return `${min}:${seg < 10 ? '0' : ''}${seg}`;
+  }
 
-  volver(): void {
-        this.router.navigate(['/rutina/mis-rutinas']);
-      }
+  volverARutinas(): void {
+    this.rutinaSeleccionada = null;
+    this.sesionSeleccionada = null;
+    this.ejercicioSeleccionado = null;
+  }
 
-      volverAtras(): void {
+  volverASesiones(): void {
+    this.ejercicioSeleccionado = null;
+  }
+
+  volverAEjercicios(): void {
+    this.mostrarRegistro = false;
+    this.serieActual = null;
+    this.ejercicioSeleccionado = null;
+  }
+
+ 
+  finalizarEntrenamiento(): void {
+    console.log('🏁 Entrenamiento finalizado:', this.entrenamientoActivo);
+    this.entrenamientoActivo = null;
+    this.rutinaSeleccionada = null;
+    this.sesionSeleccionada = null;
+    this.ejercicioSeleccionado = null;
+    this.serieActual = null;
+    this.entrenando = false;
+  }
+
+  finalizarSesionParcial(): void {
+    const confirmar = confirm(
+      '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'
+    );
+    if (confirmar) {
+      this.router.navigate(['/rutina/mis-rutinas']);
+    }
+  }
+  calcularDuracionTotal(ejerciciosAsignados: any[]): number {
+    if (!ejerciciosAsignados || ejerciciosAsignados.length === 0) return 0;
+
+    return ejerciciosAsignados.reduce((total, e) => {
+      const duracionEstimada = e.ejercicio?.duracionEstimada || 0;
+      return total + duracionEstimada;
+    }, 0);
+  }
+
+
+
+  volverAtras(): void {
     this.location.back();
   }
 
-  ngOnDestroy(): void {
-        if (this.cronometro) clearInterval(this.cronometro);
-      }
-    }
 
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    document.body.classList.toggle('sb-open', this.sidebarOpen);
+  }
+
+
+
+}

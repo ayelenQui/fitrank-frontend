@@ -16,25 +16,40 @@ import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/components/mi
 import { IniciarRutinaComponent } from './modules/rutinas/iniciar-rutina/components/iniciar-rutina.component';
 import { ListaTorneosComponent } from './modules/torneo/lista-torneo/lista-torneo.component';
 import { RankingTorneoComponent } from './modules/torneo/ver-torneo/ver-torneo.component';
+import { SocioLayoutComponent } from './layouts/socio-layout/socio-layout.component';
+import { AccesoGimnasioComponent } from './modules/asistencia/acceso-gimnasio/acceso-gimnasio.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
-  { path: 'rutina/iniciar-rutina/:id', component: IniciarRutinaComponent, canActivate: [AuthGuard] },
+  
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'visitante-home', component: VisitanteHome },
   { path: 'home/home-socio', component: HomeSocioComponent, canActivate: [AuthGuard] },
   { path: 'homeAdmin', children: homeAdminRoutes },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
-
-  { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
+   { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },// Rutas rutinas
-  { path: 'rutina/crear', component: CrearRutinaComponent },
-  { path: 'rutina/crear-manual', component: CrearRutinaManualComponent },
   { path: 'rutina/editar/:id', component: CrearRutinaComponent },
-  { path: 'rutina/mis-rutinas', component: MisRutinasComponent, canActivate: [AuthGuard] },
   { path: 'torneo/lista-torneo', component: ListaTorneosComponent, canActivate: [AuthGuard] },
   { path: 'torneo/ver-torneo/:id', component: RankingTorneoComponent, canActivate: [AuthGuard] },
 
+  { path: 'acceso', component: AccesoGimnasioComponent },
+
+
+  {
+    path: 'rutina',
+    component: SocioLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'mis-rutinas', component: MisRutinasComponent },
+      { path: 'crear-manual', component: CrearRutinaManualComponent },
+      { path: 'crear', component: CrearRutinaComponent },
+      { path: 'iniciar-rutina/:id', component: IniciarRutinaComponent },
+      { path: 'crear-sesiones-rutina/:id', component: CrearSesionesRutinaComponent },
+      { path: 'editar/:id', component: CrearRutinaComponent },
+      { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' }
+    ]
+  },
 
 
 
@@ -43,9 +58,6 @@ export const appRoutes: Route[] = [
 
 
 
-
-
-  { path: 'rutina/crear-sesiones-rutina/:id', component: CrearSesionesRutinaComponent, canActivate: [AuthGuard] },
 
 
   //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)

@@ -1,173 +1,642 @@
-:root {
-  --color-fondo-principal: #FAFAFA;
-  --color-fondo-secundario: #E0E0E0;
-  --color-fondo-tarjetas: #EAEAEA;
-  --color-texto-principal: #121212;
-  --color-texto-secundario: #808080;
-  --color-hover-exito: #5A9A00;
-  --color-error-alerta: #FF4C4C;
-  --color-acento: #FAEB92;
-  --color-acento-secundario: #8B52FF;
-  --font-titulo: 'Bebas Neue', sans-serif;
-  --font-secundaria: 'Work Sans', sans-serif;
-}
-
-.contenedor {
-  max-width: 1100px;
+.rutina-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  transition: all 0.7s ease-in-out;
 }
 
-/* === TÍTULOS === */
-.titulo {
-  font-weight: 800;
-  color: #222;
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-family : --font-titulo;
+  /* 🔹 Cuando se generan sesiones: layout de 2 columnas */
+  .rutina-layout.expandido {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+
+/* === HERO === */
+.fit-hero {
+  background: linear-gradient(135deg, #8b63ff, #5e4aa8);
+  color: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  transition: all 0.7s ease-in-out;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
 }
 
-.label {
-  font-weight: 600;
-  color: #555;
+.fit-hero__grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
 }
 
-.titulo-ejercicio {
-  color: #8b52ff;
-  font-weight: 700;
-  font-size: 1.1rem;
-  font-family: --font-titulo;
-}
-
-/* === CARDS DE EJERCICIOS === */
-.form-container {
-  background: #ffffff;
+.fit-hero__media img {
+  width: 100%;
   border-radius: 16px;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  padding: 1.5rem 1.5rem 2rem;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
+  transition: all 0.6s ease;
 }
 
-  .form-container:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(139, 82, 255, 0.1);
-  }
-
-/* === INPUTS Y SELECTS === */
-.form-control,
-.form-select {
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  transition: all 0.2s ease;
+.rutina-layout.expandido .fit-hero {
+  padding: 20px 30px;
+  flex-direction: row-reverse;
+  background: linear-gradient(135deg, #7a55e6, #4e3b8d);
 }
 
-  .form-control:focus,
-  .form-select:focus {
-    border-color: #8b52ff;
-    box-shadow: 0 0 0 0.15rem rgba(139, 82, 255, 0.25);
-  }
+.rutina-layout.expandido .fit-hero__media img {
+  width: 260px;
+  border-radius: 12px;
+}
 
-/* === BOTONES === */
-.btn-volver {
-  background-color: #f5e085;
+.plan-card__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.btn-fitrank {
+  background: linear-gradient(145deg, #7b3fe4, #935cff);
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-weight: 600;
-  margin: 20px;
-  transition: all 0.3s ease;
-}
-
-  .btn-volver:hover {
-    background-color: #f0d769;
-    transform: translateY(-1px);
-  }
-
-/* Botones de acción (quitar / agregar) */
-.quitar-btn {
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 700;
   transition: 0.3s;
 }
 
-  .quitar-btn:hover {
-    background-color: #ffccd1;
-    color: #a10000;
+  .btn-fitrank:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(123, 63, 228, 0.4);
   }
 
-.agregar-serie-button,
-.agregar-ejercicio-button {
-  margin-top: 1rem;
-  border-radius: 30px;
-  font-weight: 600;
-  color: #8b52ff;
-  border: 2px solid #8b52ff;
+/* === CONTENIDO === */
+.contenido {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.main-panel {
+  background: #f9f9fb;
+  border-radius: 16px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+/* === SIDEBAR === */
+.sidebar {
   background: #fff;
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  padding: 20px;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-  .agregar-serie-button:hover,
-  .agregar-ejercicio-button:hover {
-    background-color: #8b52ff;
-    color: #fff;
-    transform: translateY(-2px);
-  }
-
-/* Botón principal */
-.btn-principal {
-  background-color: #8b52ff;
-  color: #fff;
-  border: none;
-  border-radius: 40px;
-  font-weight: 600;
-  padding: 10px 35px;
-  font-size: 1rem;
-  margin-top: 2rem;
-  transition: all 0.3s ease;
-}
-
-  .btn-principal:hover {
-    background-color: #733ed9;
-    transform: translateY(-2px);
-  }
-
-/* === SERIES === */
-.row.g-2 {
-  background-color: #faf8ff;
-  border-radius: 12px;
-  border: 1px solid #f0eaff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-}
-
-  .row.g-2:hover {
-    background-color: #f6f1ff;
-    box-shadow: 0 3px 10px rgba(139, 82, 255, 0.1);
-  }
-
-/* === GRUPO MUSCULAR VISUAL === */
-app-visualizador-svg {
-  display: block;
-  margin: 2rem auto;
-  max-width: 600px;
+.ejercicio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .form-container {
-    padding: 1rem;
+@media (max-width: 992px) {
+  .rutina-layout.expandido {
+    grid-template-columns: 1fr;
   }
 
-  .titulo {
-    font-size: 1.4rem;
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+}
+/* ====== LAYOUT GENERAL ====== */
+.rutina-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  transition: all 0.6s ease-in-out;
+}
+
+/* ====== HERO ====== */
+.fit-hero {
+  background: linear-gradient(135deg, #8b63ff, #5e4aa8);
+  color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.7s ease-in-out;
+}
+
+.fit-hero__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+}
+
+.fit-hero__media img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  transition: all 0.8s ease;
+}
+
+/* ====== FORMULARIO HERO ====== */
+.fit-hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.fit-hero__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+  .fit-hero__title span {
+    color: #ffffff;
+    opacity: 0.9;
   }
 
-  .btn-principal {
-    width: 100%;
+.fit-hero__subtitle {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+.plan-card {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.plan-card__row {
+  display: flex;
+  gap: 10px;
+}
+
+.plan-card__input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+.btn-fitrank {
+  background: linear-gradient(145deg, #7b3fe4, #935cff);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+  .btn-fitrank:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(123, 63, 228, 0.4);
   }
+
+/* ====== CONTENIDO DE SESIONES Y EJERCICIOS ====== */
+.contenido {
+  display: none; /* oculto por defecto */
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+/* se muestra cuando hay sesiones */
+.mostrar-sesiones .contenido {
+  display: grid;
+}
+
+/* panel principal: sesiones */
+.main-panel {
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 70vh;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* sidebar: buscar ejercicios */
+.sidebar {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+/* ====== BLOQUES Y SERIES ====== */
+.ejercicios-dropzone {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.bloque {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+  .bloque:hover {
+    transform: translateY(-2px);
+  }
+
+.bloque-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.bloque-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.serie-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.serie-input {
+  flex: 1;
+  min-width: 90px;
+}
+
+  .serie-input label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
+  }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .fit-hero__grid {
+    flex-direction: column;
+  }
+
+  .fit-hero__media img {
+    max-width: 100%;
+  }
+}
+/* === PANEL DE BUSCAR EJERCICIOS === */
+.sidebar {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+  /* Input de búsqueda */
+  .sidebar input.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    transition: 0.2s ease;
+  }
+
+    .sidebar input.form-control:focus {
+      border-color: #8b63ff;
+      box-shadow: 0 0 0 2px rgba(139, 99, 255, 0.25);
+    }
+
+/* Lista de ejercicios */
+.ejercicio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  margin-top: 12px;
+  padding-right: 4px;
+}
+
+/* Item individual */
+.ejercicio-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f7f7fb;
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+  .ejercicio-item:hover {
+    background: #eee9ff;
+    border-color: #b6a1ff;
+    transform: translateY(-1px);
+  }
+
+  /* Imagen dentro del ítem */
+  .ejercicio-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Texto del ítem */
+  .ejercicio-item h6 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .ejercicio-item small {
+    color: #777;
+    font-size: 0.8rem;
+  }
+/* ====== CONTENIDO DE SESIONES Y EJERCICIOS ====== */
+.contenido {
+  display: none; /* oculto hasta que se generen sesiones */
+  grid-template-columns: 1fr 1fr; /* mitad y mitad */
+  gap: 30px;
+  align-items: start;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 1800px; /* más ancho visible */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 40px; /* pequeño padding lateral */
+}
+
+/* Se muestra cuando se genera */
+.mostrar-sesiones .contenido {
+  display: grid;
+}
+
+/* Panel principal (izquierda) */
+.main-panel {
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 28px;
+  overflow-y: auto;
+  max-height: 70vh;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar (derecha) */
+.sidebar {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+/* ====== ANCHOS Y ESPACIADOS FLUIDOS ====== */
+.ejercicios-dropzone,
+.ejercicio-list {
+  width: 100%;
+}
+
+.ejercicio-item {
+  width: 100%;
+}
+
+/* Ajuste visual suave */
+@media (min-width: 1400px) {
+  .contenido {
+    max-width: 95vw;
+    padding: 0 60px;
+  }
+}
+
+@media (max-width: 992px) {
+  .contenido {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+/* ====== HERO ====== */
+.fit-hero {
+  background: linear-gradient(135deg, #8b63ff, #5e4aa8);
+  color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.7s ease-in-out;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 30px 50px;
+}
+
+.fit-hero__grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Imagen más chica */
+.fit-hero__media img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  transition: all 0.6s ease;
+}
+
+/* Texto */
+.fit-hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.fit-hero__title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-transform: capitalize;
+  line-height: 1.3;
+}
+
+.fit-hero__subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+/* Card interna */
+.plan-card {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 14px;
+  padding: 18px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.plan-card__row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.plan-card__input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+.btn-fitrank {
+  background: linear-gradient(145deg, #7b3fe4, #935cff);
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+
+  .btn-fitrank:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(123, 63, 228, 0.4);
+  }
+
+/* ====== CONTENIDO DE SESIONES Y EJERCICIOS ====== */
+.contenido {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+  margin-top: 35px;
+  width: 100%;
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 60px;
+}
+
+.mostrar-sesiones .contenido {
+  display: grid;
+}
+
+/* Paneles ocupan todo el ancho */
+.main-panel,
+.sidebar {
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
+.main-panel {
+  background: #fafafa;
+}
+
+.sidebar {
+  background: #fff;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .fit-hero__grid {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .fit-hero__media img {
+    max-width: 100%;
+  }
+
+  .contenido {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+/* 💜 Pulso violeta FitRank sin mover el contenedor */
+@keyframes borderPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 99, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 12px 2px rgba(139, 99, 255, 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 99, 255, 0.4);
+  }
+}
+
+/* Aplica solo cuando el campo está vacío */
+.plan-card__row.pulse {
+  border: 2px solid rgba(139, 99, 255, 0.7);
+  border-radius: 12px;
+  animation: borderPulse 1.8s infinite ease-in-out;
+  transition: border-color 0.3s ease;
+}
+
+/* Cuando el usuario ya escribe */
+.plan-card__row:not(.pulse) {
+  border: 1px solid #ddd;
+  box-shadow: none;
+  animation: none;
 }
