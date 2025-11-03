@@ -1,3 +1,24 @@
+:root {
+  --color-fondo-principal: #FAFAFA;
+  --color-fondo-secundario: #E0E0E0;
+  --color-fondo-tarjetas: #EAEAEA;
+  --color-texto-principal: #121212;
+  --color-texto-secundario: #808080;
+  --color-hover-exito: #5A9A00;
+  --color-error-alerta: #FF4C4C;
+  --color-acento: #FAEB92;
+  --color-acento-secundario: #8B52FF;
+  --font-titulo: 'Bebas Neue', sans-serif;
+  --font-secundaria: 'Work Sans', sans-serif;
+}
+
+h1 {
+  font-family: var(--font-texto);
+}
+
+
+
+
 .rutina-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -167,6 +188,7 @@
   font-size: 2.2rem;
   font-weight: 800;
   text-transform: capitalize;
+  font-family: var(--font-texto);
 }
 
   .fit-hero__title span {
@@ -280,6 +302,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.08);
+ 
 }
 
 .bloque-img {
@@ -639,4 +663,102 @@
   border: 1px solid #ddd;
   box-shadow: none;
   animation: none;
+}
+.bloque-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.2rem;
+  padding: 1rem;
+  background: #111;
+  border-radius: 1rem;
+  box-shadow: 0 0 8px rgba(140, 60, 255, 0.2);
+}
+
+.serie-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #1b1b1b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+  .serie-row:hover {
+    transform: scale(1.01);
+    border-color: rgba(140, 60, 255, 0.5);
+  }
+
+.serie-input {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 90px;
+}
+
+  .serie-input label {
+    color: #b0b0b0;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .serie-input input.form-control {
+    background-color: #222;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+    .serie-input input.form-control:focus {
+      border-color: #8c3cff;
+      outline: none;
+      box-shadow: 0 0 4px rgba(140, 60, 255, 0.3);
+    }
+
+button.btn.btn-outline-danger.btn-sm {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.4);
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+  button.btn.btn-outline-danger.btn-sm:hover {
+    background-color: #ff6b6b;
+    color: #fff;
+    border-color: #ff6b6b;
+    transform: scale(1.05);
+  }
+button.btn.btn-outline-primary.btn-sm {
+  color: white;
+  border-color: rgba(184, 146, 255, 0.5);
+  background: black;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  padding: 0.45rem 1.2rem;
+  transition: all 0.25s ease-in-out;
+  letter-spacing: 0.3px;
+}
+
+  button.btn.btn-outline-primary.btn-sm:hover {
+    background-color: #8c3cff;
+    border-color: #8c3cff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(140, 60, 255, 0.4);
+  }
+
+  button.btn.btn-outline-primary.btn-sm:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 4px rgba(140, 60, 255, 0.3);
+  }
+h5 {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }

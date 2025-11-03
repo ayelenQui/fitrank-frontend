@@ -47,25 +47,24 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/register-invitacion`, data);
   }
 
-  // 🔹 VALIDAR TOKEN DE ACTIVACIÓN
+
   validarTokenActivacion(token: string): Observable<{ valido: boolean; mensaje?: string }> {
-    const body = { token }; // 👈 coincide con ValidarActivacionDTO.Token
+    const body = { token };
     return this.http.post<{ valido: boolean; mensaje?: string }>(
       `${this.baseUrl}/validar-activacion`,
       body
     );
   }
 
-  // 🔹 ACTIVAR CUENTA
+
   activarCuenta(token: string, password: string): Observable<{ email: string; mensaje: string }> {
-    const body = { token, password }; // 👈 coincide con ActivarCuentaDTO.Token
+    const body = { token, password };
     return this.http.post<{ email: string; mensaje: string }>(
       `${this.baseUrl}/activar-cuenta`,
       body
     );
   }
 
-  
 
   
   guardarToken(token: string): void {

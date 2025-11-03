@@ -1,6 +1,6 @@
 export interface AgregarActividadDTO {
   id?: number;
-  duracion: Date;
+  duracion: string;
   repeticiones: number;
   peso?: number;
   punto: number;
@@ -10,7 +10,7 @@ export interface AgregarActividadDTO {
 }
 export interface ActividadDTO {
   id: number;
-  duracion: Date;
+  duracion: string;
   repeticiones: number;
   peso: number;
   punto: number;

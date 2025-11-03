@@ -30,10 +30,10 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   @ViewChild('sesionesContainer', { static: false }) sesionesContainer!: ElementRef;
   sidebarOpen: boolean = false;
   private anim?: gsap.core.Tween;
-  // 🔹 Identificación del socio
+  
   socioId!: number;
   diaActual: any;
-  // 🔹 Datos del backend
+
   rutinas: RutinaCompletaDTO[] = [];
   
  
@@ -99,11 +99,10 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     const total = cards.length;
     const distance = -100 * total; 
 
-    // 🔹 Duplicamos visualmente con "modifiers" en GSAP (sin clonar nodos)
     const anim = gsap.to(cards, {
     
-      duration: 1 * total, // ⚡ velocidad del loop
-      repeat: -1, // infinito
+      duration: 1 * total, 
+      repeat: -1, 
       modifiers: {
         xPercent: gsap.utils.wrap(100, 0)
       }
@@ -211,7 +210,7 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
     const dto: AgregarEntrenamientoDTO = {
       fecha: new Date(),
-      duracion: new Date(),
+      duracion: "00:00:00",
       socioId: this.socioId
     };
 
@@ -249,7 +248,7 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     if (!this.entrenamientoActivo || !this.serieActual || !this.ejercicioSeleccionado) return;
 
     const dto: AgregarActividadDTO = {
-      duracion: new Date(), 
+      duracion: "00:00:00", 
       repeticiones: this.repeticionesReales,
       peso: this.pesoReal,
       punto: 0,

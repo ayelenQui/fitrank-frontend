@@ -8,7 +8,7 @@
       </div>
 
       <div class="fit-hero__content">
-        <h1 class=" fit-hero__title">Planificación de Entrenamiento</h1>
+        <h1 class="fit-hero__title  ">Planificación de Entrenamiento</h1>
         <p class="fit-hero__subtitle">
           Entrená más inteligente, seguí tus progresos y alcanzá tus metas.
         </p>
@@ -41,7 +41,7 @@
       <div class="dias-tabs mb-4">
         <button *ngFor="let sesion of sesiones.controls; let i = index"
                 (click)="seleccionarSesion(i)"
-                class="tab-btn"
+                class=""
                 [ngClass]="{ active: sesionActiva === i }">
           Día {{ i + 1 }}
         </button>
@@ -123,7 +123,7 @@
               </div>
 
               <div class="text-end mt-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-outline-primary btn-sm mt-2">
                   Guardar Día {{ sesionActiva + 1 }}
                 </button>
                 <div class="text-end mt-3 fw-bold text-secondary">
@@ -146,7 +146,7 @@
 
       <!-- GUARDAR -->
       <div class="text-center mt-5">
-        <button type="button" class="btn btn-fitrank-lg px-5 py-3" (click)="guardarTodo()">
+        <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="guardarTodo()">
           Guardar Rutina
         </button>
       </div>
@@ -155,7 +155,7 @@
     <!-- 🟣 SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-content">
-        <h5 class="fw-bold mb-3"> Buscar ejercicios</h5>
+        <h5 class="fw-bold mb-3"> Hace Click para Agregar tus Ejercicios</h5>
         <input type="text"
                class="form-control mb-3"
                placeholder="Buscar Ejercicios..."
