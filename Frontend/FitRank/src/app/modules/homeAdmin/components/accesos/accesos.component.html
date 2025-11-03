@@ -1,0 +1,21 @@
+<div class="scanner-container text-center">
+  <!-- 📷 escáner actualizado -->
+  <ngx-scanner-qrcode #scanner
+                      (event)="onScan($event)"
+                      class="rounded shadow"
+                      style="width: 320px; height: 320px;">
+  </ngx-scanner-qrcode>
+
+  <div class="mt-3">
+    <button class="btn btn-sm btn-primary me-2" (click)="startScanner()">Iniciar</button>
+    <button class="btn btn-sm btn-danger" (click)="stopScanner()">Detener</button>
+  </div>
+
+  <div *ngIf="loading" class="mt-3">
+    <p>Validando QR...</p>
+  </div>
+
+  <div *ngIf="!loading && mensaje" class="mt-3">
+    <p [class.text-success]="exito" [class.text-danger]="!exito">{{ mensaje }}</p>
+  </div>
+</div>

@@ -243,7 +243,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
                       const serieDto = {
                         peso: serie.peso,
                         repeticiones: serie.repeticiones,
-                        duracion: new Date().toISOString(),
+                        duracion: '00:00:00',
                         ejercicioAsignadoId: ejercicioAsignadoId,
                         numeroDeSerie: k + 1 
                       };

@@ -53,6 +53,6 @@ export interface SerieDTO {
   id: number;
   peso: number;
   repeticiones: number;
-  duracion: number;
+  duracion: string;
 }
 
