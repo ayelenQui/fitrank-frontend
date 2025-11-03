@@ -1,0 +1,42 @@
+.grid-ejercicios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-height: 200px; /* muestra solo 2 filas aprox. */
+  overflow-y: auto;
+  padding-right: 6px; /* margen para scroll */
+}
+
+.card-ejercicio {
+  background-color: #fff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 10px;
+}
+
+.card-ejercicio:hover {
+  transform: translateY(-1px);
+  border-color: #b388ff; /* violeta suave al hover */
+}
+
+.card-ejercicio.seleccionado {
+  border-color: #b388ff; /* violeta principal */
+  box-shadow: 0 0 10px #b388ff;
+}
+
+.img-ejercicio {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.nombre-ejercicio {
+  margin-top: 8px;
+  font-weight: 500;
+  color: #333;
+}
