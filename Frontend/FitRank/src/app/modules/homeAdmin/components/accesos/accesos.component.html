@@ -16,8 +16,8 @@
 
   <!-- 🎛️ Botones -->
   <div class="mt-4 d-flex gap-3">
-    <button class="btn btn-fitrank" (click)="startScanner()">▶️ Iniciar</button>
-    <button class="btn btn-outline-danger" (click)="stopScanner()">⏹️ Detener</button>
+    <button class="btn btn-fitrank" (click)="startScanner()"> Iniciar</button>
+    <button class="btn btn-outline-danger" (click)="stopScanner()">Detener</button>
   </div>
 
   <!-- ⏳ Estado -->
@@ -48,7 +48,7 @@
     <p><strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
 
     <div class="mt-3">
-      <h5 class="text-fitrank mb-2">📅 Últimas asistencias</h5>
+      <h5 class="text-fitrank mb-2"> Últimas asistencias</h5>
       <ul class="list-group bg-dark">
         <li *ngFor="let a of asistencias" class="list-group-item bg-dark text-light border-secondary">
           {{ a.gimnasioNombre }} — {{ a.fecha | date:'dd/MM/yyyy' }}

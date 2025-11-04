@@ -1,5 +1,5 @@
 <div class="container py-4">
-  <h2 class="text-center fw-bold text-fitrank mb-4">📊 Panel de Asistencias y Retención</h2>
+  <h2 class="text-center fw-bold text-fitrank mb-4"> Panel de Asistencias y Retención</h2>
 
   <!-- 🔍 FILTRO POR NOMBRE -->
   <div class="card bg-dark text-light p-3 shadow-sm mb-4 rounded-4">
@@ -8,7 +8,7 @@
            [(ngModel)]="filtroSocio"
            (input)="filtrarPorSocio()"
            class="form-control bg-secondary text-light border-0"
-           placeholder="Ej: Ayelén, Mauro..." />
+           placeholder="Buscar Socio" />
   </div>
 
   <!-- ⏳ CARGANDO -->
@@ -24,7 +24,7 @@
 
   <!-- ✅ LISTADO DE ASISTENCIAS -->
   <div *ngIf="!loading && asistenciasFiltradas.length > 0" class="mb-5">
-    <h4 class="text-fitrank fw-bold mb-3">📋 Asistencias registradas</h4>
+    <h4 class="text-fitrank fw-bold mb-3"> Asistencias registradas</h4>
 
     <div class="table-responsive rounded-4 shadow-sm">
       <table class="table table-dark table-striped align-middle mb-0">
@@ -59,7 +59,7 @@
 
   <!-- 👥 SOCIOS INACTIVOS -->
   <div *ngIf="!loading && inactivos.length > 0">
-    <h4 class="text-fitrank fw-bold mb-3">💤 Socios inactivos (más de 5 días sin asistir)</h4>
+    <h4 class="text-black fw-bold mb-3"> Socios en Riesgo de Abandono (más de 5 días sin asistir)</h4>
 
     <div class="row g-3">
       <div *ngFor="let socio of inactivos" class="col-md-6 col-lg-4">

@@ -5,7 +5,7 @@ import { AsistenciaService } from '@app/api/services/asistencia/asistencia.servi
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { NotificacionService } from '@app/api/services/notificacion/notificacion.service';
 import { AsistenciaListadoDTO, SocioInactivoDTO } from '@app/api/services/asistencia/interface/asistencia.interface';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-abandono',
   standalone: true,
@@ -96,7 +96,13 @@ export class AbandonoComponent implements OnInit {
     this.notificacionService.enviarNotificacionRetencion(token, socioId).subscribe({
       next: (res) => {
         this.loading = false;
-        this.mensaje = res.mensaje || '📩 Notificación enviada correctamente.';
+        Swal.fire({
+          icon: 'success',
+          title: '📩 Notificación enviada',
+          text: res.mensaje || 'El socio fue notificado correctamente.',
+          confirmButtonColor: '#8c52ff'
+        });
+        this.cargarSociosInactivos();
         // actualiza lista de inactivos
         this.cargarSociosInactivos();
       },
@@ -119,10 +125,19 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
 ¡Estamos para acompañarte en tu progreso! `;
 
     const url = `https://wa.me/54${telefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    Swal.fire({
+      title: `Enviar mensaje a ${nombre}`,
+      text: '¿Querés abrir WhatsApp para contactarlo?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#25D366',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Abrir WhatsApp 📱',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.open(url, '_blank');
+      }
+    });
   }
-
-
-
-
 }
