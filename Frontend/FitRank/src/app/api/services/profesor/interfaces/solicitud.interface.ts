@@ -2,6 +2,11 @@ export interface Solicitud {
   id: number;
   socioId: number;
   nombreSocio: string;
+  profesorId?: number;
+  estado: string;
+  fechaSolicitud: string;
+  mensajeSocio?: string;
+
   edad: number;
   pesoKg: number;
   alturaCm: number;
@@ -9,19 +14,17 @@ export interface Solicitud {
   sesionesPorSemana: number;
   minutosPorSesion: number;
   objetivo: string;
-  estado: string;
-  fechaSolicitud: string;
 
-  //Screening
-  DolorHombro: boolean;
-  DolorRodilla: boolean;
-  DolorLumbar: boolean;
-  CirugiaReciente: boolean;
-  Sincope: boolean;
-  Embarazo: boolean;
-  Hipertension: boolean;
-  HipertensionControlada: boolean;
-  Diabetes: boolean;
-  DolorToracico: boolean;
-  FrecuenciaCardiacaReposo: number;
+  // Screening
+  dolorLumbar: boolean;
+  dolorRodilla: boolean;
+  dolorHombro: boolean;
+  cirugiaReciente: boolean;
+  sincope: boolean;
+  embarazo: boolean;
+  hipertension: boolean;
+  hipertensionControlada: boolean;
+  diabetes: boolean;
+  dolorToracico: boolean;
+  frecuenciaCardiacaReposo: number;
 }

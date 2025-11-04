@@ -12,7 +12,7 @@ export class SolicitudesService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerTodasLasSolicitudes(): Observable<Solicitud[]> {
-    return this.http.get<Solicitud[]>(this.apiUrl);
+  obtenerPendientes(): Observable<Solicitud[]> {
+    return this.http.get<Solicitud[]>(`${this.apiUrl}/pendientes`);
   }
 }
