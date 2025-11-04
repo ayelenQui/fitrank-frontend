@@ -1,0 +1,74 @@
+.contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #f9fafb;
+}
+
+.resumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+.nombre {
+  font-size: 1.1rem;
+}
+
+.estado {
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.estado.pendiente {
+  background-color: #f59e0b;
+}
+
+.detalles {
+  padding: 0.8rem 1rem 1rem;
+  background-color: #fefefe;
+}
+
+.screening ul {
+  padding-left: 1.2rem;
+}
+
+.btn-crear {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 1rem;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-crear:hover {
+  background-color: #1e40af;
+}
