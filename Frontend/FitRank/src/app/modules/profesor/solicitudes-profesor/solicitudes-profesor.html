@@ -1,0 +1,84 @@
+<div class="contenedor-solicitudes">
+  <h2>Solicitudes de Rutinas</h2>
+
+  <div *ngIf="cargando">Cargando solicitudes...</div>
+
+  <div *ngIf="!cargando && solicitudes.length === 0">
+    No hay solicitudes pendientes.
+  </div>
+
+  <div
+    *ngFor="let solicitud of solicitudes"
+    class="card-solicitud"
+    (click)="toggleDetalles(solicitud.id)"
+  >
+    <div class="card-header">
+      <div>
+        <h3>{{ solicitud.nombreSocio }}</h3>
+        <p>Fecha: {{ solicitud.fechaSolicitud | date: 'shortDate' }}</p>
+      </div>
+      <span
+        class="estado"
+        [ngClass]="{
+          pendiente: solicitud.estado === 'Pendiente',
+          aprobada: solicitud.estado === 'Aprobada',
+          rechazada: solicitud.estado === 'Rechazada'
+        }"
+      >
+        {{ solicitud.estado }}
+      </span>
+    </div>
+
+    <div
+      class="card-detalle"
+      *ngIf="solicitudSeleccionadaId === solicitud.id"
+    >
+      <p><strong>Edad:</strong> {{ solicitud.edad }} años</p>
+      <p><strong>Peso:</strong> {{ solicitud.pesoKg }} kg</p>
+      <p><strong>Altura:</strong> {{ solicitud.alturaCm }} cm</p>
+      <p><strong>Nivel:</strong> {{ solicitud.nivel }}</p>
+      <p><strong>Objetivo:</strong> {{ solicitud.objetivo }}</p>
+      <p><strong>Sesiones por semana:</strong> {{ solicitud.sesionesPorSemana }}</p>
+      <p><strong>Minutos por sesión:</strong> {{ solicitud.minutosPorSesion }}</p>
+      <p><strong>Frecuencia cardíaca en reposo:</strong> {{ solicitud.FrecuenciaCardiacaReposo }} bpm</p>
+
+      <h4>Screening:</h4>
+      <ul>
+        <li *ngIf="solicitud.DolorHombro">Dolor de hombro</li>
+        <li *ngIf="solicitud.DolorRodilla">Dolor de rodilla</li>
+        <li *ngIf="solicitud.DolorLumbar">Dolor lumbar</li>
+        <li *ngIf="solicitud.CirugiaReciente">Cirugía reciente</li>
+        <li *ngIf="solicitud.Sincope">Síncope</li>
+        <li *ngIf="solicitud.Embarazo">Embarazo</li>
+        <li *ngIf="solicitud.Hipertension">Hipertensión</li>
+        <li *ngIf="solicitud.HipertensionControlada">Hipertensión controlada</li>
+        <li *ngIf="solicitud.Diabetes">Diabetes</li>
+        <li *ngIf="solicitud.DolorToracico">Dolor torácico</li>
+
+        <li
+          *ngIf="
+            !solicitud.DolorHombro &&
+            !solicitud.DolorRodilla &&
+            !solicitud.DolorLumbar &&
+            !solicitud.CirugiaReciente &&
+            !solicitud.Sincope &&
+            !solicitud.Embarazo &&
+            !solicitud.Hipertension &&
+            !solicitud.HipertensionControlada &&
+            !solicitud.Diabetes &&
+            !solicitud.DolorToracico
+          "
+        >
+          Sin condiciones relevantes
+        </li>
+      </ul>
+
+      <button
+        class="btn-crear"
+        (click)="$event.stopPropagation(); crearRutina(solicitud.socioId)"
+      >
+        Crear Rutina
+      </button>
+    </div>
+  </div>
+</div>
