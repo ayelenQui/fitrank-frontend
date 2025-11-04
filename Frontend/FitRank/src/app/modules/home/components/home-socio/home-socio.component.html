@@ -93,7 +93,7 @@
     </div>
   </section>
   <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
-  <div *ngIf="mostrarRetencion" class="card bg-dark text-light shadow-lg rounded-4 p-4 mt-4">
+  <div *ngIf="mostrarRetencion" class="card-retencion text-center">
     <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5>
     <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p>
 
@@ -105,7 +105,7 @@
         ✅ Estoy bien
       </button>
       <button class="btn btn-warning w-100" (click)="responder('contactar-profesor')">
-        📞 Que me contacte un profesor
+         Que me contacte un profesor
       </button>
     </div>
   </div>

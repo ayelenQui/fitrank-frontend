@@ -119,3 +119,83 @@
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(139,82,255,0.3);
   }
+/* 🔹 Tarjeta de retención */
+.card-retencion {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a003b 100%);
+  color: #fff;
+  border: 2px solid rgba(140, 82, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(140, 82, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 650px;
+  margin: 2rem auto;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+  /* 🔹 Título */
+  .card-retencion h5 {
+    color: #c59aff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  /* 🔹 Texto */
+  .card-retencion p {
+    color: #ddd;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 🔹 Botones */
+  .card-retencion .btn {
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card-retencion .btn-primary {
+    background: linear-gradient(90deg, #6c63ff, #8c52ff);
+    color: #fff;
+  }
+
+    .card-retencion .btn-primary:hover {
+      background: linear-gradient(90deg, #8c52ff, #6c63ff);
+      transform: translateY(-2px);
+    }
+
+  .card-retencion .btn-success {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+  }
+
+    .card-retencion .btn-success:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+  .card-retencion .btn-warning {
+    background: linear-gradient(90deg, #facc15, #eab308);
+    color: #333;
+  }
+
+    .card-retencion .btn-warning:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+/* 🔹 Animación suave */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
