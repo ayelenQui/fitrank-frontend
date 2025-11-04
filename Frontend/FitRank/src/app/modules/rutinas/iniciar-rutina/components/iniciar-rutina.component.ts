@@ -121,7 +121,12 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const user = this.auth.obtenerUser();
-    this.socioId = user?.Id;
+    this.socioId = Number(user?.Id ?? user?.id);
+  if (!this.socioId || Number.isNaN(this.socioId)) {
+    console.error('❌ socioId inválido:', this.socioId);
+    return;
+  }
+
     const hoy = new Date().getDay();
     this.diaActual = this.rutinaSeleccionada?.sesiones?.[hoy % this.rutinaSeleccionada.sesiones.length];
     this.cargarRutinas();

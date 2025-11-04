@@ -33,14 +33,11 @@ export class AuthService {
     );
   }
 
-  isAdmin(): boolean {
-    const user = this.obtenerUser();
-    if (user && user.Rol) {
-      console.log('Rol del usuario:', user.Rol); 
-      return user.Rol.toLowerCase() === 'admin'; 
-    }
-    return false;
-  }
+isAdmin(): boolean {
+  const user = this.obtenerUser();
+  return !!user?.rol && user.rol.toLowerCase() === 'admin';
+}
+
 
  
   registerWithInvitacion(data: any): Observable<any> {
@@ -75,10 +72,28 @@ export class AuthService {
     return localStorage.getItem('jwt_token');
   }
 
-  obtenerUser(): any {
-    const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
+ obtenerUser(): any {
+  const userStr = localStorage.getItem('user');
+  if (!userStr) return null;
+
+  try {
+    const u = JSON.parse(userStr);
+    // Normalizo claves para que el resto del código use camelCase
+    return {
+      id: u.id ?? u.Id ?? null,
+      nombre: u.nombre ?? u.Nombre ?? null,
+      apellidos: u.apellidos ?? u.Apellidos ?? null,
+      username: u.username ?? u.Username ?? null,
+      rol: (u.rol ?? u.Rol ?? '').toString(),
+      cuotaPagadaHasta: u.cuotaPagadaHasta ?? u.CuotaPagadaHasta ?? null,
+      // si alguna vez guardás nivel:
+      nivel: u.nivel ?? u.Nivel ?? null
+    };
+  } catch {
+    return null;
   }
+}
+
 
   logout(): void {
     localStorage.removeItem('jwt_token');
