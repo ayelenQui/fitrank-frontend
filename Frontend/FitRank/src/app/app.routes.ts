@@ -20,6 +20,7 @@ import { SocioLayoutComponent } from './layouts/socio-layout/socio-layout.compon
 import { AccesoGimnasioComponent } from './modules/asistencia/acceso-gimnasio/acceso-gimnasio.component';
 import { FormularioRutinaIa } from './modules/rutinas/formulario-rutina-ia/formulario-rutina-ia';
 import { SolicitudesProfesor } from './modules/profesor/solicitudes-profesor/solicitudes-profesor';
+import { FormularioRutinaAsistida } from './modules/rutinas/formulario-rutina-asistida/formulario-rutina-asistida';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -38,6 +39,8 @@ export const appRoutes: Route[] = [
   { path: 'acceso', component: AccesoGimnasioComponent },
 
   { path: 'solicitudes-profesor', component: SolicitudesProfesor },
+  
+  { path: 'solicitar-rutina', component: FormularioRutinaAsistida },
 
   {
     path: 'rutina',

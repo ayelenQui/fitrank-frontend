@@ -70,7 +70,7 @@ export class CrearRutinaComponent implements AfterViewInit {
         this.router.navigate(['/rutina/ia']);
         break;
       case 'asistida':
-        alert('Rutina asistida próximamente.');
+        this.router.navigate(['/solicitar-rutina']);
         break;
     }
   }
