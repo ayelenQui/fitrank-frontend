@@ -34,10 +34,9 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-
     const user = this.authService.obtenerUser();
-    
-    this.rolUsuario = user?.Rol;
+   
+    this.rolUsuario = user?.Rol || user?.rol || '';
 
     this.rutinaForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -47,23 +46,22 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
       socioId: [null, Validators.required],
       usuarioId: [null, Validators.required]
     });
-    
+
     if (user) {
       if (this.rolUsuario === 'Socio') {
         this.rutinaForm.patchValue({
-          socioId: user.Id,
-          usuarioId: user.Id
+          socioId: user.id,
+          usuarioId: user.id
         });
+      
       } else if (this.rolUsuario === 'Profesor' || this.rolUsuario === 'Admin') {
         this.rutinaForm.patchValue({
-          usuarioId: user.Id
+          usuarioId: user.id
         });
-        
+       
       }
     }
   }
-
-  
 
 
 

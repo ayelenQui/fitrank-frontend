@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
 import gsap from 'gsap';
 import { ActivatedRoute } from '@angular/router';
 import { SesionDTO } from '../../../../api/services/sesion/interface/sesion.interface';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -299,10 +300,21 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
           const todosCompletados = this.sesionSeleccionada?.ejerciciosAsignados.every((x: any) => x.completadoHoy);
 
           if (todosCompletados) {
-            alert('🏁 ¡Sesión completada por hoy! 🎉');
-            this.router.navigate(['/rutina/mis-rutinas']); 
+            Swal.fire({
+              icon: 'success',
+              title: '🏁 ¡Sesión completada!',
+              text: 'Excelente trabajo 💪 ¡Completaste tu entrenamiento de hoy!',
+              confirmButtonColor: '#8c52ff',
+              confirmButtonText: 'Volver a mis rutinas'
+            }).then(() => this.router.navigate(['/rutina/mis-rutinas']));
           } else {
-            alert('🏁 Ejercicio completado 🎉');
+            Swal.fire({
+              icon: 'success',
+              title: '✅ Ejercicio completado',
+              text: '¡Buen trabajo! Pasemos al siguiente 💥',
+              confirmButtonColor: '#8c52ff',
+              confirmButtonText: 'Continuar'
+            }).then(() => this.volverAEjercicios());
             this.volverAEjercicios();
           }
         }

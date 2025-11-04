@@ -9,7 +9,7 @@ import { SesionService } from '@app/api/services/sesion/sesion.service';
 import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
 import { SerieService } from '@app/api/services/serie/serie.service';
 import{ Location } from '@angular/common'; 
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-sesiones-rutina',
@@ -93,7 +93,12 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
   agregarEjercicio(ejercicio: any): void {
     if (!this.mostrarSesiones) {
-      alert('⚠️ Primero generá las sesiones.');
+      Swal.fire({
+        icon: 'warning',
+        title: '⚠️ Atención',
+        text: 'Primero generá las sesiones antes de agregar ejercicios.',
+        confirmButtonColor: '#8c52ff'
+      });
       return;
     }
 
@@ -111,6 +116,15 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
     ejercicios.push(nuevo);
     this.cdr.detectChanges();
+
+    Swal.fire({
+      icon: 'success',
+      title: ' Ejercicio agregado',
+      text: `"${ejercicio.nombre}" fue añadido a la sesión.`,
+      showConfirmButton: false,
+      timer: 1500
+    });
+  
   }
   onGenerarSesiones(): void {
     const dias = this.form.get('cantidadDias')?.value;
@@ -195,12 +209,21 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
 
   guardarSesionActual(): void {
-    alert(`✅ Sesión ${this.sesionActiva + 1} guardada`);
+    Swal.fire({
+      icon: 'success',
+      title: `✅ Dia ${this.sesionActiva + 1} guardada`,
+      confirmButtonColor: '#8c52ff'
+    });
   }
 
   guardarTodo(): void {
     if (this.form.invalid || this.sesiones.length === 0) {
-      alert('⚠️ Primero generá las sesiones antes de guardar.');
+      Swal.fire({
+        icon: 'warning',
+        title: '⚠️ Atención',
+        text: 'Primero generá las sesiones antes de guardar.',
+        confirmButtonColor: '#8c52ff'
+      });
       return;
     }
 
@@ -262,8 +285,14 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
           sesionesGuardadas++;
           if (sesionesGuardadas === sesiones.length) {
-            alert('✅ Rutina guardada correctamente con sus sesiones, ejercicios y series.');
-            this.router.navigate(['/rutina/mis-rutinas']);
+            Swal.fire({
+              icon: 'success',
+              title: ' Rutina guardada',
+              text: 'Tu rutina, sesiones y ejercicios fueron guardados correctamente.',
+              confirmButtonColor: '#8c52ff'
+            }).then(() => {
+              this.router.navigate(['/rutina/mis-rutinas']);
+            });
           }
         },
         error: (err) => console.error('❌ Error al crear sesión:', err)
