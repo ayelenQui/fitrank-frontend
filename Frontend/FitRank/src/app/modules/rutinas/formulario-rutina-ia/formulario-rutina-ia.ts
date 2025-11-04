@@ -122,7 +122,7 @@ toggleEjercicio(nombre: string): void {
         this.resultado = res;
         this.enviando = false;
         alert('✅ Rutina generada correctamente');
-        this.router.navigate(['/rutina/mis-rutinas']); // o a donde quieras mostrar la rutina
+        this.router.navigate(['/rutina/mis-rutinas']); 
       },
       error: (err) => {
         this.enviando = false;

@@ -116,14 +116,14 @@ export class CrearSesionesRutinaComponent implements OnInit {
     const dias = this.form.get('cantidadDias')?.value;
     if (!dias) return;
 
-    // Empieza animación
+   
     this.mostrarSesiones = true;
     this.mostrarSesiones = true;
     document.querySelector('.rutina-layout')?.classList.add('mostrar-sesiones');
-    // Esperamos 600ms (duración de la animación CSS) antes de quitar el hero
+  
     setTimeout(() => {
       this.ocultarHero = true;
-      this.crearSesiones(); // llama tu lógica real
+      this.crearSesiones(); 
     }, 600);
   }
 
@@ -159,7 +159,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
   trackByIndex(index: number): number {
     return index;
   }
-  // 🔹 Calcula el tiempo total estimado de una sesión
+ 
   getDuracionTotalSesion(indexSesion: number): number {
     const sesion = this.sesiones.at(indexSesion);
     if (!sesion) return 0;
@@ -175,7 +175,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
     return total;
   }
-  // 🔹 Calcula el tiempo total estimado de toda la rutina
+ 
   getDuracionTotalRutina(): number {
     let total = 0;
 

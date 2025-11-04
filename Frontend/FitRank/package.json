@@ -42,6 +42,7 @@
     "ngx-scanner-qrcode": "^1.7.6",
     "rxjs": "~7.8.0",
     "split-type": "^0.3.4",
+    "sweetalert2": "^11.26.3",
     "three": "^0.180.0",
     "zone.js": "~0.15.0"
   },

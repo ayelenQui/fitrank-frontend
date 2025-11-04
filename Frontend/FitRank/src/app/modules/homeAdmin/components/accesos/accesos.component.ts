@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxScannerQrcodeComponent, ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { HttpClient } from '@angular/common/http';
+import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
+import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
+import { AuthService } from '../../../../api/services/activacion/AuthService.service'; 
 
 @Component({
   selector: 'app-accesos',
@@ -18,7 +21,10 @@ export class AccesosComponent {
   exito: boolean | null = null;
   loading = false;
 
-  constructor(private http: HttpClient) { }
+  socio: SocioDTO | null = null;
+  asistencias: AsistenciaDetalleUsuarioDTO[] = [];
+
+  constructor( private asistenciaService: AsistenciaService , private authService : AuthService ) { }
 
   // ✅ este es el evento actual que emite los resultados
   onScan(results: ScannerQRCodeResult[]) {
@@ -34,22 +40,54 @@ export class AccesosComponent {
 
   validarQR(qrData: string) {
     this.loading = true;
-    this.http.post('https://localhost:7226/api/Asistencia/validar-qr', { qrData })
-      .subscribe({
-        next: (res: any) => {
-          this.mensaje = res.mensaje || 'Acceso validado correctamente ✅';
-          this.exito = res.valido ?? true;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.mensaje = err.error?.mensaje || 'Error al validar el QR ❌';
-          this.exito = false;
-          this.loading = false;
+
+    this.asistenciaService.validarQR(qrData).subscribe({
+      next: (res: any) => {
+        this.mensaje = res.mensaje || 'Acceso validado correctamente ✅';
+        this.exito = res.valido ?? true;
+        this.loading = false;
+
+        // Solo si el QR fue válido
+        if (res.usuarioId) {
+          this.cargarDetalleComoAdmin(res.usuarioId);
         }
-      });
+      },
+      error: (err) => {
+        this.mensaje = err.error?.mensaje || 'Error al validar el QR ❌';
+        this.exito = false;
+        this.loading = false;
+      }
+    });
   }
 
-  // 👇 control manual del escaneo
+  cargarDetalleComoAdmin(usuarioId: number) {
+    const token = this.authService.obtenerToken(); // ✅ token del admin logueado
+    if (!token) {
+      this.mensaje = '⚠️ No hay sesión activa de administrador.';
+      return;
+    }
+
+    this.loading = true;
+    this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId, token).subscribe({
+      next: (res) => {
+        console.log('📋 Detalle socio:', res);
+        if (res.exito) {
+          this.socio = res.socio;
+          this.asistencias = res.asistencias;
+        } else {
+          this.mensaje = res.mensaje;
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error al obtener detalle:', err);
+        this.mensaje = 'No se pudieron cargar los datos del socio.';
+        this.loading = false;
+      }
+    });
+  }
+
+  
   startScanner() {
     this.scanner.start();
   }

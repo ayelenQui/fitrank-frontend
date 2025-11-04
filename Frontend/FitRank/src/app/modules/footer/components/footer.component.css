@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: black;
   border-top: 1px solid #ddd;
   display: flex;
   justify-content: space-around;
@@ -14,7 +14,7 @@
 }
 
   .bottom-nav a {
-    color: dimgrey;
+    color: white;
     text-decoration: none;
     font-size: 14px;
     display: flex;
