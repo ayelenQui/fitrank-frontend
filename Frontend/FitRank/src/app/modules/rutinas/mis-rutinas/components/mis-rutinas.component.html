@@ -28,11 +28,11 @@
           <span class="stat-label">Inactivas</span>
         </button>
 
-        <!-- ⭐ Botón de valoración -->
+        <!-- ⭐ Botón de valoración
         <button class="stat-card valoracion">
           <span class="material-symbols-outlined mb-1">star</span>
           <span class="stat-label">Valorar tu rutina</span>
-        </button>
+        </button> -->
       </div>
       </div>
 
@@ -42,10 +42,11 @@
         <img src="assets/img/mis-rutinas/blanco.jpg" alt="App FitRank" class="hero-phone" />
       </div>
 </section>
+<br>
+<br>
 
-  <!-- 🟣 CONTENIDO PRINCIPAL -->
   <div class="contenido-mis-rutinas">
-    <!-- 📊 Panel superior de progreso -->
+     <!-- 
     <div class="panel-progreso d-flex justify-content-around text-center mb-3">
       <div>
         <p class="text-muted small mb-1">Progreso semanal</p>
@@ -59,13 +60,14 @@
         <h5 class="text-fitrank mb-0 fw-bold">1240</h5>
       </div>
       <div>
-        <p class="text-muted small mb-1">Ranking semanal</p>
-        <h5 class="text-success mb-0 fw-bold">#3</h5>
+        <p class="text-muted small mb-1">Posición actual en el ranking</p>
+        <h5 class="text-success mb-0 fw-bold">#1</h5>
       </div>
     </div>
-
+    <br>
+-->
     <!-- 📋 Listado de Rutinas -->
-    <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-center">
+    <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-left">
       <div *ngFor="let r of rutinas" class="col-12 col-md-4 col-lg-3">
         <div class="rutina-card bg-dark text-white p-3 rounded-4 position-relative">
           <div class="d-flex justify-content-between align-items-start mb-2">
