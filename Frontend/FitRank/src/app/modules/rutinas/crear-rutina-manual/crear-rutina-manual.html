@@ -4,77 +4,54 @@
 </button>
 
 <!-- Contenedor principal -->
-<div class="crear-rutina-wrapper container py-5">
+<div class="crear-rutina-wrapper">
   <!-- Título -->
-  <div class="text-center mb-5">
-    <h2 class="titulo ">Crear Rutina Manual</h2>
-    <p class="text-muted">Personalizá tu plan de entrenamiento paso a paso.</p>
+  <div class="titulo-seccion text-center">
+    <h2>Crear Rutina Manual</h2>
+    <p class="subtitulo">Personalizá tu plan de entrenamiento paso a paso.</p>
   </div>
 
-  <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="form-container">
-    <div class="row g-4">
+  <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="formulario-rutina">
+    <div class="grid-datos">
       <!-- Nombre -->
-      <div class="col-md-6">
-        <label for="nombre" class="form-label">Nombre de la rutina</label>
+      <div class="campo">
+        <label for="nombre">Nombre de la rutina</label>
         <input id="nombre"
                formControlName="nombre"
                type="text"
-               class="form-control form-control-lg"
+               class="input"
                placeholder="Ej: Full Body Principiante" />
-        <small class="error text-danger" *ngIf="rutinaForm.get('Nombre')?.invalid && rutinaForm.get('Nombre')?.touched">
+        <small class="error" *ngIf="rutinaForm.get('Nombre')?.invalid && rutinaForm.get('Nombre')?.touched">
           El nombre es obligatorio
         </small>
       </div>
 
-      <div class="col-md-6">
+      <div class="campo">
         <label for="tipoCreacion" class="form-label">Tipo de creación</label>
         <input id="tipoCreacion"
                formControlName="tipoCreacion"
                type="text"
-               class="form-control form-control-lg"
+               class="input"
                readonly
                value="Manual" />
       </div>
 
       <!-- Descripción -->
-      <div class="col-12">
+      <div class="campo">
         <label for="descripcion" class="form-label">Descripción</label>
         <textarea id="descripcion"
                   formControlName="descripcion"
-                  class="form-control form-control-lg"
+                  class="input"
                   rows="3"
                   placeholder="Descripción breve de la rutina o tus objetivos..."></textarea>
       </div>
     </div>
 
     <!-- Botón principal -->
-    <div class="text-center mt-5">
-      <button type="submit" class="btn btn-fitrank-lg px-5 py-3">
+    <div class="text-center">
+      <button type="submit" class="btn-crear">
        Crear rutina
       </button>
     </div>
   </form>
 </div>
-
-  <!-- Sección informativa tipo cards -->
-  <div class="row g-4 mt-5">
-    <div class="col-md-4">
-      <div class="info-card p-4 rounded-4 shadow-sm h-100">
-        <h5 class="fw-bold">🧩 Crea manualmente</h5>
-        <p class="text-muted">Agregá ejercicios uno por uno y personalizá cada detalle.</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="info-card p-4 rounded-4 shadow-sm h-100">
-        <h5 class="fw-bold">🤖 Crear con IA</h5>
-        <p class="text-muted">Generá una rutina adaptada a tus objetivos y progreso automáticamente.</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="info-card p-4 rounded-4 shadow-sm h-100">
-        <h5 class="fw-bold">👩‍🏫 Con un profesor</h5>
-        <p class="text-muted">Solicitá una rutina guiada por un entrenador certificado.</p>
-      </div>
-    </div>
-  </div>
-

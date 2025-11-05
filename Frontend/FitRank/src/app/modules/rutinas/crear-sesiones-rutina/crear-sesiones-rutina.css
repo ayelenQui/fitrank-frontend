@@ -62,7 +62,7 @@ h1 {
 .rutina-layout.expandido .fit-hero {
   padding: 20px 30px;
   flex-direction: row-reverse;
-  background: linear-gradient(135deg, #7a55e6, #4e3b8d);
+  background: #1c1c1c;
 }
 
 .rutina-layout.expandido .fit-hero__media img {
@@ -149,7 +149,7 @@ h1 {
 
 /* ====== HERO ====== */
 .fit-hero {
-  background: linear-gradient(135deg, #8b63ff, #5e4aa8);
+  background: #1c1c1c;
   color: #fff;
   border-radius: 20px;
   overflow: hidden;
@@ -486,7 +486,7 @@ h1 {
 }
 /* ====== HERO ====== */
 .fit-hero {
-  background: linear-gradient(135deg, #8b63ff, #5e4aa8);
+  background: #1c1c1c;
   color: #fff;
   border-radius: 20px;
   overflow: hidden;
@@ -538,8 +538,8 @@ h1 {
 
 /* Card interna */
 .plan-card {
-  background: #fff;
-  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
   border-radius: 14px;
   padding: 18px;
   width: 100%;
@@ -557,10 +557,13 @@ h1 {
   display: flex;
   gap: 8px;
   align-items: center;
+  border: none !important;
 }
 
 .plan-card__input {
   flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 8px 12px;
@@ -761,4 +764,39 @@ button.btn.btn-outline-primary.btn-sm {
 h5 {
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+
+/* ====== BOTONES DE DÍAS ====== */
+.dias-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dias-tabs button {
+  background: #1c1c1c;
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dias-tabs button:hover {
+  background: #2a2a2a;
+  border-color: rgba(140, 60, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.dias-tabs button.active {
+  background: linear-gradient(145deg, #7b3fe4, #935cff);
+  color: #fff;
+  border-color: rgba(140, 60, 255, 0.8);
+  box-shadow: 0 0 12px rgba(140, 60, 255, 0.4);
+  transform: scale(1.03);
 }

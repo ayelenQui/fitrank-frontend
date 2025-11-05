@@ -1,57 +1,151 @@
+/* --- Contenedor principal --- */
 .crear-rutina-wrapper {
-  max-width: 1100px;
-}
-
-.btn-volver {
-  background-color: #f5e085;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-weight: 600;
-  margin: 20px;
+  background: #1c1c1c;
+  color: #eaeaea;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  max-width: 950px;
+  margin: 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
 }
-.btn-volver:hover {
-  background-color: #f0d769;
-  transform: translateY(-1px);
+
+.crear-rutina-wrapper:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(123, 63, 228, 0.3);
 }
 
-.card {
-  background: #fff;
-}
-.titulo {
+/* --- Título --- */
+.titulo-seccion h2 {
+  font-size: 2rem;
+  text-align: center;
   font-weight: 800;
-  font-size: 2.2rem;
-  color: #222;
-  margin-bottom: 0.5rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
 }
 
-.ma
+.titulo-seccion h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
 
-.btn-fitrank-lg {
-  background-color: #8b52ff;
+.titulo-seccion .subtitulo {
+  color: #a886ff;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* --- Formulario --- */
+.formulario-rutina {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Grid de campos --- */
+.grid-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Campo individual --- */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.campo label {
+  font-weight: 600;
+  color: #cfcfcf;
+  font-size: 0.95rem;
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.7rem 1rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.input:focus {
+  border-color: #7b3fe4;
+  box-shadow: 0 0 0 0.15rem rgba(123, 63, 228, 0.25);
+  outline: none;
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* --- Mensaje de error --- */
+.error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+/* --- Botón Crear --- */
+.btn-crear {
+  background: linear-gradient(145deg, #7b3fe4, #9d6aff);
+  border: none;
   color: #fff;
   font-weight: 600;
-  border-radius: 50px;
-  transition: 0.3s ease;
-}
-.btn-fitrank-lg:hover {
-  background-color: #733ed9;
-  transform: scale(1.05);
-}
-
-.info-card {
-  background-color: #fafafa;
-  border: 1px solid #f1f1f1;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
-}
-.info-card:hover {
-  transform: translateY(-5px);
-  border-color: #8b52ff;
-  box-shadow: 0 4px 15px rgba(139, 82, 255, 0.15);
+  cursor: pointer;
 }
 
-.text-fitrank {
-  color: #8b52ff;
+.btn-crear:hover {
+  background: linear-gradient(145deg, #9d6aff, #7b3fe4);
+  transform: scale(1.03);
+}
+
+/* --- Botón Volver --- */
+.btn-volver {
+  background: none;
+  border: none;
+  color: #a886ff;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-volver:hover {
+  color: #fff;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+  .crear-rutina-wrapper {
+    padding: 1.5rem;
+  }
+
+  .titulo-seccion h2 {
+    font-size: 1.6rem;
+  }
+
+  .btn-crear {
+    font-size: 1rem;
+  }
 }

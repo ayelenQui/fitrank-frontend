@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">Generar Rutina Automática</h2>
 
-  <form [formGroup]="rutinaForm" (ngSubmit)="enviar()" class="p-4 border rounded bg-light shadow-sm">
+  <form [formGroup]="rutinaForm" (ngSubmit)="enviar()" class="formulario-fitrank">
 
     <!-- Datos personales -->
     <h5>Datos personales</h5>
@@ -59,79 +59,85 @@
 
     <hr>
 
-    <!-- Screening -->
-    <h5>Screening de salud</h5>
-    <div formGroupName="screening" class="mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="hipertension" id="hipertension">
-        <label class="form-check-label" for="hipertension">Hipertensión</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="hipertensionControlada" id="hipertensionControlada">
-        <label class="form-check-label" for="hipertensionControlada">Hipertensión controlada</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="diabetes" id="diabetes">
-        <label class="form-check-label" for="diabetes">Diabetes</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="cirugiaReciente" id="cirugiaReciente">
-        <label class="form-check-label" for="cirugiaReciente">Cirugía reciente</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="dolorLumbar" id="dolorLumbar">
-        <label class="form-check-label" for="dolorLumbar">Dolor lumbar</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="dolorHombro" id="dolorHombro">
-        <label class="form-check-label" for="dolorHombro">Dolor hombro</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="dolorRodilla" id="dolorRodilla">
-        <label class="form-check-label" for="dolorRodilla">Dolor rodilla</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="dolorToracico" id="dolorToracico">
-        <label class="form-check-label" for="dolorToracico">Dolor torácico</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="sincope" id="sincope">
-        <label class="form-check-label" for="sincope">Síncope</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="embarazo" id="embarazo">
-        <label class="form-check-label" for="embarazo">Embarazo</label>
-      </div>
-
-      <div class="row mt-2">
-        <div class="col-md-6 mb-3">
-          <label for="frecuenciaCardiacaReposo" class="form-label">Frecuencia cardíaca en reposo</label>
-          <input type="number" id="frecuenciaCardiacaReposo" class="form-control" formControlName="frecuenciaCardiacaReposo">
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="dolorEscala0a10" class="form-label">Dolor (0-10)</label>
-          <input type="number" id="dolorEscala0a10" class="form-control" formControlName="dolorEscala0a10">
-        </div>
-      </div>
+ <!-- Screening -->
+<h5>Screening de salud</h5>
+<div formGroupName="screening" class="mb-3">
+  <div class="grid-check">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="hipertension" id="hipertension">
+      <label class="form-check-label" for="hipertension">Hipertensión</label>
     </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="hipertensionControlada" id="hipertensionControlada">
+      <label class="form-check-label" for="hipertensionControlada">Hipertensión controlada</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="diabetes" id="diabetes">
+      <label class="form-check-label" for="diabetes">Diabetes</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="cirugiaReciente" id="cirugiaReciente">
+      <label class="form-check-label" for="cirugiaReciente">Cirugía reciente</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorLumbar" id="dolorLumbar">
+      <label class="form-check-label" for="dolorLumbar">Dolor lumbar</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorHombro" id="dolorHombro">
+      <label class="form-check-label" for="dolorHombro">Dolor hombro</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorRodilla" id="dolorRodilla">
+      <label class="form-check-label" for="dolorRodilla">Dolor rodilla</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorToracico" id="dolorToracico">
+      <label class="form-check-label" for="dolorToracico">Dolor torácico</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="sincope" id="sincope">
+      <label class="form-check-label" for="sincope">Síncope</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="embarazo" id="embarazo">
+      <label class="form-check-label" for="embarazo">Embarazo</label>
+    </div>
+  </div>
 
-    <hr>
+  <div class="row mt-2">
+    <div class="col-md-6 mb-3">
+      <label for="frecuenciaCardiacaReposo" class="form-label">Frecuencia cardíaca en reposo</label>
+      <input type="number" id="frecuenciaCardiacaReposo" class="form-control" formControlName="frecuenciaCardiacaReposo">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="dolorEscala0a10" class="form-label">Dolor (0-10)</label>
+      <input type="number" id="dolorEscala0a10" class="form-control" formControlName="dolorEscala0a10">
+    </div>
+  </div>
+</div>
 
-    <!-- Preferencias -->
-    <h5>Preferencias</h5>
-    <div formGroupName="preferencias" class="mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="incluirCardio" id="incluirCardio">
-        <label class="form-check-label" for="incluirCardio">Incluir cardio</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="prefiereMaquinas" id="prefiereMaquinas">
-        <label class="form-check-label" for="prefiereMaquinas">Prefiere máquinas</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="prefiereMancuernas" id="prefiereMancuernas">
-        <label class="form-check-label" for="prefiereMancuernas">Prefiere mancuernas</label>
-      </div>
+<hr>
+
+<!-- Preferencias -->
+<h5>Preferencias</h5>
+<div formGroupName="preferencias" class="mb-3">
+  <div class="grid-check">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="incluirCardio" id="incluirCardio">
+      <label class="form-check-label" for="incluirCardio">Incluir cardio</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="prefiereMaquinas" id="prefiereMaquinas">
+      <label class="form-check-label" for="prefiereMaquinas">Prefiere máquinas</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="prefiereMancuernas" id="prefiereMancuernas">
+      <label class="form-check-label" for="prefiereMancuernas">Prefiere mancuernas</label>
+    </div>
+  </div>
+</div>
+
 
 <div class="mb-3 mt-2">
   <label class="form-label">Ejercicios a excluir:</label>
@@ -148,7 +154,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
 
     <button type="submit" class="btn btn-primary" [disabled]="enviando">

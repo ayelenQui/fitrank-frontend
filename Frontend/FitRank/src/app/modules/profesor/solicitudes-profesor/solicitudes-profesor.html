@@ -32,6 +32,13 @@
         </ul>
       </div>
 
+        <!-- ✅ Mostrar mensaje del socio solo si existe -->
+  <div *ngIf="s.mensajeSocio">
+    <hr>
+    <p><b>Mensaje del socio:</b></p>
+    <p class="mensaje">{{ s.mensajeSocio }}</p>
+  </div>
+
       <button class="btn-crear" (click)="crearRutinaParaSocio(s)">
         Crear rutina
       </button>
