@@ -1,36 +1,90 @@
-<app-header></app-header> 
+<app-header-socio [user]="user"></app-header-socio>
 
 <section class="wrap">
   <header class="header">
     <h1>Mis logros</h1>
 
-    <div class="toolbar">
+    <!--<div class="toolbar">
       <input #q type="search" placeholder="Buscar por nombre…" (input)="onBuscar(q.value)" />
       <select #sel (change)="setOrden(sel.value)">
         <option value="recientes" selected>Más recientes</option>
         <option value="antiguos">Más antiguos</option>
         <option value="puntos">Más puntos</option>
       </select>
-    </div>
+    </div>-->
   </header>
 
-  <div *ngIf="loading()">Cargando…</div>
+  <!-- <div *ngIf="loading()">Cargando…</div> -->
   <div *ngIf="!loading() && error()" class="alert">{{ error() }}</div>
 
-  <ng-container *ngIf="!loading() && !error()">
-    <p *ngIf="logrosFiltrados().length === 0" class="empty">
-      Aún no tenés logros registrados en este gimnasio.
-    </p>
+  <ng-container>
 
-    <ul class="grid" *ngIf="logrosFiltrados().length > 0">
-      <li class="card" *ngFor="let l of logrosFiltrados(); trackBy: trackBylogroId">
+    <ul class="grid">
+    <!--<ul class="grid" *ngIf="logrosFiltrados().length > 0">
+      <li class="card" *ngFor="let l of logrosFiltrados(); trackBy: trackBylogroId">-->
+  <li class="card">
         
         <div class="card-head">
-          <h3>{{ l.nombre }}</h3>
-          <span class="badge">{{ l.puntosOtorgados }} pts</span>
+          <h3>Primer ingreso</h3>
+          <span class="badge">150 pts</span>
+        </div><br>
+        <div>
+          Realizá tu primer ingreso al gimnasio con tu QR
         </div>
         <div class="meta">
-          Obtenido: <strong>{{ l.fechaOtorgado | date:'mediumDate' }}</strong>
+          Obtenido: <strong>01/10/2025</strong>
+        </div>
+      </li>
+        <li class="card">
+        
+        <div class="card-head">
+          <h3>Primera rutina creada</h3>
+          <span class="badge">300 pts</span>
+        </div><br>
+        <div>
+          Creá tu primer rutina
+        </div>
+        <div class="meta">
+          Obtenido: <strong>01/10/2025</strong>
+        </div>
+      </li>
+        <li class="card">
+        
+        <div class="card-head">
+          <h3>Rompepechos</h3>
+          <span class="badge">150 pts</span>
+        </div><br>
+        <div>
+          10 entrenamientos de pecho completados.
+        </div>
+        <div class="meta">
+          Obtenido: <strong>25/09/2025</strong>
+        </div>
+      </li>
+        <li class="card">
+        
+        <div class="card-head">
+          <h3>Primer Ranking</h3>
+          <span class="badge">200 pts</span>
+        </div><br>
+        <div>
+          Entrá al Top 10 del ranking global.
+        </div>
+        <div class="meta">
+          Obtenido: <strong>01/10/2025</strong>
+        </div>
+      </li>
+        <li class="card">
+        
+        <div class="card-head">
+          <h3>Subí el Peso</h3>
+          <span class="badge">150 pts</span>
+        </div><br>
+        <div>
+          Aumentá la carga en 5 ejercicios distintos.
+        </div>
+        <div class="meta">
+          Obtenido: <strong>01/10/2025</strong>
         </div>
       </li>
     </ul>
