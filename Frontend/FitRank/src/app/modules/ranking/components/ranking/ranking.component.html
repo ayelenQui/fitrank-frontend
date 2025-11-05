@@ -1,45 +1,31 @@
+<!-- Agregar el header component -->
+<app-sidebar-socio></app-sidebar-socio>
 <app-header-socio></app-header-socio>
-<div class="container mt-4">
-  <h2 class="text-center mb-4">🏆 Ranking de Socios</h2>
+<!-- Agregar el SidebarSocioComponent -->
 
-  <!-- Selector de cantidad -->
-  <div class="select-container">
-    <label for="cantidad">Mostrar:</label>
-    <select id="cantidad" [(ngModel)]="cantidadSeleccionada" (change)="onCambioCantidad()">
-      <option *ngFor="let opcion of opciones" [value]="opcion">{{ opcion }}</option>
-    </select>
+<div class="ranking-container" *ngIf="!cargando; else loading">
+  <h2 class="titulo">
+   Ranking Del Gimnasio
+  </h2>
+
+  <div class="ranking-list">
+    <div
+      *ngFor="let socio of ranking; let i = index"
+      class="card-ranking"
+    >
+      <div class="posicion">
+        {{ getMedalla(i) || (i + 1) + '.' }}
+      </div>
+      <div class="datos">
+        <span class="nombre">{{ socio.nombreCompleto }}</span>
+        <span class="puntaje">{{ socio.puntajeTotal | number:'1.0-0' }} pts</span>
+      </div>
+    </div>
   </div>
-
-  <!-- Tabla del ranking -->
-  <table class="ranking-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nombre</th>
-        <th>Puntaje</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let socio of ranking; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ socio.nombreCompleto }}</td>
-        <td>{{ socio.puntajeTotal }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-<!-- Posición del usuario logueado -->
-<div *ngIf="miPuntaje; else sinPosicion" class="mi-posicion">
-  <h3>Mi posición actual</h3>
-  <p><strong>Posición:</strong> {{ miPuntaje.posicion }}</p>
-  <p><strong>Puntaje:</strong> {{ miPuntaje.puntajeTotal }}</p>
 </div>
 
-<ng-template #sinPosicion>
-  <div class="mi-posicion">
-    <h3>Mi posición actual</h3>
-    <p>No tienes posición en el ranking todavía.</p>
+<ng-template #loading>
+  <div class="cargando">
+    <i class="fas fa-spinner fa-spin"></i> Cargando ranking...
   </div>
 </ng-template>
-
-</div>

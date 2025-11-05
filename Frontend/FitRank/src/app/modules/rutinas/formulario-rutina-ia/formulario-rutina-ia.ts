@@ -41,7 +41,7 @@ export class FormularioRutinaIa implements OnInit{
     }
 
       this.ejercicioService.getAll().subscribe({
-      next: (data) => (this.ejercicios = data),
+      // next: (data) => (this.ejercicios = data),
       error: (err) => console.error('Error al obtener ejercicios', err)
     });
 

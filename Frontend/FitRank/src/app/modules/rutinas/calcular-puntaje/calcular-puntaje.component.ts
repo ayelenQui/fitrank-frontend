@@ -12,7 +12,7 @@ import { AuthService } from '@app/api/services/activacion/AuthService.service';
   standalone: true,
   imports: [CommonModule, HeaderSocioComponent, SidebarSocioComponent],
   templateUrl: './calcular-puntaje.component.html',
-  styleUrls: ['./calcular-puntaje.component.css']
+  styleUrls: ['./calcular-puntaje.component.css', '../../css-socio/socio-common.css']
 })
 export class CalcularPuntajeComponent implements OnInit {
   puntajeEjercicio: number = 0;
@@ -38,7 +38,7 @@ export class CalcularPuntajeComponent implements OnInit {
 
     // 🔹 Obtener el socio logueado
     const user = this.auth.obtenerUser();
-    this.socioId = user.Id;
+    this.socioId = user.id;
 
     // 🔹 Animar el puntaje del ejercicio actual
     this.animarPuntaje();

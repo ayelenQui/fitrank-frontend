@@ -4,8 +4,6 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: radial-gradient(circle at center, #0f172a, #020617);
-  color: #f8fafc;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -16,9 +14,9 @@
   align-items: center;
   text-align: center;
   padding: 2rem 3rem;
-  background: rgba(30, 41, 59, 0.7);
+  background: var(--color-fondo-tarjetas);
   border-radius: 1.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   animation: fadeIn 0.8s ease-out;
 }
@@ -41,12 +39,11 @@
   font-weight: 700;
   color: #38bdf8;
   margin-bottom: 1.5rem;
-  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
 }
 
 /* Tarjetas */
 .card {
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--color-acento);
   border-radius: 1rem;
   padding: 1.5rem 2rem;
   margin-bottom: 1.5rem;
@@ -57,46 +54,51 @@
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+  box-shadow: 0 8px 25px rgba(231, 243, 68, 0.3);
 }
 
 /* Textos dentro de tarjetas */
 .card h2 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #cbd5e1;
+  color: var(--texto-color-principal);
+  font-family: var(--font-secundaria);
 }
 
 .card p {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 800;
 }
 
 /* Colores de puntajes */
 .puntaje-ejercicio {
-  color: #22c55e;
+  color: var(--color-acento-secundario);
   text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+    font-family: var(--font-titulo);
 }
 
 .puntaje-total {
-  color: #eab308;
+  color: var(--texto-color-principal);
   text-shadow: 0 0 8px rgba(234, 179, 8, 0.4);
+  font-family: var(--font-titulo);
 }
 
 /* Botón */
-.btn-volver {
+.btn-volver-rutina {
   margin-top: 1rem;
+  color: black;
   padding: 0.8rem 2rem;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  color: white;
-  font-weight: 600;
+  background: linear-gradient(90deg, #e5f172, #ece930);
+  /* font-weight: 600; */
+  font-size: 1.5rem;
   border: none;
   border-radius: 0.8rem;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  font-family: var(--font-titulo);
 }
 
-.btn-volver:hover {
-  background: linear-gradient(90deg, #16a34a, #15803d);
+.btn-volver-rutina:hover {
+  background: linear-gradient(90deg, #e5f172, #ece930);
   transform: translateY(-2px);
 }
