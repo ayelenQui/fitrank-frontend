@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import gsap from 'gsap';
@@ -19,7 +19,8 @@ import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.comp
 export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
 
 
-
+solicitudId?: number;
+volverA?: string;
   rutinaForm!: FormGroup;
   rolUsuario: string = '';           
   sociosDisponibles: any[] = [];    
@@ -30,12 +31,12 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
     private rutinaService: RutinaService,
     private router: Router,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     const user = this.authService.obtenerUser();
-   
     this.rolUsuario = user?.Rol || user?.rol || '';
 
     this.rutinaForm = this.fb.group({
@@ -47,24 +48,36 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
       usuarioId: [null, Validators.required]
     });
 
-    if (user) {
-      if (this.rolUsuario === 'Socio') {
+      // Siempre seteamos el usuarioId al usuario logueado
+      if (user) {
         this.rutinaForm.patchValue({
-          socioId: user.id,
-          usuarioId: user.id
-        });
-      
-      } else if (this.rolUsuario === 'Profesor' || this.rolUsuario === 'Admin') {
-        this.rutinaForm.patchValue({
-          usuarioId: user.id
-        });
-       
-      }
+        usuarioId: user.id
+      });
     }
+
+  this.route.queryParams.subscribe(params => {
+    const socioId = params['socioId'];
+    if (socioId) {
+      this.rutinaForm.patchValue({ socioId: +socioId });
+    }else{
+      this.rutinaForm.patchValue({
+        socioId: user.id
+      })
+    }
+  });
+
+
+    const s = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
+  if (s.socioId) {
+    this.rutinaForm.patchValue({ socioId: s.socioId });
   }
-
-
-
+  if (s.solicitudId) {
+    this.solicitudId = s.solicitudId;
+  }
+  if (s.volverA) {
+    this.volverA = s.volverA;
+  }
+}
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -102,7 +115,13 @@ export class CrearRutinaManualComponent implements OnInit, AfterViewInit {
     this.rutinaService.crearRutina(rutina).subscribe({
       next: (resp) => {
         console.log("✅ Rutina creada:", resp);
-        this.router.navigate(['/rutina/crear-sesiones-rutina', resp.id]);
+                this.router.navigate(['/rutina/crear-sesiones-rutina', resp.id], {
+          state: {
+            socioId: this.rutinaForm.value.socioId,
+            solicitudId: this.solicitudId,
+            volverA: this.volverA
+          }
+        });
       },
       error: (err) => {
         console.error("❌ Error al crear rutina:", err);
