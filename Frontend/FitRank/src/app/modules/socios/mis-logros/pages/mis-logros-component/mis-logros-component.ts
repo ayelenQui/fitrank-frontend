@@ -12,7 +12,7 @@ type Order = 'recientes' | 'antiguos' | 'puntos';
 @Component({
   selector: 'app-mis-logros',
   standalone: true,
-  imports: [CommonModule, HeaderSocioComponent],
+  imports: [CommonModule],
   templateUrl: './mis-logros-component.html',
   styleUrls: ['./mis-logros-component.css'],
 })
