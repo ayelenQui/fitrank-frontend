@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EjercicioDTO } from '@app/api/ejercicioAsignado/interfaces/ejercicioAsignado.interface.rest';
+
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
+import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 
 @Component({
@@ -41,7 +42,7 @@ export class FormularioRutinaIa implements OnInit{
     }
 
       this.ejercicioService.getAll().subscribe({
-      // next: (data) => (this.ejercicios = data),
+       next: (data) => (this.ejercicios = data),
       error: (err) => console.error('Error al obtener ejercicios', err)
     });
 

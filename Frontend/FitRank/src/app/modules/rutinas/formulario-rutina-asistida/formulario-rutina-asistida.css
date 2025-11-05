@@ -1,0 +1,132 @@
+/* ===== FORMULARIO SOLICITAR RUTINA - ESTILO FITRANK ===== */
+.formulario-fitrank {
+  background: #1c1c1c;
+  color: #eaeaea;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  max-width: 850px;
+  margin: 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.formulario-fitrank:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(123, 63, 228, 0.3);
+}
+
+/* TÍTULO */
+.formulario-fitrank h2 {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.formulario-fitrank h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* SUBTÍTULOS */
+.formulario-fitrank h5 {
+  color: #a886ff;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+/* LABELS */
+.formulario-fitrank .form-label {
+  font-weight: 600;
+  color: #d1c4ff;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* CAMPOS */
+.formulario-fitrank .form-control,
+.formulario-fitrank .form-select,
+.formulario-fitrank textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.7rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.formulario-fitrank .form-control:focus,
+.formulario-fitrank .form-select:focus,
+.formulario-fitrank textarea:focus {
+  border-color: #7b3fe4;
+  box-shadow: 0 0 0 0.15rem rgba(123, 63, 228, 0.25);
+  outline: none;
+}
+
+/* CHECKBOXES */
+.formulario-fitrank .form-check-label {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.formulario-fitrank .form-check-input {
+  background-color: transparent;
+  border: 1px solid #7b3fe4;
+  cursor: pointer;
+}
+
+.formulario-fitrank .form-check-input:checked {
+  background-color: #7b3fe4;
+  border-color: #7b3fe4;
+}
+
+/* BOTÓN PRINCIPAL */
+.formulario-fitrank .btn-primary {
+  background: linear-gradient(145deg, #7b3fe4, #9d6aff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.formulario-fitrank .btn-primary:hover {
+  background: linear-gradient(145deg, #9d6aff, #7b3fe4);
+  transform: scale(1.03);
+}
+
+/* SEPARADOR */
+.formulario-fitrank hr {
+  border-color: rgba(255, 255, 255, 0.08);
+  margin: 1.5rem 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .formulario-fitrank {
+    padding: 1.5rem;
+  }
+
+  .formulario-fitrank h2 {
+    font-size: 1.6rem;
+  }
+
+  .formulario-fitrank .btn-primary {
+    font-size: 0.9rem;
+  }
+}

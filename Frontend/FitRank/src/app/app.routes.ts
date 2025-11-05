@@ -39,9 +39,15 @@ export const appRoutes: Route[] = [
 
   { path: 'acceso', component: AccesoGimnasioComponent },
 
-  { path: 'solicitudes-profesor', component: SolicitudesProfesor },
-  
-  { path: 'solicitar-rutina', component: FormularioRutinaAsistida },
+  {
+  path: 'solicitudes-profesor',
+  component: SocioLayoutComponent,
+  canActivate: [AuthGuard],
+  children: [
+    { path: '', component: SolicitudesProfesor }
+  ]
+},
+
 
   {
     path: 'rutina',
@@ -57,6 +63,7 @@ export const appRoutes: Route[] = [
       { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
       { path: 'calcular-puntaje', component: CalcularPuntajeComponent },
       { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
+      { path: 'solicitar-rutina', component: FormularioRutinaAsistida },
       { path: 'ia', component: FormularioRutinaIa }
     ]
   },
