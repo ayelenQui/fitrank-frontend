@@ -1,27 +1,13 @@
 <!-- 🔙 Botón volver -->
-<button type="button" class="btn-volver" (click)="volverAtras()">Volver</button>
+
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
 
 
+ 
 
-<!-- 🔹 Bloque inferior con cards -->
-<div class="hero-cards container mt-5">
-  <div class="row g-4 justify-content-center">
-    <div class="col-md-4">
-      <div class="card-fitrank">
-        <span class="material-symbols-outlined icono">fitness_center</span>
-        <h5>Rutinas Inteligentes</h5>
-        <p>Creá rutinas personalizadas según tus objetivos y nivel de entrenamiento.</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card-fitrank">
-        <span class="material-symbols-outlined icono">timeline</span>
-        <h5>Seguimiento en Tiempo Real</h5>
-        <p>Visualizá tu progreso semanal y optimizá tu rendimiento día a día.</p>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="container py-4 main-content-with-sb">
   <!-- 🟢 1️⃣ Listado de Rutinas -->
   <div *ngIf="!rutinaSeleccionada && !sesionSeleccionada && !ejercicioSeleccionado">
@@ -138,7 +124,7 @@
     <button class="btn btn-link text-white mb-3" (click)="ejercicioSeleccionado = null">← Volver a ejercicios</button>
 
     <div class="entrenamiento-container  text-white p-4 rounded-4 mx-auto "
-         style="max-width: 400px; min-height: 600px">
+         style="max-width: 400px; min-height: 600px  ">
       <div class="d-flex justify-content-between align-items-center">
 
         <span class="fw-bold">Hoy Entrenamiento</span>
@@ -186,12 +172,18 @@
 
         <h1 class="display-3 fw-bold mt-4">{{ tiempoFormateado }}</h1>
         <p class="text-uppercase text-white-50">Tiempo de la serie</p>
+        <!-- 🔹 Botón Play -->
+        <button *ngIf="!entrenando && !mostrandoCuentaRegresiva" class="btn-play idle" (click)="mostrarCuenta()">
+          <span class="material-symbols-outlined fs-1">play_arrow</span>
+        </button>
+
+        <!-- 🔹 Overlay de cuenta regresiva -->
+        <div *ngIf="mostrandoCuentaRegresiva" class="overlay-cuenta">
+          <h1 class="numero-cuenta animate">{{ cuenta }}</h1>
+        </div>
 
         <div class="mt-5 d-flex flex-column gap-3">
-          <!-- Botón de Play (idle animado) -->
-          <button *ngIf="!entrenando" class="btn-play idle" (click)="iniciarEntrenamiento()">
-            <span class="material-symbols-outlined fs-1">play_arrow</span>
-          </button>
+         
 
           <!-- Botón de Finalizar -->
           <button *ngIf="entrenando" class="btn-stop" (click)="finalizarSerie()">

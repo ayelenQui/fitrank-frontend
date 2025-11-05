@@ -83,22 +83,17 @@
   font-family: var(--font-titulo);
 }
 
-/* Botón */
-.btn-volver-rutina {
-  margin-top: 1rem;
-  color: black;
-  padding: 0.8rem 2rem;
-  background: linear-gradient(90deg, #e5f172, #ece930);
-  /* font-weight: 600; */
-  font-size: 1.5rem;
+.btn-volver {
+  background-color: #f5e085;
   border: none;
-  border-radius: 0.8rem;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  font-family: var(--font-titulo);
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
 }
 
-.btn-volver-rutina:hover {
-  background: linear-gradient(90deg, #e5f172, #ece930);
-  transform: translateY(-2px);
-}
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+  }

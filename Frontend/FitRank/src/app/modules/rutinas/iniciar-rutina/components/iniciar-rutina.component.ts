@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {  AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
-import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component'; 
+import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EntrenamientoService } from '@app/api/services/entrenamiento/entrenamiento.service';
@@ -34,7 +34,8 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   @ViewChild('sesionesContainer', { static: false }) sesionesContainer!: ElementRef;
   sidebarOpen: boolean = false;
   private anim?: gsap.core.Tween;
-  
+  mostrandoCuentaRegresiva = false;
+  cuenta = 3;
   socioId!: number;
   diaActual: any;
 
@@ -50,7 +51,7 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   entrenando = false;
   mostrarRegistro = false;
   ejercicioCompletado = false;
-  
+
   tiempo = 0;
   intervalo: any;
 
@@ -90,28 +91,28 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  
-    private iniciarAnimacion(cards: NodeListOf<Element>, container: HTMLElement) {
+
+  private iniciarAnimacion(cards: NodeListOf<Element>, container: HTMLElement) {
     gsap.killTweensOf(cards);
 
     const total = cards.length;
-    const distance = -100 * total; 
+    const distance = -100 * total;
 
     const anim = gsap.to(cards, {
-    
-      duration: 1 * total, 
-      repeat: -1, 
+
+      duration: 1 * total,
+      repeat: -1,
       modifiers: {
         xPercent: gsap.utils.wrap(100, 0)
       }
     });
 
-      container.addEventListener('mouseenter', () => anim.pause());
-      container.addEventListener('touchstart', () => anim.pause());
-      container.addEventListener('touchend', () => anim.resume());
+    container.addEventListener('mouseenter', () => anim.pause());
+    container.addEventListener('touchstart', () => anim.pause());
+    container.addEventListener('touchend', () => anim.resume());
     container.addEventListener('mouseleave', () => anim.resume());
 
-   
+
   }
 
 
@@ -120,21 +121,21 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const user = this.auth.obtenerUser();
     this.socioId = Number(user?.Id ?? user?.id);
-  if (!this.socioId || Number.isNaN(this.socioId)) {
-    console.error('❌ socioId inválido:', this.socioId);
-    return;
-  }
+    if (!this.socioId || Number.isNaN(this.socioId)) {
+      console.error('❌ socioId inválido:', this.socioId);
+      return;
+    }
 
     const hoy = new Date().getDay();
     this.diaActual = this.rutinaSeleccionada?.sesiones?.[hoy % this.rutinaSeleccionada.sesiones.length];
     this.cargarRutinas();
     this.generarSemana();
     this.cargarConfiguracionGruposMusculares()
-   
+
 
   }
 
- cargarConfiguracionGruposMusculares(): void {
+  cargarConfiguracionGruposMusculares(): void {
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
       next: (data) => {
         this.gruposMuscularesConfig = data;
@@ -260,99 +261,66 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     this.mostrarRegistro = true; // muestra inputs de actividad real
   }
 
-guardarActividad(): void {
-  if (!this.entrenamientoActivo || !this.serieActual || !this.ejercicioSeleccionado) return;
+  guardarActividad(): void {
+    if (!this.entrenamientoActivo || !this.serieActual || !this.ejercicioSeleccionado) return;
 
-  const dto: RegistrarActividadDTO = this.crearDTOActividad();
+    const dto: RegistrarActividadDTO = this.crearDTOActividad();
 
-  console.log('📤 DTO de actividad a registrar:', dto);
+    console.log('📤 DTO de actividad a registrar:', dto);
 
-  this.actividadService.registrar(dto).subscribe({
-    next: (res) => {
-      console.log('✅ Actividad registrada:', res);
-      this.reiniciarCronometro();
-      
+    this.actividadService.registrar(dto).subscribe({
+      next: (res) => {
+        console.log('✅ Actividad registrada:', res);
+        this.reiniciarCronometro();
 
-      // 💡 Guardás el puntaje en una lista local, por si querés mostrarlo después
-      this.actividadesRealizadas.push(res);
 
-      this.procesarSiguienteSerie();
-    },
-    error: (err) => {
-      console.error('❌ Error al registrar actividad', err);
-      console.error('➡️ Detalle:', err.error);
-    },
-  });
-}
+        // 💡 Guardás el puntaje en una lista local, por si querés mostrarlo después
+        this.actividadesRealizadas.push(res);
 
-/** 🔹 Arma el DTO de la actividad */
-private crearDTOActividad(): RegistrarActividadDTO {
-  return {
-    Duracion: this.tiempoFormateado,
-    Repeticiones: this.repeticionesReales,
-    Peso: this.pesoReal,
-    SerieId: this.serieActual!.id,
-    NumeroSerie: this.indiceSerieActual + 1,
-  };
-}
-
-/*<<<<<<< HEAD
-          if (todosCompletados) {
-            Swal.fire({
-              icon: 'success',
-              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
-              imageWidth: 80,
-              imageHeight: 80,
-              imageAlt: 'FitRank Logo',
-              title: '🏁 ¡Dia completado!',
-              text: 'Excelente trabajo 💪 ¡Completaste tu entrenamiento de hoy!',
-              confirmButtonColor: '#8c52ff',
-              confirmButtonText: 'Volver a mis rutinas'
-            }).then(() => this.router.navigate(['/rutina/mis-rutinas']));
-          } else {
-            Swal.fire({
-              icon: 'success',
-              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
-              imageWidth: 80,
-              imageHeight: 80,
-              imageAlt: 'FitRank Logo',
-              title: '✅ Ejercicio completado',
-              text: '¡Buen trabajo! Pasemos al siguiente 💥',
-              confirmButtonColor: '#8c52ff',
-              confirmButtonText: 'Continuar'
-            }).then(() => this.volverAEjercicios());
-            this.volverAEjercicios();
-          }
-        }
-
+        this.procesarSiguienteSerie();
       },
-      error: (err) => console.error('Error al registrar actividad', err),
+      error: (err) => {
+        console.error('❌ Error al registrar actividad', err);
+        console.error('➡️ Detalle:', err.error);
+      },
     });
-/** 🔹 Maneja el paso a la siguiente serie o fin del ejercicio */
-private procesarSiguienteSerie(): void {
-  const series = this.ejercicioSeleccionado?.series || [];
-
-
-  if (this.indiceSerieActual + 1 < series.length) {
-    this.pasarASiguienteSerie(series);
-  } else {
-    this.finalizarEjercicio();
   }
-}
 
-/** 🔹 Avanza a la siguiente serie */
-private pasarASiguienteSerie(series: any[]): void {
-  this.indiceSerieActual++;
-  this.serieActual = series[this.indiceSerieActual];
-  this.repeticionesReales = 0;
-  this.pesoReal = 0;
-  this.mostrarRegistro = false;
+  /** 🔹 Arma el DTO de la actividad */
+  private crearDTOActividad(): RegistrarActividadDTO {
+    return {
+      Duracion: this.tiempoFormateado,
+      Repeticiones: this.repeticionesReales,
+      Peso: this.pesoReal,
+      SerieId: this.serieActual!.id,
+      NumeroSerie: this.indiceSerieActual + 1,
+    };
+  }
 
-  setTimeout(() => this.iniciarSerie(), 400);
-}
+  /** 🔹 Maneja el paso a la siguiente serie o fin del ejercicio */
+  private procesarSiguienteSerie(): void {
+    const series = this.ejercicioSeleccionado?.series || [];
+
+    if (this.indiceSerieActual + 1 < series.length) {
+      this.pasarASiguienteSerie(series);
+    } else {
+      this.finalizarEjercicio();
+    }
+  }
+
+  /** 🔹 Avanza a la siguiente serie */
+  private pasarASiguienteSerie(series: any[]): void {
+    this.indiceSerieActual++;
+    this.serieActual = series[this.indiceSerieActual];
+    this.repeticionesReales = 0;
+    this.pesoReal = 0;
+    this.mostrarRegistro = false;
+
+    setTimeout(() => this.iniciarSerie(), 400);
+  }
 
 
-/** 🔹 Lógica al finalizar todas las series */
+  /** 🔹 Lógica al finalizar todas las series */
   private finalizarEjercicio(): void {
     this.serieActual = null;
     this.entrenando = false;
@@ -378,31 +346,129 @@ private pasarASiguienteSerie(series: any[]): void {
     console.log('📊 Puntaje total del ejercicio:', puntajeEjercicio);
 
     if (todosCompletados) {
-      alert('🏁 ¡Sesión completada por hoy! 🎉');
-      this.router.navigate(['/rutina/calcular-puntaje'], {
-        state: {
-          puntaje: puntajeEjercicio,
-          rutinaId: this.rutinaSeleccionada?.id,
-          entrenamientoId: this.entrenamientoActivo?.id
+      Swal.fire({
+        title: '🏁 ¡Sesión completada por hoy!',
+        text: 'Excelente trabajo  Completaste todo tu entrenamiento. ¡Seguimos sumando puntos!',
+        imageUrl: 'assets/img/logo/logo-negro-lila.svg',
+        imageWidth: 90,
+        imageHeight: 90,
+        imageAlt: 'FitRank Logo',
+       
+        color: '#white',
+        confirmButtonColor: '#8c52ff',
+        confirmButtonText: 'Ver mi puntaje',
+        showClass: {
+          popup: 'animate__animated animate__fadeInUp animate__faster'
         },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutDown animate__faster'
+        }
+      }).then(() => {
+        this.router.navigate(['/rutina/calcular-puntaje'], {
+          state: {
+            puntaje: puntajeEjercicio,
+            rutinaId: this.rutinaSeleccionada?.id,
+            entrenamientoId: this.entrenamientoActivo?.id
+          },
+        });
       });
     } else {
-      alert('🏁 Ejercicio completado 🎉');
-      this.router.navigate(['/rutina/calcular-puntaje'], {
-        state: {
-          puntaje: puntajeEjercicio,
-          rutinaId: this.rutinaSeleccionada?.id
+      Swal.fire({
+        title: '✅ ¡Ejercicio completado!',
+        text: '¡Buen trabajo! 💥 Calculando tus puntos.',
+        imageUrl: 'assets/img/logo/logo-negro-lila.svg',
+        imageWidth: 80,
+        imageHeight: 80,
+       
+        color: '#white',
+        confirmButtonColor: '#8c52ff',
+        confirmButtonText: 'Continuar',
+        showClass: {
+          popup: 'animate__animated animate__fadeInUp animate__faster'
         },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutDown animate__faster'
+        }
+      }).then(() => {
+        this.router.navigate(['/rutina/calcular-puntaje'], {
+          state: {
+            puntaje: puntajeEjercicio,
+            rutinaId: this.rutinaSeleccionada?.id
+          },
+        });
       });
     }
-
   }
-/** 🔹 Reinicia el cronómetro */
-private reiniciarCronometro(): void {
-  this.tiempo = 0;
-  if (this.intervalo) clearInterval(this.intervalo);
-}
-  
+
+  /** 🔹 Reinicia el cronómetro */
+  private reiniciarCronometro(): void {
+    this.tiempo = 0;
+    if (this.intervalo) clearInterval(this.intervalo);
+  }
+  // guardarActividad(): void {
+  //   if (!this.entrenamientoActivo || !this.serieActual || !this.ejercicioSeleccionado) return;
+
+  //   const dto: RegistrarActividadDTO = {
+  //     Duracion: this.tiempoFormateado,
+  //     Repeticiones: this.repeticionesReales,
+  //     Peso: this.pesoReal,
+  //     SerieId: this.serieActual.id,
+  //     NumeroSerie: this.indiceSerieActual + 1,
+  //   };
+
+  //   this.actividadService.registrar(dto).subscribe({
+  //     next: (res) => {
+  //       console.log('✅ Actividad registrada:', res);
+
+  //       this.reiniciarCronometro();
+
+  //       const series = this.ejercicioSeleccionado?.series || [];
+
+  //       // 🔹 Avanzar índice
+  //       if (this.indiceSerieActual + 1 < series.length) {
+  //         this.indiceSerieActual++;
+  //         this.serieActual = series[this.indiceSerieActual];
+  //         this.repeticionesReales = 0;
+  //         this.pesoReal = 0;
+  //         this.mostrarRegistro = false;
+
+
+  //         setTimeout(() => this.iniciarSerie(), 400);
+  //       } else {
+
+  //         this.serieActual = null;
+  //         this.entrenando = false;
+  //         this.mostrarRegistro = false;
+  //         this.indiceSerieActual = 0;
+
+
+  //         if (this.ejercicioSeleccionado) {
+  //           this.ejercicioSeleccionado.completadoHoy = true;
+  //         }
+
+  //         const ejercicio = this.sesionSeleccionada?.ejerciciosAsignados.find(
+  //           (x: any) => x.id === this.ejercicioSeleccionado?.id
+  //         );
+  //         if (ejercicio) ejercicio.completadoHoy = true;
+
+
+  //         const todosCompletados = this.sesionSeleccionada?.ejerciciosAsignados.every((x: any) => x.completadoHoy);
+
+  //         if (todosCompletados) {
+  //           alert('🏁 ¡Sesión completada por hoy! 🎉');
+  //           this.router.navigate(['/rutina/calcular-puntaje'], { queryParams: { entrenamientoId: this.entrenamientoActivo?.id } }); 
+  //         } else {
+  //           alert('🏁 Ejercicio completado 🎉');
+  //           this.volverAEjercicios();
+  //         }
+  //       }
+
+  //     },
+  //     error: (err) => console.error('Error al registrar actividad', err),
+  //   });
+
+  // }
+
 
 
   get tiempoFormateado(): string {
@@ -434,7 +500,7 @@ private reiniciarCronometro(): void {
     this.ejercicioSeleccionado = null;
   }
 
- 
+
   finalizarEntrenamiento(): void {
     console.log('🏁 Entrenamiento finalizado:', this.entrenamientoActivo);
     this.entrenamientoActivo = null;
@@ -444,7 +510,20 @@ private reiniciarCronometro(): void {
     this.serieActual = null;
     this.entrenando = false;
   }
+  mostrarCuenta(): void {
+    this.mostrandoCuentaRegresiva = true;
+    this.cuenta = 3;
 
+    const interval = setInterval(() => {
+      this.cuenta--;
+
+      if (this.cuenta === 0) {
+        clearInterval(interval);
+        this.mostrandoCuentaRegresiva = false;
+        this.iniciarEntrenamiento(); 
+      }
+    }, 1000);
+  }
   finalizarSesionParcial(): void {
     const confirmar = confirm(
       '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'

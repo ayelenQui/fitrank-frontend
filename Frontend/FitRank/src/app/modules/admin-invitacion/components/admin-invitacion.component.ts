@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { gsap } from 'gsap';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { TypingService } from '../../../api/services/typingService';
+import { Location } from '@angular/common'; 
 @Component({
   selector: 'app-admin-invitacion',
   templateUrl: './admin-invitacion.component.html',
@@ -28,7 +29,8 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit{
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private typingService: TypingService
+    private typingService: TypingService,
+    private location: Location  
   ) { }
 
   @ViewChild('logo-fondo', { static: true }) logoAnim!: ElementRef;
@@ -93,6 +95,9 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit{
           this.error = err.error?.Mensaje || 'Error al generar la invitación.';
         },
       });
+  }
+  volverAtras(): void {
+    this.location.back();
   }
 }
 

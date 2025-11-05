@@ -12,6 +12,7 @@ import{ Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 
+
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,

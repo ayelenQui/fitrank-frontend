@@ -28,9 +28,9 @@ export class VisitanteHomeNavbar implements AfterViewInit  {
           trigger: card,
           start: 'top 80%',
         },
-        opacity: 1,
+        opacity: 0,
         y: 0,
-        duration: 0.2,
+        duration: 0.1,
         delay: i * 0.1,
         ease: 'power2.out'
       });
@@ -41,8 +41,8 @@ export class VisitanteHomeNavbar implements AfterViewInit  {
         start: 'top 80%',
       },
       opacity: 0,
-      scale: 0.3,
-      duration: 0.2,
+      scale: 0.1,
+      duration: 0.1,
       ease: 'power3.out'
     });
   }
