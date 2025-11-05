@@ -43,7 +43,7 @@ export interface EjercicioAsignadoDTO {
     descripcion: string;
     urlImagen?: string | null;
     urlVideo?: string | null;
-    duracionEstimada: number;
+    duracionEstimada: string;
   };
   series: SerieDTO[];
   completadoHoy?: boolean;
@@ -53,6 +53,6 @@ export interface SerieDTO {
   id: number;
   peso: number;
   repeticiones: number;
-  duracion: number;
+  duracion: string;
 }
 

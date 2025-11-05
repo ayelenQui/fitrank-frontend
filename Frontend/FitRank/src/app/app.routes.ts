@@ -18,6 +18,7 @@ import { ListaTorneosComponent } from './modules/torneo/lista-torneo/lista-torne
 import { RankingTorneoComponent } from './modules/torneo/ver-torneo/ver-torneo.component';
 import { SocioLayoutComponent } from './layouts/socio-layout/socio-layout.component';
 import { AccesoGimnasioComponent } from './modules/asistencia/acceso-gimnasio/acceso-gimnasio.component';
+import { CalcularPuntajeComponent } from './modules/rutinas/calcular-puntaje/calcular-puntaje.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -47,6 +48,7 @@ export const appRoutes: Route[] = [
       { path: 'iniciar-rutina/:id', component: IniciarRutinaComponent },
       { path: 'crear-sesiones-rutina/:id', component: CrearSesionesRutinaComponent },
       { path: 'editar/:id', component: CrearRutinaComponent },
+      { path: 'calcular-puntaje', component: CalcularPuntajeComponent },
       { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' }
     ]
   },

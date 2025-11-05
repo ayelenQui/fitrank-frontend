@@ -4,7 +4,7 @@ export interface EjercicioDTO {
   nombre: string;
   descripcion: string;
   urlImagen: string;
-  duracionEstimada: number;
+  duracionEstimada: string;
   urlVideo: string;
   grupoMuscularId: number;
   nombreGrupoMuscular: string;

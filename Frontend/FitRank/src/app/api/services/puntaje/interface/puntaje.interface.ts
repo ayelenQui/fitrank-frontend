@@ -24,3 +24,22 @@ export interface ActualizarPuntajeDTO {
   fecha: string;
   valor: number;
 }
+
+export interface PuntajePorGrupoDTO {
+  grupoMuscularId: number;
+  puntaje: number;
+}
+
+export interface PuntajeTotalDTO {
+  socioId: number;
+  puntajeTotal: number;
+  puntajePorGrupo: PuntajePorGrupoDTO[];
+}
+
+export interface EstadisticaCorporalSocioDTO {
+  imc: number;
+  clasificacionImc: string;
+  peso: number;
+  altura: number;
+  fechaMedicion: string;
+}
