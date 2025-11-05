@@ -38,7 +38,7 @@
 
 .header__nombre {
   font-family: 'Bebas Neue', sans-serif;
-  color: var(--color-acento);
+  color: black;
   font-size: 1.2em;
 }
 

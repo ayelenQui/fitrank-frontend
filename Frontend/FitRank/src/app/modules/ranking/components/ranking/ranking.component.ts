@@ -1,69 +1,71 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { PuntajeService } from '@app/api/services/puntaje/puntaje.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
-import { FormsModule } from '@angular/forms';
-import { RankingService } from '@app/api/services/ranking/ranking.service';
-import { AuthService } from '@app/api/services/activacion/AuthService.service';
-
+import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule, HeaderSocioComponent, FormsModule],
+  imports: [CommonModule, HeaderSocioComponent, SidebarSocioComponent],
   templateUrl: './ranking.component.html',
-  styleUrls: ['./ranking.component.css']
+  styleUrls: ['./ranking.component.css', '../../../css-socio/socio-common.css']
 })
 export class RankingComponent implements OnInit {
   ranking: any[] = [];
-  miPuntaje: any;
-  cantidadSeleccionada: number = 10;
-  opciones = [1,2,10, 25, 100];
-  usuarioId!: number;
+  cargando = true;
 
-  constructor(private rankingService: RankingService, 
-    private authService: AuthService) {}
+  constructor(
+    private puntajeService: PuntajeService,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
-    const usuario = this.authService.obtenerUser();
-    console.log('Usuario obtenido del AuthService:', usuario);
-    if (usuario && usuario.Id) {
-      this.usuarioId = usuario.Id;
-
-      //this.usuarioId = 13;
-
-      this.cargarRanking(this.cantidadSeleccionada);
-      this.cargarMiPosicion();
-    } else {
-      console.warn('No hay usuario logueado');
-    }
+    this.cargarRanking();
   }
 
-  cargarRanking(cantidad: number): void {
-    console.log('Solicitando ranking con cantidad:', cantidad);
-    this.rankingService.obtenerRankingGeneral(cantidad).subscribe({
+  private cargarRanking(): void {
+    this.puntajeService.obtenerRanking().subscribe({
       next: (data) => {
-        console.log('Ranking general recibido del backend:', data);
-        this.ranking = data;
+        this.ranking = data ?? [];
+        this.cargando = false;
+
+        // Esperar a que el DOM se actualice y renderice el título
+        setTimeout(() => {
+          this.animarTitulo();
+          this.animarRanking();
+        }, 100);
       },
-      error: (err) => console.error('Error al obtener ranking general:', err)
+      error: (err) => {
+        console.error('❌ Error al obtener ranking:', err);
+        this.cargando = false;
+      }
     });
   }
 
-  cargarMiPosicion(): void {
-    if (!this.usuarioId) return;
-console.log('Solicitando posición del usuario con ID:', this.usuarioId);
-    this.rankingService.obtenerPuntajePorId(this.usuarioId).subscribe({
-      next: (data) => {
-        console.log('Posición del usuario recibido del backend:', data);
-        this.miPuntaje = data;
-      },
-      error: (err) => console.error('Error al obtener posición del socio:', err)
+  private animarTitulo(): void {
+    this.ngZone.runOutsideAngular(() => {
+      gsap.fromTo(
+        '.titulo',
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', clearProps: 'all' }
+      );
     });
   }
 
-  onCambioCantidad(): void {
-     console.log('Cantidad seleccionada cambiada a:', this.cantidadSeleccionada);
-    this.cargarRanking(this.cantidadSeleccionada);
+  private animarRanking(): void {
+    this.ngZone.runOutsideAngular(() => {
+      gsap.fromTo(
+        '.card-ranking',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out', clearProps: 'all' }
+      );
+    });
+  }
+
+  getMedalla(index: number): string {
+    const medallas = ['🥇', '🥈', '🥉'];
+    return medallas[index] ?? '';
   }
 }

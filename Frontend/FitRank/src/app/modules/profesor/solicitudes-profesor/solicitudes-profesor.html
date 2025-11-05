@@ -7,6 +7,7 @@
        
     <div class="resumen">
       <span class="nombre">{{ s.nombreSocio }}</span>
+      <!-- <span class="nombre">{{ s.socioId }}</span> -->
       <span class="fecha">{{ s.fechaSolicitud | date: 'shortDate' }}</span>
       <span class="estado" [ngClass]="s.estado.toLowerCase()">{{ s.estado }}</span>
     </div>
@@ -31,7 +32,10 @@
         </ul>
       </div>
 
-      <button class="btn-crear">Crear rutina</button>
+      <button class="btn-crear" (click)="crearRutinaParaSocio(s)">
+        Crear rutina
+      </button>
+
     </div>
   </div>
 </div>

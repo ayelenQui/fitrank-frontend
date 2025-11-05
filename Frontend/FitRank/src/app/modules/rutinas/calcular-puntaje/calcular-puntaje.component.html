@@ -1,0 +1,17 @@
+<div class="container-puntaje">
+  <h1 class="titulo">¡Ejercicio completado!</h1>
+
+  <div class="card">
+    <h2>Puntaje obtenido</h2>
+    <p class="puntaje-ejercicio">{{ displayPuntaje }}</p>
+  </div>
+
+  <div class="card">
+    <h2>Puntaje total acumulado</h2>
+    <p class="puntaje-total">{{ puntajeTotalUsuario | number:'1.0-0' }}</p>
+  </div>
+
+  <button class="btn-volver-rutina" (click)="volverARutina()">
+    Volver a la rutina
+  </button>
+</div>

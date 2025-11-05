@@ -16,7 +16,6 @@ export interface RutinaDTO {
   Activa: boolean;
   SocioId: number;
   UsuarioId: number;
-
 }
 
 export interface RutinaCompletaDTO {
@@ -43,7 +42,7 @@ export interface EjercicioAsignadoDTO {
     descripcion: string;
     urlImagen?: string | null;
     urlVideo?: string | null;
-    duracionEstimada: number;
+    duracionEstimada: string;
   };
   series: SerieDTO[];
   completadoHoy?: boolean;
@@ -91,4 +90,29 @@ export interface PreferenciasDTO {
   prefiereMaquinas: boolean;
   prefiereMancuernas: boolean;
   ejerciciosExcluidos: string[];
+}
+export interface CrearSolicitudRutinaProfesorDTO {
+  mensajeSocio?: string;
+  nombreSocio: string;
+  edad: number;
+  pesoKg: number;
+  alturaCm: number;
+  nivel: 'Principiante' | 'Intermedio' | 'Avanzado';
+  sesionesPorSemana: number;
+  minutosPorSesion: number;
+  objetivo: 'Hipertrofia' | 'PerdidaDePeso' | 'Fuerza' | 'Resistencia';
+  calidadAlimentacion: number; // 1-5
+  horasSuenio: number;
+
+  dolorLumbar: boolean;
+  dolorRodilla: boolean;
+  dolorHombro: boolean;
+  cirugiaReciente: boolean;
+  sincope: boolean;
+  embarazo: boolean;
+  hipertension: boolean;
+  hipertensionControlada: boolean;
+  diabetes: boolean;
+  dolorToracico: boolean;
+  frecuenciaCardiacaReposo: number;
 }

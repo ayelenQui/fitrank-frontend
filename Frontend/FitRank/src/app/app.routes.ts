@@ -18,8 +18,10 @@ import { ListaTorneosComponent } from './modules/torneo/lista-torneo/lista-torne
 import { RankingTorneoComponent } from './modules/torneo/ver-torneo/ver-torneo.component';
 import { SocioLayoutComponent } from './layouts/socio-layout/socio-layout.component';
 import { AccesoGimnasioComponent } from './modules/asistencia/acceso-gimnasio/acceso-gimnasio.component';
+import { CalcularPuntajeComponent } from './modules/rutinas/calcular-puntaje/calcular-puntaje.component';
 import { FormularioRutinaIa } from './modules/rutinas/formulario-rutina-ia/formulario-rutina-ia';
 import { SolicitudesProfesor } from './modules/profesor/solicitudes-profesor/solicitudes-profesor';
+import { FormularioRutinaAsistida } from './modules/rutinas/formulario-rutina-asistida/formulario-rutina-asistida';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -38,6 +40,8 @@ export const appRoutes: Route[] = [
   { path: 'acceso', component: AccesoGimnasioComponent },
 
   { path: 'solicitudes-profesor', component: SolicitudesProfesor },
+  
+  { path: 'solicitar-rutina', component: FormularioRutinaAsistida },
 
   {
     path: 'rutina',
@@ -51,7 +55,9 @@ export const appRoutes: Route[] = [
       { path: 'crear-sesiones-rutina/:id', component: CrearSesionesRutinaComponent },
       { path: 'editar/:id', component: CrearRutinaComponent },
       { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
-      { path: 'ia', component: FormularioRutinaIa}
+      { path: 'calcular-puntaje', component: CalcularPuntajeComponent },
+      { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
+      { path: 'ia', component: FormularioRutinaIa }
     ]
   },
 

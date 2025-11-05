@@ -1,112 +1,65 @@
-/* Selector de cantidad mejorado y moderno */
-select {
-  appearance: none; /* Quita el estilo por defecto del navegador */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  background-color: #fff; /* Fondo blanco */
-  color: #333;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease-in-out;
-  width: 120px; /* Ajustable según necesidad */
-  position: relative;
-}
-
-/* Hover: cambiar sombra y borde */
-select:hover {
-  border-color: #8B52FF;
-  box-shadow: 0 4px 8px rgba(139, 82, 255, 0.2);
-}
-
-/* Focus: resaltar el select al seleccionar */
-select:focus {
-  outline: none;
-  border-color: #8B52FF;
-  box-shadow: 0 0 8px rgba(139, 82, 255, 0.4);
-  background-color: #fff;
-}
-
-/* Flecha personalizada */
-.select-container {
-  position: relative;
-}
-
-.select-container::after {
-  content: '▼'; /* Flecha hacia abajo */
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: #8B52FF;
-  font-size: 12px;
-}
-
-
-
 .ranking-container {
-  max-width: 800px;
-  margin: 40px auto;
-  background: #f4f4f4;
-  border-radius: 16px;
-  padding: 20px 30px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--color-fondo-tarjetas);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
-
+/* prioridad a esto */
 .titulo {
   text-align: center;
-  color: #8B52FF;
-  margin-bottom: 20px;
+  /* font-size: 1.8rem; */
+  margin-bottom: 1.5rem;
+  color: #ffd700;
 }
 
-.select-container {
+.ranking-list {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card-ranking {
+  display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-
-select {
-  padding: 5px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.ranking-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.ranking-table th {
-  background-color: #8B52FF;
-  color: white;
-  padding: 10px;
-  text-align: left;
-}
-
-.ranking-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.mi-posicion {
-  margin-top: 25px;
-  padding: 15px;
-  background: #FAEB92;
+  justify-content: space-between;
+  background: var(--color-acento);
+  padding: 0.8rem 1rem;
   border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card-ranking:hover {
+  transform: translateY(-4px);
+  background: var(--color-acento-secundario);
+}
+
+.posicion {
+  font-size: 1.4rem;
+  width: 2rem;
   text-align: center;
 }
 
-.mi-posicion h3 {
-  margin-bottom: 10px;
+.datos {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nombre {
+  font-weight: 500;
+}
+
+.puntaje {
+  color: var(--color-texto-principal);
+  font-weight: bold;
+}
+
+.cargando {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.2rem;
+  margin-top: 3rem;
 }
