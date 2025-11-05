@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import { SocioApiService } from "../../../../api/services/socio/socioApiService"
+import { Socio as SocioType } from "../../../../api/services/socio/interfaces/socio.interface"
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
@@ -8,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swal from 'sweetalert2';
 import { NotificacionDTO } from '../../../../api/services/notificacion/interface/notificacion.interface';
 import { NotificacionService } from '../../../../api/services/notificacion/notificacion.service';
+import { Socio } from '@app/api/services/socio/socio.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,10 +26,14 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   mostrarRetencion = false;
   notificacion: NotificacionDTO | null = null;
 
+  socio: SocioType | null = null;
+
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificacionService: NotificacionService
+    private notificacionService: NotificacionService,
+    private socioService: SocioApiService
   ) { }
 
   ngAfterViewInit() {
@@ -72,6 +79,16 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/homeAdmin']);
       return;
     }
+
+    //cargar socio con servicio API
+    this.socioService.getSocioById(this.user.id).subscribe({
+      next: (socio: SocioType) => {
+        this.socio = socio;
+      },
+      error: (err) => {
+        console.error('Error al cargar socio:', err);
+      }
+    });
 
     // 🔹 Cargar notificaciones del socio
     const token = this.authService.obtenerToken();
