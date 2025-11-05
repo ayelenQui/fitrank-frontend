@@ -288,6 +288,10 @@ export class CrearSesionesRutinaComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: ' Rutina guardada',
+              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+              imageWidth: 80,
+              imageHeight: 80,
+              imageAlt: 'FitRank Logo',
               text: 'Tu rutina, sesiones y ejercicios fueron guardados correctamente.',
               confirmButtonColor: '#8c52ff'
             }).then(() => {

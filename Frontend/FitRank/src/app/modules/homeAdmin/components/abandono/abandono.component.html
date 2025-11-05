@@ -1,95 +1,142 @@
-<div class="container py-4">
-  <h2 class="text-center fw-bold text-fitrank mb-4"> Panel de Asistencias y Retención</h2>
-
-  <!-- 🔍 FILTRO POR NOMBRE -->
-  <div class="card bg-dark text-light p-3 shadow-sm mb-4 rounded-4">
-    <label class="form-label text-fitrank fw-semibold">Filtrar por nombre de socio:</label>
-    <input type="text"
-           [(ngModel)]="filtroSocio"
-           (input)="filtrarPorSocio()"
-           class="form-control bg-secondary text-light border-0"
-           placeholder="Buscar Socio" />
-  </div>
-
-  <!-- ⏳ CARGANDO -->
-  <div *ngIf="loading" class="text-center py-4">
-    <div class="spinner-border text-fitrank" role="status"></div>
-    <p class="mt-2 text-light">Cargando datos...</p>
-  </div>
-
-  <!-- ⚠️ MENSAJE GENERAL -->
-  <div *ngIf="!loading && mensaje" class="alert alert-info text-center mx-auto w-75">
-    {{ mensaje }}
-  </div>
-
-  <!-- ✅ LISTADO DE ASISTENCIAS -->
-  <div *ngIf="!loading && asistenciasFiltradas.length > 0" class="mb-5">
-    <h4 class="text-fitrank fw-bold mb-3"> Asistencias registradas</h4>
-
-    <div class="table-responsive rounded-4 shadow-sm">
-      <table class="table table-dark table-striped align-middle mb-0">
-        <thead class="text-fitrank">
-          <tr>
-            <th>Socio</th>
-            <th>Gimnasio</th>
-            <th>Fecha</th>
-            <th>Entrada</th>
-            <th>Salida</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let asistencia of asistenciasFiltradas">
-            <td>{{ asistencia.nombreSocio }}</td>
-            <td>{{ asistencia.gimnasioNombre }}</td>
-            <td>{{ asistencia.fecha | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ asistencia.horaEntrada | date: 'HH:mm' }}</td>
-            <td>{{ asistencia.horaSalida ? (asistencia.horaSalida | date: 'HH:mm') : '-' }}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container-fluid py-3" style="background-color: #fff; height: 100vh; overflow: hidden;">
+ <h1 id="typingText" class="titulo text-center" > RETENCION DE SOCIOS </h1>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="metric-card blue">
+        <div class="metric-icon blue">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+            <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+            <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z" />
+          </svg>
+        </div>
+        <h6>Socios activos</h6>
+        <h3>{{ asistencias.length || 234 }}</h3>
+        <small>+5% esta semana</small>
+      </div>
     </div>
-  </div>
 
-  <!-- 🚫 SIN ASISTENCIAS -->
-  <div *ngIf="!loading && asistenciasFiltradas.length === 0" class="text-center text-light mt-4">
-    <p class="text-muted">No hay asistencias registradas aún.</p>
-  </div>
+    <div class="col-md-3">
+      <div class="metric-card yellow">
+        <div class="metric-icon yellow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-exclamation" viewBox="0 0 16 16">
+            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+          </svg>
+        </div>
+        <h6>Socios en riesgo</h6>
+        <h3>{{ inactivos.length || 12 }}</h3>
+        <small>⚠️ sin asistencia +5 días</small>
+      </div>
+    </div>
 
-  <hr class="my-5 text-fitrank opacity-75" />
+    <div class="col-md-3">
+      <div class="metric-card green">
+        <div class="metric-icon green">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+          </svg>
+        </div>
+        <h6>Promedio asistencia</h6>
+        <h3>87%</h3>
+        <small>Esta semana</small>
+      </div>
+    </div>
 
-  <!-- 👥 SOCIOS INACTIVOS -->
-  <div *ngIf="!loading && inactivos.length > 0">
-    <h4 class="text-black fw-bold mb-3"> Socios en Riesgo de Abandono (más de 5 días sin asistir)</h4>
+    <div class="col-md-3">
+      <div class="metric-card cyan">
+        <div class="metric-icon cyan">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
+            <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z" />
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.707l.547.547 1.17-1.951a.5.5 0 1 1 .858.514" />
+          </svg>
+        </div>
+        <h6>Gimnasios activos</h6>
+        <h3>1</h3>
+        <small>Ciudad de Buenos Aires</small>
+      </div>
+    </div>
 
-    <div class="row g-3">
-      <div *ngFor="let socio of inactivos" class="col-md-6 col-lg-4">
-        <div class="card bg-dark text-light shadow-sm rounded-4 p-3 border border-fitrank h-100">
-          <h5 class="fw-bold text-fitrank mb-1">{{ socio.nombre }} {{ socio.apellido }}</h5>
-          <p class="mb-1"><strong>Email:</strong> {{ socio.email }}</p>
-          <p class="mb-1"><strong>Teléfono:</strong> {{ socio.telefono || 'No registrado' }}</p>
-          <p class="mb-1"><strong>Días sin asistir:</strong> {{ socio.diasSinAsistir }}</p>
+    <!-- 🔹 Gráficos + socios en riesgo -->
+    <div class="row g-3 align-items-stretch">
+      <div class="col-lg-7 col-md-7">
+        <div class="card p-3 rounded-4 shadow-sm mb-3">
+          <h5 class="text-fitrank fw-bold mb-2">Tendencia de asistencias</h5>
+          <canvas id="graficoAsistencias"></canvas>
+        </div>
+        <div class="card p-3 rounded-4 shadow-sm">
+          <h5 class="text-fitrank fw-bold mb-2">Distribución de estados</h5>
+          <canvas id="graficoEstado"></canvas>
+        </div>
+      </div>
 
-        
+      <div class="col-lg-5 col-md-5">
+        <div *ngIf="!loading && inactivos.length > 0" class="card p-3 rounded-4 shadow-sm h-100">
+          <h2 class="fw-bold text-fitrank mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+  <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+</svg> Socios en riesgo de abandono</h2>
+          <div class="socios-riesgo-list overflow-auto" style="max-height: 350px;">
+            <div *ngFor="let socio of inactivos | slice:0:5" class="card text-dark shadow-sm rounded-4 p-3 mb-3">
+              <h6 class="fw-bold text-fitrank mb-1">{{ socio.nombre }} {{ socio.apellido }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fire" viewBox="0 0 16 16">
+                  <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />
+                </svg></h6>
+              <p class="mb-1"><strong>Email:</strong> {{ socio.email }}</p>
+              <p class="mb-1"><strong>Teléfono:</strong> {{ socio.telefono || 'No registrado' }}</p>
+              <p class="mb-1"><strong>Días sin asistir:</strong> {{ socio.diasSinAsistir }}</p>
 
-          <div class="mt-3 d-flex gap-2">
-            <button class="btn btn-outline-fitrank flex-grow-1" (click)="retenerSocio(socio.id)">
-              📨 Retener socio
-            </button>
-
-            <button *ngIf="socio.telefono"
-                    class="btn btn-success flex-grow-1"
-                    (click)="abrirWhatsApp(socio.telefono, socio.nombre)">
-              💬 WhatsApp
-            </button>
-
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-outline-fitrank flex-grow-1" (click)="retenerSocio(socio.id)">Retener socio</button>
+                <button *ngIf="socio.telefono" class="btn-whatsapp-float btn btn-success flex-grow-1" (click)="abrirWhatsApp(socio.telefono, socio.nombre)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                  </svg>WhatsApp</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ✅ SIN SOCIOS INACTIVOS -->
-  <div *ngIf="!loading && inactivos.length === 0" class="text-center text-light mt-4">
-    <p class="text-muted">Todos los socios están activos 💪</p>
-  </div>
 </div>
+<!-- 🔹 Tabla de asistencias -->
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="!loading && asistenciasFiltradas.length > 0" class="card p-3 rounded-4 shadow-sm">
+      <h5 class="fw-bold text-fitrank mb-3"> Últimas asistencias</h5>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle mb-0">
+          <thead class="text-fitrank">
+            <tr>
+              <th>Socio</th>
+              <th>Gimnasio</th>
+              <th>Fecha</th>
+              <th>Entrada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let asistencia of asistenciasFiltradas | slice:0:6">
+              <td>{{ asistencia.nombreSocio }}
+               </td>
+              <td>{{ asistencia.gimnasioNombre }}</td>
+              <td>
+                {{ asistencia.fecha | date: 'dd/MM/yyyy' }}
+              </td>
+              <td>{{ asistencia.horaEntrada | date: 'HH:mm' }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
+                  <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z" />
+                  <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3" />
+                </svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && asistenciasFiltradas.length === 0" class="text-center text-muted mt-3">
+      <p>No hay asistencias registradas aún.</p>
+    </div>
+  </div>
+
+

@@ -302,7 +302,11 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
           if (todosCompletados) {
             Swal.fire({
               icon: 'success',
-              title: '🏁 ¡Sesión completada!',
+              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+              imageWidth: 80,
+              imageHeight: 80,
+              imageAlt: 'FitRank Logo',
+              title: '🏁 ¡Dia completado!',
               text: 'Excelente trabajo 💪 ¡Completaste tu entrenamiento de hoy!',
               confirmButtonColor: '#8c52ff',
               confirmButtonText: 'Volver a mis rutinas'
@@ -310,6 +314,10 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
           } else {
             Swal.fire({
               icon: 'success',
+              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+              imageWidth: 80,
+              imageHeight: 80,
+              imageAlt: 'FitRank Logo',
               title: '✅ Ejercicio completado',
               text: '¡Buen trabajo! Pasemos al siguiente 💥',
               confirmButtonColor: '#8c52ff',
