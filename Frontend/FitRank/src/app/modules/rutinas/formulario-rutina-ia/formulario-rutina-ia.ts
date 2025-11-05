@@ -7,6 +7,7 @@ import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-rutina-ia',
@@ -117,19 +118,42 @@ toggleEjercicio(nombre: string): void {
       data.nivel = 'Principiante';
     }
 
-    this.enviando = true;
+this.enviando = true;
     this.rutinaService.generarRutinaIA(idSocio, data).subscribe({
       next: (res) => {
         this.resultado = res;
         this.enviando = false;
-        alert('✅ Rutina generada correctamente');
-        this.router.navigate(['/rutina/mis-rutinas']); 
+        Swal.fire({
+          title: 'Rutina generada ',
+          text: 'Tu rutina personalizada fue creada correctamente.',
+          icon: 'success',
+          imageUrl: 'assets/img/logo/logo-negro-lila.svg',
+          imageWidth: 80,
+          imageHeight: 80,
+          imageAlt: 'FitRank Logo',
+          confirmButtonColor: '#8c52ff',
+          confirmButtonText: 'Ver mis rutinas',
+          showClass: {
+            popup: 'animate_animated animate_fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate_animated animate_fadeOutUp'
+          }
+        }).then(() => this.router.navigate(['/rutina/mis-rutinas']));
       },
       error: (err) => {
         this.enviando = false;
         console.error(err);
-        alert('⚠️ Ocurrió un error al generar la rutina');
-      }
-    });
-  }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al generar la rutina 😥',
+          text: err?.error?.mensaje || 'Ocurrió un error inesperado al generar la rutina. Intentá nuevamente.',
+          confirmButtonColor: '#8c52ff',
+          confirmButtonText: 'Reintentar',
+          footer: '<small>Si el problema persiste, contactá al administrador.</small>'
+        });
+      }
+    });
+  }
 }

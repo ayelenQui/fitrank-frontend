@@ -10,7 +10,7 @@
 
   <nav class="header__nav">
     <!--<button class="header__navboton" (click)="navegarA('/torneo/lista-torneo')">Torneos</button>-->
-    <button class="header__navboton" (click)="navegarA('/rutina/ranking')">Ranking</button>
+    <button class="header__navboton" (click)="navegarA('/ranking')">Ranking</button>
     <button class="header__navboton" (click)="navegarA('/rutina/mis-rutinas')">Mis Rutinas</button>
     <button class="header__navboton" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
   </nav>
@@ -30,7 +30,7 @@
 
 <!-- 🔹 Menú móvil -->
 <nav class="nav-movil" [class.active]="sidebarOpen">
-  <button (click)="navegarA('/rutina/ranking')">Ranking</button>
+  <button (click)="navegarA('/ranking')">Ranking</button>
   <button (click)="navegarA('/rutina/mis-rutinas')"> Mis Rutinas</button>
   <button (click)="navegarA('/rutina/crear')"> Crear Rutina</button>
   <button (click)="logout()"> Cerrar sesión</button>

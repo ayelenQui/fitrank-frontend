@@ -95,13 +95,49 @@
   transform: scale(1.03);
 }
 
+.form-select {
+  background-color: #222; /* fondo oscuro del select */
+  color: #fff; /* texto blanco */
+  border: 1px solid #555;
+}
+
+.form-select:focus {
+  background-color: #222;
+  color: #fff;
+  border-color: #8B52FF; /* tu color de acento si querés */
+  box-shadow: none;
+}
+
+/* 🔥 Algunas implementaciones respetan esto para opciones */
+.form-select option {
+  background-color: #222;
+  color: #fff;
+}
+
+
 /* Cards de ejercicios */
 .grid-ejercicios {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+
+  /* 🧩 Ajustes para scroll */
+  max-height: 400px; /* o lo que prefieras según tu layout */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* para que no tape el scrollbar el contenido */
 }
+
+/* Opcional: estilizar el scroll */
+.grid-ejercicios::-webkit-scrollbar {
+  width: 6px;
+}
+
+.grid-ejercicios::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
 
 .card-ejercicio {
   background: rgba(255, 255, 255, 0.05);

@@ -99,10 +99,10 @@
       <input class="form-check-input" type="checkbox" formControlName="sincope" id="sincope">
       <label class="form-check-label" for="sincope">Síncope</label>
     </div>
-    <div class="form-check">
+   <!-- <div class="form-check">
       <input class="form-check-input" type="checkbox" formControlName="embarazo" id="embarazo">
       <label class="form-check-label" for="embarazo">Embarazo</label>
-    </div>
+    </div>-->
   </div>
 
   <div class="row mt-2">
@@ -149,7 +149,7 @@
       [class.seleccionado]="estaSeleccionado(e.nombre)"
       (click)="toggleEjercicio(e.nombre)"
     >
-      <img [src]="e.urlVideo" alt="{{ e.nombre }}" class="img-ejercicio" />
+  <!--<img [src]="e.urlVideo" alt="{{ e.nombre }}" class="img-ejercicio" />-->
       <p class="nombre-ejercicio">{{ e.nombre }}</p>
     </div>
   </div>

@@ -69,11 +69,11 @@
                      [formGroupName]="j"
                      class="bloque">
                   <div class="bloque-header">
-                    <div class="d-flex align-items-center gap-2">
+                    <!--<div class="d-flex align-items-center gap-2">
                       <img *ngIf="ejercicio.get('urlImagen')?.value"
                            [src]="ejercicio.get('urlImagen')?.value"
                            class="bloque-img"
-                           alt="Ejercicio" />
+                           alt="Ejercicio" />-->
                       <div>
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
                         <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
@@ -81,7 +81,7 @@
                           ⏱ {{ ejercicio.get('duracionEstimada')?.value }} min
                         </small>
                       </div>
-                    </div>
+                    <!--</div>-->
                     <button type="button"
                             class="btn btn-sm btn-outline-danger"
                             (click)="eliminarEjercicio(sesionActiva, j)">
@@ -166,7 +166,7 @@
           <div *ngFor="let e of ejerciciosFiltrados"
                class="ejercicio-item"
                (click)="agregarEjercicio(e)">
-            <img *ngIf="e.urlImagen" [src]="e.urlImagen" alt="{{ e.nombre }}" />
+        <!--<img *ngIf="e.urlImagen" [src]="e.urlImagen" alt="{{ e.nombre }}" />-->
             <div>
               <h6>{{ e.nombre }}</h6>
               <small>{{ e.nombreGrupoMuscular }}</small>
