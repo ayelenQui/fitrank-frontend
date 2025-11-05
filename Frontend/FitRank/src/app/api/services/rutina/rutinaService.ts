@@ -60,4 +60,8 @@ export class RutinaService {
 solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO): Observable<any> {
   return this.http.post(`${this.apiUrlSolicitudes}?socioId=${socioId}`, data);
 }
+
+  actualizarEstado(solicitudId: number): Observable<any> {
+    return this.http.put(`${this.apiUrlSolicitudes}/${solicitudId}/terminar`, {});
+  }
 }

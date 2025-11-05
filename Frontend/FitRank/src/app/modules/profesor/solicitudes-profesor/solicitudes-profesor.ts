@@ -1,11 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Solicitud } from '@app/api/services/profesor/interfaces/solicitud.interface';
 import { SolicitudesService } from '@app/api/services/profesor/solicitudesService';
 
 @Component({
   selector: 'app-solicitudes-profesor',
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe,],
   templateUrl: './solicitudes-profesor.html',
   styleUrl: './solicitudes-profesor.css'
 })
@@ -15,7 +16,7 @@ export class SolicitudesProfesor implements OnInit{
   cargando = true;
   solicitudSeleccionadaId: number | null = null;
 
-  constructor(private solicitudesService: SolicitudesService) {}
+  constructor(private solicitudesService: SolicitudesService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarSolicitudes();
@@ -38,4 +39,15 @@ export class SolicitudesProfesor implements OnInit{
   toggleDetalles(id: number): void {
     this.solicitudSeleccionadaId = this.solicitudSeleccionadaId === id ? null : id;
   }
+
+  crearRutinaParaSocio(solicitud: Solicitud): void {
+  this.router.navigate(['/rutina/crear-manual'], {
+    state: {
+      socioId: solicitud.socioId,
+      solicitudId: solicitud.id,
+      volverA: '/solicitudes-profesor'
+    }
+  });
+}
+
 }

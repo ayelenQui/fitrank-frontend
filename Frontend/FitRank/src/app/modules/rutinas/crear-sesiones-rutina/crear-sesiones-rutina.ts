@@ -10,6 +10,7 @@ import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAs
 import { SerieService } from '@app/api/services/serie/serie.service';
 import{ Location } from '@angular/common'; 
 import Swal from 'sweetalert2';
+import { RutinaService } from '@app/api/services/rutina/rutinaService';
 
 @Component({
   selector: 'app-crear-sesiones-rutina',
@@ -26,6 +27,9 @@ export class CrearSesionesRutinaComponent implements OnInit {
   ejerciciosFiltrados: any[] = [];
   filtro: string = '';
 
+  solicitudId?: number;
+volverA = '/rutina/mis-rutinas'; // default
+
   form!: FormGroup;
   mostrarSesiones = false;
   sesionActiva = 0;
@@ -40,10 +44,23 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private ejercicioAsignadoService: EjercicioAsignadoService,
     private serieService: SerieService,
     private sesionService: SesionService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private rutinaService: RutinaService
   ) { }
 
   ngOnInit(): void {
+      // lee state pasado en la navegación (más robusto que router.currentNavigation)
+  const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
+  if (st.socioId) {
+    this.socioId = st.socioId;
+  }
+  if (st.solicitudId) {
+    this.solicitudId = st.solicitudId;
+  }
+  if (st.volverA) {
+    this.volverA = st.volverA;
+  }
+
     this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
     const user = this.auth.obtenerUser();
     this.socioId = user?.Id;
@@ -285,13 +302,21 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
           sesionesGuardadas++;
           if (sesionesGuardadas === sesiones.length) {
+
+              // 🔹 Si hay solicitud asociada, marcala como completada
+          if (this.solicitudId) {
+            this.rutinaService.actualizarEstado(this.solicitudId).subscribe({
+            next: () => console.log('✅ Solicitud marcada como completada'),
+            error: (err) => console.error('❌ Error al actualizar solicitud:', err)
+          });
+        }
             Swal.fire({
               icon: 'success',
               title: ' Rutina guardada',
               text: 'Tu rutina, sesiones y ejercicios fueron guardados correctamente.',
               confirmButtonColor: '#8c52ff'
             }).then(() => {
-              this.router.navigate(['/rutina/mis-rutinas']);
+              this.router.navigate([this.volverA], { state: { socioId: this.socioId } });
             });
           }
         },
