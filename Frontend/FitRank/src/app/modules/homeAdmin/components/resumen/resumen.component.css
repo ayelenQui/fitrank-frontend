@@ -1,22 +1,320 @@
-.resumen-bg {
-
-  min-height: 100vh;
-}
-
-.resumen-card {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.dashboard-admin {
+  background: #0f0f11;
   color: #fff;
-  border-radius: 1rem;
-  transition: all 0.3s ease;
-  background: #8B52FF
+  min-height: 100vh;
+  animation: fadeIn 0.6s ease;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
-  .resumen-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(89, 17, 212, 0.5);
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+    font-family: 'Bebas Neue', sans-serif;
   }
 
-.table-dark th,
-.table-dark td {
-  vertical-align: middle;
+
+
+/* 🔹 Títulos */
+.titulo-seccion {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #8c52ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 🔹 KPIs */
+.card-kpi {
+  background: #1d1d22;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  font-family: 'Bebas Neue', sans-serif;
+}
+  .card-kpi h6 {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .card-kpi:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(140, 82, 255, 0.3);
+  }
+h2 {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+  .card-kpi h3 {
+    color: #fff;
+    margin: 0.5rem 0;
+  }
+
+  .card-kpi p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+  }
+
+.icon {
+  font-size: 2rem;
+  color: #8c52ff;
+}
+
+
+/* 🔹 Botones rápidos */
+.acciones-rapidas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.btn-accion {
+  flex: 1 1 auto;
+  min-width: 180px;
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+  .btn-accion .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+
+/* Colores FitRank */
+.violeta {
+  background: linear-gradient(135deg, #8c52ff, #6f2bff);
+}
+
+.oscuro {
+  background: #222;
+}
+
+.verde {
+  background: linear-gradient(135deg, #2ecc71, #1eaa5b);
+}
+
+.celeste {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+h6 {
+  font-family: 'Bebas Neue', sans-serif;
+}
+.btn-accion:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+}
+.chart-card {
+  border-radius: 16px;
+  border: none;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease;
+}
+
+  .chart-card .card-header {
+    border-bottom: 1px solid #eee;
+  }
+
+.text-fitrank {
+  color: #8c52ff !important;
+}
+
+/* 🔹 Placeholder general */
+.chart-placeholder {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 🔹 Barras mockeadas */
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 100%;
+  height: 200px;
+  margin-top: 1rem;
+  gap: 8px;
+}
+
+.bar {
+  width: 24px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  animation: growUp 1.4s ease-in-out;
+}
+
+  /* 💰 Ingresos */
+  .bar.ingreso {
+    background: linear-gradient(135deg, #8c52ff, #6f2bff);
+    box-shadow: 0 4px 10px rgba(140, 82, 255, 0.3);
+  }
+
+  /* 🏋️ Asistencias */
+  .bar.asistencia {
+    background: black;
+    box-shadow: 0 4px 10px rgba(0, 201, 167, 0.3);
+  }
+
+  /* Hover dinámico */
+  .bar:hover {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+
+/* 🔹 Etiquetas de meses */
+.chart-labels {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* 🔹 Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes growUp {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chart-placeholder {
+    height: 180px;
+  }
+
+  .bar {
+    width: 16px;
+  }
+}
+
+/* 🔹 Paneles */
+.card-panel {
+  background: #1d1d22;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.8s ease;
+}
+
+.titulo-panel {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #b18aff;
+}
+
+/* 🔹 Tabla ranking */
+.table-dark {
+  background: transparent;
+}
+
+  .table-dark th {
+    color: #8c52ff;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .table-dark td {
+    color: #eaeaea;
+  }
+
+/* 🔹 Accesos rápidos */
+.grid-accesos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1rem;
+}
+
+.acceso-card {
+  background: #24242b;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+  .acceso-card:hover {
+    background: #8c52ff;
+    color: #fff;
+    transform: translateY(-4px);
+  }
+
+  .acceso-card .material-symbols-outlined {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+/* 🔹 Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .acciones-rapidas {
+    flex-direction: column;
+  }
 }

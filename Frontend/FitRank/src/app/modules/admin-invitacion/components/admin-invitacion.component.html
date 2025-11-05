@@ -1,4 +1,5 @@
 <div class="invitacion-background">
+
   <!-- Logo flotante detrás -->
   <div class="logo-fondo">
     <svg width="700"
@@ -19,6 +20,11 @@
     <form [formGroup]="form"
           (ngSubmit)="generarInvitacion()"
           class="formulario shadow-lg rounded-4 p-4">
+
+
+      <button type="button" class="btn-volver" (click)="volverAtras()">
+        Volver
+      </button>
       <!-- 👇 Tu formulario original, intacto -->
       <h5 class="typing-text seccion-titulo mb-3">Datos Personales</h5>
       <div class="contenedorDatosPersonales row g-3 mb-4">

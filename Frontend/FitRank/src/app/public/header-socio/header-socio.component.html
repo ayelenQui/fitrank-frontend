@@ -3,27 +3,36 @@
 
   <button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
 
-  
-    <div class="header__logo">
-      <img src="assets/img/logo/logo-negro-lila.svg" alt="FitRank Logo" class="header__imagologo" (click)="irAlHome()" />
-    </div>
 
-    <nav class="header__nav">
-      <!--<button class="header__navboton" (click)="navegarA('/torneo/lista-torneo')">Torneos</button>-->
-      <button class="header__navboton" (click)="navegarA('/rutina/ranking')">Ranking</button>
-      <button class="header__navboton" (click)="navegarA('/rutina/mis-rutinas')">Mis Rutinas</button>
-      <button class="header__navboton" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
-    </nav>
+  <div class="header__logo">
+    <img src="assets/img/logo/logo-negro-lila.svg" alt="FitRank Logo" class="header__imagologo" (click)="irAlHome()" />
+  </div>
 
-    <div class="header__perfil">
-      <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
-           alt="Perfil"
-           class="header__imagen" />
-      <span class="header__nombre">{{ user?.nombre }}</span>
+  <nav class="header__nav">
+    <!--<button class="header__navboton" (click)="navegarA('/torneo/lista-torneo')">Torneos</button>-->
+    <button class="header__navboton" (click)="navegarA('/rutina/ranking')">Ranking</button>
+    <button class="header__navboton" (click)="navegarA('/rutina/mis-rutinas')">Mis Rutinas</button>
+    <button class="header__navboton" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
+  </nav>
 
-      <button class="header__logout" (click)="logout()">
-        <span class="material-symbols-outlined">logout</span>
-        Cerrar sesión
-      </button>
-    </div>
+  <div class="header__perfil">
+    <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
+         alt="Perfil"
+         class="header__imagen" />
+    <span class="header__nombre">{{ user?.nombre }}</span>
+
+    <button class="header__logout" (click)="logout()">
+      <span class="material-symbols-outlined">logout</span>
+      Cerrar sesión
+    </button>
+  </div>
 </header>
+
+<!-- 🔹 Menú móvil -->
+<nav class="nav-movil" [class.active]="sidebarOpen">
+  <button (click)="navegarA('/rutina/ranking')">Ranking</button>
+  <button (click)="navegarA('/rutina/mis-rutinas')"> Mis Rutinas</button>
+  <button (click)="navegarA('/rutina/crear')"> Crear Rutina</button>
+  <button (click)="logout()"> Cerrar sesión</button>
+</nav>
+

@@ -1,17 +1,62 @@
-:host {
-  width: 100%;
-  display: block;
+
+
+.dashboard-header {
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2b2b2b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInDown 0.6s ease both;
 }
 
-.bg-dark {
-
+/* 🏋️‍♀️ Nombre del gimnasio */
+.gym-name {
+  color: #8c52ff;
+  font-weight: 600;
+  margin-left: 0.3rem;
 }
 
-i {
-  cursor: pointer;
-  transition: transform 0.3s ease;
+/* 📅 Fecha */
+.header-right {
+  text-align: right;
+  flex-shrink: 0;
 }
 
-  i:hover {
-    transform: scale(1.2);
+.fecha-actual {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ✨ Animación */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    text-align: left;
+  }
+
+  .header-right {
+    text-align: left;
+  }
+}

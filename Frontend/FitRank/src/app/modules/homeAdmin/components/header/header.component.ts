@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,20 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    setInterval(() => this.fechaActual = new Date(), 60000);
+  }
+
   notifications = 3; 
   userName = 'Administrador';
   darkMode = false;
-
+  fechaActual = new Date();
+  gimnasioNombre = "Nitro Gym";
   toggleTheme(): void {
     this.darkMode = !this.darkMode;
+
 
     
     const body = document.body;
@@ -29,8 +38,11 @@ export class HeaderComponent {
     alert('Aquí se abriría el panel de notificaciones o un modal 💬');
   }
 
+
+
   logout(): void {
-    
-    alert('Sesión cerrada correctamente');
+    this.authService.logout();
+    window.location.href = '/login';
   }
 }
+

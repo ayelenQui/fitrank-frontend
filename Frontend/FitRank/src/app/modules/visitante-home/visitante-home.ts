@@ -76,7 +76,7 @@ export class VisitanteHome {
         start: "top 90%",
       }
     });
-    const text = "La plataforma integral para gimnasios que impulsa el crecimiento y la retención de socios.";
+    const text = "La plataforma integral para gimnasios .";
     const target = document.getElementById("typing-text");
     if(target) {
       let index = 0;

@@ -67,6 +67,76 @@
     transition-timing-function: cubic-bezier(0.25, 1.25, 0.5, 1);
 
 }
+/* 🔹 Menú móvil desplegable */
+.nav-movil {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background: #0f1014;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+  /* 🔹 Activado */
+  .nav-movil.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* 🔹 Botones del menú móvil */
+  .nav-movil button {
+    background: none;
+    border: none;
+    color: #fff;
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+    .nav-movil button:hover {
+      background: rgba(140, 82, 255, 0.15);
+      transform: translateX(5px);
+      color: #8c52ff;
+    }
+
+/* 🔹 Icono hamburguesa (ya lo tenés, pero mejorado un poco) */
+.fit-sb-toggle {
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  color: #8c52ff;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+  .fit-sb-toggle:active {
+    transform: scale(0.9);
+  }
+
+/* 🔹 Mostrar solo en móvil */
+@media (max-width: 768px) {
+  .header__nav,
+  .header__perfil {
+    display: none;
+  }
+
+  .fit-sb-toggle {
+    display: block;
+  }
+}
 
 /* Logout */
 .header__logout {
@@ -86,6 +156,63 @@
 .header__logout:hover {
   transform: scale(1.1);
 }
+
+/* 🔹 Icono hamburguesa (botón lateral) */
+.fit-sb-toggle {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+  /* 🔹 Líneas del ícono */
+  .fit-sb-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #8c52ff; /* violeta FitRank */
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  /* 🔹 Efecto al presionar */
+  .fit-sb-toggle:active {
+    transform: scale(0.9);
+  }
+
+/* 🔹 Animación al abrir (clase cuando el menú está activo) */
+.sb-open .fit-sb-toggle span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.sb-open .fit-sb-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.sb-open .fit-sb-toggle span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* 🔹 Hover */
+.fit-sb-toggle:hover span {
+  background-color: #6f2bff;
+  box-shadow: 0 0 6px rgba(140, 82, 255, 0.6);
+}
+
+/* 🔹 Ajustes responsive */
+@media (max-width: 768px) {
+  .fit-sb-toggle {
+    margin-right: 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .header-socio {
     grid-template-columns: auto 1fr;

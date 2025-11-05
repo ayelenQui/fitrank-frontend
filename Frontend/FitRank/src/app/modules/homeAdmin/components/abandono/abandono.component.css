@@ -1,0 +1,182 @@
+/* 🔹 Fondo general */
+.container-fluid {
+  background: #fff;
+  color: #222;
+  animation: fadeIn 0.6s ease;
+}
+
+/* 🔹 Título principal */
+.titulo {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* ✨ Efecto leve en el título */
+@keyframes typingGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(140,82,255,0.3);
+  }
+
+  100% {
+    text-shadow: 0 0 25px rgba(140,82,255,0.8);
+  }
+}
+
+/* 🔹 Tarjetas KPI */
+.kpi-card {
+  background: linear-gradient(145deg, #f8f8fb, #ffffff);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(140,82,255,0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(140, 82, 255, 0.08);
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+  .kpi-card h6 {
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .kpi-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-top: 0.5rem;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(140,82,255,0.2);
+  }
+
+/* 🔹 Cards gráficas */
+.card {
+  border: none;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(140,82,255,0.15);
+  }
+
+/* 🔹 Títulos internos */
+.text-fitrank {
+  color: #8c52ff;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* 🔹 Lista de socios en riesgo */
+.socios-riesgo-list {
+  scrollbar-width: thin;
+  scrollbar-color: #8c52ff #f8f8fb;
+}
+
+  .socios-riesgo-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .socios-riesgo-list::-webkit-scrollbar-thumb {
+    background-color: #8c52ff;
+    border-radius: 10px;
+  }
+
+  .socios-riesgo-list::-webkit-scrollbar-track {
+    background: #f8f8fb;
+  }
+
+  /* 🔹 Tarjetas internas de socio */
+  .socios-riesgo-list .card {
+    background: #fafafa;
+    border: 1px solid rgba(140,82,255,0.1);
+    transition: all 0.3s ease;
+  }
+
+    .socios-riesgo-list .card:hover {
+      background: #f1edff;
+      transform: scale(1.02);
+    }
+
+/* 🔹 Botones */
+.btn-volver {
+  background: linear-gradient(135deg, #8c52ff, #6f2bff);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(140, 82, 255, 0.3);
+}
+
+  .btn-volver:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(140, 82, 255, 0.5);
+    opacity: 0.95;
+  }
+
+/* WhatsApp */
+.btn-whatsapp-float {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+  .btn-whatsapp-float:hover {
+    transform: translateY(-2px);
+    background-color: #1ebe57 !important;
+  }
+
+/* 🔹 Tabla de asistencias */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+  .table thead {
+    background: rgba(140,82,255,0.08);
+    border-bottom: 2px solid #8c52ff;
+    color: #8c52ff;
+  }
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(140, 82, 255, 0.03);
+}
+
+/* 🔹 Animaciones generales */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔹 Responsive */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 2rem;
+  }
+
+  .kpi-card {
+    padding: 1.2rem;
+  }
+
+  .socios-riesgo-list {
+    max-height: 280px !important;
+  }
+}

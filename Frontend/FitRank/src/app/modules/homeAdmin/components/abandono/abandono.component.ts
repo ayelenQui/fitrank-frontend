@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AsistenciaService } from '@app/api/services/asistencia/asistencia.service';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { NotificacionService } from '@app/api/services/notificacion/notificacion.service';
 import { AsistenciaListadoDTO, SocioInactivoDTO } from '@app/api/services/asistencia/interface/asistencia.interface';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+import { gsap } from 'gsap'; 
+import { TypingService } from "@app/api/services/typingService";
+
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-abandono',
@@ -13,9 +18,11 @@ import Swal from 'sweetalert2';
   templateUrl: './abandono.component.html',
   styleUrls: ['./abandono.component.css']
 })
-export class AbandonoComponent implements OnInit {
+export class AbandonoComponent implements OnInit, AfterViewInit {
   asistencias: AsistenciaListadoDTO[] = [];
   asistenciasFiltradas: AsistenciaListadoDTO[] = [];
+
+
   filtroSocio: string = '';
   loading = false;
   mensaje = '';
@@ -23,12 +30,25 @@ export class AbandonoComponent implements OnInit {
   constructor(
     private asistenciaService: AsistenciaService,
     private authService: AuthService,
-    private notificacionService: NotificacionService
+    private notificacionService: NotificacionService,
+    private typingService: TypingService
   ) { }
+
+  ngAfterViewInit(): void {
+    gsap.from('.metric-card', { y: 20, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'power2.out' });
+  }
+
 
   ngOnInit(): void {
     this.cargarAsistencias();
     this.cargarSociosInactivos();
+    setTimeout(() => {
+      this.crearGraficoEstado();
+      this.crearGraficoAsistencias();
+    }, 500);
+ 
+      this.typingService.startTypingEffect('RETENCION DE SOCIOS ', 'typingText', 70);
+    
   }
 
   // 🔹 Cargar todas las asistencias registradas
@@ -128,16 +148,144 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
     Swal.fire({
       title: `Enviar mensaje a ${nombre}`,
       text: '¿Querés abrir WhatsApp para contactarlo?',
-      icon: 'question',
+      imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+      imageWidth: 80,
+      imageHeight: 80,
+      imageAlt: 'FitRank Logo',
+
+      color: '#black',
+
       showCancelButton: true,
       confirmButtonColor: '#25D366',
-      cancelButtonColor: '#6c757d',
-      confirmButtonText: 'Abrir WhatsApp 📱',
-      cancelButtonText: 'Cancelar'
+      cancelButtonColor: '#8c52ff',
+      confirmButtonText: 'Abrir WhatsApp ',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        title: 'swal-title-fitrank',
+        popup: 'swal-popup-fitrank',
+        confirmButton: 'swal-confirm-fitrank',
+        cancelButton: 'swal-cancel-fitrank'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         window.open(url, '_blank');
       }
     });
+  }
+
+  crearGraficoEstado(): void {
+    const ctx = document.getElementById('graficoEstado') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    // Datos base
+    let activos = this.asistencias.length || 180;
+    let inactivos = this.inactivos.length || 20;
+
+    const chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Activos', 'Inactivos'],
+        datasets: [{
+          data: [activos, inactivos],
+          backgroundColor: ['#8c52ff', '#dc3545'],
+          borderWidth: 0,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        cutout: '70%',
+        animation: {
+          animateRotate: true,
+          animateScale: true,
+          duration: 800, // ⚡ más rápida
+          easing: 'easeInOutCubic'
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#555',
+              font: { size: 12, weight: 600 }
+            },
+            position: 'bottom'
+          }
+        }
+      }
+    });
+
+    // 🔁 Actualización rápida (cada 1.5 segundos)
+    setInterval(() => {
+      activos += Math.floor(Math.random() * 6 - 3);
+      inactivos += Math.floor(Math.random() * 3 - 2);
+
+      if (activos < 0) activos = 0;
+      if (inactivos < 0) inactivos = 0;
+
+      chart.data.datasets[0].data = [activos, inactivos];
+      chart.update('active'); // efecto con animación leve
+    }, 1500);
+  }
+
+
+  crearGraficoAsistencias(): void {
+    const ctx = document.getElementById('graficoAsistencias') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    // Fechas base
+    const fechas = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - i));
+      return d.toLocaleDateString('es-ES');
+    });
+
+    const valores = this.asistencias.length
+      ? this.asistencias.map(() => Math.floor(Math.random() * 10) + 5)
+      : [12, 9, 14, 8, 11, 7, 13];
+
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: fechas,
+        datasets: [{
+          label: '',
+          data: valores,
+          backgroundColor: '#8c52ff',
+          borderRadius: 30,
+          barThickness: 22
+        }]
+      },
+      options: {
+        animation: {
+          duration: 700, // ⚡ más fluido
+          easing: 'easeOutCubic'
+        },
+        scales: {
+          x: {
+            ticks: { color: '#555', font: { size: 11 } },
+            grid: { display: false }
+          },
+          y: {
+            ticks: { color: '#555', stepSize: 2 },
+            grid: { color: 'rgba(0,0,0,0.05)' }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#555', font: { size: 12, weight: 600 } },
+            position: 'top'
+          }
+        }
+      }
+    });
+
+    // 🔁 Movimiento constante (cada 1 segundo)
+    setInterval(() => {
+      const nuevosValores = chart.data.datasets[0].data.map(v => {
+        let nuevo = (v as number) + Math.floor(Math.random() * 6 - 3);
+        if (nuevo < 0) nuevo = 0;
+        return nuevo;
+      });
+      chart.data.datasets[0].data = nuevosValores;
+      chart.update('active');
+    }, 1000);
   }
 }

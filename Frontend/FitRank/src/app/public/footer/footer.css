@@ -1,0 +1,35 @@
+.fitrank-footer {
+  background: white;
+}
+
+  .fitrank-footer .footer-logo {
+    height: 38px;
+  }
+
+  .fitrank-footer .footer-links li a {
+    color: #d1d1d1;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+    .fitrank-footer .footer-links li a:hover {
+      color: #8c52ff; /* tu lila */
+    }
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background: #28a745;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.text-fitrank {
+  color: #8c52ff;
+}
+
+@media (max-width: 767px) {
+  .fitrank-footer {
+    text-align: left;
+  }
+}

@@ -45,4 +45,5 @@ export interface RegistrarActividadDTO {
   Repeticiones: number;
   Peso: number;
   Duracion?: string;
+
 }
