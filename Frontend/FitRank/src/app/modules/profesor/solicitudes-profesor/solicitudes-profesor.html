@@ -1,0 +1,37 @@
+<div class="contenedor">
+  <h2>Solicitudes Pendientes</h2>
+
+  <div *ngFor="let s of solicitudes" 
+       class="card"
+       (click)="toggleDetalles(s.id)">
+       
+    <div class="resumen">
+      <span class="nombre">{{ s.nombreSocio }}</span>
+      <span class="fecha">{{ s.fechaSolicitud | date: 'shortDate' }}</span>
+      <span class="estado" [ngClass]="s.estado.toLowerCase()">{{ s.estado }}</span>
+    </div>
+
+    <div *ngIf="solicitudSeleccionadaId === s.id" class="detalles">
+      <p><b>Edad:</b> {{ s.edad }} años</p>
+      <p><b>Peso:</b> {{ s.pesoKg }} kg | <b>Altura:</b> {{ s.alturaCm }} cm</p>
+      <p><b>Nivel:</b> {{ s.nivel }} | <b>Objetivo:</b> {{ s.objetivo }}</p>
+      <p><b>Sesiones por semana:</b> {{ s.sesionesPorSemana }} | <b>Minutos por sesión:</b> {{ s.minutosPorSesion }}</p>
+
+      <hr>
+
+      <div class="screening">
+        <p><b>Screening médico</b></p>
+        <ul>
+          <li *ngIf="s.dolorLumbar">⚠️ Dolor lumbar</li>
+          <li *ngIf="s.dolorRodilla">⚠️ Dolor de rodilla</li>
+          <li *ngIf="s.hipertension">⚠️ Hipertensión</li>
+          <li *ngIf="s.diabetes">⚠️ Diabetes</li>
+          <li *ngIf="s.cirugiaReciente">⚠️ Cirugía reciente</li>
+          <li *ngIf="s.embarazo">⚠️ Embarazo</li>
+        </ul>
+      </div>
+
+      <button class="btn-crear">Crear rutina</button>
+    </div>
+  </div>
+</div>

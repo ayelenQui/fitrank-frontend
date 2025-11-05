@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AgregarRutinaDTO, RutinaCompletaDTO, RutinaDTO } from './interfaces/rutina.interface.rest';
+import { AgregarRutinaDTO, CrearSolicitudRutinaProfesorDTO, RutinaCompletaDTO, RutinaDTO, RutinaRequestDTO } from './interfaces/rutina.interface.rest';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { AgregarRutinaDTO, RutinaCompletaDTO, RutinaDTO } from './interfaces/rut
 export class RutinaService {
  
   private apiUrl = `${environment.apiUrl}/Rutina`;
+  private apiUrlSolicitudes = `${environment.apiUrl}/solicitudes`;
 
   constructor(private http: HttpClient) { }
 
@@ -52,5 +53,11 @@ export class RutinaService {
     return this.http.get<RutinaCompletaDTO>(`${this.apiUrl}/detalle/${rutinaId}`);
   }
 
+  generarRutinaIA(idSocio: number, data: RutinaRequestDTO): Observable<any> {
+    return this.http.post(`${this.apiUrl}/generar?idSocio=${idSocio}`, data);
+  }
 
+solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO): Observable<any> {
+  return this.http.post(`${this.apiUrlSolicitudes}?socioId=${socioId}`, data);
+}
 }

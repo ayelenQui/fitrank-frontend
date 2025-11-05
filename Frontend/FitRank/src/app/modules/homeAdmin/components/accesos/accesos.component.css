@@ -1,0 +1,168 @@
+/* 🌌 Fondo general */
+.scanner-container {
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  min-height: 100vh;
+  color: #fff;
+  text-align: center;
+  animation: fadeIn 0.7s ease-in;
+}
+
+/* 🎯 Título */
+.text-fitrank {
+  color: #9b5de5; /* violeta FitRank */
+}
+
+h2.fw-bold {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: slideDown 0.8s ease-out;
+}
+
+/* 📷 Marco del escáner */
+.scanner-frame {
+  border: 2px solid rgba(155, 93, 229, 0.6);
+  box-shadow: 0 0 20px rgba(155, 93, 229, 0.5);
+  transition: all 0.3s ease;
+}
+
+  .scanner-frame:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(155, 93, 229, 0.8);
+  }
+
+/* 🎛️ Botones personalizados */
+.btn-fitrank {
+  background: linear-gradient(135deg, #9b5de5, #6a0dad);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+  .btn-fitrank:hover {
+    background: linear-gradient(135deg, #b47aff, #8a2be2);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(155, 93, 229, 0.6);
+  }
+
+.btn-outline-danger {
+  border: 2px solid #ff5c5c;
+  color: #ff5c5c;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+  .btn-outline-danger:hover {
+    background: #ff5c5c;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 92, 92, 0.5);
+  }
+
+/* 🌀 Spinner */
+.spinner-border.text-fitrank {
+  border-color: #9b5de5 !important;
+  border-right-color: transparent !important;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ✅ Mensajes de resultado */
+.alert-success {
+  background-color: rgba(75, 181, 67, 0.1);
+  border: 1px solid #4bb543;
+  color: #4bb543;
+}
+
+.alert-danger {
+  background-color: rgba(255, 92, 92, 0.1);
+  border: 1px solid #ff5c5c;
+  color: #ff5c5c;
+}
+
+/* 🧍 Tarjeta de socio */
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  animation: fadeInUp 0.7s ease-in;
+}
+
+  .card h4 {
+    color: #9b5de5;
+  }
+
+  .card p {
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+  }
+
+  .card ul.list-group {
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+.list-group-item {
+  transition: background 0.3s;
+}
+
+  .list-group-item:hover {
+    background-color: rgba(155, 93, 229, 0.1);
+  }
+
+/* ✨ Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 💡 Responsive */
+@media (max-width: 576px) {
+  .scanner-frame {
+    width: 240px !important;
+    height: 240px !important;
+  }
+
+  .card {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .btn-fitrank,
+  .btn-outline-danger {
+    font-size: 0.9rem;
+    padding: 6px 14px;
+  }
+}

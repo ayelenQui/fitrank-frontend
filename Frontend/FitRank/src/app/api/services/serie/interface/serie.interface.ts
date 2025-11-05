@@ -1,7 +1,7 @@
 export interface SerieDTO {
   id: number;
   numeroDeSerie: number;
-  duracion: string | null;      
+  duracion: string;      
   repeticiones: number | null;
   peso: number | null;
   ejercicioAsignadoId: number;
@@ -10,7 +10,7 @@ export interface SerieDTO {
 
 export interface AgregarSerieDTO {
   numeroDeSerie: number;
-  duracion?: string | null;
+  duracion?: string;
   repeticiones?: number | null;
   peso?: number | null;
   ejercicioAsignadoId: number;
@@ -19,7 +19,7 @@ export interface AgregarSerieDTO {
 export interface ActualizarSerieDTO {
   id: number;
   numeroDeSerie: number;
-  duracion?: string | null;
+  duracion?: string;
   repeticiones?: number | null;
   peso?: number | null;
   ejercicioAsignadoId: number;

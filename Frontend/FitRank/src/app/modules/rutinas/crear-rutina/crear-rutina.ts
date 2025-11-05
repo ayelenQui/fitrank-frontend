@@ -67,10 +67,10 @@ export class CrearRutinaComponent implements AfterViewInit {
         this.router.navigate(['/rutina/crear-manual']);
         break;
       case 'automatica':
-        alert('Rutina automática aún no disponible.');
+        this.router.navigate(['/rutina/ia']);
         break;
       case 'asistida':
-        alert('Rutina asistida próximamente.');
+        this.router.navigate(['/solicitar-rutina']);
         break;
     }
   }

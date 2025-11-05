@@ -16,7 +16,6 @@ export interface RutinaDTO {
   Activa: boolean;
   SocioId: number;
   UsuarioId: number;
-
 }
 
 export interface RutinaCompletaDTO {
@@ -56,3 +55,64 @@ export interface SerieDTO {
   duracion: string;
 }
 
+// RUTINA IA:
+export interface RutinaRequestDTO {
+  edad: number;
+  pesoKg: number;
+  alturaCm: number;
+  nivel: 'Principiante' | 'Intermedio' | 'Avanzado';
+  sesionesPorSemana: number;
+  minutosPorSesion: number;
+  objetivo: 'Hipertrofia' | 'PerdidaDePeso' | 'Fuerza' | 'Resistencia';
+  calidadAlimentacion: number;
+  horasSuenio: number;
+  screening: ScreeningDTO;
+  preferencias: PreferenciasDTO;
+}
+
+export interface ScreeningDTO {
+  hipertension: boolean;
+  hipertensionControlada: boolean;
+  diabetes: boolean;
+  cirugiaReciente: boolean;
+  dolorLumbar: boolean;
+  dolorHombro: boolean;
+  dolorRodilla: boolean;
+  dolorToracico: boolean;
+  sincope: boolean;
+  embarazo: boolean;
+  frecuenciaCardiacaReposo: number;
+  dolorEscala0a10: number;
+}
+
+export interface PreferenciasDTO {
+  incluirCardio: boolean;
+  prefiereMaquinas: boolean;
+  prefiereMancuernas: boolean;
+  ejerciciosExcluidos: string[];
+}
+export interface CrearSolicitudRutinaProfesorDTO {
+  mensajeSocio?: string;
+  nombreSocio: string;
+  edad: number;
+  pesoKg: number;
+  alturaCm: number;
+  nivel: 'Principiante' | 'Intermedio' | 'Avanzado';
+  sesionesPorSemana: number;
+  minutosPorSesion: number;
+  objetivo: 'Hipertrofia' | 'PerdidaDePeso' | 'Fuerza' | 'Resistencia';
+  calidadAlimentacion: number; // 1-5
+  horasSuenio: number;
+
+  dolorLumbar: boolean;
+  dolorRodilla: boolean;
+  dolorHombro: boolean;
+  cirugiaReciente: boolean;
+  sincope: boolean;
+  embarazo: boolean;
+  hipertension: boolean;
+  hipertensionControlada: boolean;
+  diabetes: boolean;
+  dolorToracico: boolean;
+  frecuenciaCardiacaReposo: number;
+}

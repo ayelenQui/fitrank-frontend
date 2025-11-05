@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SesionDTO } from '../../../../api/services/sesion/interface/sesion.interface';
 import { ConfiguracionGrupoMuscularService, ConfiguracionGrupoMuscularDTO } from '@app/api/services/configuracionGrupoMuscular/configuracionGrupoMuscular.service';
 
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -118,7 +119,12 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const user = this.auth.obtenerUser();
-    this.socioId = user?.Id;
+    this.socioId = Number(user?.Id ?? user?.id);
+  if (!this.socioId || Number.isNaN(this.socioId)) {
+    console.error('❌ socioId inválido:', this.socioId);
+    return;
+  }
+
     const hoy = new Date().getDay();
     this.diaActual = this.rutinaSeleccionada?.sesiones?.[hoy % this.rutinaSeleccionada.sesiones.length];
     this.cargarRutinas();

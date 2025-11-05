@@ -1,0 +1,60 @@
+<div class="scanner-container d-flex flex-column align-items-center justify-content-center py-4">
+  <!-- 📷 Título -->
+  <h2 class="fw-bold text-fitrank mb-3">Control de Acceso</h2>
+  <p class="text-muted mb-4 text-center">
+    Escaneá el código QR del socio para validar su ingreso.
+  </p>
+
+  <!-- 📷 Escáner -->
+  <div class="scanner-frame p-2 rounded-4 shadow-lg bg-dark position-relative">
+    <ngx-scanner-qrcode #scanner
+                        (event)="onScan($event)"
+                        class="rounded-4 overflow-hidden"
+                        style="width: 300px; height: 300px;">
+    </ngx-scanner-qrcode>
+  </div>
+
+  <!-- 🎛️ Botones -->
+  <div class="mt-4 d-flex gap-3">
+    <button class="btn btn-fitrank" (click)="startScanner()"> Iniciar</button>
+    <button class="btn btn-outline-danger" (click)="stopScanner()">Detener</button>
+  </div>
+
+  <!-- ⏳ Estado -->
+  <div *ngIf="loading" class="mt-4 text-center">
+    <div class="spinner-border text-fitrank" role="status"></div>
+    <p class="mt-2 text-light">Validando QR...</p>
+  </div>
+
+  <!-- ✅ Resultado -->
+  <div *ngIf="!loading && mensaje" class="mt-4 w-100 text-center">
+    <div [ngClass]="exito ? 'alert alert-success mx-auto w-75' : 'alert alert-danger mx-auto w-75'"
+         class="px-4 py-2 rounded-3 fw-bold">
+      {{ mensaje }}
+    </div>
+  </div>
+
+  <!-- 🔹 Detalle del socio -->
+  <div *ngIf="exito && socio" class="card bg-dark text-light mt-3 p-3 shadow-lg rounded-4 mx-auto" style="max-width: 420px;">
+    <!-- ✅ Resultado  <img [src]="socio.fotoUrl || 'assets/img/default-user.png'"
+                          class="rounded-circle mx-auto mb-3"
+                          width="120" height="120" alt="Foto socio">-->
+
+    <h4 class="text-fitrank fw-bold">{{ socio.nombre }} {{ socio.apellido }}</h4>
+    <p><strong>Nivel:</strong> {{ socio.nivel }}</p>
+    <p><strong>Apellido:</strong> {{ socio.apellido }}</p>
+    <p><strong>Sexo:</strong> {{ socio.sexo }}</p>
+    <p><strong>Cuota paga hasta:</strong> {{ socio.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
+
+    <div class="mt-3">
+      <h5 class="text-fitrank mb-2"> Últimas asistencias</h5>
+      <ul class="list-group bg-dark">
+        <li *ngFor="let a of asistencias" class="list-group-item bg-dark text-light border-secondary">
+          {{ a.gimnasioNombre }} — {{ a.fecha | date:'dd/MM/yyyy' }}
+          <span class="text-muted">({{ a.horaEntrada | date:'HH:mm' }})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

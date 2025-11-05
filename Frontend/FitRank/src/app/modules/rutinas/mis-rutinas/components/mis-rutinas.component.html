@@ -75,6 +75,7 @@
           </div>
 
           <p class="small text-white mb-2">{{ r.descripcion || 'Sin descripción' }}</p>
+          <p class="small text-white mb-2">{{ r.tipodeCreacion || 'Sin descripción' }}</p>
           <p class="text-white small mb-3">
             <span class="material-symbols-outlined align-middle fs-6 me-1 text-white">calendar_today</span>
             {{ r.fechaCreacion | date: 'shortDate' }}
