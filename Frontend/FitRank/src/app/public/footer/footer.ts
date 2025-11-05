@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './footer.css'
 })
 export class Footer {
-
+  anioActual: number = new Date().getFullYear();
+  versionFrontend: string = 'v1.0.0';
 }
+

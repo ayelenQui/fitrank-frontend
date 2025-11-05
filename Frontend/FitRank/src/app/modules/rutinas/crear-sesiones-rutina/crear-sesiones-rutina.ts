@@ -12,6 +12,7 @@ import{ Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 
+
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,
@@ -313,6 +314,10 @@ volverA = '/rutina/mis-rutinas'; // default
             Swal.fire({
               icon: 'success',
               title: ' Rutina guardada',
+              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+              imageWidth: 80,
+              imageHeight: 80,
+              imageAlt: 'FitRank Logo',
               text: 'Tu rutina, sesiones y ejercicios fueron guardados correctamente.',
               confirmButtonColor: '#8c52ff'
             }).then(() => {

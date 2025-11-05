@@ -37,6 +37,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/three": "^0.180.0",
     "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
     "express": "^4.19.2",
     "gsap": "^3.13.0",
     "ngx-scanner-qrcode": "^1.7.6",

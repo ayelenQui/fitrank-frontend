@@ -5,6 +5,7 @@ import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { AfterViewInit } from '@angular/core';
+import { Location } from '@angular/common'; 
 import gsap from 'gsap';
 @Component({
   selector: 'app-mis-rutinas',
@@ -37,7 +38,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   constructor(
     private rutinaService: RutinaService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
     ngAfterViewInit() {
     gsap.fromTo(
@@ -152,5 +154,10 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       },
       error: (err) => console.error('Error al eliminar rutina:', err)
     });
+  }
+
+
+  volverAtras(): void {
+    this.location.back();
   }
 }

@@ -1,9 +1,13 @@
+
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
 <div class="vista-mis-rutinas">
   <!-- 🟣 HERO SUPERIOR -->
   <section class="hero-fitrank d-flex align-items-center justify-content-between">
     <div class="hero-text">
       <h1 class="titulo hero-title">MIS RUTINAS</h1>
-      <p class="hero-subtitle">
+      <p class="hero-subtitle text-black">
         Planificá, medí tu rendimiento y superate cada semana con FitRank.
       </p>
 
@@ -11,61 +15,68 @@
       <div class="stats-container d-flex flex-wrap justify-content-center gap-3 mt-4">
 
         <!-- 🔹 Total -->
-        <button class="stat-card">
+        <button class="stat-card bg-white">
           <span class="stat-number">{{ totalRutinas }}</span>
-          <span class="stat-label">Rutinas creadas</span>
+          <span class="text-black  stat-label">Rutinas creadas</span>
         </button>
 
         <!-- 🔹 Activas -->
-        <button class="stat-card active">
+        <button class="stat-card active bg-white">
           <span class="stat-number">{{ rutinasActivas }}</span>
-          <span class="stat-label">Activas</span>
+          <span class="text-black stat-label">Activas</span>
         </button>
 
         <!-- 🔹 Inactivas -->
-        <button class="stat-card inactive">
+        <button class="stat-card inactive bg-white">
           <span class="stat-number">{{ rutinasInactivas }}</span>
-          <span class="stat-label">Inactivas</span>
+          <span class="text-black stat-label">Inactivas</span>
         </button>
 
-        <!-- ⭐ Botón de valoración -->
+        <!-- ⭐ Botón de valoración
         <button class="stat-card valoracion">
-          <span class="material-symbols-outlined mb-1">star</span>
-          <span class="stat-label">Valorar tu rutina</span>
+          <div class="stars">
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+          </div>
+          <span class="stat-label text-black">Valorar tu rutina</span>
         </button>
-      </div>
-      </div>
 
-      <!-- 📱 Imagen con fondo -->
-      <div class="hero-image position-relative">
-        <div class="hero-bg-estatico"></div>
-        <img src="assets/img/mis-rutinas/blanco.jpg" alt="App FitRank" class="hero-phone" />
       </div>
 </section>
+<br>
+<br>
+    </div>
 
-  <!-- 🟣 CONTENIDO PRINCIPAL -->
+    <!-- 📱 Imagen con fondo -->
+    <div class="hero-image position-relative">
+      <div class="hero-bg-estatico"></div>
+      <img src="assets/img/mis-rutinas/blanco.jpg" alt="App FitRank" class="hero-phone" />
+    </div>
+  </section>
+
   <div class="contenido-mis-rutinas">
-    <!-- 📊 Panel superior de progreso -->
+     <!-- 
     <div class="panel-progreso d-flex justify-content-around text-center mb-3">
       <div>
-        <p class="text-muted small mb-1">Progreso semanal</p>
+        <p class="text-muted text-black mb-1 strong">Progreso semanal</p>
         <div class="progress" style="height: 8px; width: 180px;">
           <div class="progress-bar bg-fitrank" [style.width.%]="65"></div>
         </div>
         <p class="text-muted small mt-1">65% completado</p>
       </div>
       <div>
-        <p class="text-muted small mb-1">Puntos FitRank</p>
-        <h5 class="text-fitrank mb-0 fw-bold">1240</h5>
+     
       </div>
       <div>
-        <p class="text-muted small mb-1">Ranking semanal</p>
-        <h5 class="text-success mb-0 fw-bold">#3</h5>
+        <p class="text-muted small mb-1">Posición actual en el ranking</p>
+        <h5 class="text-success mb-0 fw-bold">#1</h5>
       </div>
     </div>
-
+    <br>
+-->
     <!-- 📋 Listado de Rutinas -->
-    <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-center">
+    <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-left">
       <div *ngFor="let r of rutinas" class="col-12 col-md-4 col-lg-3">
         <div class="rutina-card bg-dark text-white p-3 rounded-4 position-relative">
           <div class="d-flex justify-content-between align-items-start mb-2">

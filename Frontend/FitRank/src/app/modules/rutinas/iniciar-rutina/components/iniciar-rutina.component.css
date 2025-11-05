@@ -12,9 +12,32 @@
   --font-titulo: 'Bebas Neue', sans-serif;
   --font-secundaria: 'Work Sans', sans-serif;
 }
+
+
 body {
   font-family: var(--font-texto);
 }
+
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+
+
+
 .hero-fitrank {
   position: relative;
   display: flex;
@@ -85,20 +108,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-.btn-volver {
-  background: transparent;
-  border: none;
-  color: #9d4edd;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-  .btn-volver:hover {
-    color: #c77dff;
-    text-decoration: underline;
-  }
 
 /* 📅 CALENDARIO MÓVIL */
 .calendario-movil {
@@ -1170,6 +1179,28 @@ input[type="number"] {
   /* Asegura que nada quede fuera en iPhone notch */
   body {
     padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+/* 🔹 Responsividad */
+@media (max-width: 576px) {
+  .entrenamiento-container {
+    padding: 1rem;
+    border-radius: 1rem;
+    min-height: 85vh;
+  }
+
+  .display-3 {
+    font-size: 2.4rem;
+  }
+
+  .btn-play,
+  .btn-stop {
+    width: 70px;
+    height: 70px;
+  }
+
+  .serie-info {
+    font-size: 0.9rem;
   }
 }
 
