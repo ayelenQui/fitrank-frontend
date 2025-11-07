@@ -28,3 +28,4 @@ export interface Solicitud {
   dolorToracico: boolean;
   frecuenciaCardiacaReposo: number;
 }
+

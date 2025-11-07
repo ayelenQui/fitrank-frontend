@@ -29,6 +29,148 @@ body {
 }
 
 /* ================================
+   OVERLAY CUENTA REGRESIVA (FULLSCREEN MOBILE)
+================================ */
+/* ================================
+   OVERLAY CUENTA REGRESIVA — MOBILE OPTIMIZED
+================================ */
+:host ::ng-deep .overlay-cuenta {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh; /* ✅ Usa dvh para altura real en móvil */
+  background: linear-gradient(180deg, #0b0a0f 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 99999 !important;
+  overflow: hidden; /* evita desplazamiento */
+  touch-action: none;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: opacity 0.4s ease;
+}
+
+/* Número central gigante */
+.overlay-cuenta .numero-cuenta {
+  font-size: clamp(5rem, 28vw, 9rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 40px rgba(157, 78, 221, 0.9), 0 0 80px rgba(157, 78, 221, 0.6);
+  animation: zoomInMobile 1s ease forwards;
+}
+
+/* animación suave con rebote */
+@keyframes zoomInMobile {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+
+  30% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* "GO!" en violeta vibrante */
+.overlay-cuenta .numero-cuenta.go {
+  color: #9d4edd;
+  text-shadow: 0 0 50px rgba(157, 78, 221, 1);
+  animation: goFlashMobile 1s ease forwards;
+}
+
+@keyframes goFlashMobile {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.6);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ✅ En pantallas pequeñas ocupa todo sin moverse */
+@media (max-width: 768px) {
+  :host ::ng-deep .overlay-cuenta {
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+  }
+
+  .overlay-cuenta .numero-cuenta {
+    font-size: 22vw;
+  }
+}
+
+
+/* Animación del número */
+@keyframes countdownPop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+
+  35% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+}
+
+/* “GO!” animado en violeta */
+.overlay-cuenta .numero-cuenta.go {
+  color: #9d4edd;
+  animation: goFlash 1s ease forwards;
+}
+
+@keyframes goFlash {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    text-shadow: 0 0 60px rgba(157, 78, 221, 0.9);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ✅ Responsive asegurado */
+@media (max-width: 480px) {
+  .overlay-cuenta .numero-cuenta {
+    font-size: 25vw; /* se adapta a pantalla pequeña */
+  }
+}
+
+
+/* ================================
    UTIL & GENERALES
 ================================== */
 .titulo { color: #111; font-weight: 800; }

@@ -8,7 +8,18 @@ import { RouterModule } from '@angular/router';
 import { gsap } from 'gsap';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { TypingService } from '../../../api/services/typingService';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
+
+interface InvitacionResponse {
+  success: boolean;
+  invitacionId: number;
+  tokenInvitacion?: string | null;
+  qrImage?: string | null;
+  linkPago?: string | null;
+  mensaje: string;
+}
+
+
 @Component({
   selector: 'app-admin-invitacion',
   templateUrl: './admin-invitacion.component.html',
@@ -17,6 +28,9 @@ import { Location } from '@angular/common';
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class AdminInvitacionComponent implements OnInit, AfterViewInit{
+
+
+
 
 
   form!: FormGroup;
@@ -82,20 +96,33 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit{
     });
 
     this.http
-      .post('https://localhost:7226/api/Admin/generar-invitacion', this.form.value, { headers })
+      .post<InvitacionResponse>('https://localhost:7226/api/Admin/generar-invitacion', this.form.value, { headers })
       .subscribe({
         next: (response) => {
           this.loading = false;
           this.mensaje = '✅ Invitación generada exitosamente.';
           console.log('Respuesta:', response);
+          // 🔹 Si el backend devuelve link de Mercado Pago:
+          if (this.form.value.metodoPago.toLowerCase() === 'mercadopago' && response.linkPago) {
+            this.mensaje = 'Redirigiendo al pago en Mercado Pago...';
+            window.open(response.linkPago, '_blank'); // 🔸 Abre el checkout en nueva pestaña
+          } else {
+            this.mensaje = '✅ Invitación generada y enviada por mail.';
+          }
         },
         error: (err) => {
           this.loading = false;
           console.error('Error:', err);
-          this.error = err.error?.Mensaje || 'Error al generar la invitación.';
-        },
+          this.error = err.error?.mensaje || 'Error al generar la invitación.';
+        }
       });
   }
+
+
+
+
+
+
   volverAtras(): void {
     this.location.back();
   }

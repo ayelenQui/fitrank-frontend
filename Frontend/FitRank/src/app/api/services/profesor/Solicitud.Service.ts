@@ -4,15 +4,17 @@ import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Solicitud } from './interfaces/solicitud.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class SolicitudesService {
-   private apiUrl = `${environment.apiUrl}/Solicitudes`;
+export class SolicitudService {
+  private apiUrl = `${environment.apiUrl}/Solicitudes`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerPendientes(): Observable<Solicitud[]> {
     return this.http.get<Solicitud[]>(`${this.apiUrl}/pendientes`);
   }
+
 }

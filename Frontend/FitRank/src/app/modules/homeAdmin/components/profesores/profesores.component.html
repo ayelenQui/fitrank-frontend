@@ -1,0 +1,132 @@
+<div class="container py-4">
+  <h2 class="text-center text-fitrank fw-bold mb-4">👨‍🏫 Gestión de Profesores</h2>
+
+  <!-- 🔍 Buscador -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <input type="text"
+           class="form-control w-75"
+           placeholder="Buscar profesor..."
+           [(ngModel)]="filtro"
+           (input)="filtrarProfesores()" />
+    <button class="btn btn-fitrank" (click)="abrirFormulario()">➕ Nuevo</button>
+  </div>
+
+  <!-- 📋 Tabla de profesores -->
+  <div class="table-responsive shadow-sm rounded-4">
+    <table class="table table-dark table-hover align-middle text-center mb-0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profesor of profesoresFiltrados">
+          <td>{{ profesor.nombre }}</td>
+          <td>{{ profesor.email }}</td>
+          <td>{{ profesor.telefono || '-' }}</td>
+          <!-- 🔹 Como el DTO no tiene 'rol', mostramos texto fijo -->
+          <td>Profesor</td>
+          <td>
+            <button class="btn btn-sm btn-outline-light me-2" (click)="editarProfesor(profesor)">
+              ✏️ Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.id)">
+              🗑️ Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="profesoresFiltrados.length === 0">
+          <td colspan="5" class="text-muted py-3">No se encontraron profesores</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🪟 FORMULARIO INLINE -->
+  <div *ngIf="mostrarFormulario" class="card mt-4 p-4 shadow-lg border-0 bg-dark text-white">
+    <h4 class="mb-3">
+      {{ profesorSeleccionado ? 'Editar Profesor' : 'Agregar Profesor' }}
+    </h4>
+
+    <form [formGroup]="formProfesor" (ngSubmit)="guardarProfesor()" novalidate>
+      <div class="row g-3">
+
+        <!-- Nombre -->
+        <div class="col-md-6">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Ayelén" />
+        </div>
+
+        <!-- Apellido -->
+        <div class="col-md-6">
+          <label class="form-label">Apellido</label>
+          <input type="text" class="form-control" formControlName="apellido" placeholder="Ej: Quiroga" />
+        </div>
+
+        <!-- DNI -->
+        <div class="col-md-6">
+          <label class="form-label">DNI</label>
+          <input type="number" class="form-control" formControlName="dni" placeholder="Ej: 40123456" />
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="ejemplo@mail.com" />
+        </div>
+
+        <!-- Teléfono -->
+        <div class="col-md-6">
+          <label class="form-label">Teléfono</label>
+          <input type="text" class="form-control" formControlName="telefono" placeholder="Ej: +54 11 1234 5678" />
+        </div>
+
+        <!-- Sexo -->
+        <div class="col-md-6">
+          <label class="form-label">Sexo</label>
+          <select class="form-select" formControlName="sexo">
+            <option value="">Seleccionar...</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div class="col-md-6">
+          <label class="form-label">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" formControlName="fechaNacimiento" />
+        </div>
+
+        <!-- Matrícula -->
+        <div class="col-md-6">
+          <label class="form-label">Matrícula</label>
+          <input type="text" class="form-control" formControlName="matricula" placeholder="Ej: MP12345" />
+        </div>
+
+        <!-- Sueldo -->
+        <div class="col-md-6">
+          <label class="form-label">Sueldo</label>
+          <input type="number" class="form-control" formControlName="sueldo" placeholder="Ej: 250000" />
+        </div>
+
+        <!-- Contraseña -->
+        <div class="col-md-6">
+          <label class="form-label">Contraseña</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="********" />
+        </div>
+      </div>
+
+      <!-- BOTONES -->
+      <div class="d-flex justify-content-end gap-3 mt-4">
+        <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()">Cancelar</button>
+        <button type="submit" class="btn btn-fitrank">
+          {{ profesorSeleccionado ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+  </div>

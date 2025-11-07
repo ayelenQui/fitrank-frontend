@@ -1,0 +1,40 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
+import { Solicitud } from './interfaces/solicitud.interface';
+import { AgregarProfesorDTO, ProfesorDTO } from './interfaces/profesor.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProfesorService {
+   private apiUrl = `${environment.apiUrl}/Profesor`;
+
+  constructor(private http: HttpClient) {}
+
+
+ 
+  obtenerProfesores(): Observable<ProfesorDTO[]> {
+    return this.http.get<ProfesorDTO[]>(this.apiUrl);
+  }
+
+
+  obtenerProfesorPorId(id: number): Observable<ProfesorDTO> {
+    return this.http.get<ProfesorDTO>(`${this.apiUrl}/${id}`);
+  }
+
+  agregarProfesor(dto: AgregarProfesorDTO): Observable<ProfesorDTO> {
+    return this.http.post<ProfesorDTO>(this.apiUrl, dto);
+  }
+
+  
+  actualizarProfesor(id: number, dto: AgregarProfesorDTO): Observable<ProfesorDTO> {
+    return this.http.put<ProfesorDTO>(`${this.apiUrl}/${id}`, dto);
+  }
+
+ 
+  eliminarProfesor(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
