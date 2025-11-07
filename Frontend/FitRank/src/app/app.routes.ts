@@ -90,6 +90,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'socios/:socioId/gimnasios/:gimnasioId/logros',
+    component: SocioLayoutComponent,
     loadChildren: () =>
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },
