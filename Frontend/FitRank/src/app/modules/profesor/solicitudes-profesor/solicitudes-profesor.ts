@@ -41,14 +41,41 @@ export class SolicitudesProfesor implements OnInit {
     this.solicitudSeleccionadaId = this.solicitudSeleccionadaId === id ? null : id;
   }
 
-  crearRutinaParaSocio(solicitud: Solicitud): void {
-    this.router.navigate(['/rutina/crear-manual'], {
-      state: {
-        socioId: solicitud.socioId,
-        solicitudId: solicitud.id,
-        volverA: '/solicitudes-profesor'
+
+  tomarYCrearRutina(solicitud: Solicitud): void {
+    this.solicitudesService.tomarSolicitud(solicitud.id).subscribe({
+      next: () => {
+        console.log('✅ Solicitud tomada por el profesor');
+
+        // 🔹 Actualiza el estado local (para que no desaparezca de la lista)
+        solicitud.profesorId = this.obtenerIdProfesorActual();
+
+        // 🔹 Redirige al creador de rutina
+        this.router.navigate(['/rutina/crear-manual'], {
+          state: {
+            socioId: solicitud.socioId,
+            solicitudId: solicitud.id,
+            volverA: '/solicitudes-profesor'
+          }
+        });
+      },
+      error: (err) => {
+        console.error('❌ Error al tomar la solicitud:', err);
+        alert('Error al tomar la solicitud. Intentá nuevamente.');
       }
     });
+  }
+
+  private obtenerIdProfesorActual(): number {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.id ?? user.Id ?? 0;
+  }
+
+  // ✅ Versión corregida de esTomadaPorMi
+  esTomadaPorMi(s: Solicitud): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const profesorActualId = user.id ?? user.Id;
+    return !!s.profesorId && s.profesorId === profesorActualId;
   }
 }
 

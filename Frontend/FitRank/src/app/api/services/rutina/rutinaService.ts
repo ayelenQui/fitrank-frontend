@@ -64,4 +64,6 @@ solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO):
   actualizarEstado(solicitudId: number): Observable<any> {
     return this.http.put(`${this.apiUrlSolicitudes}/${solicitudId}/terminar`, {});
   }
+
+
 }

@@ -1,0 +1,31 @@
+<header class="header-profesor d-flex align-items-center justify-content-between px-3">
+  <!-- Logo -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="btn-menu" (click)="toggleSidebar()">
+      <i class="bi bi-list"></i>
+    </button>
+    <img src="assets/img/logo/logo-negro-lila.svg" class="logo" alt="FitRank" (click)="irAlHome()" />
+    <span class="titulo">Profesor</span>
+  </div>
+
+  <!-- Acciones derecha -->
+  <div class="acciones d-flex align-items-center gap-3">
+    <button class="btn btn-link text-black" (click)="irA('/solicitudes-profesor')">
+      <i class="titulo bi bi-clipboard-check"></i> Solicitudes
+    </button>
+
+    <button class="titulo btn btn-link text-black" (click)="irA('rutina/mis-rutinas')">
+      <i class="bi bi-journal-text"></i> Mis Rutinas
+    </button>
+
+    <div class="user-info text-end">
+     
+      <strong>{{ user?.nombre || 'Profesor' }}</strong>
+    </div>
+
+    <button class="btn-logout" (click)="logout()">
+      <i class=" bi-box-arrow-right"></i>
+      <span class="titulo">Cerrar Sesión</span>
+    </button>
+  </div>
+</header>

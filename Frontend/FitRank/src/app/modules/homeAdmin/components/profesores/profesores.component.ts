@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesorService } from '@app/api/services/profesor/ProfesorService';
-import { AgregarProfesorDTO, ProfesorDTO } from '@app/api/services/profesor/interfaces/profesor.interface';
-import Swal from 'sweetalert2'; // ✅ Smart Alert
+import {
+  AgregarProfesorDTO,
+  ActualizarProfesorDTO,
+  ProfesorDTO
+} from '@app/api/services/profesor/interfaces/profesor.interface';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profesores',
@@ -21,11 +26,30 @@ export class ProfesoresComponent implements OnInit {
   mostrarFormulario = false;
   filtro = '';
 
-  constructor(private profesorService: ProfesorService, private fb: FormBuilder) { }
+  // 🔹 gimnasio del admin logueado
+  gimnasioIdAdmin: number | null = null;
+
+  constructor(
+    private profesorService: ProfesorService,
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.obtenerGimnasioDelAdmin();
     this.cargarProfesores();
     this.inicializarFormulario();
+  }
+
+  // 🔹 Obtiene el gimnasioId del usuario logueado
+  private obtenerGimnasioDelAdmin(): void {
+    const usuario = this.authService.obtenerUser();
+    if (usuario && usuario.gimnasioId) {
+      this.gimnasioIdAdmin = usuario.gimnasioId;
+      console.log('🏋️‍♂️ Gimnasio del admin logueado:', this.gimnasioIdAdmin);
+    } else {
+      console.warn('⚠️ No se encontró gimnasio asociado al admin.');
+    }
   }
 
   inicializarFormulario(): void {
@@ -39,10 +63,10 @@ export class ProfesoresComponent implements OnInit {
       fechaNacimiento: ['', Validators.required],
       matricula: ['', Validators.required],
       sueldo: [0, Validators.required],
-      password: ['', Validators.required]
+      password: [''] // requerido solo al crear
     });
-
   }
+
   cargarProfesores(): void {
     this.profesorService.obtenerProfesores().subscribe({
       next: (data) => {
@@ -56,7 +80,7 @@ export class ProfesoresComponent implements OnInit {
   filtrarProfesores(): void {
     const texto = this.filtro.toLowerCase();
     this.profesoresFiltrados = this.profesores.filter(p =>
-      p.nombre.toLowerCase().includes(texto)
+      p.nombre.toLowerCase().includes(texto) || p.apellido.toLowerCase().includes(texto)
     );
   }
 
@@ -64,6 +88,10 @@ export class ProfesoresComponent implements OnInit {
     this.mostrarFormulario = true;
     this.profesorSeleccionado = null;
     this.formProfesor.reset();
+
+    // ✅ obligamos el password al agregar
+    this.formProfesor.get('password')?.setValidators([Validators.required]);
+    this.formProfesor.get('password')?.updateValueAndValidity();
   }
 
   cancelarFormulario(): void {
@@ -73,12 +101,23 @@ export class ProfesoresComponent implements OnInit {
 
   editarProfesor(profesor: ProfesorDTO): void {
     this.profesorSeleccionado = profesor;
+    this.mostrarFormulario = true;
+
+    // ❌ no pedimos password al editar
+    this.formProfesor.get('password')?.clearValidators();
+    this.formProfesor.get('password')?.updateValueAndValidity();
+
     this.formProfesor.patchValue({
       nombre: profesor.nombre,
+      apellido: profesor.apellido,
+      dni: profesor.dni,
       email: profesor.email,
-      telefono: profesor.telefono
+      telefono: profesor.telefono,
+      sexo: profesor.sexo,
+      fechaNacimiento: profesor.fechaNacimiento?.toString().substring(0, 10),
+      matricula: profesor.matricula,
+      sueldo: profesor.sueldo
     });
-    this.mostrarFormulario = true;
   }
 
   guardarProfesor(): void {
@@ -87,11 +126,16 @@ export class ProfesoresComponent implements OnInit {
       return;
     }
 
-    const dto: AgregarProfesorDTO = this.formProfesor.value;
-
     if (this.profesorSeleccionado) {
-      // 🔹 Actualizar
-      this.profesorService.actualizarProfesor(this.profesorSeleccionado.id, dto).subscribe({
+      // 🔹 ACTUALIZAR
+      const dtoActualizar: ActualizarProfesorDTO = {
+        id: this.profesorSeleccionado.id,
+        ...this.formProfesor.value,
+        esActivado: true,
+        gimnasioId: this.profesorSeleccionado.gimnasioId ?? this.gimnasioIdAdmin ?? undefined
+      };
+
+      this.profesorService.actualizarProfesor(dtoActualizar.id, dtoActualizar).subscribe({
         next: () => {
           this.alerta('Éxito', 'Profesor actualizado correctamente ✅', 'success');
           this.cargarProfesores();
@@ -100,14 +144,24 @@ export class ProfesoresComponent implements OnInit {
         error: () => this.alerta('Error', 'No se pudo actualizar el profesor', 'error')
       });
     } else {
-      // 🔹 Agregar
-      this.profesorService.agregarProfesor(dto).subscribe({
+      // 🔹 AGREGAR
+      const dtoAgregar: AgregarProfesorDTO = {
+        ...this.formProfesor.value,
+        gimnasioId: this.gimnasioIdAdmin ?? undefined
+      };
+
+      console.log('📤 Enviando profesor:', dtoAgregar);
+
+      this.profesorService.agregarProfesor(dtoAgregar).subscribe({
         next: () => {
           this.alerta('Éxito', 'Profesor agregado correctamente 🎉', 'success');
           this.cargarProfesores();
           this.cancelarFormulario();
         },
-        error: () => this.alerta('Error', 'No se pudo agregar el profesor', 'error')
+        error: (err) => {
+          console.error(err);
+          this.alerta('Error', 'No se pudo agregar el profesor', 'error');
+        }
       });
     }
   }
@@ -145,4 +199,22 @@ export class ProfesoresComponent implements OnInit {
       color: '#fff'
     });
   }
+
+  verRutinas(profesor: ProfesorDTO): void {
+    this.profesorService.obtenerRutinasPorProfesor(profesor.id).subscribe({
+      next: (rutinas) => {
+        console.log('📋 Rutinas del profesor:', rutinas);
+        Swal.fire({
+          title: `Rutinas de ${profesor.nombre}`,
+          html: rutinas.length
+            ? rutinas.map(r => `<p>🏋️ <b>${r.nombre}</b> (${r.tipo})<br><small>${r.socioNombre ?? 'Sin socio asignado'}</small></p>`).join('')
+            : 'Este profesor no tiene rutinas registradas.',
+          background: '#1c1a22',
+          color: '#fff'
+        });
+      },
+      error: () => this.alerta('Lo Siento', 'Este profesor NO tiene rutinas creadas', 'error')
+    });
+  }
+
 }

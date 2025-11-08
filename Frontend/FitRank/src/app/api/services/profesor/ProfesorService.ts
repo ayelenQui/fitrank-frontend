@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Solicitud } from './interfaces/solicitud.interface';
-import { AgregarProfesorDTO, ProfesorDTO } from './interfaces/profesor.interface';
+import { AgregarProfesorDTO, ProfesorDTO, ActualizarProfesorDTO, RutinaProfesorDTO } from './interfaces/profesor.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class ProfesorService {
   }
 
   
-  actualizarProfesor(id: number, dto: AgregarProfesorDTO): Observable<ProfesorDTO> {
+  actualizarProfesor(id: number, dto: ActualizarProfesorDTO): Observable<ProfesorDTO> {
     return this.http.put<ProfesorDTO>(`${this.apiUrl}/${id}`, dto);
   }
 
@@ -37,4 +37,9 @@ export class ProfesorService {
   eliminarProfesor(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  obtenerRutinasPorProfesor(profesorId: number): Observable<RutinaProfesorDTO[]> {
+    return this.http.get<RutinaProfesorDTO[]>(`${this.apiUrl}/profesor/${profesorId}`);
+  }
+
 }

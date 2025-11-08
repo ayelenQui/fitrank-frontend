@@ -16,7 +16,21 @@ export interface ProfesorDTO {
   gimnasioId?: number;
   gimnasioNombre?: string;
 }
-
+export interface ActualizarProfesorDTO {
+  id: number;
+  nombre: string;
+  apellido: string;
+  dni: number;
+  email: string;
+  telefono?: string;
+  sexo: string;
+  fechaNacimiento: string;
+  matricula: string;
+  sueldo: number;
+  estado?: string;
+  esActivado: boolean;
+  gimnasioId?: number;
+}
 export interface AgregarProfesorDTO {
   nombre: string;
   apellido: string;
@@ -31,3 +45,12 @@ export interface AgregarProfesorDTO {
   gimnasioId?: number;
 }
 
+export interface RutinaProfesorDTO {
+  id: number;
+  nombre: string;
+  descripcion?: string;
+  activa: boolean;
+  fechaCreacion: string; // ISO string desde .NET
+  socioNombre?: string;
+  tipo?: string;
+}

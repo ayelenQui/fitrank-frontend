@@ -37,7 +37,9 @@ export class HomeComponent implements OnInit {
         // Si el usuario es admin, redirige a homeAdmin
         if (this.authService.isAdmin()) {
             this.router.navigate(['/homeAdmin']);
-        }
+      }
+
+
     }
 
 

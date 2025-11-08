@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
-  selector: 'app-sidebar-socio',
+  selector: 'app-sidebar-profesor',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './sidebar-socio.component.html',
-  styleUrls: ['./sidebar-socio.component.css']
+  templateUrl: './sidebar-profesor.component.html',
+  styleUrls: ['./sidebar-profesor.component.css']
 })
-export class SidebarSocioComponent {
+export class SidebarProfesorComponent {
   sidebarOpen = false;
   @Input() abierto: boolean = false;
   @Output() cerrarSidebar = new EventEmitter<void>();

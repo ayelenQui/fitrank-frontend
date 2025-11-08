@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { NotificacionDTO } from '../../../../api/services/notificacion/interface/notificacion.interface';
 import { NotificacionService } from '../../../../api/services/notificacion/notificacion.service';
 import { Socio } from '@app/api/services/socio/socio.service';
+import { HeaderProfesorComponent } from '@app/public/header-profesor/header-profesor-component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true,
-  imports: [HeaderSocioComponent, CommonModule]
+  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;
@@ -27,7 +28,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   notificacion: NotificacionDTO | null = null;
 
   socio: SocioType | null = null;
-
+  esProfesor = false; 
 
   constructor(
     private authService: AuthService,
@@ -74,22 +75,24 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/login']);
       return;
     }
-
+    const rol = this.user.rol?.toLowerCase();
     if (this.authService.isAdmin()) {
       this.router.navigate(['/homeAdmin']);
       return;
     }
+    this.esProfesor = rol === 'profesor';
 
-    //cargar socio con servicio API
-    this.socioService.getSocioById(this.user.id).subscribe({
-      next: (socio: SocioType) => {
-        this.socio = socio;
-      },
-      error: (err) => {
-        console.error('Error al cargar socio:', err);
-      }
-    });
-
+    if (!this.esProfesor) {
+      //cargar socio con servicio API
+      this.socioService.getSocioById(this.user.id).subscribe({
+        next: (socio: SocioType) => {
+          this.socio = socio;
+        },
+        error: (err) => {
+          console.error('Error al cargar socio:', err);
+        }
+      });
+    }
     // 🔹 Cargar notificaciones del socio
     const token = this.authService.obtenerToken();
     if (token) {

@@ -1,38 +1,45 @@
-
 <button type="button" class="btn-volver" (click)="volverAtras()">
   Volver
 </button>
+
 <div class="vista-mis-rutinas">
+
   <!-- 🟣 HERO SUPERIOR -->
   <section class="hero-fitrank d-flex align-items-center justify-content-between">
     <div class="hero-text">
-      <h1 class="titulo hero-title">MIS RUTINAS</h1>
+      <!-- 🔹 Cambia título y subtítulo según el rol -->
+      <h1 class="titulo hero-title">
+        {{ rol === 'profesor' ? 'MIS RUTINAS CREADAS' : 'MIS RUTINAS' }}
+      </h1>
+
       <p class="hero-subtitle text-black">
-        Planificá, medí tu rendimiento y superate cada semana con FitRank.
+        {{
+ rol === 'profesor'
+          ? 'Visualizá y gestioná las rutinas que creaste para tus alumnos.'
+          : 'Planificá, medí tu rendimiento y superate cada semana con FitRank.'
+        }}
       </p>
 
       <!-- 📊 Panel de estadísticas -->
       <div class="stats-container d-flex flex-wrap justify-content-center gap-3 mt-4">
-
-        <!-- 🔹 Total -->
         <button class="stat-card bg-white">
           <span class="stat-number">{{ totalRutinas }}</span>
-          <span class="text-black  stat-label">Rutinas creadas</span>
+          <span class="text-black stat-label">
+            {{ rol === 'profesor' ? 'Rutinas creadas' : 'Rutinas asignadas' }}
+          </span>
         </button>
 
-        <!-- 🔹 Activas -->
         <button class="stat-card active bg-white">
           <span class="stat-number">{{ rutinasActivas }}</span>
           <span class="text-black stat-label">Activas</span>
         </button>
 
-        <!-- 🔹 Inactivas -->
         <button class="stat-card inactive bg-white">
           <span class="stat-number">{{ rutinasInactivas }}</span>
           <span class="text-black stat-label">Inactivas</span>
         </button>
 
-        <button class="stat-card valoracion">
+        <button *ngIf="rol === 'socio'" class="stat-card valoracion">
           <div class="stars">
             <span class="material-symbols-outlined">star</span>
             <span class="material-symbols-outlined">star</span>
@@ -40,85 +47,87 @@
           </div>
           <span class="stat-label text-black">Valorá tu rutina</span>
         </button>
-
       </div>
-<br>
-<br>
     </div>
 
-    <!-- 📱 Imagen con fondo -->
+    <!-- 📱 Imagen -->
     <div class="hero-image position-relative">
       <div class="hero-bg-estatico"></div>
       <img src="assets/img/mis-rutinas/blanco.jpg" alt="App FitRank" class="hero-phone" />
     </div>
-</section>
-<br>
+  </section>
+
+  <br />
+
+  <!-- ============================== -->
+  <!-- 📋 LISTADO DE RUTINAS -->
+  <!-- ============================== -->
   <div class="contenido-mis-rutinas">
-     <!-- 
-    <div class="panel-progreso d-flex justify-content-around text-center mb-3">
-      <div>
-        <p class="text-muted text-black mb-1 strong">Progreso semanal</p>
-        <div class="progress" style="height: 8px; width: 180px;">
-          <div class="progress-bar bg-fitrank" [style.width.%]="65"></div>
-        </div>
-        <p class="text-muted small mt-1">65% completado</p>
-      </div>
-      <div>
-     
-      </div>
-      <div>
-        <p class="text-muted small mb-1">Posición actual en el ranking</p>
-        <h5 class="text-success mb-0 fw-bold">#1</h5>
-      </div>
-    </div>
-    <br>
--->
-    <!-- 📋 Listado de Rutinas -->
+
     <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-left">
+
       <div *ngFor="let r of rutinas" class="col-12 col-md-4 col-lg-3">
         <div class="rutina-card bg-dark text-white p-3 rounded-4 position-relative">
+
+          <!-- 🔹 Encabezado -->
           <div class="d-flex justify-content-between align-items-start mb-2">
             <h6 class="fw-bold mb-0 text-white">{{ r.nombre }}</h6>
-            <span class="badge"
-                  [ngClass]="r.activa ? 'bg-success' : 'bg-secondary'">{{ r.activa ? 'Activa' : 'Inactiva' }}</span>
+            <span class="badge" [ngClass]="r.activa ? 'bg-success' : 'bg-secondary'">
+              {{ r.activa ? 'Activa' : 'Inactiva' }}
+            </span>
           </div>
 
+          <!-- 🔹 Descripción -->
           <p class="small text-white mb-2">{{ r.descripcion || 'Sin descripción' }}</p>
-          <p class="small text-white mb-2">{{ r.tipodeCreacion || 'Sin descripción' }}</p>
-          <p class="text-white small mb-3">
+
+          <!-- 🔹 Si es profesor, muestra más detalle -->
+          <div *ngIf="rol === 'profesor'" class="detalle-profesor small text-white mb-2">
+            <p class="mb-1"><strong>👤 Socio:</strong> {{ r.socioNombre || 'No asignado' }}</p>
+            <p class="mb-1"><strong>🧩 Tipo:</strong> {{ r.tipo || 'Manual' }}</p>
+            <p class="mb-1"><strong>📅 Fecha:</strong> {{ r.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
+          </div>
+
+          <!-- 🔹 Si es socio, muestra solo la fecha -->
+          <p *ngIf="rol === 'socio'" class="text-white small mb-3">
             <span class="material-symbols-outlined align-middle fs-6 me-1 text-white">calendar_today</span>
             {{ r.fechaCreacion | date: 'shortDate' }}
           </p>
 
-          <!-- Acciones principales -->
+          <!-- 🔹 Acciones -->
           <div class="d-flex justify-content-end gap-2">
             <button class="btn btn-light btn-sm">
               <span class="material-symbols-outlined">edit</span>
             </button>
+
             <button class="btn btn-light btn-sm" (click)="eliminarRutina(r.id)">
               <span class="material-symbols-outlined">delete</span>
             </button>
-            <button class="btn btn-fitrank btn-sm fw-bold" (click)="iniciarRutina(r)">
+
+            <!-- 🚫 Solo el SOCIO ve el botón Iniciar -->
+            <button *ngIf="rol === 'socio'" class="btn btn-fitrank btn-sm fw-bold" (click)="iniciarRutina(r)">
               <span class="material-symbols-outlined fs-6 align-middle me-1">play_arrow</span>
               Iniciar
             </button>
           </div>
 
-          <!-- Iconos sociales -->
-          <div class="d-flex justify-content-around align-items-center mt-3 border-top pt-2">
+          <!-- 🔹 Íconos sociales (solo para socios) -->
+          <div *ngIf="rol === 'socio'" class="d-flex justify-content-around align-items-center mt-3 border-top pt-2">
             <button class="icon-btn"><span class="material-symbols-outlined">favorite</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">bookmark</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">chat_bubble</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">share</span></button>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Sin rutinas -->
+    <!-- 🔹 Mensaje si no hay rutinas -->
     <div *ngIf="!loading && !error && rutinas.length === 0" class="text-center text-muted mt-4">
-      <p>Aún no tenés rutinas creadas.</p>
-      <button class="btn btn-fitrank-light" (click)="crearRutina()">➕ Crear mi primera rutina</button>
+      <p>{{ rol === 'profesor' ? 'No creaste rutinas todavía.' : 'Aún no tenés rutinas creadas.' }}</p>
+      <button class="btn btn-fitrank-light" (click)="crearRutina()">
+        ➕ {{ rol === 'profesor' ? 'Crear nueva rutina' : 'Crear mi primera rutina' }}
+      </button>
     </div>
   </div>
-
+</div>

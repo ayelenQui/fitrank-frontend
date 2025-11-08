@@ -16,5 +16,13 @@ export class SolicitudService {
   obtenerPendientes(): Observable<Solicitud[]> {
     return this.http.get<Solicitud[]>(`${this.apiUrl}/pendientes`);
   }
+  tomarSolicitud(solicitudId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+
+    return this.http.post(`${this.apiUrl}/tomar`, { solicitudId }, { headers });
+  }
+
+
 
 }

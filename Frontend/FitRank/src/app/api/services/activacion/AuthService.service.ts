@@ -22,9 +22,10 @@ export class AuthService {
             Apellidos: response.user.apellidos,
             Username: response.user.username,
             Rol: response.user.rol,
-            CuotaPagadaHasta: response.user.cuotaPagadaHasta
+            CuotaPagadaHasta: response.user.cuotaPagadaHasta,
+            GimnasioId: response.user.gimnasioId ?? response.user.GimnasioId ?? null
           };
-          localStorage.setItem('jwt_token', response.token);
+          localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(mappedUser));
 
 
@@ -65,11 +66,11 @@ isAdmin(): boolean {
 
   
   guardarToken(token: string): void {
-    localStorage.setItem('jwt_token', token);
+    localStorage.setItem('token', token);
   }
 
   obtenerToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    return localStorage.getItem('token');
   }
 
  obtenerUser(): any {
@@ -87,7 +88,8 @@ isAdmin(): boolean {
       rol: (u.rol ?? u.Rol ?? '').toString(),
       cuotaPagadaHasta: u.cuotaPagadaHasta ?? u.CuotaPagadaHasta ?? null,
       // si alguna vez guardás nivel:
-      nivel: u.nivel ?? u.Nivel ?? null
+      nivel: u.nivel ?? u.Nivel ?? null,
+      gimnasioId: u.gimnasioId ?? u.GimnasioId ?? null
     };
   } catch {
     return null;
@@ -96,7 +98,7 @@ isAdmin(): boolean {
 
 
   logout(): void {
-    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
 

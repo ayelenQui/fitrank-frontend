@@ -16,7 +16,7 @@ import { MisRutinasComponent } from './modules/rutinas/mis-rutinas/components/mi
 import { IniciarRutinaComponent } from './modules/rutinas/iniciar-rutina/components/iniciar-rutina.component';
 import { ListaTorneosComponent } from './modules/torneo/lista-torneo/lista-torneo.component';
 import { RankingTorneoComponent } from './modules/torneo/ver-torneo/ver-torneo.component';
-import { SocioLayoutComponent } from './layouts/socio-layout/socio-layout.component';
+import { GeneralLayoutComponent } from './layouts/general-layout/general-layout.component';
 import { AccesoGimnasioComponent } from './modules/asistencia/acceso-gimnasio/acceso-gimnasio.component';
 import { CalcularPuntajeComponent } from './modules/rutinas/calcular-puntaje/calcular-puntaje.component';
 import { FormularioRutinaIa } from './modules/rutinas/formulario-rutina-ia/formulario-rutina-ia';
@@ -41,7 +41,7 @@ export const appRoutes: Route[] = [
 
   {
   path: 'solicitudes-profesor',
-  component: SocioLayoutComponent,
+  component: GeneralLayoutComponent,
   canActivate: [AuthGuard],
   children: [
     { path: '', component: SolicitudesProfesor }
@@ -51,7 +51,7 @@ export const appRoutes: Route[] = [
 
   {
     path: 'rutina',
-    component: SocioLayoutComponent,
+    component: GeneralLayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'mis-rutinas', component: MisRutinasComponent },
@@ -90,7 +90,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'socios/:socioId/gimnasios/:gimnasioId/logros',
-    component: SocioLayoutComponent,
+    component: GeneralLayoutComponent,
     loadChildren: () =>
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },

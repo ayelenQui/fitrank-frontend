@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { CrearSolicitudRutinaProfesorDTO } from '@app/api/services/rutina/interfaces/rutina.interface.rest';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
-import { SocioLayoutComponent } from '@app/layouts/socio-layout/socio-layout.component';
+import { GeneralLayoutComponent } from '@app/layouts/general-layout/general-layout.component';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 
 @Component({
   selector: 'app-formulario-rutina-asistida',
-  imports: [CommonModule, ReactiveFormsModule, SocioLayoutComponent],
+  imports: [CommonModule, ReactiveFormsModule, GeneralLayoutComponent],
   templateUrl: './formulario-rutina-asistida.html',
   styleUrl: './formulario-rutina-asistida.css'
 })

@@ -1,0 +1,149 @@
+/* ==============================
+   HEADER PROFESOR – FITRANK
+   ============================== */
+
+.header-profesor {
+  background-color: white; /* fondo oscuro tipo panel */
+  color: black;
+  height: 70px;
+  padding: 0 32px;
+  border-bottom: 2px solid rgba(140, 82, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+  /* Logo y título */
+  .header-profesor .logo {
+    width: 46px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+    .header-profesor .logo:hover {
+      transform: scale(1.1);
+    }
+
+  .header-profesor .titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: black;
+    margin-left: 8px;
+  }
+
+.titulo {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Botón menú (hamburguesa) */
+.btn-menu {
+  border: none;
+ 
+  color: #9d4edd;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+  .btn-menu:hover {
+    transform: scale(1.1);
+    color: #b892ff;
+  }
+
+/* Acciones derecha */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+  /* Botones principales */
+  .acciones .btn-link {
+    color: black;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+  }
+
+    .acciones .btn-link i {
+      color: #9d4edd;
+      margin-right: 4px;
+    }
+
+    .acciones .btn-link:hover {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+/* Info usuario */
+.user-info {
+  text-align: right;
+  font-family: 'Bebas Neue', sans-serif;
+  color: black;
+}
+
+  .user-info small {
+    color: black;
+    font-size: 0.8rem;
+  }
+
+  .user-info strong {
+    color: black;
+    font-size: 1rem;
+  }
+
+/* Botón logout */
+.btn-logout {
+  background: transparent;
+  border: 1.5px solid #9d4edd;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #9d4edd;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+  .btn-logout:hover {
+    background: #9d4edd;
+    color: white;
+    transform: scale(1.05);
+  }
+
+/* ===========================
+   🔹 MODO RESPONSIVE
+   =========================== */
+@media (max-width: 992px) {
+  .header-profesor {
+    padding: 0 16px;
+  }
+
+  .titulo {
+    font-size: 1.2rem;
+  }
+
+  .acciones {
+    gap: 10px;
+  }
+
+  .btn-link span {
+    display: none; /* mostrar solo íconos en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .header-profesor {
+    justify-content: space-between;
+  }
+
+  .acciones {
+    display: none; /* se puede combinar con menú lateral */
+  }
+
+  .btn-menu {
+    font-size: 1.6rem;
+  }
+}

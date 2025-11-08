@@ -10,6 +10,8 @@ import { AdminInvitacionComponent } from './modules/admin-invitacion/components/
 import { HeaderSocioComponent } from './public/header-socio/header-socio.component';
 import gsap from 'gsap';
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,

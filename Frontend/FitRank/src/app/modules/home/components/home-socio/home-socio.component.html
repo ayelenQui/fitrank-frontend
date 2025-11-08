@@ -1,237 +1,263 @@
-<app-header-socio [user]="user"></app-header-socio>
-<div class="container-fluid min-vh-100 bg-light py-4">
-  <!-- 🟣 HEADER -->
-  <!-- <header class="d-flex justify-content-between align-items-center bg-white shadow rounded-4 p-3 mb-5">
-    <div class="d-flex align-items-center gap-3">
-      <svg width="60" viewBox="0 0 365 338"> ... </svg>
-      <h2 class="fw-bold mb-0 text-fitrank">FitRank</h2>
-    </div>
 
-    <div class="d-flex align-items-center gap-4">
+<div *ngIf="!esProfesor">
+  <app-header-socio [user]="user"></app-header-socio>
+  <div class="container-fluid min-vh-100 bg-light py-4">
+    <!-- 🟣 HEADER -->
+    <!-- <header class="d-flex justify-content-between align-items-center bg-white shadow rounded-4 p-3 mb-5">
       <div class="d-flex align-items-center gap-3">
-        <div class="text-end me-2">
-          <p class="fw-semibold mb-0">{{ user?.Nombre }}</p>
-          <small class="text-muted">Mi perfil</small>
+        <svg width="60" viewBox="0 0 365 338"> ... </svg>
+        <h2 class="fw-bold mb-0 text-fitrank">FitRank</h2>
+      </div>
+
+      <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center gap-3">
+          <div class="text-end me-2">
+            <p class="fw-semibold mb-0">{{ user?.Nombre }}</p>
+            <small class="text-muted">Mi perfil</small>
+          </div>
+          <img src="assets/img/avatar-default.png" class="rounded-circle border" width="45" height="45" />
         </div>
-        <img src="assets/img/avatar-default.png" class="rounded-circle border" width="45" height="45" />
+
+        <button class="btn btn-outline-fitrank d-flex align-items-center gap-2" (click)="logout()">
+          <span class="material-symbols-outlined">logout</span>
+          Cerrar sesión
+        </button>
+      </div>
+    </header> -->
+    <!-- 👋 SALUDO -->
+    <div class="text-center mb-4">
+      <h2 class="display-6 fw-bold text-dark">¡Hola, {{ user.nombre }}!</h2>
+      <p class="text-muted fs-5">Tu progreso te está llevando al siguiente nivel 💪</p>
+
+      <div class="d-flex justify-content-center align-items-center mt-2 mb-2">
+        <div *ngIf="socio" class="badge bg-fitrank-subtle text-fitrank fs-6">
+          Nivel Actual: <strong>{{ socio.nivel }}</strong>
+        </div>
       </div>
 
-      <button class="btn btn-outline-fitrank d-flex align-items-center gap-2" (click)="logout()">
-        <span class="material-symbols-outlined">logout</span>
-        Cerrar sesión
-      </button>
-    </div>
-  </header> -->
-  <!-- 👋 SALUDO -->
-  <div class="text-center mb-4">
-    <h2 class="display-6 fw-bold text-dark">¡Hola, {{ user.nombre }}!</h2>
-    <p class="text-muted fs-5">Tu progreso te está llevando al siguiente nivel 💪</p>
-
-    <div class="d-flex justify-content-center align-items-center mt-2 mb-2">
-      <div *ngIf="socio" class="badge bg-fitrank-subtle text-fitrank fs-6">
-        Nivel Actual: <strong>{{ socio.nivel }}</strong>
-      </div>
-    </div>
-
-    <!-- 🏋️‍♂️ PANEL PRINCIPAL -->
-    <div class="row g-4 mb-5 justify-content-center align-items-stretch">
-      <!-- Entrenamiento del día -->
-      <div class="col-lg-7 col-md-8">
-        <div class="card overflow-hidden shadow-sm border-0 h-100">
-          <div class="row g-0 h-100">
-            <div
-              class="col-md-6"
-              style="
+      <!-- 🏋️‍♂️ PANEL PRINCIPAL -->
+      <div class="row g-4 mb-5 justify-content-center align-items-stretch">
+        <!-- Entrenamiento del día -->
+        <div class="col-lg-7 col-md-8">
+          <div class="card overflow-hidden shadow-sm border-0 h-100">
+            <div class="row g-0 h-100">
+              <div class="col-md-6"
+                   style="
                 background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80');
                 background-size: cover;
                 background-position: center;
                 height: 100%;
-              "
-            ></div>
-            <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
-              <h4 class="fw-bold mb-2 text-fitrank">Entrenamiento del día</h4>
-              <p class="text-muted mb-3">Rutina actual: <strong>Full Body Power</strong></p>
-              <button
-                class="btn btn-fitrank d-flex align-items-center gap-2 w-100"
-                (click)="navegarA('/rutina/mis-rutinas')"
-              >
-                <span class="material-symbols-outlined">play_arrow</span>
-                Iniciar entrenamiento
-              </button>
+              "></div>
+              <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+                <h4 class="fw-bold mb-2 text-fitrank">Entrenamiento del día</h4>
+                <p class="text-muted mb-3">Rutina actual: <strong>Full Body Power</strong></p>
+                <button class="btn btn-fitrank d-flex align-items-center gap-2 w-100"
+                        (click)="navegarA('/rutina/mis-rutinas')">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                  Iniciar entrenamiento
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Progreso semanal -->
-      <div class="col-lg-4 col-md-6">
-        <div class="card p-4 text-center shadow-sm border-0 h-100">
-          <h6 class="section-title mb-3">Progreso semanal</h6>
-          <div class="progress mb-2" style="height: 12px">
-            <div class="progress-bar bg-fitrank" style="width: 70%"></div>
+        <!-- Progreso semanal -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card p-4 text-center shadow-sm border-0 h-100">
+            <h6 class="section-title mb-3">Progreso semanal</h6>
+            <div class="progress mb-2" style="height: 12px">
+              <div class="progress-bar bg-fitrank" style="width: 70%"></div>
+            </div>
+            <p class="text-muted small mb-1">Completaste <strong>7/10 objetivos</strong></p>
+            <span class="badge bg-fitrank-subtle text-fitrank">+5% vs semana pasada</span>
           </div>
-          <p class="text-muted small mb-1">Completaste <strong>7/10 objetivos</strong></p>
-          <span class="badge bg-fitrank-subtle text-fitrank">+5% vs semana pasada</span>
         </div>
       </div>
-    </div>
 
-    <!-- ⚡ ACCIONES RÁPIDAS -->
-    <section class="mb-5">
-      <div class="row g-3 justify-content-center">
-        <div class="col-12 col-md-3">
-          <button class="quick-action w-100" (click)="navegarA('/ranking')">
-            <span class="material-symbols-outlined me-2">emoji_events</span>
-            Ranking
-          </button>
+      <!-- ⚡ ACCIONES RÁPIDAS -->
+      <section class="mb-5">
+        <div class="row g-3 justify-content-center">
+          <div class="col-12 col-md-3">
+            <button class="quick-action w-100" (click)="navegarA('/ranking')">
+              <span class="material-symbols-outlined me-2">emoji_events</span>
+              Ranking
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button class="quick-action w-100" (click)="navegarA('/rutina/crear/')">
+              <span class="material-symbols-outlined me-2">add_circle</span>
+              Crear rutina
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button class="quick-action w-100" (click)="navegarA('/rutina/mis-rutinas')">
+              <span class="material-symbols-outlined me-2">list_alt</span>
+              Mis rutinas
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button class="quick-action w-100" (click)="navegarA('/socios/1/gimnasios/1/logros')">
+              <span class="material-symbols-outlined me-2">military_tech</span>
+              Mis logros
+            </button>
+          </div>
         </div>
-        <div class="col-12 col-md-3">
-          <button class="quick-action w-100" (click)="navegarA('/rutina/crear/')">
-            <span class="material-symbols-outlined me-2">add_circle</span>
-            Crear rutina
+      </section>
+      <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
+      <div *ngIf="mostrarRetencion" class="card-retencion text-center">
+        <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5>
+        <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p>
+
+        <div class="d-flex flex-column gap-2 mt-3">
+          <button class="btn btn-primary w-100" (click)="responder('cambiar-rutina')">
+            🔄 Cambiar rutina
           </button>
-        </div>
-        <div class="col-12 col-md-3">
-          <button class="quick-action w-100" (click)="navegarA('/rutina/mis-rutinas')">
-            <span class="material-symbols-outlined me-2">list_alt</span>
-            Mis rutinas
+          <button class="btn btn-success w-100" (click)="responder('estoy-bien')">
+            ✅ Estoy bien
           </button>
-        </div>
-        <div class="col-12 col-md-3">
-          <button class="quick-action w-100" (click)="navegarA('/socios/1/gimnasios/1/logros')">
-            <span class="material-symbols-outlined me-2">military_tech</span>
-            Mis logros
+          <button class="btn btn-warning w-100" (click)="responder('contactar-profesor')">
+            Que me contacte un profesor
           </button>
         </div>
       </div>
-    </section>
-    <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
-    <div *ngIf="mostrarRetencion" class="card-retencion text-center">
-      <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5>
-      <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p>
 
-      <div class="d-flex flex-column gap-2 mt-3">
-        <button class="btn btn-primary w-100" (click)="responder('cambiar-rutina')">
-          🔄 Cambiar rutina
+      <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
+      <div *ngIf="mostrarRetencion" class="card-retencion text-center">
+        <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5>
+        <p>
+          Hace algunos días que no registramos tus entrenamientos.<br />
+          ¿Querés retomar con energía?
+        </p>
+      </div>
+
+      <!-- 🔔 NOTIFICACIONES (Globales + Personales) -->
+      <section class="mb-5">
+        <div class="container">
+          <div class="row g-4 justify-content-center align-items-start">
+            <!-- 🌍 Globales -->
+            <div class="col-md-6 col-lg-5">
+              <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Globales</h3>
+              <div class="list-group shadow-sm rounded-4">
+                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
+                  <span class="material-symbols-outlined me-3 mt-1">campaign</span>
+                  <div>
+                    <p class="fw-semibold mb-1">Nueva clase disponible</p>
+                    <small class="text-muted">Yoga funcional se ha añadido a la grilla semanal.</small>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
+                  <span class="material-symbols-outlined me-3 mt-1">event</span>
+                  <div>
+                    <p class="fw-semibold mb-1">Competencia mensual</p>
+                    <small class="text-muted">Inscribite al desafío “Strong Week” antes del viernes.</small>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start bg-light border-0">
+                  <span class="material-symbols-outlined me-3 mt-1">local_fire_department</span>
+                  <div>
+                    <p class="fw-semibold mb-1">Nuevos récords en el gimnasio</p>
+                    <small class="text-muted">Se superó la marca de 10.000 entrenamientos este mes 💪</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <button class="btn btn-fitrank px-4 py-2"
+                        (click)="navegarA('/notificaciones-globales')">
+                  Ver todas
+                </button>
+              </div>
+            </div>
+
+            <!-- 🧍 Personales -->
+            <div class="col-md-6 col-lg-5">
+              <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Personales</h3>
+              <div class="list-group shadow-sm rounded-4">
+                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
+                  <span class="material-symbols-outlined me-3 mt-1">celebration</span>
+                  <div>
+                    <p class="fw-semibold mb-1">¡Nuevo logro desbloqueado!</p>
+                    <small class="text-muted">Has conseguido el logro “Guerrero del Fin de Semana”.</small>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
+                  <span class="material-symbols-outlined me-3 mt-1">calendar_month</span>
+                  <div>
+                    <p class="fw-semibold mb-1">Recordatorio de Clase</p>
+                    <small class="text-muted">Tu clase de Spinning es hoy a las 18:00.</small>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start bg-light border-0">
+                  <span class="material-symbols-outlined text-secondary me-3 mt-1">task_alt</span>
+                  <div>
+                    <p class="fw-semibold mb-1">Rutina Actualizada</p>
+                    <small class="text-muted">Tu entrenador ha actualizado tu rutina de piernas.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <button class="btn btn-fitrank px-4 py-2"
+                        (click)="navegarA('/notificaciones-personales')">
+                  Ver todas
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🚪 LOGOUT -->
+      <div class="text-center mt-5">
+        <button class="btn btn-outline-fitrank px-4 py-2" (click)="logout()">
+          <span class="material-symbols-outlined me-2">logout</span> Cerrar sesión
         </button>
-        <button class="btn btn-success w-100" (click)="responder('estoy-bien')">
-          ✅ Estoy bien
-        </button>
-        <button class="btn btn-warning w-100" (click)="responder('contactar-profesor')">
-          Que me contacte un profesor
-        </button>
       </div>
-    </div>
-
-    <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
-    <div *ngIf="mostrarRetencion" class="card-retencion text-center">
-      <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5>
-      <p>
-        Hace algunos días que no registramos tus entrenamientos.<br />
-        ¿Querés retomar con energía?
-      </p>
-    </div>
-
-    <!-- 🔔 NOTIFICACIONES (Globales + Personales) -->
-    <section class="mb-5">
-      <div class="container">
-        <div class="row g-4 justify-content-center align-items-start">
-          <!-- 🌍 Globales -->
-          <div class="col-md-6 col-lg-5">
-            <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Globales</h3>
-            <div class="list-group shadow-sm rounded-4">
-              <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                <span class="material-symbols-outlined me-3 mt-1">campaign</span>
-                <div>
-                  <p class="fw-semibold mb-1">Nueva clase disponible</p>
-                  <small class="text-muted"
-                    >Yoga funcional se ha añadido a la grilla semanal.</small
-                  >
-                </div>
-              </div>
-
-              <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                <span class="material-symbols-outlined me-3 mt-1">event</span>
-                <div>
-                  <p class="fw-semibold mb-1">Competencia mensual</p>
-                  <small class="text-muted"
-                    >Inscribite al desafío “Strong Week” antes del viernes.</small
-                  >
-                </div>
-              </div>
-
-              <div class="list-group-item d-flex align-items-start bg-light border-0">
-                <span class="material-symbols-outlined me-3 mt-1">local_fire_department</span>
-                <div>
-                  <p class="fw-semibold mb-1">Nuevos récords en el gimnasio</p>
-                  <small class="text-muted"
-                    >Se superó la marca de 10.000 entrenamientos este mes 💪</small
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="text-center mt-4">
-              <button
-                class="btn btn-fitrank px-4 py-2"
-                (click)="navegarA('/notificaciones-globales')"
-              >
-                Ver todas
-              </button>
-            </div>
-          </div>
-
-          <!-- 🧍 Personales -->
-          <div class="col-md-6 col-lg-5">
-            <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Personales</h3>
-            <div class="list-group shadow-sm rounded-4">
-              <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                <span class="material-symbols-outlined me-3 mt-1">celebration</span>
-                <div>
-                  <p class="fw-semibold mb-1">¡Nuevo logro desbloqueado!</p>
-                  <small class="text-muted"
-                    >Has conseguido el logro “Guerrero del Fin de Semana”.</small
-                  >
-                </div>
-              </div>
-
-              <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                <span class="material-symbols-outlined me-3 mt-1">calendar_month</span>
-                <div>
-                  <p class="fw-semibold mb-1">Recordatorio de Clase</p>
-                  <small class="text-muted">Tu clase de Spinning es hoy a las 18:00.</small>
-                </div>
-              </div>
-
-              <div class="list-group-item d-flex align-items-start bg-light border-0">
-                <span class="material-symbols-outlined text-secondary me-3 mt-1">task_alt</span>
-                <div>
-                  <p class="fw-semibold mb-1">Rutina Actualizada</p>
-                  <small class="text-muted"
-                    >Tu entrenador ha actualizado tu rutina de piernas.</small
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="text-center mt-4">
-              <button
-                class="btn btn-fitrank px-4 py-2"
-                (click)="navegarA('/notificaciones-personales')"
-              >
-                Ver todas
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 🚪 LOGOUT -->
-    <div class="text-center mt-5">
-      <button class="btn btn-outline-fitrank px-4 py-2" (click)="logout()">
-        <span class="material-symbols-outlined me-2">logout</span> Cerrar sesión
-      </button>
     </div>
   </div>
 </div>
+
+<!-- 🧑‍🏫 PANEL DEL PROFESOR -->
+<div *ngIf="esProfesor" class="container py-5 text-center">
+  <app-header-profesor [user]="user"></app-header-profesor><br />
+
+    <h2 class="display-6 fw-bold text-dark">¡Profe, {{ user.nombre }}!</h2>
+
+
+   
+    <p class="text-muted mb-5">Gestioná tus rutinas, alumnos y notificaciones 👇</p>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-md-4">
+        <button class="quick-action w-100" (click)="navegarA('/profesor/rutinas')">
+          <span class="material-symbols-outlined me-2">list_alt</span>
+          Ver mis rutinas creadas
+        </button>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-12 col-md-4">
+          <button class="quick-action w-100" (click)="navegarA('solicitudes-profesor')">
+            <span class="material-symbols-outlined me-2">list_alt</span>
+            Panel de Solictudes Generales
+          </button>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <button class="quick-action w-100" (click)="navegarA('/profesor/alumnos')">
+            <span class="material-symbols-outlined me-2">group</span>
+            Ver mis alumnos
+          </button>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
+            <span class="material-symbols-outlined me-2">notifications_active</span>
+            Notificaciones
+          </button>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,20 @@
+<div class="fit-dashboard-wrapper">
+  <ng-container [ngSwitch]="rol">
+    <app-header-socio *ngSwitchCase="'socio'" (menuToggle)="toggleSidebar()"></app-header-socio>
+    <app-header-profesor *ngSwitchCase="'profesor'" (menuToggle)="toggleSidebar()"></app-header-profesor>
+  </ng-container>
+
+  <div class="fit-dashboard-body">
+    <ng-container [ngSwitch]="rol">
+      <app-sidebar-socio *ngSwitchCase="'socio'" [class.open]="sidebarAbierto"></app-sidebar-socio>
+      <app-sidebar-profesor *ngSwitchCase="'profesor'" [class.open]="sidebarAbierto"></app-sidebar-profesor>
+    </ng-container>
+
+    <div class="fit-dashboard-main" (click)="cerrarSidebarEnMovil()">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- Footer ahora fuera del main -->
+  <app-footer></app-footer>
+</div>

@@ -5,7 +5,8 @@ import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { AfterViewInit } from '@angular/core';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
+import { ProfesorService } from '@app/api/services/profesor/ProfesorService';
 import gsap from 'gsap';
 @Component({
   selector: 'app-mis-rutinas',
@@ -19,6 +20,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   loading = true;
   error = '';
   userId?: number;
+  rol?: string;
 
   // 📈 Datos para la sección lateral (Progreso / Próximas sesiones)
   sesionesCompletadas: number = 0;
@@ -39,7 +41,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     private rutinaService: RutinaService,
     private auth: AuthService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private profesorService: ProfesorService
   ) { }
     ngAfterViewInit() {
     gsap.fromTo(
@@ -92,17 +95,23 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
    
 
     const user = this.auth.obtenerUser();
-    this.userId = user?.Id || user?.id;
+    this.userId = user?.id ?? user?.Id;
+    this.rol = user?.rol?.toLowerCase();
 
-    if (!this.userId) {
-      this.error = 'No se pudo obtener el usuario. Iniciá sesión nuevamente.';
+    if (!this.userId || !this.rol) {
+      this.error = 'No se pudo obtener la sesión. Iniciá sesión nuevamente.';
       this.router.navigate(['/login']);
       return;
     }
-  
 
-    this.cargarRutinas();
+    // 🔹 Cargar rutinas según el rol
+    if (this.rol === 'socio') {
+      this.cargarRutinas();
+    } else if (this.rol === 'profesor') {
+      this.cargarRutinasProfesor();
+    }
   }
+  
 
   cargarRutinas(): void {
     this.loading = true;
@@ -153,6 +162,24 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
         this.actualizarContadores(); // 🔹 recalcular totales
       },
       error: (err) => console.error('Error al eliminar rutina:', err)
+    });
+  }
+
+  cargarRutinasProfesor(): void {
+    this.loading = true;
+
+    this.profesorService.obtenerRutinasPorProfesor(this.userId!).subscribe({
+      next: (data) => {
+        console.log('📘 Rutinas creadas por el profesor:', data);
+        this.rutinas = data || [];
+        this.actualizarContadores();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error cargando rutinas del profesor:', err);
+        this.error = 'No se pudieron cargar las rutinas creadas.';
+        this.loading = false;
+      }
     });
   }
 
