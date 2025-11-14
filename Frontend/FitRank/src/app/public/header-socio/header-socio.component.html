@@ -18,7 +18,15 @@
     <button class="header__navboton" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
   </nav>
 
+
   <div class="header__perfil">
+    <div class="noti-icon" (click)="abrirNotificaciones()">
+      <i class="bi bi-bell-fill" [class.activa]="hayNotificacionesNuevas"></i>
+      <span class="badge" *ngIf="notificacionesNuevas > 0">
+        {{ notificacionesNuevas }}
+      </span>
+    </div>
+
     <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
          alt="Perfil"
          class="header__imagen" />
@@ -39,3 +47,22 @@
   <button (click)="logout()"> Cerrar sesión</button>
 </nav>
 
+<!-- 🔔 POPUP DE NOTIFICACIONES -->
+<div class="popup-notificaciones" *ngIf="mostrarPopup">
+  <div class="popup-header">
+    <h4>Notificaciones</h4>
+    <button class="cerrar" (click)="mostrarPopup = false">✖</button>
+  </div>
+
+  <div class="popup-body">
+    <div *ngIf="notificaciones.length === 0" class="sin-noti">
+      No tenés notificaciones aún 😊
+    </div>
+
+    <div class="noti-item" *ngFor="let n of notificaciones">
+      <div class="noti-titulo">{{ n.titulo }}</div>
+      <div class="noti-mensaje">{{ n.mensaje }}</div>
+      <div class="noti-fecha">{{ n.fechaCreacion | date:'dd/MM HH:mm' }}</div>
+    </div>
+  </div>
+</div>

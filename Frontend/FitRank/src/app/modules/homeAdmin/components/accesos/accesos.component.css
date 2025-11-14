@@ -36,6 +36,131 @@ h2.fw-bold {
     box-shadow: 0 0 30px rgba(155, 93, 229, 0.8);
   }
 
+.ocupacion-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+/* 🔵 Tarjeta del contador */
+.ocupacion-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  border: 2px solid #8c52ff22;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  transition: 0.3s ease;
+}
+
+  .ocupacion-card:hover {
+    transform: scale(1.02);
+  }
+
+  .ocupacion-card h2 {
+    font-family: 'Bebas Neue';
+    color: #8c52ff;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+.contador {
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #0f0d13;
+}
+
+.sub {
+  color: #888;
+  margin-top: -5px;
+  font-size: 1.1rem;
+}
+
+/* 🟣 Lista de movimientos */
+.movimientos-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid #8c52ff22;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+  .movimientos-card h3 {
+    font-family: 'Bebas Neue';
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.8rem;
+  }
+
+/* 🔽 Cada movimiento */
+.movimiento {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f8f8fb;
+  margin-bottom: 10px;
+  transition: 0.25s ease;
+}
+
+  .movimiento:hover {
+    background: #f3edff;
+    transform: translateX(5px);
+  }
+
+/* avatar */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.info {
+  flex: 1;
+}
+
+.nombre {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.fecha {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* 🟢 entrada / 🔴 salida */
+.tipo {
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+  .tipo.entrada {
+    background: #def9e5;
+    color: #0c8b2c;
+  }
+
+  .tipo.salida {
+    background: #ffe3e3;
+    color: #d02121;
+  }
+
+/* 📱 responsive */
+@media (max-width: 768px) {
+  .ocupacion-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
 /* 🎛️ Botones personalizados */
 .btn-fitrank {
   background: linear-gradient(135deg, #9b5de5, #6a0dad);

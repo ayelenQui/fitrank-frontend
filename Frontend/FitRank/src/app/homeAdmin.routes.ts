@@ -12,6 +12,7 @@ import { RealtimeComponent } from './modules/homeAdmin/components/realtime/realt
 import { AdminLayoutComponent } from './modules/homeAdmin/layout/admin-layout.component';
 
 
+
 export const homeAdminRoutes: Routes = [
   {
     path: '',

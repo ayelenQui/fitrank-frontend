@@ -1,21 +1,126 @@
-<div class="container-fluid py-4 text-light">
-  <h2 class="text-fitrank fw-bold mb-4">👨‍🏫 Gestión de Profesores</h2>
+<div class="container py-4">
+  <h2 class="text-center text-black fw-bold mb-4"> Gestión de Profesores</h2>
+  <div class="container mt-4 mb-5">
+    <h3 class="text-black fw-bold mb-4"> Estadísticas de Profesores</h3>
 
-  <!-- 🔍 Filtro -->
-  <div class="mb-3 d-flex align-items-center gap-2">
-    <input type="text"
-           class="form-control bg-dark text-light border-0"
-           placeholder="Buscar profesor por nombre o apellido..."
-           [(ngModel)]="filtro"
-           (input)="filtrarProfesores()" />
-    <button class="btn btn-fitrank" (click)="abrirFormulario()">➕ Agregar Profesor</button>
+    <div class="row g-3">
+      <!-- 🟣 Más solicitado -->
+      <div class="col-md-3 col-6" *ngIf="estadisticas?.topSolicitado">
+        <div class="card-stat text-black">
+          <h6>Más solicitado</h6>
+          <p class="nombre">{{ estadisticas?.topSolicitado?.nombreProfesor }}</p>
+          <p class="valor">{{ estadisticas?.topSolicitado?.cantidadSolicitudes }} solicitudes</p>
+        </div>
+      </div>
+
+      <!-- 🟡 Más pendientes -->
+      <div class="col-md-3 col-6" *ngIf="estadisticas?.topPendientes">
+        <div class="card-stat text-black">
+          <h6>Más pendientes</h6>
+          <p class="nombre">{{ estadisticas?.topPendientes?.nombreProfesor }}</p>
+          <p class="valor">{{ estadisticas?.topPendientes?.pendientes }} en espera</p>
+        </div>
+      </div>
+
+      <!-- 🟢 Más cumplidor -->
+      <div class="col-md-3 col-6" *ngIf="estadisticas?.topCumplidor">
+        <div class="card-stat text-black">
+          <h6>Más cumplidor</h6>
+          <p class="nombre">{{ estadisticas?.topCumplidor?.nombreProfesor }}</p>
+          <p class="valor">{{ estadisticas?.topCumplidor?.completadas }} resueltas</p>
+        </div>
+      </div>
+
+      <!-- 💜 Mejor valorado -->
+      <div class="col-md-3 col-6" *ngIf="estadisticas?.topValorado">
+        <div class="card-stat text-black">
+          <h6>Mejor valorado</h6>
+          <p class="nombre">{{ estadisticas?.topValorado?.nombreProfesor }}</p>
+          <p class="valor">⭐ {{ estadisticas?.topValorado?.promedioValoracion }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- 📋 Tabla de profesores -->
-  <div class="table-responsive bg-dark p-3 rounded shadow-sm">
-    <table class="table table-dark table-hover align-middle mb-0">
-      <thead>
-        <tr class="text-fitrank">
+
+  <!-- 🟣 FORMULARIO DE PROFESOR -->
+  <div *ngIf="mostrarFormulario" class="card bg-dark text-white p-4 mb-4 rounded-4">
+    <h4 class="mb-3">{{ profesorSeleccionado ? '✏️ Editar Profesor' : '➕ Nuevo Profesor' }}</h4>
+
+    <form [formGroup]="formProfesor" (ngSubmit)="guardarProfesor()">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre">
+        </div>
+        <div class="col-md-6">
+          <label>Apellido</label>
+          <input type="text" class="form-control" formControlName="apellido">
+        </div>
+        <div class="col-md-6">
+          <label>DNI</label>
+          <input type="number" class="form-control" formControlName="dni">
+        </div>
+        <div class="col-md-6">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="email">
+        </div>
+        <div class="col-md-6">
+          <label>Teléfono</label>
+          <input type="text" class="form-control" formControlName="telefono">
+        </div>
+        <div class="col-md-6">
+          <label>Sexo</label>
+          <select class="form-select" formControlName="sexo">
+            <option value="">Seleccionar...</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Fecha Nacimiento</label>
+          <input type="date" class="form-control" formControlName="fechaNacimiento">
+        </div>
+        <div class="col-md-6">
+          <label>Matrícula</label>
+          <input type="text" class="form-control" formControlName="matricula">
+        </div>
+        <div class="col-md-6">
+          <label>Sueldo</label>
+          <input type="number" class="form-control" formControlName="sueldo">
+        </div>
+        <div class="col-md-6" *ngIf="!profesorSeleccionado">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" formControlName="password">
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-fitrank">
+          {{ profesorSeleccionado ? 'Guardar Cambios' : 'Agregar Profesor' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 🔍 FILTRO -->
+  <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+    <input type="text"
+           class="form-control w-auto flex-grow-1"
+           placeholder="Buscar por nombre o apellido..."
+           [(ngModel)]="filtro"
+           (input)="filtrarProfesores()">
+
+    <button class="btn btn-fitrank" (click)="abrirFormulario()">➕ Nuevo Profesor</button>
+  </div>
+
+  <!-- 📋 LISTADO -->
+  <div class="table-responsive">
+    <table class="table table-dark table-hover align-middle">
+      <thead class="bg-fitrank text-white">
+        <tr>
           <th>Nombre</th>
           <th>Email</th>
           <th>Teléfono</th>
@@ -24,104 +129,93 @@
           <th>Acciones</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr *ngFor="let profesor of profesoresFiltrados">
-          <td>{{ profesor.nombre }} {{ profesor.apellido }}</td>
-          <td>{{ profesor.email }}</td>
-          <td>{{ profesor.telefono || '-' }}</td>
-          <td>{{ profesor.matricula }}</td>
-          <td>${{ profesor.sueldo }}</td>
-          <td>
-            <div class="d-flex flex-wrap gap-2">
-              <button class="btn btn-sm btn-outline-info" (click)="verRutinas(profesor)">
-                🏋️ Ver Rutinas
-              </button>
+        <ng-container *ngFor="let profesor of profesoresFiltrados">
 
-              <button class="btn btn-sm btn-outline-light" (click)="editarProfesor(profesor)">
-                ✏️ Editar
-              </button>
+          <!-- 🔹 Fila principal -->
+          <tr>
+            <td>{{ profesor.nombre }} {{ profesor.apellido }}</td>
+            <td>{{ profesor.email }}</td>
+            <td>{{ profesor.telefono || '-' }}</td>
+            <td>{{ profesor.matricula }}</td>
+            <td>${{ profesor.sueldo }}</td>
+            <td>
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-info" (click)="verRutinas(profesor)">
+                  🏋️ Ver Rutinas
+                </button>
+                <button class="btn btn-sm btn-outline-light" (click)="editarProfesor(profesor)">
+                  ✏️ Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.id)">
+                  🗑️ Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
 
-              <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.id)">
-                🗑️ Eliminar
-              </button>
-            </div>
-          </td>
-        </tr>
+          <!-- 🔽 Bloque expandido -->
+          <tr *ngIf="profesorExpandido === profesor.id">
+            <td colspan="6">
+              <div class="card bg-dark text-white p-3 mt-3 rounded-4 border border-secondary">
+                <div class="row">
+                  <div class="col-md-4 text-center">
+                    <img [src]="profesor.fotoDePerfil || 'assets/img/default-user.jpg'"
+                         alt="Foto"
+                         class="rounded-circle border border-light mb-3"
+                         width="100" height="100">
+                    <p><strong>Sexo:</strong> {{ profesor.sexo }}</p>
+                    <p><strong>Edad:</strong> {{ calcularEdad(profesor.fechaNacimiento) }} años</p>
+                    <p><strong>Estado:</strong> {{ profesor.estado }}</p>
+                  </div>
+
+                  <div class="col-md-8">
+                    <p><strong>Email:</strong> {{ profesor.email }}</p>
+                    <p>
+                      <strong>Teléfono:</strong> {{ profesor.telefono || 'No disponible' }}
+                      <button *ngIf="profesor.telefono"
+                              class="btn btn-success btn-sm ms-2"
+                              (click)="abrirWhatsApp(profesor.telefono, profesor.nombre)">
+                        <i class="bi bi-whatsapp"></i> WhatsApp
+                      </button>
+                    </p>
+
+                    <p><strong>Gimnasio:</strong> {{ profesor.gimnasioNombre || 'Sin asignar' }}</p>
+                    <p><strong>Matrícula:</strong> {{ profesor.matricula }}</p>
+                    <p><strong>Sueldo:</strong> ${{ profesor.sueldo }}</p>
+                  </div>
+                </div>
+
+                <!-- 🏋️ Rutinas -->
+                <div class="mt-4">
+                  <h5 class="text-white mb-3">Rutinas creadas</h5>
+
+                  <div *ngIf="profesor.rutinas?.length; else sinRutinas" class="row g-3">
+                    <div *ngFor="let r of profesor.rutinas" class="col-md-4 col-12">
+                      <div class="bg-secondary p-3 rounded-3">
+                        <h6 class="fw-bold">{{ r.nombre }}</h6>
+                        <p class="small mb-1">{{ r.descripcion || 'Sin descripción' }}</p>
+                        <p class="small mb-1"><strong>Socio:</strong> {{ r.socioNombre || 'No asignado' }}</p>
+                        <p class="small mb-1"><strong>Tipo:</strong> {{ r.tipo || 'Manual' }}</p>
+                        <p class="small mb-1"><strong>Creada:</strong> {{ r.fechaCreacion | date:'dd/MM/yyyy' }}</p>
+                        <span class="badge" [ngClass]="r.activa ? 'bg-success' : 'bg-secondary'">
+                          {{ r.activa ? 'Activa' : 'Inactiva' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ng-template #sinRutinas>
+                    <p class="text-muted text-center mt-2">No tiene rutinas creadas aún.</p>
+                  </ng-template>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </ng-container>
       </tbody>
     </table>
-
-    <div *ngIf="profesoresFiltrados.length === 0" class="text-center mt-3 text-muted">
-      No se encontraron profesores.
-    </div>
-  </div>
-
-  <!-- 🪟 Formulario flotante -->
-  <div *ngIf="mostrarFormulario" class="card mt-4 p-4 shadow-lg border-0 bg-dark text-white">
-    <h4 class="mb-3 text-fitrank">
-      {{ profesorSeleccionado ? 'Editar Profesor' : 'Agregar Profesor' }}
-    </h4>
-
-    <form [formGroup]="formProfesor" (ngSubmit)="guardarProfesor()" novalidate>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label">Nombre</label>
-          <input type="text" class="form-control bg-secondary text-white" formControlName="nombre" />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Apellido</label>
-          <input type="text" class="form-control bg-secondary text-white" formControlName="apellido" />
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">DNI</label>
-          <input type="number" class="form-control bg-secondary text-white" formControlName="dni" />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control bg-secondary text-white" formControlName="email" />
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">Teléfono</label>
-          <input type="text" class="form-control bg-secondary text-white" formControlName="telefono" />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Sexo</label>
-          <select class="form-select bg-secondary text-white" formControlName="sexo">
-            <option value="">Seleccione...</option>
-            <option value="Femenino">Femenino</option>
-            <option value="Masculino">Masculino</option>
-          </select>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">Fecha de Nacimiento</label>
-          <input type="date" class="form-control bg-secondary text-white" formControlName="fechaNacimiento" />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Matrícula</label>
-          <input type="text" class="form-control bg-secondary text-white" formControlName="matricula" />
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">Sueldo</label>
-          <input type="number" class="form-control bg-secondary text-white" formControlName="sueldo" />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Contraseña</label>
-          <input type="password"
-                 placeholder="********"
-                 class="form-control bg-secondary text-white"
-                 formControlName="password" />
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-end gap-3 mt-4">
-        <button type="button" class="btn btn-outline-light" (click)="cancelarFormulario()">Cancelar</button>
-        <button type="submit" class="btn btn-fitrank">
-          {{ profesorSeleccionado ? 'Actualizar' : 'Guardar' }}
-        </button>
-      </div>
-    </form>
   </div>
 </div>

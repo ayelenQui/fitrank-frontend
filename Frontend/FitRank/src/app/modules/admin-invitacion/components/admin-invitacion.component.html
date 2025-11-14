@@ -1,19 +1,7 @@
 <div class="invitacion-background">
 
-  <!-- Logo flotante detrás -->
-  <div class="logo-fondo">
-    <svg width="700"
-         height="700"
-         viewBox="0 0 365 338"
-         fill="none"
-         xmlns="http://www.w3.org/2000/svg">
-      <path d="M289.769 150.778C230.894 210.42 172.502 269.621 114.093 328.805C102.911 340.135 98.9323 340.099 87.7148 328.704C61.3571 301.928 34.987 275.166 8.67214 248.347C-1.78232 237.693 -1.68568 233.539 8.73868 223.027C14.8096 216.905 20.7476 210.647 26.8325 204.539C35.6796 195.66 41.0967 195.704 50.0343 204.863C64.6582 219.848 79.3688 234.755 93.6608 250.061C98.3276 255.059 101.372 255.3 106.257 250.315C166.799 188.533 227.512 126.924 288.179 65.2675C297.247 56.0521 306.172 46.6881 315.402 37.643C323.004 30.194 328.237 30.2477 336.005 37.6966C343.114 44.5134 349.914 51.6602 356.886 58.6246C366.435 68.1618 366.539 73.2185 357.181 82.6874C334.883 105.25 312.559 127.785 289.769 150.778Z"
-            fill="black" />
-      <path d="M254.686 2.91606C270.394 -4.4482 283.422 3.78702 296.197 9.45135C302.489 12.2412 298.96 18.2749 294.852 22.4368C272.991 44.588 251.245 66.8564 229.368 88.9928C189.949 128.881 150.508 168.747 110.98 208.524C101.333 218.232 99.534 218.095 90.05 208.583C82.4342 200.945 74.9027 193.22 67.3574 185.51C59.5159 177.497 59.3864 176.268 67.2755 168.244C99.8951 135.063 132.571 101.938 165.351 68.921C167.669 66.5858 171.621 63.2968 172.933 61.0821C174.355 58.6798 166.064 57.2437 163.006 56.2784C148.992 51.8542 134.897 47.6906 120.894 43.2293C117.121 42.027 112.669 40.4207 113.92 35.1157C114.979 30.6229 119.146 30.195 122.92 30.7336C169.889 37.4376 213.597 28.2902 254.686 2.91606Z"
-            fill="#8B52FF" />
-    </svg>
-  </div>
-  <!-- Formulario encima -->
+ 
+
   <div class="container generar-invitacion p-4 mt-4">
     <h2 id="typing-text" class="text-center mb-4"></h2>
 
@@ -21,12 +9,12 @@
           (ngSubmit)="generarInvitacion()"
           class="formulario shadow-lg rounded-4 p-4">
 
-
       <button type="button" class="btn-volver" (click)="volverAtras()">
         Volver
       </button>
-      <!-- 👇 Tu formulario original, intacto -->
+
       <h5 class="typing-text seccion-titulo mb-3">Datos Personales</h5>
+
       <div class="contenedorDatosPersonales row g-3 mb-4">
         <div class="col-md-6 contenerdorLabelInput">
           <label>Nombre</label>
@@ -51,7 +39,10 @@
       </div>
 
       <h5 class="seccion-titulo mb-3">Datos de Pago</h5>
+
       <div class="contenedorDatosPago row g-3">
+
+        <!-- CAMBIO 1: método de pago -->
         <div class="col-md-4 contenerdorLabelInput">
           <label>Método de pago</label>
           <select class="form-select" formControlName="metodoPago">
@@ -59,17 +50,21 @@
             <option value="mercadopago">Mercado Pago</option>
           </select>
         </div>
+
+        <!-- CAMBIO 2: corregido semana → año -->
         <div class="col-md-4 contenerdorLabelInput">
           <label>Periodo</label>
           <select class="form-select" formControlName="periodo">
             <option value="mes">Mes</option>
-            <option value="semana">Semana</option>
+            <option value="anio">Año</option>
           </select>
         </div>
+
         <div class="col-md-4 contenerdorLabelInput">
           <label>Monto</label>
           <input type="number" class="form-control" formControlName="monto" />
         </div>
+
       </div>
 
       <div class="text-center mt-4">
@@ -87,5 +82,18 @@
     <div *ngIf="error" class="alert alert-danger mt-3 text-center">
       {{ error }}
     </div>
+    <!-- 🔵 LINK PARA PAGO ONLINE (si lo necesita más tarde) -->
+    <div *ngIf="linkPago" class="text-center mt-4">
+      <a [href]="linkPago" class="btn btn-violeta px-4 py-2">
+        💻 Pagar online
+      </a>
+    </div>
+
+    <!-- 🟣 QR PARA PAGO PRESENCIAL -->
+    <div *ngIf="qrImage" class="text-center mt-4">
+      <p class="fw-bold mb-2">📱 Escaneá para pagar con Mercado Pago</p>
+      <img [src]="qrImage" style="width:260px; border-radius:12px;" />
+    </div>
+
   </div>
 </div>

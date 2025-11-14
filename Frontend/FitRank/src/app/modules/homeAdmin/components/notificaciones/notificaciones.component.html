@@ -1,0 +1,121 @@
+<div class="container mt-3">
+
+  <h3 class="text-fitrank fw-bold mb-4">📩 Enviar Notificaciones</h3>
+  <button class="btn btn-outline-secondary w-100 mb-3" (click)="cargarHistorial()">
+    📜 Ver historial de notificaciones
+  </button>
+
+  <div *ngIf="mostrarHistorial" class="historial-box">
+
+    <h5 class="fw-bold text-fitrank mb-3">Historial de Notificaciones</h5>
+
+    <div class="historial-scroll">
+      <div class="historial-item" *ngFor="let h of historial">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="titulo">{{ h.titulo }}</p>
+          <span class="fecha">
+            {{ h.fechaCreacion | date:'dd/MM HH:mm' }}
+          </span>
+        </div>
+
+        <p class="mensaje">{{ h.mensaje }}</p>
+
+        <p class="receptor">
+          <strong>{{ h.emisor }}</strong>
+          → {{ h.receptor }}
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ================================
+       🔹 PROFESORES
+  ================================= -->
+  <h5 class="fw-bold mb-2">Profesores</h5>
+
+  <input type="text"
+         class="form-control mb-3 text-black"
+         placeholder="Buscar profesor..."
+         [(ngModel)]="filtroProfesor"
+         (input)="buscarProfesor()">
+
+  <!-- CONTENEDOR CON SCROLL -->
+  <div class="usuarios-scroll">
+    <div class="usuario-card text-black"
+         *ngFor="let p of profesores"
+         [class.selected]="usuarioSeleccionado === p.id"
+         (click)="usuarioSeleccionado = p.id">
+      <img [src]="p.fotoUrl || 'assets/img/default-user.png'" class="foto">
+      <div>
+        <p class="nombre">{{ p.nombreCompleto }}</p>
+        <p class="rol">Profesor</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================
+       🔹 SOCIOS
+  ================================= -->
+  <h5 class="fw-bold mt-4 mb-2">Socios</h5>
+
+  <input type="text"
+         class="form-control mb-3 text-black"
+         placeholder="Buscar socio..."
+         [(ngModel)]="filtroSocio"
+         (input)="buscarSocio()">
+
+  <!-- CONTENEDOR CON SCROLL -->
+  <div class="usuarios-scroll">
+    <div class="usuario-card text-black"
+         *ngFor="let s of socios"
+         [class.selected]="usuarioSeleccionado === s.id"
+         (click)="usuarioSeleccionado = s.id">
+      <img [src]="s.fotoUrl || 'assets/img/default-user.png'" class="foto">
+      <div>
+        <p class="nombre">{{ s.nombreCompleto }}</p>
+        <p class="rol">Socio</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================
+       🔹 FORMULARIO
+  ================================== -->
+  <div class="mb-3">
+    <label class="fw-semibold text-black">Título</label>
+    <input type="text" class="form-control" [(ngModel)]="titulo">
+  </div>
+
+  <div class="mb-3">
+    <label class="fw-semibold text-black">Mensaje</label>
+    <textarea class="form-control text-black" rows="3" [(ngModel)]="mensaje"></textarea>
+  </div>
+
+  <button class="btn btn-fitrank w-100" (click)="enviar()" [disabled]="loading">
+    {{ loading ? "Enviando..." : "Enviar notificación" }}
+  </button>
+  <div class="d-flex gap-2 mt-3">
+
+    <!-- Enviar individual -->
+    <button class="btn btn-fitrank flex-fill"
+            (click)="enviar()"
+            [disabled]="loading || !usuarioSeleccionado">
+      {{ loading ? "Enviando..." : "Enviar individual" }}
+    </button>
+
+    <!-- Enviar masiva -->
+    <button class="btn btn-warning flex-fill"
+            (click)="enviarMasiva()"
+            [disabled]="loading">
+      {{ loading ? "Enviando..." : "Enviar masiva" }}
+    </button>
+
+  </div>
+
+</div>

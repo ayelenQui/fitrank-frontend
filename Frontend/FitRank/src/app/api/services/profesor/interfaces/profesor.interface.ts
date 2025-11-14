@@ -15,6 +15,8 @@ export interface ProfesorDTO {
   sueldo: number;
   gimnasioId?: number;
   gimnasioNombre?: string;
+
+  rutinas?: RutinaProfesorDTO[];
 }
 export interface ActualizarProfesorDTO {
   id: number;
@@ -53,4 +55,30 @@ export interface RutinaProfesorDTO {
   fechaCreacion: string; // ISO string desde .NET
   socioNombre?: string;
   tipo?: string;
+}
+export interface EstadisticasProfesoresDTO {
+  topSolicitado?: TopSolicitadoDTO;
+  topPendientes?: TopPendientesDTO;
+  topCumplidor?: TopCumplidorDTO;
+  topValorado?: TopValoradoDTO;
+}
+
+export interface TopSolicitadoDTO {
+  nombreProfesor: string;
+  cantidadSolicitudes: number;
+}
+
+export interface TopPendientesDTO {
+  nombreProfesor: string;
+  pendientes: number;
+}
+
+export interface TopCumplidorDTO {
+  nombreProfesor: string;
+  completadas: number;
+}
+
+export interface TopValoradoDTO {
+  nombreProfesor: string;
+  promedioValoracion: number;
 }

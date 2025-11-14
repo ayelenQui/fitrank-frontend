@@ -8,6 +8,7 @@ import { VisitanteHome } from './modules/visitante-home/visitante-home';
 import { AuthService } from './api/services/activacion/AuthService.service'; 
 import { AdminInvitacionComponent } from './modules/admin-invitacion/components/admin-invitacion.component'; 
 import { HeaderSocioComponent } from './public/header-socio/header-socio.component';
+
 import gsap from 'gsap';
 
 
@@ -22,12 +23,19 @@ import gsap from 'gsap';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    AdminInvitacionComponent
+    AdminInvitacionComponent,
+    
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class App implements AfterViewInit {
+ 
+  ngOnInit() {
+    console.log("🔥 AppComponent: Iniciando SignalR");
+   
+  }
+
   ngAfterViewInit(): void {
 
     const preloader = document.getElementById('preloader');

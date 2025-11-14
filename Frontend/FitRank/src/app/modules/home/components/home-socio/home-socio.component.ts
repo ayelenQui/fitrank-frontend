@@ -12,6 +12,7 @@ import { NotificacionDTO } from '../../../../api/services/notificacion/interface
 import { NotificacionService } from '../../../../api/services/notificacion/notificacion.service';
 import { Socio } from '@app/api/services/socio/socio.service';
 import { HeaderProfesorComponent } from '@app/public/header-profesor/header-profesor-component';
+import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,13 +29,24 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   notificacion: NotificacionDTO | null = null;
 
   socio: SocioType | null = null;
-  esProfesor = false; 
+  esProfesor = false;
+
+  personasDentro: number = 0;
+
+  ocupacion: Array<{
+    nombre: string;
+    foto: string | null;
+    fecha: Date;
+    tipo: 'entrada' | 'salida';
+  }> = [];
+
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private notificacionService: NotificacionService,
-    private socioService: SocioApiService
+    private socioService: SocioApiService,
+    private signalRNoti: SignalRNotificacionesService
   ) { }
 
   ngAfterViewInit() {
@@ -69,6 +81,41 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.signalRNoti.iniciarConexion();
+
+    this.signalRNoti.notificacion$.subscribe(n => {
+        
+      // Podés además actualizar una lista local o un contador
+      Swal.fire({
+        icon: 'info',
+        title: '🔔 Nueva notificación',
+        text: `${n.titulo} - ${n.mensaje}`,
+        timer: 2500,
+        showConfirmButton: false
+      });
+    });
+
+    this.signalRNoti.ocupacion$.subscribe(evento => {
+      if (!evento) return;
+
+      if (evento.tipo === "entrada") {
+        this.personasDentro++;
+      }
+      if (evento.tipo === "salida") {
+        this.personasDentro--;
+      }
+
+      this.ocupacion.unshift({
+        nombre: evento.nombre,
+        foto: evento.foto,
+        fecha: new Date(evento.fecha),
+        tipo: evento.tipo
+      });
+    });
+
+
+
+
     this.user = this.authService.obtenerUser();
 
     if (!this.user) {
@@ -96,7 +143,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     // 🔹 Cargar notificaciones del socio
     const token = this.authService.obtenerToken();
     if (token) {
-      this.notificacionService.getMisNotificaciones(token).subscribe({
+      this.notificacionService.getMisNotificaciones().subscribe({
         next: (res) => {
           const lista = res.notificaciones || []; // Accedemos al array dentro del objeto
           const retencion = lista.find(n =>
@@ -138,7 +185,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     // 🔹 Marcar la notificación como leída
     const token = this.authService.obtenerToken();
     if (token && this.notificacion) {
-      this.notificacionService.marcarComoLeida(token, this.notificacion.id).subscribe();
+      this.notificacionService.marcarComoLeida( this.notificacion.id).subscribe();
     }
 
     this.mostrarRetencion = false;

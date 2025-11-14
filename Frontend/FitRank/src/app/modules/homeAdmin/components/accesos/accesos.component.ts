@@ -1,11 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild , OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxScannerQrcodeComponent, ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { HttpClient } from '@angular/common/http';
 import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
 import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
-import { TypingService } from "@app/api/services/typingService"; 
+import { TypingService } from "@app/api/services/typingService";
+import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 
 @Component({
   selector: 'app-accesos',
@@ -14,9 +15,19 @@ import { TypingService } from "@app/api/services/typingService";
   templateUrl: './accesos.component.html',
   styleUrls: ['./accesos.component.css']
 })
-export class AccesosComponent {
+export class AccesosComponent implements OnInit {
 
   @ViewChild('scanner', { static: false }) scanner!: NgxScannerQrcodeComponent;
+
+  personasDentro: number = 0;
+
+  ocupacion: Array<{
+    nombre: string;
+    foto: string | null;
+    fecha: Date;
+    tipo: 'entrada' | 'salida';
+  }> = [];
+
 
   resultado = '';
   mensaje = '';
@@ -26,8 +37,30 @@ export class AccesosComponent {
   socio: SocioDTO | null = null;
   asistencias: AsistenciaDetalleUsuarioDTO[] = [];
 
-  constructor(private asistenciaService: AsistenciaService, private authService: AuthService, private typingService: TypingService) { }
+  constructor(private asistenciaService: AsistenciaService,
+    private authService: AuthService, private typingService: TypingService, private signalR : SignalRNotificacionesService) { }
   ngOnInit(): void {
+
+    this.signalR.ocupacion$.subscribe(evento => {
+      if (!evento) return;
+
+      if (evento.tipo === "entrada") {
+        this.personasDentro++;
+      }
+      if (evento.tipo === "salida") {
+        this.personasDentro--;
+      }
+
+      this.ocupacion.unshift({
+        nombre: evento.nombre,
+        foto: evento.foto,
+        fecha: new Date(evento.fecha),
+        tipo: evento.tipo
+      });
+
+      console.log("🔥 Ocupación actualizada:", evento);
+    });
+
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
   // ✅ este es el evento actual que emite los resultados
@@ -72,7 +105,7 @@ export class AccesosComponent {
     }
 
     this.loading = true;
-    this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId, token).subscribe({
+    this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId).subscribe({
       next: (res) => {
         console.log('📋 Detalle socio:', res);
         if (res.exito) {

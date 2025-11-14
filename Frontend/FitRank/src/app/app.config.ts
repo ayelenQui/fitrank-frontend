@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideHttpClient(withInterceptors([AuthInterceptor])),
-    provideHttpClient(),
+  
     provideClientHydration(withEventReplay()),
     {
       provide: IMAGE_CONFIG,

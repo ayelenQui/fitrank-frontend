@@ -37,6 +37,104 @@
     color: #fff;
   }
 
+/* WRAPPER */
+.ocupacion-wrapper {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* TARJETA OCUPACIÓN */
+.ocupacion-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.titulo-ocu {
+  font-size: 1.6rem;
+  margin-bottom: .5rem;
+}
+
+.contador {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #7b2ff7;
+  line-height: 1;
+}
+
+.sub {
+  color: #666;
+  margin-top: .3rem;
+}
+
+/* TARJETA LISTA MOVIMIENTOS */
+.movimientos-card {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* SCROLLABLE */
+.lista-movimientos {
+  max-height: 250px; /* 👈 altura controlada */
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-right: .5rem;
+}
+
+/* ITEM MOVIMIENTO */
+.movimiento {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.avatar {
+  width: 45px; /* 👈 tamaño avatar */
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.nombre {
+  font-weight: 600;
+}
+
+.fecha {
+  font-size: .8rem;
+  color: #666;
+}
+
+/* ENTRADA/SALIDA */
+.tipo {
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+  .tipo.entrada {
+    color: #10b981;
+  }
+
+  .tipo.salida {
+    color: #ef4444;
+  }
+
+
+
+
+
 /* 🔥 Acciones rápidas protagonistas */
 .quick-action {
   background: #8B52FF;

@@ -1,0 +1,100 @@
+.btn-success {
+  background-color: #25D366 !important;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+  .btn-success:hover {
+    transform: scale(1.05);
+    background-color: #1ebe5d !important;
+  }
+/* ===========================
+   📊 ESTADÍSTICAS DE PROFESORES
+=========================== */
+
+.container {
+  color: #fff;
+}
+
+h3.text-fitrank {
+  color: #9d4edd;
+  text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.card-stat {
+  background: linear-gradient(145deg, #1e1b24, #2a2732);
+  border-radius: 16px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(157, 78, 221, 0.2);
+  transition: all 0.25s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+  .card-stat::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
+    background: radial-gradient(circle at top left, rgba(157, 78, 221, 0.12), transparent 70%);
+    transform: rotate(15deg);
+  }
+
+  .card-stat h6 {
+    font-size: 0.9rem;
+    color: #ccc;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .card-stat .nombre {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-stat .valor {
+    font-size: 0.9rem;
+    color: #9d4edd;
+    font-weight: 600;
+  }
+
+  .card-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(157, 78, 221, 0.4);
+    border-color: #9d4edd;
+  }
+
+/* ----------------------------- */
+/* 🌙 Responsive                 */
+/* ----------------------------- */
+@media (max-width: 768px) {
+  .card-stat {
+    padding: 0.9rem;
+    border-radius: 12px;
+  }
+
+    .card-stat h6 {
+      font-size: 0.8rem;
+    }
+
+    .card-stat .nombre {
+      font-size: 0.95rem;
+    }
+
+    .card-stat .valor {
+      font-size: 0.85rem;
+    }
+}

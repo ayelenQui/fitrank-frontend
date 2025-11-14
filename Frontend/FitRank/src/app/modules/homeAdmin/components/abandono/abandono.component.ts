@@ -54,13 +54,15 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
   // 🔹 Cargar todas las asistencias registradas
   cargarAsistencias(): void {
     const token = this.authService.obtenerToken();
+    console.log("TOKEN:", token);
+
     if (!token) {
       this.mensaje = '⚠️ No hay sesión activa.';
       return;
     }
 
     this.loading = true;
-    this.asistenciaService.getTodasAsistencias(token).subscribe({
+    this.asistenciaService.getTodasAsistencias().subscribe({
       next: (res) => {
         this.asistencias = res;
         this.asistenciasFiltradas = res;
@@ -91,7 +93,7 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
     }
 
     this.loading = true;
-    this.asistenciaService.getSociosInactivos(token, 5).subscribe({
+    this.asistenciaService.getSociosInactivos( 5).subscribe({
       next: (res) => {
         this.inactivos = res;
         this.loading = false;
@@ -113,7 +115,7 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
     }
 
     this.loading = true;
-    this.notificacionService.enviarNotificacionRetencion(token, socioId).subscribe({
+    this.notificacionService.enviarNotificacionRetencion( socioId).subscribe({
       next: (res) => {
         this.loading = false;
         Swal.fire({

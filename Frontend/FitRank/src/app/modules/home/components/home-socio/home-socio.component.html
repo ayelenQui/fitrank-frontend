@@ -60,7 +60,39 @@
             </div>
           </div>
         </div>
+        <div class="ocupacion-wrapper">
 
+          <!-- 🔵 OCUPACIÓN EN VIVO -->
+          <div class="ocupacion-card">
+            <h2 class="titulo-ocu">🏋️ Ocupación Actual</h2>
+            <div class="contador">{{ personasDentro }}</div>
+            <p class="sub">personas dentro del gimnasio</p>
+          </div>
+
+          <!-- 🟣 MOVIMIENTOS (compacto) -->
+          <div class="movimientos-card">
+            <h3>📋 Movimientos Recientes</h3>
+
+            <div class="lista-movimientos">
+              <div class="movimiento" *ngFor="let m of ocupacion">
+
+                <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
+
+                <div class="info">
+                  <div class="nombre">{{ m.nombre }}</div>
+                  <div class="fecha">{{ m.fecha | date:'dd/MM HH:mm' }}</div>
+                </div>
+
+                <span class="tipo" [ngClass]="m.tipo">
+                  {{ m.tipo === 'entrada' ? 'Entró' : 'Salió' }}
+                </span>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
         <!-- Progreso semanal -->
         <div class="col-lg-4 col-md-6">
           <div class="card p-4 text-center shadow-sm border-0 h-100">
@@ -73,6 +105,7 @@
           </div>
         </div>
       </div>
+    
 
       <!-- ⚡ ACCIONES RÁPIDAS -->
       <section class="mb-5">

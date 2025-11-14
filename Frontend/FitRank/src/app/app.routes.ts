@@ -22,6 +22,9 @@ import { CalcularPuntajeComponent } from './modules/rutinas/calcular-puntaje/cal
 import { FormularioRutinaIa } from './modules/rutinas/formulario-rutina-ia/formulario-rutina-ia';
 import { SolicitudesProfesor } from './modules/profesor/solicitudes-profesor/solicitudes-profesor';
 import { FormularioRutinaAsistida } from './modules/rutinas/formulario-rutina-asistida/formulario-rutina-asistida';
+import { PagoExitosoComponent } from './modules/pago-exitoso/pago-exitoso.component';
+import { PagoFallidoComponent } from './modules/pago-fallido/pago-fallido.component';
+import { PagoPendienteComponent } from './modules/pago-pendiente/pago-pendiente.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -94,5 +97,8 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },
+  { path: 'pago-exitoso', component: PagoExitosoComponent },
+  { path: 'pago-fallido', component: PagoFallidoComponent },
+  { path: 'pago-pendiente', component: PagoPendienteComponent },
 
 ];

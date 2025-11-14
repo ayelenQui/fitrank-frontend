@@ -13,12 +13,10 @@ import { Location } from '@angular/common';
 interface InvitacionResponse {
   success: boolean;
   invitacionId: number;
-  tokenInvitacion?: string | null;
   qrImage?: string | null;
-  linkPago?: string | null;
+  url?: string | null;     // link de pago para online
   mensaje: string;
 }
-
 
 @Component({
   selector: 'app-admin-invitacion',
@@ -27,30 +25,29 @@ interface InvitacionResponse {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
-export class AdminInvitacionComponent implements OnInit, AfterViewInit{
-
-
-
-
+export class AdminInvitacionComponent implements OnInit, AfterViewInit {
 
   form!: FormGroup;
   loading = false;
   error = '';
   mensaje = '';
   adminNombre = '';
+
+  qrImage: string | null = null;
+  linkPago: string | null = null;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
     private typingService: TypingService,
-    private location: Location  
+    private location: Location
   ) { }
 
   @ViewChild('logo-fondo', { static: true }) logoAnim!: ElementRef;
 
   ngAfterViewInit() {
-    // Espera un pequeño tiempo para asegurarse de que el DOM esté cargado
     setTimeout(() => {
       this.typingService.startTypingEffect(
         'Generar Invitación',
@@ -60,8 +57,7 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit{
     }, 200);
   }
 
-  ngOnInit() {  
-   
+  ngOnInit() {
     const user = this.authService.obtenerUser();
     this.adminNombre = user?.Nombre || 'Administrador';
 
@@ -86,47 +82,77 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit{
     this.loading = true;
     this.error = '';
     this.mensaje = '';
+    this.qrImage = null;
+    this.linkPago = null;
 
     const token = this.authService.obtenerToken();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      Accept: 'text/plain',
+      'Content-Type': 'application/json'
     });
 
+    const metodoPago =
+      this.form.value.metodoPago === 'efectivo'
+        ? 'Efectivo'
+        : 'MercadoPago';
+
+    const periodo =
+      this.form.value.periodo === 'mes'
+        ? 'Monthly'
+        : 'Yearly';
+
+    const payload = {
+      nombre: this.form.value.nombre,
+      apellidos: this.form.value.apellidos,
+      dni: this.form.value.dni,
+      telefono: this.form.value.telefono,
+      email: this.form.value.email,
+      metodoPago,
+      periodo,
+      monto: this.form.value.monto
+    };
+
     this.http
-      .post<InvitacionResponse>('https://localhost:7226/api/Admin/generar-invitacion', this.form.value, { headers })
+      .post<InvitacionResponse>('https://localhost:7226/api/Admin/generar-invitacion', payload, { headers })
       .subscribe({
         next: (response) => {
           this.loading = false;
-          this.mensaje = '✅ Invitación generada exitosamente.';
-          console.log('Respuesta:', response);
-          // 🔹 Si el backend devuelve link de Mercado Pago:
-          if (this.form.value.metodoPago.toLowerCase() === 'mercadopago' && response.linkPago) {
-            this.mensaje = 'Redirigiendo al pago en Mercado Pago...';
-            window.open(response.linkPago, '_blank'); // 🔸 Abre el checkout en nueva pestaña
-          } else {
-            this.mensaje = '✅ Invitación generada y enviada por mail.';
+
+          console.log('Respuesta backend:', response);
+
+          // 🔥 SI ES MERCADO PAGO → MOSTRAR QR Y LINK
+          if (metodoPago === 'MercadoPago') {
+
+            this.qrImage = response.qrImage || null;
+
+            // 💥 ACA SE ARREGLA — tomar la propiedad EXACTA DEL BACKEND
+            this.linkPago = response.url || null;
+
+            console.log('LINK RECIBIDO:', this.linkPago);
+
+            this.mensaje = 'Podés pagar escaneando el QR o usando el enlace.';
+            return;
           }
+
+
+          // 🔥 SI ES EFECTIVO → mensaje normal
+          this.mensaje = '✔ Invitación generada correctamente.';
         },
         error: (err) => {
           this.loading = false;
-          console.error('Error:', err);
+          console.error(err);
           this.error = err.error?.mensaje || 'Error al generar la invitación.';
         }
       });
   }
 
-
-
-
-
-
   volverAtras(): void {
     this.location.back();
   }
 }
+
+
 
 
 

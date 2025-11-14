@@ -58,3 +58,32 @@
     </div>
   </div>
 </div>
+<div class="ocupacion-wrapper">
+
+  <!-- 🔵 OCUPACIÓN EN VIVO -->
+  <div class="ocupacion-card">
+    <h2>🏋️ Ocupación Actual</h2>
+    <div class="contador">{{ personasDentro }}</div>
+    <p class="sub">personas dentro del gimnasio</p>
+  </div>
+
+  <!-- 🟣 LISTA DE MOVIMIENTOS EN TIEMPO REAL -->
+  <div class="movimientos-card">
+    <h3>📋 Movimientos Recientes</h3>
+
+    <div class="movimiento" *ngFor="let m of ocupacion">
+      <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
+
+      <div class="info">
+        <div class="nombre">{{ m.nombre }}</div>
+        <div class="fecha">{{ m.fecha | date:'dd/MM HH:mm' }}</div>
+      </div>
+
+      <div class="tipo" [ngClass]="m.tipo">
+        {{ m.tipo === 'entrada' ? 'Entró' : 'Salió' }}
+      </div>
+    </div>
+
+  </div>
+
+</div>

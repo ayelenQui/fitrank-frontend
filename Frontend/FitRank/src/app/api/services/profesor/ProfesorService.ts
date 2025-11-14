@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Solicitud } from './interfaces/solicitud.interface';
-import { AgregarProfesorDTO, ProfesorDTO, ActualizarProfesorDTO, RutinaProfesorDTO } from './interfaces/profesor.interface';
+import { AgregarProfesorDTO, ProfesorDTO, ActualizarProfesorDTO, RutinaProfesorDTO, EstadisticasProfesoresDTO } from './interfaces/profesor.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,7 @@ export class ProfesorService {
   obtenerRutinasPorProfesor(profesorId: number): Observable<RutinaProfesorDTO[]> {
     return this.http.get<RutinaProfesorDTO[]>(`${this.apiUrl}/profesor/${profesorId}`);
   }
-
+  obtenerEstadisticas(): Observable<EstadisticasProfesoresDTO> {
+    return this.http.get<EstadisticasProfesoresDTO>(`${this.apiUrl}/estadisticas`);
+  }
 }

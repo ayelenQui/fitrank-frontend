@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesorService } from '@app/api/services/profesor/ProfesorService';
-import {
-  AgregarProfesorDTO,
-  ActualizarProfesorDTO,
-  ProfesorDTO
-} from '@app/api/services/profesor/interfaces/profesor.interface';
+import { AgregarProfesorDTO, ActualizarProfesorDTO, ProfesorDTO, EstadisticasProfesoresDTO } from '@app/api/services/profesor/interfaces/profesor.interface';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import Swal from 'sweetalert2';
 
@@ -25,9 +21,9 @@ export class ProfesoresComponent implements OnInit {
   profesorSeleccionado: ProfesorDTO | null = null;
   mostrarFormulario = false;
   filtro = '';
-
-  // 🔹 gimnasio del admin logueado
+  profesorExpandido: number | null = null;
   gimnasioIdAdmin: number | null = null;
+  estadisticas: EstadisticasProfesoresDTO | null = null;
 
   constructor(
     private profesorService: ProfesorService,
@@ -39,19 +35,21 @@ export class ProfesoresComponent implements OnInit {
     this.obtenerGimnasioDelAdmin();
     this.cargarProfesores();
     this.inicializarFormulario();
+    this.cargarEstadisticas();
   }
 
-  // 🔹 Obtiene el gimnasioId del usuario logueado
   private obtenerGimnasioDelAdmin(): void {
     const usuario = this.authService.obtenerUser();
     if (usuario && usuario.gimnasioId) {
       this.gimnasioIdAdmin = usuario.gimnasioId;
-      console.log('🏋️‍♂️ Gimnasio del admin logueado:', this.gimnasioIdAdmin);
-    } else {
-      console.warn('⚠️ No se encontró gimnasio asociado al admin.');
     }
   }
-
+  cargarEstadisticas(): void {
+    this.profesorService.obtenerEstadisticas().subscribe({
+      next: (data) => (this.estadisticas = data),
+      error: (err) => console.error('❌ Error al cargar estadísticas', err)
+    });
+  }
   inicializarFormulario(): void {
     this.formProfesor = this.fb.group({
       nombre: ['', Validators.required],
@@ -63,7 +61,7 @@ export class ProfesoresComponent implements OnInit {
       fechaNacimiento: ['', Validators.required],
       matricula: ['', Validators.required],
       sueldo: [0, Validators.required],
-      password: [''] // requerido solo al crear
+      password: ['']
     });
   }
 
@@ -88,8 +86,6 @@ export class ProfesoresComponent implements OnInit {
     this.mostrarFormulario = true;
     this.profesorSeleccionado = null;
     this.formProfesor.reset();
-
-    // ✅ obligamos el password al agregar
     this.formProfesor.get('password')?.setValidators([Validators.required]);
     this.formProfesor.get('password')?.updateValueAndValidity();
   }
@@ -102,8 +98,6 @@ export class ProfesoresComponent implements OnInit {
   editarProfesor(profesor: ProfesorDTO): void {
     this.profesorSeleccionado = profesor;
     this.mostrarFormulario = true;
-
-    // ❌ no pedimos password al editar
     this.formProfesor.get('password')?.clearValidators();
     this.formProfesor.get('password')?.updateValueAndValidity();
 
@@ -127,7 +121,6 @@ export class ProfesoresComponent implements OnInit {
     }
 
     if (this.profesorSeleccionado) {
-      // 🔹 ACTUALIZAR
       const dtoActualizar: ActualizarProfesorDTO = {
         id: this.profesorSeleccionado.id,
         ...this.formProfesor.value,
@@ -144,13 +137,10 @@ export class ProfesoresComponent implements OnInit {
         error: () => this.alerta('Error', 'No se pudo actualizar el profesor', 'error')
       });
     } else {
-      // 🔹 AGREGAR
       const dtoAgregar: AgregarProfesorDTO = {
         ...this.formProfesor.value,
         gimnasioId: this.gimnasioIdAdmin ?? undefined
       };
-
-      console.log('📤 Enviando profesor:', dtoAgregar);
 
       this.profesorService.agregarProfesor(dtoAgregar).subscribe({
         next: () => {
@@ -158,10 +148,7 @@ export class ProfesoresComponent implements OnInit {
           this.cargarProfesores();
           this.cancelarFormulario();
         },
-        error: (err) => {
-          console.error(err);
-          this.alerta('Error', 'No se pudo agregar el profesor', 'error');
-        }
+        error: () => this.alerta('Error', 'No se pudo agregar el profesor', 'error')
       });
     }
   }
@@ -189,6 +176,26 @@ export class ProfesoresComponent implements OnInit {
     });
   }
 
+  verRutinas(profesor: ProfesorDTO): void {
+    this.profesorExpandido = this.profesorExpandido === profesor.id ? null : profesor.id;
+
+    if (!profesor.rutinas) {
+      this.profesorService.obtenerRutinasPorProfesor(profesor.id).subscribe({
+        next: (rutinas) => profesor.rutinas = rutinas,
+        error: () => profesor.rutinas = []
+      });
+    }
+  }
+
+  calcularEdad(fechaNacimiento: string): number {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const m = hoy.getMonth() - nacimiento.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
+    return edad;
+  }
+
   private alerta(titulo: string, texto: string, tipo: 'success' | 'error' | 'warning' | 'info'): void {
     Swal.fire({
       title: titulo,
@@ -200,21 +207,15 @@ export class ProfesoresComponent implements OnInit {
     });
   }
 
-  verRutinas(profesor: ProfesorDTO): void {
-    this.profesorService.obtenerRutinasPorProfesor(profesor.id).subscribe({
-      next: (rutinas) => {
-        console.log('📋 Rutinas del profesor:', rutinas);
-        Swal.fire({
-          title: `Rutinas de ${profesor.nombre}`,
-          html: rutinas.length
-            ? rutinas.map(r => `<p>🏋️ <b>${r.nombre}</b> (${r.tipo})<br><small>${r.socioNombre ?? 'Sin socio asignado'}</small></p>`).join('')
-            : 'Este profesor no tiene rutinas registradas.',
-          background: '#1c1a22',
-          color: '#fff'
-        });
-      },
-      error: () => this.alerta('Lo Siento', 'Este profesor NO tiene rutinas creadas', 'error')
-    });
+  abrirWhatsApp(telefono: string, nombre: string): void {
+    // Limpia el número y lo pasa al formato internacional
+    const numero = telefono.replace(/\D/g, '');
+    const link = `https://wa.me/${numero}?text=Hola%20${encodeURIComponent(nombre)}%2C%20te%20habla%20el%20administrador%20de%20FitRank.%20😊`;
+
+    window.open(link, '_blank');
   }
 
+ 
 }
+
+
