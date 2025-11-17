@@ -1,0 +1,76 @@
+<div class="historial-container" *ngIf="!cargando; else cargandoTpl">
+
+  <h2 class="titulo">📘 Historial de Entrenamientos</h2>
+
+  <div *ngFor="let item of historial; let i = index" class="entrenamiento-card">
+
+    <!-- INFO PRINCIPAL DE LA SESION -->
+    <div class="info-principal">
+
+      <div class="info-header">
+      <h6>{{ item.nombreSesion }}</h6>
+      <p><strong>Fecha:</strong> {{ item.fecha | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Puntos totales:</strong> {{ item.puntosTotales }}</p>
+      <!--<p><strong>duracion:</strong> {{item.duracion}}</p>-->
+      </div>
+
+      <button class="btn-fitrank" (click)="toggleExpand(i)">
+        {{ expandedIndex === i ? 'Ocultar detalles' : 'Ver detalles' }}
+      </button>
+    </div>
+
+    <!-- SECCIÓN EXPANDIDA -->
+    <div *ngIf="expandedIndex === i" class="detalles-card">
+
+      <!-- AGRUPACIÓN POR EJERCICIO -->
+      <div *ngFor="let ejercicio of item.ejerciciosAgrupados" class="actividad-item">
+
+        <div class="actividad-info">
+          <div class="actividad-data">
+            <h6>{{ ejercicio.nombre }}</h6>
+
+            <!-- TABLA DE SERIES -->
+            <div class="tabla-series-container">
+              <table class="tabla-series">
+                <thead>
+                  <tr>
+                    <th>Serie</th>
+                    <th>Reps</th>
+                    <th>Peso (kg)</th>
+                    <th>Puntos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let act of ejercicio.actividades; let s = index">
+                    <td>{{ s + 1 }}</td>
+                    <td>{{ act.repeticiones ?? '-' }}</td>
+                    <td>{{ act.peso ?? '-' }}</td>
+                    <td>{{ act.punto ?? '-' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BOTON PARA VER EL GRAFICO -->
+        <button class="btn-fitrank btn-light" (click)="toggleGrafico(ejercicio.nombre)">
+          {{ mostrarGrafico(ejercicio.nombre) ? 'Ocultar gráfico' : 'Ver gráfico de mejoras' }}
+        </button>
+
+        <!-- GRAFICO DE PROGRESO -->
+        <app-grafico-progreso
+          *ngIf="mostrarGrafico(ejercicio.nombre)"
+          [progreso]="ejercicio.progresoHistorico">
+        </app-grafico-progreso>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #cargandoTpl>
+  <p>Cargando historial...</p>
+</ng-template>

@@ -25,6 +25,7 @@ import { FormularioRutinaAsistida } from './modules/rutinas/formulario-rutina-as
 import { PagoExitosoComponent } from './modules/pago-exitoso/pago-exitoso.component';
 import { PagoFallidoComponent } from './modules/pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './modules/pago-pendiente/pago-pendiente.component';
+import { HistorialEntrenamientos } from './modules/entrenamiento/historial-entrenamientos/historial-entrenamientos';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -65,9 +66,10 @@ export const appRoutes: Route[] = [
       { path: 'editar/:id', component: CrearRutinaComponent },
       { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
       { path: 'calcular-puntaje', component: CalcularPuntajeComponent },
-      { path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
+      //{ path: '', redirectTo: 'mis-rutinas', pathMatch: 'full' },
       { path: 'solicitar-rutina', component: FormularioRutinaAsistida },
-      { path: 'ia', component: FormularioRutinaIa }
+      { path: 'ia', component: FormularioRutinaIa },
+      { path: 'mis-entrenamientos', component: HistorialEntrenamientos }
     ]
   },
 
