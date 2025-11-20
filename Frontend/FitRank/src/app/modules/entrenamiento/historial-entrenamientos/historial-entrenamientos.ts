@@ -69,22 +69,69 @@ export class HistorialEntrenamientos implements OnInit {
   }
 
   // Agrupa actividades por ejercicio y conserva datos de cada serie
-  private agruparActividades(actividades: any[]): ActividadAgrupada[] {
-    const map = new Map<string, { progresoHistorico: ProgresoEjercicioDTO[], actividades: any[] }>();
+// 1) agruparActividades — permite múltiples puntos y aplica offset por fecha
+private agruparActividades(actividades: any[]): ActividadAgrupada[] {
+  const map = new Map<
+    string,
+    { 
+      progresoHistorico: (ProgresoEjercicioDTO & { timestamp: number })[], 
+      actividades: any[],
+      counters: Record<string, number>
+    }
+  >();
 
-    actividades.forEach(act => {
-      if (!map.has(act.nombreEjercicio)) {
-        map.set(act.nombreEjercicio, { progresoHistorico: [], actividades: [] });
+  actividades.forEach(act => {
+
+    if (!map.has(act.nombreEjercicio)) {
+      map.set(act.nombreEjercicio, { 
+        progresoHistorico: [], 
+        actividades: [],
+        counters: {}
+      });
+    }
+
+    const entry = map.get(act.nombreEjercicio)!;
+    entry.actividades.push(act);
+
+    (act.progresoHistorico || []).forEach((p: ProgresoEjercicioDTO) => {
+
+      const base = new Date(p.fecha).getTime();
+      const dayKey = new Date(base).toISOString().split('T')[0];
+
+      entry.counters[dayKey] = (entry.counters[dayKey] || 0) + 1;
+      const offsetMs = (entry.counters[dayKey] - 1) * 1000;
+
+      const punto = {
+        ...p,
+        timestamp: base + offsetMs
+      };
+
+      // 🚫 FILTRO: evitar duplicar puntos exactos
+      const exists = entry.progresoHistorico.some(x =>
+        x.fecha === p.fecha &&
+        x.peso === p.peso &&
+        x.repeticiones === p.repeticiones
+      );
+
+      if (!exists) {
+        entry.progresoHistorico.push(punto);
       }
-      const entry = map.get(act.nombreEjercicio)!;
-      entry.progresoHistorico.push(...(act.progresoHistorico || []));
-      entry.actividades.push(act); // mantenemos reps, peso, puntos
     });
 
-    return Array.from(map.entries()).map(([nombre, { progresoHistorico, actividades }]) => ({
-      nombre,
-      progresoHistorico: progresoHistorico.sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime()),
-      actividades
-    }));
-  }
+  });
+
+  return Array.from(map.entries()).map(([nombre, { progresoHistorico, actividades }]) => ({
+    nombre,
+    progresoHistorico: progresoHistorico.sort(
+      (a: any, b: any) => a.timestamp - b.timestamp
+    ),
+    actividades
+  }));
+}
+
+
+
+
+
+
 }

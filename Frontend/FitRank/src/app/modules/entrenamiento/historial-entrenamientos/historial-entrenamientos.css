@@ -12,6 +12,8 @@
   margin-bottom: 1rem; /* opcional: separa un poco la tabla del título */
 }
 
+
+
 /* Título */
 .historial-container .titulo {
   font-family: "Poppins", sans-serif;
@@ -123,7 +125,7 @@
 }
 
 .tabla-series th {
-  background: rgba(123, 63, 228, 0.2);
+  background: #7b3fe4;
   font-weight: 600;
 }
 

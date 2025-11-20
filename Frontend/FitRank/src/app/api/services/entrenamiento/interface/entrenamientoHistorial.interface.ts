@@ -4,6 +4,7 @@ export interface EntrenamientoHistorialDTO {
   nombreSesion: string;
   duracion: string | null; // TimeSpan se recibe como string
   puntosTotales: number;
+  nombreRutina: string;
   actividades: ActividadHistorialDTO[];
 }
 
@@ -19,6 +20,7 @@ export interface ActividadHistorialDTO {
 }
 
 export interface ProgresoEjercicioDTO {
+  timestamp: number;
   fecha: string; // se recibe como string ISO
   peso?: number | null;
   repeticiones?: number | null;
