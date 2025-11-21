@@ -1,0 +1,141 @@
+.titulo {
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8b52ff;
+}
+
+.btn-primary {
+  background-color: #8b52ff;
+  border-color: #8b52ff;
+}
+
+  .btn-primary:hover {
+    background-color: #7a46e0;
+    border-color: #7a46e0;
+  }
+
+.object-fit-cover {
+  object-fit: cover;
+}
+.hero-glass {
+  position: relative;
+  background: white;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.hero-glass::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+ 
+  animation: shineMove 6s linear infinite;
+}
+
+@keyframes shineMove {
+  0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+  100% { transform: translateX(50%) translateY(50%) rotate(360deg); }
+}
+img {
+  box-shadow: 0 0 20px rgba(139, 82, 255, 0.6);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+  img:hover {
+    transform: scale(1.03);
+  }
+/* Ajustes generales del hero */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, #0a0a0a 0%, #181818 60%, #ffffff 100%);
+  padding: 4rem 0;
+}
+
+  /* Texto */
+  .hero-section h1 {
+    font-size: 4rem; /* tamaño grande escritorio */
+    line-height: 1.2;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+    .hero-section h1 span {
+      color: #8b52ff; /* violeta FitRank */
+    }
+
+  .hero-section p {
+    font-size: 1.25rem;
+    color: #ddd;
+    margin-bottom: 2rem;
+  }
+
+/* Botones */
+.btn-primary {
+  background-color: #8b52ff;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+}
+
+  .btn-primary:hover {
+    background-color: #7a46e0;
+  }
+
+/* Imagen */
+.hero-section img {
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(139, 82, 255, 0.4);
+  transform: scale(1.1);
+}
+section {
+  scroll-margin-top: 100px;
+}
+.feature-card {
+  background-color: #ffffff;
+  border: 2px solid rgba(139, 82, 255, 0.3);
+  border-radius: 16px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 10px rgba(139, 82, 255, 0.05);
+}
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    border-color: #8b52ff;
+    box-shadow: 0 10px 25px rgba(139, 82, 255, 0.15);
+  }
+
+  .feature-card i {
+    color: #8b52ff !important;
+  }
+
+section {
+  scroll-margin-top: 80px; /* mejora el anclaje en navegación */
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+    .hero-section h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-section img {
+      max-width: 70%;
+      margin-top: 2rem;
+    }
+}

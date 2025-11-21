@@ -1,0 +1,19 @@
+<!-- Botón hamburguesa visible solo en móvil -->
+<button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
+
+<!-- Sidebar -->
+<nav class="fit-sidebar sidebar" [class.open]="sidebarOpen">
+  <div class="fit-sb-header">
+    
+    <button class="fit-sb-close d-md-none" (click)="closeSidebar()">✕</button>
+  </div>
+
+  <ul class="fit-sb-list">
+    <li><a routerLink="/home/home-socio" routerLinkActive="active" (click)="closeSidebar()">Inicio</a></li>
+    <li><a routerLink="/rutina/mis-rutinas" routerLinkActive="active" (click)="closeSidebar()">Mis rutinas</a></li>
+    <li><a routerLink="/rutina/mis-entrenamientos" routerLinkActive="active" (click)="closeSidebar()">Mis entrenamientos</a></li>
+    <li><a routerLink="/rutina/crear" routerLinkActive="active" (click)="closeSidebar()">Crear rutina</a></li>
+    <li><a routerLink="/rutina/solicitar" routerLinkActive="active" (click)="closeSidebar()">Solicitar rutina</a></li> 
+    <li><a routerLink="/socios/1/gimnasios/1/logros" routerLinkActive="active" (click)="closeSidebar()">Mis Logros</a></li>
+  </ul>
+</nav>

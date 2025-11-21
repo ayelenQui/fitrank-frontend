@@ -1,0 +1,309 @@
+/* ============================================
+   🔮 SWITCH FITRANK
+===============================================*/
+.text-titulo {
+
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size:50px;
+}
+
+
+.fr-switch {
+  display: flex;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  padding: 4px;
+  border-radius: 16px;
+  width: fit-content;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 1.5rem;
+  color:black;
+}
+
+.fr-switch-option {
+  padding: 8px 14px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: black;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .25s ease;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  gap: 6px;
+}
+
+  .fr-switch-option:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  .fr-switch-option.active {
+    background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(123,63,228,0.4);
+    transform: translateY(-1px);
+  }
+
+
+.input-group {
+  background: #A9A9A9;
+  border-radius: 14px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  border: 1px solid #e6e6e6;
+  transition: all .2s ease;
+}
+
+  .input-group:hover {
+    box-shadow: var(--fitrank-violet);
+  }
+
+  .input-group:focus-within {
+    border-color: var(--fitrank-violet);
+    ;
+    box-shadow: var(--fitrank-violet);
+  }
+
+/* Ícono negro moderno */
+.input-group-icon {
+  color: #000;
+  font-size: 18px;
+  opacity: .75;
+}
+/* PANEL GENERAL */
+.panel-fitrank {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+  margin-top: 20px;
+  border-color: black;
+}
+
+/* HEADER NEGRO */
+.panel-header-fitrank {
+  background: #000;
+  color: #fff;
+  padding: 20px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title-fitrank {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.panel-subtitle-fitrank {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* PILL VERDE */
+.panel-pill-fitrank {
+  background: #b2ff59;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+
+}
+
+/* CONTENIDO DEL PANEL */
+.panel-body-fitrank {
+  padding: 24px;
+
+}
+
+/* TABLA EN PANEL */
+.table-wrapper-fitrank {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-color: black;
+}
+
+  /* HEADER DE TABLA */
+  .table-wrapper-fitrank thead {
+    background: #7B3FE4;
+    color: #fff;
+    border-color: black;
+  }
+
+    .table-wrapper-fitrank thead th {
+      padding: 14px;
+      font-size: 14px;
+    }
+
+  /* FILAS */
+  .table-wrapper-fitrank tbody td {
+    padding: 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #eaeaea;
+    border-color: black;
+  }
+
+  /* HOVER */
+  .table-wrapper-fitrank tbody tr:hover {
+    background: #f5f0ff;
+  }
+
+
+/* ============================================
+   📊 CARD ESTADÍSTICAS FITRANK
+===============================================*/
+.card-stat-fitrank {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+  .card-stat-fitrank h6 {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #111;
+  }
+
+  .card-stat-fitrank .nombre {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #212121;
+  }
+
+  .card-stat-fitrank .valor {
+    font-size: 14px;
+    opacity: 0.75;
+  }
+
+/* ============================================
+   🟣 FORMULARIO FITRANK
+===============================================*/
+.card-form-fitrank {
+  background: linear-gradient(145deg, #1c1c1c, #101010);
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  color: white !important;
+}
+
+/* ============================================
+   🟣 BOTONES FITRANK
+===============================================*/
+.btn-primary-fitrank {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s ease;
+  box-shadow: 0 4px 12px rgba(123,63,228,0.35);
+}
+
+  .btn-primary-fitrank:hover {
+    background: linear-gradient(135deg, #9A63FF, #B186FF);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(123,63,228,0.45);
+  }
+
+.btn-outline-fitrank {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #ddd;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+  .btn-outline-fitrank:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #7B3FE4;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+/* ============================================
+   🔹 TAG BUTTONS (ver, editar, eliminar)
+===============================================*/
+.btn-tag-info,
+.btn-tag-light,
+.btn-tag-danger {
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all .25s ease;
+}
+
+.btn-tag-info {
+  background: #8B52FF;
+  color: white;
+}
+
+  .btn-tag-info:hover {
+    background: #2f74d8;
+  }
+
+.btn-tag-light {
+  background: #e5e5e5;
+  color: #222;
+}
+
+  .btn-tag-light:hover {
+    background: #d6d6d6;
+  }
+
+.btn-tag-danger {
+  background: #d93434;
+  color: white;
+}
+
+  .btn-tag-danger:hover {
+    background: #b62b2b;
+  }
+
+/* ============================================
+   🟣 TABLA FITRANK
+===============================================*/
+.bg-fitrank {
+  background: linear-gradient(135deg, #7B3FE4, #5d2fb7) !important;
+}
+
+.table-dark {
+  background: #141414 !important;
+}
+
+  .table-dark td,
+  .table-dark th {
+    color: #ddd !important;
+  }
+
+  .table-dark tbody tr:hover {
+    background: rgba(255,255,255,0.08);
+  }
+.text-formu {
+  text-align: center;
+  color: white;
+  font-family: 'Bebas Neue', sans-serif;
+}

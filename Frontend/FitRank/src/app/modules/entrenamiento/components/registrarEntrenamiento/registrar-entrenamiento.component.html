@@ -1,0 +1,60 @@
+<div class="container">
+  <h2>Registrar Entrenamiento</h2>
+
+  <!-- Seleccionar Usuario -->
+  <div class="form-group">
+    <label for="usuarioId">ID Usuario:</label>
+    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" (change)="cargarEjercicios()" class="form-control">
+  </div>
+
+  <!-- Formulario Nuevo Ejercicio -->
+  <div class="nuevo-ejercicio form-group">
+    <h3>Nuevo Ejercicio</h3>
+
+    <label for="ejercicioId">Ejercicio ID:</label>
+    <input type="number" id="ejercicioId" [(ngModel)]="nuevoEjercicio.EjercicioId" class="form-control">
+
+    <label for="series">Series:</label>
+    <input type="number" id="series" [(ngModel)]="nuevoEjercicio.Series" class="form-control">
+
+    <label for="repeticiones">Repeticiones:</label>
+    <input type="number" id="repeticiones" [(ngModel)]="nuevoEjercicio.Repeticiones" class="form-control">
+
+    <label for="peso">Peso:</label>
+    <input type="number" id="peso" [(ngModel)]="nuevoEjercicio.Peso" class="form-control">
+
+    <label for="tipo">Tipo Entrenamiento:</label>
+    <input type="text" id="tipo" [(ngModel)]="nuevoEjercicio.TipoEntrenamiento" class="form-control">
+
+    <label for="observacion">Observación:</label>
+    <input type="text" id="observacion" [(ngModel)]="nuevoEjercicio.Observacion" class="form-control">
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" [(ngModel)]="nuevoEjercicio.fecha" class="form-control">
+
+    <button (click)="registrarEjercicio()" class="btn btn-primary mt-2">Registrar Ejercicio</button>
+  </div>
+
+  <!-- Lista de Ejercicios Registrados -->
+  <div class="ejercicios-registrados mt-4">
+    <h3>Ejercicios Registrados</h3>
+
+    <div *ngIf="ejercicios.length > 0; else noEjercicios">
+      <div *ngFor="let ej of ejercicios" class="ejercicio-card">
+        <p><strong>ID Ejercicio:</strong> {{ ej.EjercicioId }}</p>
+        <p><strong>Nombre:</strong> {{ ej.NombreEjercicio }}</p>
+        <p><strong>Grupo Muscular:</strong> {{ ej.GrupoMuscular }}</p>
+        <p><strong>Series x Reps:</strong> {{ ej.Series }} x {{ ej.Repeticiones }}</p>
+        <p><strong>Peso:</strong> {{ ej.Peso }} kg • <strong>Puntos:</strong> {{ ej.PuntosObtenidos }}</p>
+        <p><strong>Fecha:</strong> {{ ej.FechaRegistro | date:'shortDate' }}</p>
+        <p *ngIf="ej.Observacion"><strong>Notas:</strong> {{ ej.Observacion }}</p>
+      </div>
+    </div>
+
+    <ng-template #noEjercicios>
+      <p>No hay ejercicios registrados para este usuario.</p>
+    </ng-template>
+  </div>
+</div>
+
+   

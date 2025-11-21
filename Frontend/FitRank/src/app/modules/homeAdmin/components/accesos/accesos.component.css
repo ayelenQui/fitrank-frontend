@@ -1,0 +1,129 @@
+/* CONTENEDOR PRINCIPAL */
+.qr-container {
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* COLUMNA IZQUIERDA */
+.qr-left {
+  padding-right: 20px;
+  border-right: 2px solid #e7e7e7;
+}
+
+@media (max-width: 992px) {
+  .qr-left {
+    border-right: none;
+    border-bottom: 2px solid #e7e7e7;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+}
+
+/* COLUMNA DERECHA */
+.qr-right {
+  padding-left: 20px;
+}
+
+/* ------------------------ */
+/*     SCANNER LADO IZQ    */
+/* ------------------------ */
+.scanner-frame {
+  max-width: 380px;
+}
+
+.scanner-cam {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+/* RESULTADO */
+.result-box {
+  font-size: 18px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* FOTO SOCIO */
+.foto-wrapper {
+  width: 110px;
+  height: 110px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin: auto;
+  border: 4px solid #8B52FF;
+}
+
+.foto-socio {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ------------------------ */
+/*     PANEL DERECHA       */
+/* ------------------------ */
+.ocupacion-wrapper {
+  padding: 10px;
+}
+
+.ocupacion-card {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+  .ocupacion-card .contador {
+    font-size: 56px;
+    font-weight: bold;
+    color: #8B52FF;
+  }
+
+.movimientos-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.movimiento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+  .movimiento .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+.tipo {
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 12px;
+}
+.text-titulo {
+  text-align: center;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 50px;
+}
+
+  .tipo.entrada {
+    background: #d7ffd6;
+    color: #0f8f0f;
+  }
+
+  .tipo.salida {
+    background: #ffe4e4;
+    color: #da1a1a;
+  }

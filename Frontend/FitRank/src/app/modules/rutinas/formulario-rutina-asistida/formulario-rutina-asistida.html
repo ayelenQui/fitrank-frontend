@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Solicitar Rutina Asistida por Profesor</h2>
+
+  <form [formGroup]="solicitudForm" (ngSubmit)="enviar()" class="formulario-fitrank">
+
+    <!-- Mensaje para el profesor -->
+    <div class="mb-3">
+      <label for="mensajeSocio" class="form-label">Mensaje para tu profesor</label>
+      <textarea id="mensajeSocio" class="form-control" formControlName="mensajeSocio" rows="3"></textarea>
+    </div>
+
+    <!-- Datos personales -->
+    <h5>Datos personales</h5>
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <label for="nombreSocio" class="form-label">Nombre</label>
+        <input type="text" id="nombreSocio" class="form-control" formControlName="nombreSocio" required>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" id="edad" class="form-control" formControlName="edad" required>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="pesoKg" class="form-label">Peso (kg)</label>
+        <input type="number" id="pesoKg" class="form-control" formControlName="pesoKg" required>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="alturaCm" class="form-label">Altura (cm)</label>
+        <input type="number" id="alturaCm" class="form-control" formControlName="alturaCm" required>
+      </div>
+    </div>
+
+    <!-- Nivel y objetivo -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="nivel" class="form-label">Nivel</label>
+        <select id="nivel" class="form-select" formControlName="nivel">
+          <option value="Principiante">Principiante</option>
+          <option value="Intermedio">Intermedio</option>
+          <option value="Avanzado">Avanzado</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="objetivo" class="form-label">Objetivo</label>
+        <select id="objetivo" class="form-select" formControlName="objetivo">
+          <option value="Hipertrofia">Hipertrofia</option>
+          <option value="PerdidaDePeso">Pérdida de peso</option>
+          <option value="Fuerza">Fuerza</option>
+          <option value="Resistencia">Resistencia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Sesiones y tiempo -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="sesionesPorSemana" class="form-label">Sesiones por semana</label>
+        <input type="number" id="sesionesPorSemana" class="form-control" formControlName="sesionesPorSemana">
+      </div>
+      <div class="col-md-6">
+        <label for="minutosPorSesion" class="form-label">Minutos por sesión</label>
+        <input type="number" id="minutosPorSesion" class="form-control" formControlName="minutosPorSesion">
+      </div>
+    </div>
+
+    <!-- Alimentación y sueño -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="calidadAlimentacion" class="form-label">Calidad de alimentación (1-5)</label>
+        <input type="number" id="calidadAlimentacion" class="form-control" formControlName="calidadAlimentacion">
+      </div>
+      <div class="col-md-6">
+        <label for="horasSuenio" class="form-label">Horas de sueño</label>
+        <input type="number" id="horasSuenio" class="form-control" formControlName="horasSuenio">
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Screening de salud -->
+    <h5>Screening de salud</h5>
+    <div class="row mb-3">
+      <div class="col-md-3" *ngFor="let check of screeningChecks">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [formControlName]="check.control" [id]="check.control">
+          <label class="form-check-label" [for]="check.control">{{ check.label }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="frecuenciaCardiacaReposo" class="form-label">Frecuencia cardíaca en reposo</label>
+      <input type="number" id="frecuenciaCardiacaReposo" class="form-control" formControlName="frecuenciaCardiacaReposo">
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-secondary" [disabled]="enviando">
+      {{ enviando ? 'Enviando...' : 'Solicitar Rutina' }}
+    </button>
+  </form>
+</div>

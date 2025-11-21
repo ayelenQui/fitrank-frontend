@@ -1,0 +1,18 @@
+<div class="container text-center mt-5">
+  <div *ngIf="loading" class="spinner-border text-primary" role="status"></div>
+
+  <div *ngIf="!loading">
+    <h2 *ngIf="mensaje.includes('permitido')" class="text-success">
+      ✅ {{ mensaje }}
+    </h2>
+
+    <h2 *ngIf="mensaje.includes('expirado') || mensaje.includes('inválido')" class="text-danger">
+      ❌ {{ mensaje }}
+    </h2>
+
+    <h2 *ngIf="mensaje.includes('Salida')" class="text-warning">
+      👋 {{ mensaje }}
+    </h2>
+  </div>
+</div>
+<p>acceso-gimnasio works!</p>

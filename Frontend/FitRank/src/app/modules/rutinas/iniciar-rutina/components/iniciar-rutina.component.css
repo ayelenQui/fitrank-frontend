@@ -1,0 +1,439 @@
+/* ================================
+   FITRANK — THEME & BASE
+================================== */
+:root {
+  --bg-1: #0f0d13;
+  --bg-2: #1c1a22;
+  --bg-card: #202024;
+  --bd-card: #2a2a2a;
+  --tx-1: #fff;
+  --tx-2: #ccc;
+  --tx-3: #888;
+  --accent: #9d4edd;
+  --accent-2: #6a0dad;
+  --accent-soft: rgba(157, 78, 221, 0.15);
+  --glow: rgba(123, 63, 228, 0.4);
+  --radius: 16px;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  --font-title: 'Bebas Neue', sans-serif;
+  --font-ui: 'Work Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--tx-1);
+  background: var(--bg-1);
+}
+
+/* ================================
+   OVERLAY CUENTA REGRESIVA (FULLSCREEN MOBILE)
+================================ */
+/* ================================
+   OVERLAY CUENTA REGRESIVA — MOBILE OPTIMIZED
+================================ */
+:host ::ng-deep .overlay-cuenta {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh; /* ✅ Usa dvh para altura real en móvil */
+  background: linear-gradient(180deg, #0b0a0f 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 99999 !important;
+  overflow: hidden; /* evita desplazamiento */
+  touch-action: none;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: opacity 0.4s ease;
+}
+
+/* Número central gigante */
+.overlay-cuenta .numero-cuenta {
+  font-size: clamp(5rem, 28vw, 9rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 40px rgba(157, 78, 221, 0.9), 0 0 80px rgba(157, 78, 221, 0.6);
+  animation: zoomInMobile 1s ease forwards;
+}
+
+/* animación suave con rebote */
+@keyframes zoomInMobile {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+
+  30% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* "GO!" en violeta vibrante */
+.overlay-cuenta .numero-cuenta.go {
+  color: #9d4edd;
+  text-shadow: 0 0 50px rgba(157, 78, 221, 1);
+  animation: goFlashMobile 1s ease forwards;
+}
+
+@keyframes goFlashMobile {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.6);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ✅ En pantallas pequeñas ocupa todo sin moverse */
+@media (max-width: 768px) {
+  :host ::ng-deep .overlay-cuenta {
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+  }
+
+  .overlay-cuenta .numero-cuenta {
+    font-size: 22vw;
+  }
+}
+
+
+/* Animación del número */
+@keyframes countdownPop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+
+  35% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+}
+
+/* “GO!” animado en violeta */
+.overlay-cuenta .numero-cuenta.go {
+  color: #9d4edd;
+  animation: goFlash 1s ease forwards;
+}
+
+@keyframes goFlash {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    text-shadow: 0 0 60px rgba(157, 78, 221, 0.9);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ✅ Responsive asegurado */
+@media (max-width: 480px) {
+  .overlay-cuenta .numero-cuenta {
+    font-size: 25vw; /* se adapta a pantalla pequeña */
+  }
+}
+
+
+/* ================================
+   UTIL & GENERALES
+================================== */
+.titulo { color: #111; font-weight: 800; }
+.text-50 { color: var(--tx-3); }
+.btn-success {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; border: 0; border-radius: 10px;
+  font-weight: 600; padding: .6rem 1.2rem; transition: .3s;
+}
+.btn-success:hover { transform: scale(1.05); box-shadow: 0 0 12px var(--accent-soft); }
+
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.btn-volver:hover { background:#f0d769; transform: translateY(-1px); }
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================== */
+.main-content-with-sb {
+  background: #fff; color:#000;
+  border-radius: var(--radius);
+  padding: 2rem; box-shadow: var(--shadow);
+}
+
+/* ================================
+   CARDS GENÉRICAS
+================================== */
+.card {
+  background: #fff; color:#000;
+  border: 1px solid #eaeaea;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  padding: 1.2rem 1rem; transition: .3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--accent-soft);
+  border-color: #d6b1ff;
+}
+
+/* ================================
+   GRID DE RUTINAS / SESIONES
+================================== */
+.sesiones-container {
+  background: #fff; border-radius: 1.5rem; box-shadow: var(--shadow);
+  padding: 2rem;
+}
+.sesiones-container .titulo {
+  font-family: var(--font-title);
+  font-size: 3rem; text-align:center; color:#111; letter-spacing: 1px;
+}
+
+.sesiones-contenedor {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 2rem; margin-top: 1.5rem;
+}
+
+/* ================================
+   SESIÓN CARD (LIMPIA Y FUNCIONAL)
+================================== */
+.sesion-card {
+  position: relative;
+  width: 380px; min-height: 240px;
+  border-radius: 1rem; overflow: hidden;
+  background: var(--bg-card); border: 1px solid var(--bd-card);
+  color: var(--tx-1);
+  display: grid; grid-template-rows: auto 1fr; gap: .8rem;
+  padding: 1.2rem 1.2rem 40px; /* reserva espacio para el botón */
+  background-size: cover; background-position: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
+  transition: transform .4s ease, box-shadow .4s ease, border-color .3s;
+}
+.sesion-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 45px var(--glow); border-color:#3a2758; }
+
+/* overlay visual que NO bloquea clicks */
+.sesion-card .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 10%, rgba(0,0,0,.3) 80%);
+  z-index: 0; pointer-events: none;
+}
+
+/* header arriba de todo */
+.sesion-header {
+  position: relative; z-index: 2;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  padding-bottom: .4rem; margin-bottom: .2rem;
+  font-family: var(--font-title);
+}
+.sesion-dia { font-size: 1.4rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+.sesion-info-box { text-align: right; }
+.duracion-total { color: #c77dff; font-weight: 600; }
+
+/* lista en flujo normal, scrolleable y sin tapar el botón */
+.sesion-detalle {
+  position: relative; z-index: 1;
+  max-height: clamp(120px, 45vh, 220px);
+  overflow-y: auto; padding-right: 64px;  /* deja espacio al botón */
+  font-family: var(--font-title);
+}
+.lista-ejercicios { list-style: none; margin: 0; padding:0; }
+.lista-ejercicios li {
+  display:flex; justify-content: space-between;
+  color:#f2f2f2; font-size:.95rem;
+  border-bottom:1px solid rgba(255,255,255,.1); padding: 6px 0;
+}
+.lista-ejercicios li:last-child { border-bottom: 0; }
+
+/* scrollbar sutil */
+.sesion-detalle::-webkit-scrollbar { width: 6px; }
+.sesion-detalle::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 10px; }
+.sesion-detalle { scrollbar-gutter: stable; }
+
+/* botón play SIEMPRE por encima y clickeable */
+.btn-ver {
+  position: absolute; right: 1rem; bottom: 1rem;
+  z-index: 3; width: 44px; height: 44px;
+  border: 0; border-radius: 50%;
+  background: linear-gradient(145deg, #7b3fe4, #a170ff);
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 0 18px rgba(123,63,228,.5);
+  font-size: 1.3rem; transition: .25s;
+}
+.btn-ver:hover { transform: scale(1.1); box-shadow: 0 0 28px rgba(123,63,228,.7); }
+
+
+/* ================================
+   EJERCICIOS (LISTA DETALLADA)
+================================== */
+.card.border-0 {
+  background: #1f1f22; color:#fff;
+  border: 1px solid #2b2b2b; border-radius: var(--radius);
+  transition: .3s;
+}
+.card.border-0:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-soft); }
+.card .btn-secondary { background:#3a3a3a; color:#999; border:0; }
+
+/* 🕒 ENTRENAMIENTO */ .entrenamiento-container { border: 1px solid #2b2b2b; border-radius: 20px; box-shadow: 0 0 25px rgba(157, 78, 221, 0.1); }
+.entrenamiento-container { background: radial-gradient(circle at 50% 20%, #1c1a22 0%, #0f0d13 100%); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(8px); box-shadow: 0 0 30px rgba(140, 90, 255, 0.2); animation: fadeIn 1s ease; }
+.entrenamiento-container h2 { font-size: 1.5rem; color: #fff; }
+.entrenamiento-container .btn-success { background: linear-gradient(135deg, #9d4edd, #6a0dad); border: none; transition: 0.3s; }
+.entrenamiento-container .btn-success:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(157, 78, 221, 0.4); }
+.entrenamiento-container .btn-danger { background: white; border: none; transition: 0.3s; }
+.entrenamiento-container .btn-danger:hover { transform: scale(1.05); box-shadow: 0 0 10px rgba(255, 77, 109, 0.4); }
+
+.img-ejercicio {
+  width: 100%; max-height: 190px; object-fit: cover;
+  border-radius: 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+/* botones redondos de acción */
+.btn-play, .btn-stop {
+  width: 80px; height: 80px; border-radius: 50%; border: 0;
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  transition: transform .2s, box-shadow .2s; cursor:pointer;
+}
+.btn-play {
+  background: radial-gradient(circle at top left, #a066ff, #7928ca);
+  animation: pulsePlay 1.6s ease-in-out infinite;
+}
+.btn-play:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(160,102,255,.7); }
+.btn-stop { background: radial-gradient(circle at top left, #ff4b5c, #c02d3d); }
+
+/* efecto pulso */
+@keyframes pulsePlay {
+  0% { box-shadow: 0 0 10px rgba(155,89,255,.3); transform: scale(1); }
+  50% { box-shadow: 0 0 25px rgba(155,89,255,.7); transform: scale(1.06); }
+  100% { box-shadow: 0 0 10px rgba(155,89,255,.3); transform: scale(1); }
+}
+
+/* inputs dark */
+.form-control.bg-transparent {
+  background: #1a1a1d !important; color:#fff;
+  border: 1px solid #333 !important; border-radius: 8px; transition:.3s;
+}
+.form-control.bg-transparent:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 10px rgba(157,78,221,.3);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin:0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+/* ================================
+   RESPONSIVE
+================================== */
+@media (max-width: 992px) {
+  .sesiones-contenedor { flex-direction: column; align-items: center; }
+  .sesion-card { width: 95%; }
+}
+
+@media (max-width: 768px) {
+  .main-content-with-sb { padding: 1rem; border-radius: 0; box-shadow:none; }
+  .sesiones-container { padding: 1.2rem; }
+  .sesiones-container .titulo { font-size: 2rem; margin-bottom: 1.2rem; }
+  .sesion-card { padding: 1rem 1rem 76px; }
+  .sesion-detalle { max-height: clamp(150px, 50vh, 260px); }
+  .btn-ver { width: 50px; height: 50px; }
+}
+
+@media (max-width: 480px) {
+  .sesion-card { width: 100%; border-radius: 12px; }
+  .btn-ver { width: 45px; height: 45px; }
+}
+
+/* ==== PATCH: color, tipografías y layout header ==== */
+
+/* 1) Gradiente dark + glow violeta en la sesión */
+.sesion-card {
+  background: linear-gradient(180deg, #1a1522 0%, #0c0a10 100%) !important;
+  border: 1px solid rgba(157, 78, 221, 0.25) !important;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.35),
+    0 0 24px rgba(157, 78, 221, .25) !important;
+}
+
+/* 2) Tipografías: títulos y labels con Bebas */
+.titulo,
+.sesion-dia,
+.sesion-info-box,
+.lista-ejercicios,
+.badge-info,
+.duracion-total {
+  font-family: 'Bebas Neue', sans-serif !important;
+  letter-spacing: .5px;
+}
+
+/* 3) Que “Tiempo estimado” NO quede debajo del botón  */
+.sesion-header {
+  padding-right: 80px !important; /* deja espacio al botón play */
+}
+.sesion-info-box {
+  line-height: 1.05;
+}
+
+/* 4) Lista scrolleable sin chocar al botón (ya lo tenías) */
+.sesion-detalle {
+  padding-right: 64px !important;
+  max-height: clamp(120px, 45vh, 220px);
+  overflow-y: auto;
+}
+
+/* 5) Botón play siempre arriba */
+.btn-ver {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 5 !important;
+}
+
+/* 6) Overlay visual pero no bloquea clics */
+.overlay { pointer-events: none; }
+
+/* 7) Mobile: un poco más de aire para el header */
+@media (max-width: 768px) {
+  .sesion-header { padding-right: 88px !important; }
+  .btn-ver { width: 50px; height: 50px; }
+}

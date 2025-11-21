@@ -1,0 +1,214 @@
+.fit-sidebar {
+  position: fixed;
+  top: 70px; /* debajo del header */
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 70px);
+  background: black; /* color sólido */
+  color: #fff;
+  border-right: 1px solid #222531;
+  padding: 16px 14px;
+  z-index: 1200; /* superior al contenido, inferior al header */
+  overflow-y: auto;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.main-content-with-sb {
+  position: relative;
+  z-index: 1; /* debajo del sidebar */
+  margin-left: 250px; /* reserva espacio para el sidebar */
+  margin-top: 80px;
+  padding: 20px;
+  min-height: calc(100vh - 80px);
+  background: #0f1015;
+  overflow-x: hidden;
+}
+
+@media (max-width: 991px) {
+  .fit-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+    .fit-sidebar.open {
+      transform: translateX(0);
+    }
+
+  .main-content-with-sb {
+    margin-left: 0;
+  }
+}
+
+
+/* Toggle móvil */
+.fit-sb-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1050;
+  background: #1a1c24;
+  color: #fff;
+  border: 1px solid #292c3a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1.2rem;
+}
+
+/* Sidebar abierto/cerrado */
+@media (max-width: 991px) {
+  .fit-sidebar {
+    transform: translateX(-100%);
+  }
+
+    .fit-sidebar.open {
+      transform: translateX(0);
+    }
+}
+
+/* Items */
+.fit-sb-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+  .fit-sb-list a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: #e9e9ef;
+    text-decoration: none;
+    background: #141621;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+    .fit-sb-list a.active,
+    .fit-sb-list a:hover {
+      background: #8b52ff;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+/* === 📱 MODO MÓVIL FitRank Sidebar === */
+@media (max-width: 768px) {
+
+  /* 🔹 Botón hamburguesa visible */
+  .fit-sb-toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1500;
+    background: #1a1c24;
+    color: #fff;
+    border: 1px solid #292c3a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+    .fit-sb-toggle:hover {
+      background: #8b52ff;
+      transform: scale(1.05);
+    }
+
+  /* 🔹 Sidebar */
+  .fit-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 75%;
+    max-width: 280px;
+    height: 100vh;
+    background: #0f0f14;
+    border-right: 1px solid #1c1c24;
+    box-shadow: 6px 0 15px rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 1rem;
+    z-index: 1400;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+    overflow-y: auto;
+  }
+
+    .fit-sidebar.open {
+      transform: translateX(0);
+    }
+
+  /* 🔹 Fondo de oscurecimiento detrás del sidebar */
+  .sidebar-overlay {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 1300;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .fit-sidebar.open ~ .sidebar-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* 🔹 Botón de cerrar */
+  .fit-sb-close {
+    background: transparent;
+    color: #fff;
+    font-size: 1.6rem;
+    border: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+    .fit-sb-close:hover {
+      color: #8b52ff;
+    }
+
+  /* 🔹 Lista de enlaces */
+  .fit-sb-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+    .fit-sb-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #18181f;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+      .fit-sb-list a:hover,
+      .fit-sb-list a.active {
+        background: linear-gradient(135deg, #8b52ff, #a372ff);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+  /* 🔹 Contenido principal sin margen lateral */
+  .main-content-with-sb {
+    margin-left: 0;
+    margin-top: 70px;
+    padding: 1rem;
+    transition: filter 0.3s ease;
+  }
+
+  /* 🔹 Cuando el sidebar está abierto, oscurecer el fondo del contenido */
+  .fit-sidebar.open ~ .main-content-with-sb {
+    filter: blur(3px) brightness(0.6);
+  }
+}

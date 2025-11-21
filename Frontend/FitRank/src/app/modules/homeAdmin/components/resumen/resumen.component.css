@@ -1,0 +1,512 @@
+/* ===========================================
+   LAYOUT GENERAL
+=========================================== */
+.dashboard-container {
+  padding: 20px 40px;
+}
+
+.dashboard-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #5B29EC;
+  margin-bottom: 4px;
+}
+
+.dashboard-sub {
+  color: #6e6e6e;
+  font-size: 14px;
+}
+
+.sidebar-right {
+  margin-top: 10px;
+}
+/* ───────────────────────────────────────────────
+   MINI-CHART BOX — Mantiene tamaño PRO 
+──────────────────────────────────────────────── */
+.mini-chart-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  min-height: 260px; /* Altura uniforme */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+  /* Para que NO se estire en vertical */
+  .mini-chart-box canvas {
+    max-height: 180px;
+    width: 100% !important;
+    height: 180px !important;
+  }
+
+/* Título del mini gráfico */
+.mini-chart-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+/* Switch group */
+.switch-group {
+  display: flex;
+  gap: 10px;
+}
+
+.switch-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: #e6e6e6;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+  color: #000;
+}
+
+  .switch-btn.active {
+    background: #8B52FF;
+    color: #fff;
+  }
+
+/* Ajuste para que cada gráfico no expanda la columna */
+.panel-box .row > div {
+  width: 100%;
+}
+
+/* Espaciado perfecto entre mini-graficos */
+.panel-box .g-3 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+/* ===========================================
+   KPI BOXES
+=========================================== */
+.kpi-box,
+.kpi-box-riesgo {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+}
+
+  .kpi-box:hover,
+  .kpi-box-riesgo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  }
+
+.kpi-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #000;
+}
+
+.kpi-growth-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* CONTENEDOR DE BOTONES */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 🔵 BOTÓN OUTLINE – estilo FitRank */
+.btn-outline {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  color: black;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+    color: black;
+    border-color: #7B3FE4;
+    box-shadow: 0 4px 10px rgba(123,63,228,0.35);
+    transform: translateY(-1px);
+  }
+
+/* 🟣 BOTÓN PRIMARY – violeta FitRank */
+.btn-primary {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .25s ease;
+  box-shadow: 0 4px 12px rgba(123,63,228,0.35);
+}
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #9A63FF, #B186FF);
+    box-shadow: 0 6px 14px rgba(123,63,228,0.45);
+    transform: translateY(-2px);
+  }
+
+
+/* Barra progreso KPIs */
+.kpi-progress {
+  height: 6px;
+  background: #ece4ff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.kpi-progress-bar {
+  height: 100%;
+  background: #9c5bff;
+  border-radius: 10px;
+}
+
+/* ===========================================
+   PANEL BOXES
+=========================================== */
+.panel-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  margin-bottom: 20px;
+  transition: 0.2s ease;
+}
+
+  .panel-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  }
+
+.mini-chart-box {
+  background: #fff;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.mini-chart-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+/* ===========================================
+   TITULOS DE PANELES
+=========================================== */
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+.panel-sub {
+  font-size: 14px;
+  color: #777;
+}
+
+/* CONTENEDOR DEL GRÁFICO */
+.mini-chart-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  height: 260px; /* 👈 Tamaño controlado */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+  /* CANVAS PEQUEÑO */
+  .mini-chart-box canvas {
+    height: 180px !important; /* 👈 Tamaño real del gráfico */
+    width: 100% !important;
+  }
+
+
+/* ===========================================
+   LIST ITEMS (Socios riesgo / solicitudes)
+=========================================== */
+.list-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f7f3ff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-title {
+  font-weight: 600;
+}
+
+.item-sub {
+  font-size: 13px;
+  color: #777;
+}
+
+/* ===========================================
+   BADGES
+=========================================== */
+.badge {
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+.badge-entrada {
+  background: #d7f9d7;
+  color: #228b22;
+}
+
+.badge-salida {
+  background: #ffe6e6;
+  color: #d43f3a;
+}
+
+/* ===========================================
+   BOTÓN LINK
+=========================================== */
+.btn-link {
+  color: #7d3bea;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+/* ===========================================
+   CALENDARIO
+=========================================== */
+.small-calendar-box {
+  padding: 20px;
+  border-radius:1px;
+}
+
+.calendar-nav button {
+  border-radius: 10px !important;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  font-size: 13px;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: 600;
+  color: #777;
+}
+
+.day-cell {
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+  .day-cell:hover {
+    background: #f1e5ff;
+  }
+
+  .day-cell.today {
+    background: #9c5bff;
+    color: white;
+    font-weight: 700;
+  }
+
+/* ===========================================
+   ACTIVIDAD EN TIEMPO REAL
+=========================================== */
+.activity-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.activity-header {
+  background: #000;
+  padding: 14px 18px;
+  border-radius: 18px 18px 0 0;
+}
+
+.activity-pill {
+  background: #7FFF00;
+  color: black;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.activity-content {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+}
+
+/* Caja del mapa */
+.activity-map {
+  position: relative;
+  flex: 1;
+  height: 260px;
+  background: #f7f3ff;
+  border-radius: 16px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.activity-map-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.map-label {
+  color: #555;
+}
+
+.map-count {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5B29EC;
+}
+
+/* PINS */
+.activity-pin-real {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.pin-foto {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pin-tooltip {
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  margin-top: 4px;
+}
+
+/* Lista actividad */
+.activity-list {
+  flex: 1;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.ocupacion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.header-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.activity-name {
+  font-size: 14px;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Badge en lista de actividad */
+.activity-badge {
+  font-size: 11px;
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+@media (max-width: 991px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  .activity-content {
+    flex-direction: column;
+  }
+
+  .activity-map,
+  .activity-list {
+    max-height: none;
+  }
+}
+/* CONTENEDOR DEL SWITCH */
+.switch-group {
+  display: inline-flex;
+  background: #f3ecff;
+  padding: 4px;
+  border-radius: 999px;
+  gap: 4px;
+}
+
+/* ======== SWITCH TABS (mismo estilo que Máquinas/Ejercicios) ======== */
+.switch-group {
+  display: inline-flex;
+  background: #f3ecff;
+  padding: 4px;
+  border-radius: 999px;
+  gap: 4px;
+}
+
+.switch-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+  .switch-btn.active {
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #7d3bea;
+    font-weight: 600;
+  }

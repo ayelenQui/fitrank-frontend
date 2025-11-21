@@ -1,0 +1,99 @@
+<div class="invitacion-background">
+
+ 
+
+  <div class="container generar-invitacion p-4 mt-4">
+    <h2 id="typing-text" class="text-center mb-4"></h2>
+
+    <form [formGroup]="form"
+          (ngSubmit)="generarInvitacion()"
+          class="formulario shadow-lg rounded-4 p-4">
+
+      <button type="button" class="btn-volver" (click)="volverAtras()">
+        Volver
+      </button>
+
+      <h5 class="typing-text seccion-titulo mb-3">Datos Personales</h5>
+
+      <div class="contenedorDatosPersonales row g-3 mb-4">
+        <div class="col-md-6 contenerdorLabelInput">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre" />
+        </div>
+        <div class="col-md-6 contenerdorLabelInput">
+          <label>Apellidos</label>
+          <input type="text" class="form-control" formControlName="apellidos" />
+        </div>
+        <div class="col-md-6 contenerdorLabelInput">
+          <label>DNI</label>
+          <input type="number" class="form-control" formControlName="dni" />
+        </div>
+        <div class="col-md-6 contenerdorLabelInput">
+          <label>Teléfono</label>
+          <input type="text" class="form-control" formControlName="telefono" />
+        </div>
+        <div class="col-md-12 contenerdorLabelInput">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="email" />
+        </div>
+      </div>
+
+      <h5 class="seccion-titulo mb-3">Datos de Pago</h5>
+
+      <div class="contenedorDatosPago row g-3">
+
+        <!-- CAMBIO 1: método de pago -->
+        <div class="col-md-4 contenerdorLabelInput">
+          <label>Método de pago</label>
+          <select class="form-select" formControlName="metodoPago">
+            <option value="efectivo">Efectivo</option>
+            <option value="mercadopago">Mercado Pago</option>
+          </select>
+        </div>
+
+        <!-- CAMBIO 2: corregido semana → año -->
+        <div class="col-md-4 contenerdorLabelInput">
+          <label>Periodo</label>
+          <select class="form-select" formControlName="periodo">
+            <option value="mes">Mes</option>
+            <option value="anio">Año</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 contenerdorLabelInput">
+          <label>Monto</label>
+          <input type="number" class="form-control" formControlName="monto" />
+        </div>
+
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit"
+                class="btn btn-violeta btn-generarInvitacion px-5 py-2"
+                [disabled]="loading">
+          {{ loading ? "Generando..." : "Generar invitación" }}
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="mensaje" class="alert alert-success mt-3 text-center">
+      {{ mensaje }}
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+      {{ error }}
+    </div>
+    <!-- 🔵 LINK PARA PAGO ONLINE (si lo necesita más tarde) -->
+    <div *ngIf="linkPago" class="text-center mt-4">
+      <a [href]="linkPago" class="btn btn-violeta px-4 py-2">
+        💻 Pagar online
+      </a>
+    </div>
+
+    <!-- 🟣 QR PARA PAGO PRESENCIAL -->
+    <div *ngIf="qrImage" class="text-center mt-4">
+      <p class="fw-bold mb-2">📱 Escaneá para pagar con Mercado Pago</p>
+      <img [src]="qrImage" style="width:260px; border-radius:12px;" />
+    </div>
+
+  </div>
+</div>

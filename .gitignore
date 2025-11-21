@@ -3,6 +3,10 @@ node_modules/
 dist/
 .angular/
 .env
+angular.json
+package-lock.json
+src/app/api-junto/
+
 # IDEs
 .vscode/
 .vs/

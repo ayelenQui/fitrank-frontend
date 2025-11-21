@@ -1,0 +1,179 @@
+<div class="rutina-layout" [class.expandido]="mostrarSesiones">
+
+  <!-- 🟣 HERO -->
+  <section class="fit-hero">
+    <div class="fit-hero__grid">
+      <div class="fit-hero__media">
+        <img src="assets/img/home/plan.png" alt="Atleta entrenando" />
+      </div>
+
+      <div class="fit-hero__content">
+        <h1 class="fit-hero__title  ">Planificación de Entrenamiento</h1>
+        <p class="fit-hero__subtitle">
+          Entrená más inteligente, seguí tus progresos y alcanzá tus metas.
+        </p>
+
+        <form class="plan-card" [formGroup]="form" (ngSubmit)="onGenerarSesiones()">
+          <h2 class=" plan-card__title">Planificá cuántos días de entreno</h2>
+          <div class="plan-card__row">
+            <input type="number"
+                   class="plan-card__input btn-secondary"
+                   formControlName="cantidadDias"
+                   placeholder="1..."
+                   min="1"
+                   max="7" />
+            <button type="submit"
+                    class="btn-fitrank btn-secondary"
+                    [disabled]="form.get('cantidadDias')?.invalid">
+              Generar sesiones
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🟣 CONTENIDO PRINCIPAL -->
+  <div class="contenido" *ngIf="mostrarSesiones">
+    <!-- LISTADO DE SESIONES Y SERIES -->
+    <div class="main-panel">
+      <!-- Tabs -->
+      <div class="dias-tabs mb-4">
+        <button *ngFor="let sesion of sesiones.controls; let i = index"
+                (click)="seleccionarSesion(i)"
+                class="btn-secondary"
+                [ngClass]="{ active: sesionActiva === i }">
+          Día {{ i + 1 }}
+        </button>
+      </div>
+
+      <!-- Contenido del día -->
+      <div class="dia-content">
+        <form [formGroup]="form" (ngSubmit)="guardarSesionActual()">
+          <div formArrayName="sesiones">
+            <div *ngIf="sesiones.at(sesionActiva)"
+                 [formGroupName]="sesionActiva"
+                 class="bloques-container btn-secondary">
+
+              <!-- LISTA DE EJERCICIOS -->
+              <div formArrayName="ejercicios" class="ejercicios-dropzone">
+                <div *ngIf="getEjercicios(sesionActiva).length === 0"
+                     class="alert alert-light text-center text-muted py-5 border rounded-3 shadow-sm">
+                  <p class="mt-3 fw-bold text-uppercase text-secondary">
+                    Tu día todavía está vacío
+                  </p>
+                  <p class="text-muted">Elegí ejercicios del panel derecho para empezar</p>
+                </div>
+
+                <div *ngFor="let ejercicio of getEjercicios(sesionActiva).controls; let j = index; trackBy: trackByIndex"
+                     [formGroupName]="j"
+                     class="bloque btn-secondary">
+                  <div class="bloque-header">
+                    <!--<div class="d-flex align-items-center gap-2">
+                      <img *ngIf="ejercicio.get('urlImagen')?.value"
+                           [src]="ejercicio.get('urlImagen')?.value"
+                           class="bloque-img"
+                           alt="Ejercicio" />-->
+                      <div>
+                        <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
+                        <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
+                        <small class="text-muted d-block">
+                          ⏱ {{ ejercicio.get('duracionEstimada')?.value }} min
+                        </small>
+                      </div>
+                    <!--</div>-->
+                    <button type="button"
+                            class="btn btn-sm btn-outline-danger btn-secondary"
+                            (click)="eliminarEjercicio(sesionActiva, j)">
+                      🗑
+                    </button>
+                  </div>
+
+                  <!-- SERIES -->
+                  <div class="bloque-body" formArrayName="series">
+                    <div *ngFor="let serie of getSeries(sesionActiva, j).controls; let k = index; trackBy: trackByIndex"
+                         [formGroupName]="k"
+                         class="serie-row">
+                      <div class="serie-input">
+                        <label>Peso</label>
+                        <input type="number" class="form-control" formControlName="peso" />
+                      </div>
+                      <div class="serie-input">
+                        <label>Reps</label>
+                        <input type="number" class="form-control" formControlName="repeticiones" />
+                      </div>
+                      <div class="serie-input">
+                        <label>Tiempo</label>
+                        <input type="number" class="form-control" formControlName="duracion" />
+                      </div>
+                      <button type="button"
+                              class="btn btn-outline-danger btn-sm btn-secondary"
+                              (click)="eliminarSerie(sesionActiva, j, k)">
+                        Quitar
+                      </button>
+                    </div>
+
+                    <button type="button"
+                            class="btn btn-outline-primary btn-sm mt-2 btn-secondary"
+                            (click)="agregarSerie(sesionActiva, j)">
+                      Agregar serie
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-end mt-4">
+                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 btn-secondary">
+                  Guardar Día {{ sesionActiva + 1 }}
+                </button>
+                <div class="text-end mt-3 fw-bold text-secondary">
+                  Duración total del día:
+                  <span class="text-dark">{{ getDuracionTotalSesion(sesionActiva) }} min</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- TOTAL -->
+      <div class="text-center mt-4">
+        <h5 class="fw-bold text-dark">
+          Duración total estimada de la rutina:
+          <span class="text-fitrank">{{ getDuracionTotalRutina() }} min</span>
+        </h5>
+      </div>
+
+      <!-- GUARDAR -->
+      <div class="text-center mt-5">
+        <button type="button" class="btn btn-outline-primary btn-sm mt-2 btn-secondary" (click)="guardarTodo()">
+          Guardar Rutina
+        </button>
+      </div>
+    </div>
+
+    <!-- 🟣 SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-content">
+        <h5 class="fw-bold mb-3"> Hace Click para Agregar tus Ejercicios</h5>
+        <input type="text"
+               class="form-control mb-3"
+               placeholder="Buscar Ejercicios..."
+               [(ngModel)]="filtro"
+               (input)="filtrarEjercicios()" />
+
+        <div class="ejercicio-list">
+          <div *ngFor="let e of ejerciciosFiltrados"
+               class="ejercicio-item"
+               (click)="agregarEjercicio(e)">
+        <!--<img *ngIf="e.urlImagen" [src]="e.urlImagen" alt="{{ e.nombre }}" />-->
+            <div>
+              <h6>{{ e.nombre }}</h6>
+              <small>{{ e.nombreGrupoMuscular }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

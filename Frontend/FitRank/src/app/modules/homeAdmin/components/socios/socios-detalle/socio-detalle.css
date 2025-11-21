@@ -1,0 +1,29 @@
+.bg-violet {
+  background-color: #8242f0 !important;
+  color: #fff;
+}
+
+.text-violet {
+  color: #8242f0 !important;
+}
+
+.card.info-card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(130, 66, 240, 0.15);
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+  .card.info-card:hover {
+    transform: translateY(-3px);
+  }
+
+.nav-tabs .nav-link.active {
+  background-color: #8242f0;
+  color: white;
+}
+
+.nav-tabs .nav-link {
+  color: #8242f0;
+  font-weight: 500;
+}

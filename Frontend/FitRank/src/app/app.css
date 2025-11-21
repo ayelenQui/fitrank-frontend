@@ -1,0 +1,20 @@
+/* Header visible por defecto */
+app-header-socio {
+  display: block;
+}
+
+/* Footer visible solo en móvil */
+app-footer {
+  display: none;
+}
+
+/* Media queries para móvil */
+@media (max-width: 768px) {
+  app-header-socio {
+    display: none; /* oculta header en móvil */
+  }
+
+  app-footer {
+    display: block; /* muestra footer en móvil */
+  }
+}

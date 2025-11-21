@@ -1,0 +1,57 @@
+
+<button type="button" class="btn-volver btn-secondary" (click)="volverAtras()">
+  ← Volver
+</button>
+
+<!-- Contenedor principal -->
+<div class="crear-rutina-wrapper">
+  <!-- Título -->
+  <div class="titulo-seccion text-center">
+    <h2>Crear Rutina Manual</h2>
+    <p class="subtitulo">Personalizá tu plan de entrenamiento paso a paso.</p>
+  </div>
+
+  <form [formGroup]="rutinaForm" (ngSubmit)="crearRutina()" class="formulario-rutina">
+    <div class="grid-datos">
+      <!-- Nombre -->
+      <div class="campo">
+        <label for="nombre">Nombre de la rutina</label>
+        <input id="nombre"
+               formControlName="nombre"
+               type="text"
+               class="input"
+               placeholder="Ej: Full Body Principiante" />
+        <small class="error" *ngIf="rutinaForm.get('Nombre')?.invalid && rutinaForm.get('Nombre')?.touched">
+          El nombre es obligatorio
+        </small>
+      </div>
+
+      <div class="campo">
+        <label for="tipoCreacion" class="form-label">Tipo de creación</label>
+        <input id="tipoCreacion"
+               formControlName="tipoCreacion"
+               type="text"
+               class="input"
+               readonly
+               value="Manual" />
+      </div>
+
+      <!-- Descripción -->
+      <div class="campo">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion"
+                  formControlName="descripcion"
+                  class="input"
+                  rows="3"
+                  placeholder="Descripción breve de la rutina o tus objetivos..."></textarea>
+      </div>
+    </div>
+
+    <!-- Botón principal -->
+    <div class="text-center">
+      <button type="submit" class="btn-crear btn-secondary">
+       Crear rutina
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,174 @@
+<div class="gestion-container">
+
+  <!-- HEADER -->
+  <div class="gestion-header">
+    <div>
+      <h2 class="text-titulo fw-bold mb-4">Máquinas y ejercicios</h2>
+      <p class="subtitulo">Gestioná todo el contenido del gimnasio desde un solo lugar</p>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-outline btn-secondary" (click)="abrirModalEjercicio()">+ Agregar ejercicio</button>
+      <button class="btn-primary btn-secondary" (click)="abrirModalMaquina()">+ Agregar máquina</button>
+
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn btn-secondary"
+            [class.active]="activeTab === 'maquinas'"
+            (click)="cambiarTab('maquinas')">
+      Máquinas
+    </button>
+
+    <button class="tab-btn btn-secondary"
+            [class.active]="activeTab === 'ejercicios'"
+            (click)="cambiarTab('ejercicios')">
+      Ejercicios
+    </button>
+  </div>
+
+  <!-- TAB MÁQUINAS -->
+  <div *ngIf="activeTab === 'maquinas'">
+    <div *ngIf="loadingMaquinas" class="loading">Cargando máquinas...</div>
+
+    <div class="grid" *ngIf="!loadingMaquinas">
+      <div class="card-maquina" *ngFor="let m of maquinas">
+
+        <iframe width="100%"
+                height="300"
+                [src]="sanitizer.bypassSecurityTrustResourceUrl(convertirAEmbed(m.urlImagen))"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+
+
+        <!-- SI ES UNA IMAGEN NORMAL -->
+        <img *ngIf="!(m.urlImagen.includes('youtube') || m.urlImagen.includes('youtu.be'))"
+             [src]="m.urlImagen"
+             class="maquina-img"
+             alt="Máquina">
+
+        <h3 class="maquina-nombre text-black">{{ m.nombre }}</h3>
+
+        <div class="maquina-actions">
+          <button class="btn-sm primary btn-secondary" (click)="verDetalleMaquina(m.id)">Ver QR / detalle</button>
+    
+          <button class="btn-sm success btn-secondary" (click)="imprimirQR(m.qr)">Imprimir QR</button>
+        </div>
+      </div>
+
+      <p *ngIf="!maquinas?.length && !loadingMaquinas" class="empty-text">
+        No hay máquinas cargadas todavía.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid-ejercicios" *ngIf="!loadingEjercicios">
+
+    <div class="card-ejercicio-pro" *ngFor="let e of ejercicios">
+
+
+      <!-- INFORMACIÓN -->
+      <div class="ej-body-pro text-black">
+        <h4 class="ej-title">{{ e.nombre }}</h4>
+        <p class="ej-desc-pro">{{ e.descripcion }}</p>
+
+        <div class="ej-tags">
+
+          <span class="tag text-black" *ngIf="e.duracionEstimada">
+            Duracion {{ e.duracionEstimada }}s
+          </span>
+
+          <span class="tag text-black" *ngIf="e.maquinaId">
+             Máquina {{ e.maquinaId }}
+          </span>
+
+        </div>
+
+        <!-- VIDEO -->
+        <div class="ej-video" *ngIf="e.urlVideo">
+          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(embedVideo(e.urlVideo))"
+                  frameborder="0"
+                  allowfullscreen>
+          </iframe>
+        </div>
+
+      </div>
+
+    </div>
+
+    <p *ngIf="!ejercicios?.length && !loadingEjercicios" class="empty-text">
+      No hay ejercicios cargados todavía.
+    </p>
+  </div>
+
+  <!-- MODAL AGREGAR MÁQUINA -->
+  <div class="modal-backdrop" *ngIf="showMaquinaModal">
+    <div class="modal">
+      <h3>Agregar máquina</h3>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="nuevaMaquina.nombre">
+      </div>
+
+      <div class="form-group">
+        <label>URL imagen</label>
+        <input type="text" [(ngModel)]="nuevaMaquina.urlImagen">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-sm light btn-secondary" (click)="showMaquinaModal = false">Cancelar</button>
+        <button class="btn-sm primary btn-secondary" (click)="guardarMaquina()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR EJERCICIO -->
+  <div class="modal-backdrop btn-secondary" *ngIf="showEjercicioModal">
+    <div class="modal">
+      <h3>Agregar ejercicio</h3>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="nuevoEjercicio.nombre">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea rows="2" [(ngModel)]="nuevoEjercicio.descripcion"></textarea>
+      </div>
+
+      <div class="form-inline">
+        <div class="form-group">
+          <label>Duración (seg)</label>
+          <input type="number" [(ngModel)]="nuevoEjercicio.duracionEstimada">
+        </div>
+
+        <div class="form-group">
+          <label>Id Máquina (opcional)</label>
+          <input type="number" [(ngModel)]="nuevoEjercicio.maquinaId">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>URL imagen</label>
+        <input type="text" [(ngModel)]="nuevoEjercicio.urlImagen">
+      </div>
+
+      <div class="form-group">
+        <label>URL video</label>
+        <input type="text" [(ngModel)]="nuevoEjercicio.urlVideo">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-sm light btn-secondary" (click)="showEjercicioModal = false">Cancelar</button>
+        <button class="btn-sm primary btn-secondary" (click)="guardarEjercicio()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+</div>

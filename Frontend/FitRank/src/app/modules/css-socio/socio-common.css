@@ -1,0 +1,78 @@
+.btn-volver {
+   margin-top: 0.5rem;
+   margin-left: 1rem;
+   margin-right: auto;
+   display: block;
+  padding: 0.3rem 3rem;
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 2rem);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 10px;
+  background-color: #e0d682;
+  color: black;
+  transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
+}
+
+.btn-volver:hover {
+  scale: 1.1;
+}
+
+.btn-principal {
+   margin-top: 2rem;
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+  padding: 0.6rem 5rem;
+  font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 10px;
+  background-color: #e0d682;
+  color: black;
+  transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
+}
+
+.btn-principal:hover {
+  scale: 1.1;
+}
+
+.titulo{
+      font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+        font-weight: bold;
+        text-align: center;
+        color: var(--color-texto);
+        margin-bottom: 20px;
+        font-family: var(--font-titulo);
+}
+
+.contenedor-socio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* antes: center, para que empiece desde arriba */
+  min-height: 80vh;
+  text-align: center;
+  gap: 1rem; /* antes 1.5rem, menos espacio entre h2 y p */
+  padding-top: 2rem; /* espacio desde el header */
+    max-width: 800px;
+margin: auto;
+}
+  
+
+
+@media (max-width: 1400px) {
+
+
+
+  .btn-principal {
+    padding: 0.7rem 4rem;
+    font-size: clamp(0.5rem, .5vw + 0.7rem, 1.5rem);
+  }
+}
+/* Responsive */
+/* Que desaparezca en tamao celular */
+@media (max-width: 600px) {
+  .btn-volver {
+    display: none;
+  }
+}

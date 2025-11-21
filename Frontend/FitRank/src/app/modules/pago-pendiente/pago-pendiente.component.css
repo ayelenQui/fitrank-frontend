@@ -1,0 +1,32 @@
+.estado-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fffbea;
+}
+
+.card-estado {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.titulo.warning {
+  color: #e6a300;
+}
+
+.btn-fitrank {
+  background: #e6a300;
+  color: white;
+  padding: 10px 26px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+  .btn-fitrank:hover {
+    background: #b48200;
+  }

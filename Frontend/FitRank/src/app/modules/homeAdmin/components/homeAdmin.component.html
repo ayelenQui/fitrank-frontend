@@ -1,0 +1,27 @@
+<div class="dashboard-wrapper">
+  <div class="sidebar-fixed">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <h2 class="dashboard-title">Bienvenido, Admin</h2>
+      <div class="dashboard-user">
+        <img src="assets/avatar-admin.png" alt="Admin" class="avatar">
+        <span>Administrador</span>
+      </div>
+
+      <div class="admin-home">
+        <h2>Panel de Administrador</h2>
+
+        <button (click)="irAGenerarInvitacion()" class="btn btn-primary">
+          ➕ Generar Invitación
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

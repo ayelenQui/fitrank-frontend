@@ -1,0 +1,173 @@
+/* Contenedor principal */
+.historial-container {
+  background: #1c1c1c;
+  max-width: 950px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+.actividad-data h6 {
+  text-align: center;
+  margin-bottom: 1rem; /* opcional: separa un poco la tabla del título */
+}
+
+
+
+/* Título */
+.historial-container .titulo {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.historial-container .titulo::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* Card de entrenamiento */
+.entrenamiento-card {
+  background: rgba(255, 255, 255, 0.08); /* fondo tipo glass */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.entrenamiento-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Info principal */
+.info-principal h6 {
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.info-principal p {
+  color: #eaeaea;
+  margin: 0.2rem 0;
+}
+
+.btn-fitrank {
+  background: #7b3fe4;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+/* Sección expandida */
+.detalles-card {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Actividades dentro del historial */
+.actividad-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+
+
+.actividad-info h6 {
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.serie-info p {
+  color: #eaeaea;
+  margin: 0.1rem 0;
+}
+.tabla-series-container {
+  overflow-x: auto; /* scroll horizontal si la tabla es muy ancha */
+  margin-top: 0.5rem;
+}
+
+.tabla-series {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.tabla-series th,
+.tabla-series td {
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+  color: white;
+}
+
+.tabla-series th {
+  background: #7b3fe4;
+  font-weight: 600;
+}
+
+.tabla-series tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tabla-series tr:hover {
+  background: rgba(123, 63, 228, 0.1);
+}
+
+/* Scroll en móviles */
+@media (max-width: 576px) {
+  .tabla-series th,
+  .tabla-series td {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+/* ===== DISTRIBUCIÓN EN UNA SOLA FILA ===== */
+.info-header {
+  display: flex;
+  justify-content: space-between;   /* CENTRA TODOS EN LA FILA */
+  gap: 2rem;                 /* ESPACIADO ENTRE LOS 3 */
+  width: 100%;
+  color: white;
+  margin-bottom: 0.8rem;
+}
+
+.info-header h6,
+.info-header .puntos,
+.info-header .fecha {
+  margin: 0;
+  text-align: center;        /* CADA UNO CENTRADO INDIVIDUALMENTE */
+  padding: 0 5px;
+}
+/* ===== ESPACIO ENTRE BOTÓN Y GRÁFICO ===== */
+.btn-fitrank.btn-light {
+  margin-top: 1rem;
+}
+
+app-grafico-progreso {
+  margin-top: 1.2rem;
+  display: block;
+}

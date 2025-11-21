@@ -1,0 +1,19 @@
+.nav-item {
+  background-color: white;
+  color: white;
+  border-bottom: 3px solid;
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+}
+.btn-primary {
+  background-color: #8b52ff;
+  border-color: #8b52ff;
+  
+}
+.nav-link i {
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover i,
+.btn-outline-dark:hover i {
+  color: #8b52ff !important;
+}

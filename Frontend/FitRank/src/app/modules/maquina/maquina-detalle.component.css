@@ -1,0 +1,86 @@
+.maquina-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7b3fe4;
+  margin-bottom: 10px;
+}
+
+.maquina-img {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.subtitulo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.ejercicio-card {
+  display: flex;
+  gap: 15px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.ej-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.ej-info h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.desc {
+  margin-top: 5px;
+  color: #666;
+}
+
+.duracion, .grupo {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.video iframe {
+  width: 260px;
+  height: 150px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.no-ejercicios {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #888;
+  margin-top: 40px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.3rem;
+  color: #7b3fe4;
+  font-weight: 600;
+}

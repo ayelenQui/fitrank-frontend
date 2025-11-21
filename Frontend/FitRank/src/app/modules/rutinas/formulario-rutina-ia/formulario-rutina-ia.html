@@ -1,0 +1,164 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Generar Rutina Automática</h2>
+
+  <form [formGroup]="rutinaForm" (ngSubmit)="enviar()" class="formulario-fitrank">
+
+    <!-- Datos personales -->
+    <h5>Datos personales</h5>
+    <div class="row mb-3">
+      <div class="col-md-4 mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" id="edad" class="form-control" formControlName="edad">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="pesoKg" class="form-label">Peso (kg)</label>
+        <input type="number" id="pesoKg" class="form-control" formControlName="pesoKg">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="alturaCm" class="form-label">Altura (cm)</label>
+        <input type="number" id="alturaCm" class="form-control" formControlName="alturaCm">
+      </div>
+    </div>
+
+    <!-- Nivel y objetivo -->
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <label for="objetivo" class="form-label">Objetivo principal</label>
+        <select id="objetivo" class="form-select" formControlName="objetivo">
+          <option value="Hipertrofia">Hipertrofia</option>
+          <option value="PerdidaDePeso">Pérdida de peso</option>
+          <option value="Fuerza">Fuerza</option>
+          <option value="Resistencia">Resistencia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Sesiones y tiempo -->
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <label for="sesionesPorSemana" class="form-label">Sesiones por semana</label>
+        <input type="number" id="sesionesPorSemana" class="form-control" formControlName="sesionesPorSemana">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="minutosPorSesion" class="form-label">Minutos por sesión</label>
+        <input type="number" id="minutosPorSesion" class="form-control" formControlName="minutosPorSesion">
+      </div>
+    </div>
+
+    <!-- Calidad de alimentación y sueño -->
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <label for="calidadAlimentacion" class="form-label">Calidad de alimentación (1-5)</label>
+        <input type="number" id="calidadAlimentacion" class="form-control" formControlName="calidadAlimentacion">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="horasSuenio" class="form-label">Horas de sueño</label>
+        <input type="number" id="horasSuenio" class="form-control" formControlName="horasSuenio">
+      </div>
+    </div>
+
+    <hr>
+
+ <!-- Screening -->
+<h5>Screening de salud</h5>
+<div formGroupName="screening" class="mb-3">
+  <div class="grid-check">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="hipertension" id="hipertension">
+      <label class="form-check-label" for="hipertension">Hipertensión</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="hipertensionControlada" id="hipertensionControlada">
+      <label class="form-check-label" for="hipertensionControlada">Hipertensión controlada</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="diabetes" id="diabetes">
+      <label class="form-check-label" for="diabetes">Diabetes</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="cirugiaReciente" id="cirugiaReciente">
+      <label class="form-check-label" for="cirugiaReciente">Cirugía reciente</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorLumbar" id="dolorLumbar">
+      <label class="form-check-label" for="dolorLumbar">Dolor lumbar</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorHombro" id="dolorHombro">
+      <label class="form-check-label" for="dolorHombro">Dolor hombro</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorRodilla" id="dolorRodilla">
+      <label class="form-check-label" for="dolorRodilla">Dolor rodilla</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="dolorToracico" id="dolorToracico">
+      <label class="form-check-label" for="dolorToracico">Dolor torácico</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="sincope" id="sincope">
+      <label class="form-check-label" for="sincope">Síncope</label>
+    </div>
+   <!-- <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="embarazo" id="embarazo">
+      <label class="form-check-label" for="embarazo">Embarazo</label>
+    </div>-->
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-6 mb-3">
+      <label for="frecuenciaCardiacaReposo" class="form-label">Frecuencia cardíaca en reposo</label>
+      <input type="number" id="frecuenciaCardiacaReposo" class="form-control" formControlName="frecuenciaCardiacaReposo">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="dolorEscala0a10" class="form-label">Dolor (0-10)</label>
+      <input type="number" id="dolorEscala0a10" class="form-control" formControlName="dolorEscala0a10">
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- Preferencias -->
+<h5>Preferencias</h5>
+<div formGroupName="preferencias" class="mb-3">
+  <div class="grid-check">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="incluirCardio" id="incluirCardio">
+      <label class="form-check-label" for="incluirCardio">Incluir cardio</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="prefiereMaquinas" id="prefiereMaquinas">
+      <label class="form-check-label" for="prefiereMaquinas">Prefiere máquinas</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" formControlName="prefiereMancuernas" id="prefiereMancuernas">
+      <label class="form-check-label" for="prefiereMancuernas">Prefiere mancuernas</label>
+    </div>
+  </div>
+</div>
+
+
+<div class="mb-3 mt-2">
+  <label class="form-label">Ejercicios a excluir:</label>
+
+  <div class="grid-ejercicios">
+    <div
+      *ngFor="let e of ejercicios"
+      class="card-ejercicio"
+      [class.seleccionado]="estaSeleccionado(e.nombre)"
+      (click)="toggleEjercicio(e.nombre)"
+    >
+  <!--<img [src]="e.urlVideo" alt="{{ e.nombre }}" class="img-ejercicio" />-->
+      <p class="nombre-ejercicio">{{ e.nombre }}</p>
+    </div>
+  </div>
+</div>
+
+
+
+    <button type="submit" class="btn btn-primary btn-secondary" [disabled]="enviando">
+      {{ enviando ? 'Generando...' : 'Generar Rutina' }}
+    </button>
+  </form>
+</div>

@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* THEME PRINCIPAL DEL GIMNASIO */
+  --color-principal: #000000; /* Sidebar negro por defecto */
+  --color-secundario: #8B52FF;
+  --logo-gimnasio: none;
+  /* BASE */
+  --color-fondo: #f7f7f7;
+  --color-texto-principal: #121212;
+  --color-texto-secundario: #808080;
+  --font-titulo: 'Bebas Neue', sans-serif;
+  --font-secundaria: 'Work Sans', sans-serif;
+  --fondo-gimnasio: #f7f7f7;
+}
+
+/* ================================
+   BOTONES DE ACCIÓN (SECONDARY)
+================================ */
+.btn-secondary {
+  background-color: var(--color-secundario) !important;
+  border-color: var(--color-secundario) !important;
+  color: var(--texto-secundario) !important;
+}
+
+  .btn-secondary:hover {
+    filter: brightness(0.9);
+  }
+
+/* ================================
+   BOTONES ESTRUCTURALES (PRIMARY)
+================================ */
+.btn-primary {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: #fff;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+  background-color: var(--color-principal) !important;
+}
+
+
+  .sidebar .item:hover {
+    filter: brightness(1.2);
+  }
+
+/* ================================
+   CARDS
+================================ */
+.card {
+  border-color: var(--color-principal);
+}
+
+.card-header {
+  background-color: var(--color-principal);
+  color: #fff;
+}
+
+/* ================================
+   FONDO GENERAL
+================================ */
+body {
+  background: var(--color-fondo);
+}

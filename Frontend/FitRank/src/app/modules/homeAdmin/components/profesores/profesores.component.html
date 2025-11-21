@@ -1,0 +1,268 @@
+<div class="container  p-2 m-2">
+
+  <!-- 🟪 Título -->
+  <h2 class="text-titulo  fw-bold mb-4">Gestión de Profesores</h2>
+
+  <!-- 🔮 SWITCH FITRANK -->
+  <<div class="fr-switch mb-4">
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'estadisticas'"
+            (click)="vista = 'estadisticas'">
+
+      <i class="bi bi-bar-chart-line icon-fr"></i>
+      Estadísticas
+    </button>
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'listado'"
+            (click)="vista = 'listado'">
+
+      <i class="bi bi-table icon-fr"></i>
+      Listado
+    </button>
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'nuevo'"
+            (click)="abrirFormulario(); vista = 'nuevo'">
+
+      <i class="bi bi-person-plus icon-fr"></i>
+      Nuevo Profesor
+    </button>
+
+  </div>
+
+
+  <!-- ==============================
+       📊 ESTADÍSTICAS
+  =============================== -->
+   <div *ngIf="vista === 'estadisticas'" class="panel-fitrank mt-4 mb-4">
+     <h3 class="text-black fw-bold mb-4">Estadísticas de Profesores</h3>
+
+     <div class="row g-3">
+
+       <!-- 🟣 Más solicitado -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank">
+           <h6>Más solicitado</h6>
+           <p class="nombre">
+             {{ estadisticas?.topSolicitado?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topSolicitado?.cantidadSolicitudes || 0 }} solicitudes
+           </p>
+         </div>
+       </div>
+
+
+       <!-- 🟡 Más pendientes -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank">
+           <h6>Más pendientes</h6>
+           <p class="nombre">
+             {{ estadisticas?.topPendientes?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topPendientes?.pendientes || 0 }} en espera
+           </p>
+         </div>
+       </div>
+
+       <!-- 🟢 Más cumplidor -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank">
+           <h6>Más cumplidor</h6>
+           <p class="nombre">
+             {{ estadisticas?.topCumplidor?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topCumplidor?.completadas || 0 }} resueltas
+           </p>
+         </div>
+       </div>
+
+
+       <!-- 💜 Mejor valorado -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank">
+           <h6>Mejor valorado</h6>
+           <p class="nombre">
+             {{ estadisticas?.topValorado?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             ⭐ {{ estadisticas?.topValorado?.promedioValoracion || 0 }}
+           </p>
+         </div>
+       </div>
+
+     </div>
+   </div>
+  <div class="input-group d-flex justify-content-between mb-3 flex-wrap gap-2">
+    <input type="text"
+           class="form-control flex-grow-1"
+           placeholder="Buscar profesor..."
+           [(ngModel)]="filtro"
+           (input)="filtrarProfesores()">
+
+    <button class="btn-primary-fitrank btn-secondary" (click)="abrirFormulario(); vista = 'nuevo'">
+      Nuevo Profesor
+    </button>
+  </div>
+  <!-- ==============================
+       ➕ NUEVO PROFESOR / EDITAR
+  =============================== -->
+  <div *ngIf="vista === 'nuevo'" class="card-form-fitrank p-4 mb-4">
+    <h4 class="text-formu mb-3 ">
+      {{ profesorSeleccionado ? '✏️ Editar Profesor' : ' Agregar Profesor' }}
+    </h4>
+
+    <form [formGroup]="formProfesor" (ngSubmit)="guardarProfesor()">
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre">
+        </div>
+
+        <div class="col-md-6">
+          <label>Apellido</label>
+          <input type="text" class="form-control" formControlName="apellido">
+        </div>
+
+        <div class="col-md-6">
+          <label>DNI</label>
+          <input type="number" class="form-control" formControlName="dni">
+        </div>
+
+        <div class="col-md-6">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="email">
+        </div>
+
+        <div class="col-md-6">
+          <label>Teléfono</label>
+          <input type="text" class="form-control" formControlName="telefono">
+        </div>
+
+        <div class="col-md-6">
+          <label>Sexo</label>
+          <select class="form-select" formControlName="sexo">
+            <option value="">Seleccionar...</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label>Fecha Nacimiento</label>
+          <input type="date" class="form-control" formControlName="fechaNacimiento">
+        </div>
+
+        <div class="col-md-6">
+          <label>Matrícula</label>
+          <input type="text" class="form-control" formControlName="matricula">
+        </div>
+
+        <div class="col-md-6">
+          <label>Sueldo</label>
+          <input type="number" class="form-control" formControlName="sueldo">
+        </div>
+
+        <div class="col-md-6" *ngIf="!profesorSeleccionado">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" formControlName="password">
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex justify-content-end gap-2">
+        <button class="btn-primary-fitrank btn-secondary" type="submit">
+          {{ profesorSeleccionado ? 'Guardar Cambios' : 'Agregar Profesor' }}
+        </button>
+
+        <button type="button" class="btn-outline-fitrank btn-secondary" (click)="cancelarFormulario()">Cancelar</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ==============================
+       📋 LISTADO
+  =============================== -->
+  <<div *ngIf="vista === 'listado'">
+
+    <!-- 🟪 PANEL ESTILO FITRANK -->
+    <div class="panel-fitrank">
+
+      <!-- HEADER NEGRO -->
+      <div class="panel-header-fitrank">
+        <div>
+          <h3 class="panel-title-fitrank">Profesores</h3>
+          <p class="panel-subtitle-fitrank">Listado completo del gimnasio</p>
+        </div>
+
+        <span class="panel-pill-fitrank">● Activos</span>
+      </div>
+
+      <!-- FILTRO DE BÚSQUEDA -->
+      <div class="panel-body-fitrank">
+
+        
+
+        <!-- TABLA -->
+        <div class="table-wrapper-fitrank">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Matrícula</th>
+                <th>Sueldo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container *ngFor="let profesor of profesoresFiltrados">
+                <tr>
+                  <td>{{ profesor.nombre }} {{ profesor.apellido }}</td>
+                  <td>{{ profesor.email }}</td>
+                  <td>{{ profesor.telefono || '-' }}</td>
+                  <td>{{ profesor.matricula }}</td>
+                  <td>${{ profesor.sueldo }}</td>
+
+                  <td>
+                    <div class="d-flex gap-2 flex-wrap">
+
+                      <button class="btn-tag-info btn-secondary" (click)="verRutinas(profesor)">
+                        <i class="bi bi-list-check action-icon"></i>
+                        Rutinas
+                      </button>
+
+                      <button class="btn-tag-light btn-secondary" (click)="editarProfesor(profesor)">
+                        <i class="bi bi-pencil action-icon"></i>
+                        Editar
+                      </button>
+
+                      <button class="btn-tag-danger" (click)="eliminarProfesor(profesor.id)">
+                        <i class="bi bi-trash action-icon"></i>
+                        Eliminar
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

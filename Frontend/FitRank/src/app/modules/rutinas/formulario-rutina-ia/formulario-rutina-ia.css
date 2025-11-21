@@ -1,0 +1,206 @@
+.formulario-fitrank {
+  background: #1c1c1c;
+  color: #eaeaea;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  max-width: 950px;
+  margin: 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.formulario-fitrank:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(123, 63, 228, 0.3);
+}
+
+.formulario-fitrank h2 {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.formulario-fitrank h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+.formulario-fitrank h5 {
+  color: #a886ff;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+/* Inputs */
+.formulario-fitrank .form-control,
+.formulario-fitrank .form-select,
+.formulario-fitrank .textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.7rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.formulario-fitrank .form-control:focus,
+.formulario-fitrank .form-select:focus {
+  border-color: #7b3fe4;
+  box-shadow: 0 0 0 0.15rem rgba(123, 63, 228, 0.25);
+  outline: none;
+}
+
+/* Checkboxes */
+.formulario-fitrank .form-check-label {
+  color: #ccc;
+}
+
+.formulario-fitrank .form-check-input {
+  background-color: transparent;
+  border: 1px solid #7b3fe4;
+}
+
+.formulario-fitrank .form-check-input:checked {
+  background-color: #7b3fe4;
+  border-color: #7b3fe4;
+}
+
+/* Botón */
+.formulario-fitrank .btn-primary {
+  background: linear-gradient(145deg, #7b3fe4, #9d6aff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.formulario-fitrank .btn-primary:hover {
+  background: linear-gradient(145deg, #9d6aff, #7b3fe4);
+  transform: scale(1.03);
+}
+
+.form-select {
+  background-color: #222; /* fondo oscuro del select */
+  color: #fff; /* texto blanco */
+  border: 1px solid #555;
+}
+
+.form-select:focus {
+  background-color: #222;
+  color: #fff;
+  border-color: #8B52FF; /* tu color de acento si querés */
+  box-shadow: none;
+}
+
+/* 🔥 Algunas implementaciones respetan esto para opciones */
+.form-select option {
+  background-color: #222;
+  color: #fff;
+}
+
+
+/* Cards de ejercicios */
+.grid-ejercicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+
+  /* 🧩 Ajustes para scroll */
+  max-height: 400px; /* o lo que prefieras según tu layout */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* para que no tape el scrollbar el contenido */
+}
+
+/* Opcional: estilizar el scroll */
+.grid-ejercicios::-webkit-scrollbar {
+  width: 6px;
+}
+
+.grid-ejercicios::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+
+.card-ejercicio {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-ejercicio:hover {
+  border-color: #7b3fe4;
+  transform: scale(1.05);
+}
+
+.card-ejercicio.seleccionado {
+  border: 2px solid #7b3fe4;
+  box-shadow: 0 0 15px rgba(123, 63, 228, 0.5);
+}
+
+.img-ejercicio {
+  width: 100%;
+  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.nombre-ejercicio {
+  color: #eaeaea;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+/* ✅ Checkboxes en grid */
+.grid-check {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.formulario-fitrank .form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.formulario-fitrank .form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+  cursor: pointer;
+  margin-top: 0;
+}
+
+.formulario-fitrank .form-check-label {
+  font-size: 0.95rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .grid-checks {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

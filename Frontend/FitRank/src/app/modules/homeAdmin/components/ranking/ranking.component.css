@@ -1,0 +1,341 @@
+/* ===============================================
+   🎛️ SWITCH FITRANK (Tabs modernos)
+================================================ */
+.fr-switch {
+  display: flex;
+  gap: 8px;
+  background: rgba(255,255,255,0.09);
+  padding: 8px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: fit-content;
+  backdrop-filter: blur(10px);
+  margin-bottom: 22px;
+}
+
+.fr-switch-option {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  color: #111;
+  transition: all .25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+  .fr-switch-option:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  .fr-switch-option.active {
+    background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(123,63,228,0.45);
+    transform: translateY(-2px);
+  }
+
+/* Iconos negros */
+.icon-fr {
+  font-size: 16px;
+  color: black;
+  opacity: .75;
+}
+
+
+
+/* ===============================================
+   🟪 PANEL DE GUÍAS
+================================================ */
+.panel-guias-fr {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+}
+
+.tarjeta-fr {
+  padding: 20px;
+  border-radius: 16px;
+  background: #f8f7fc;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+}
+
+  .tarjeta-fr h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .tarjeta-fr.estado-fr {
+    border-left: 5px solid #7B3FE4;
+  }
+
+  .tarjeta-fr.accion-fr {
+    border-left: 5px solid #0099ff;
+  }
+
+  .tarjeta-fr.ayuda-fr {
+    border-left: 5px solid #00c853;
+  }
+
+
+
+/* ===============================================
+   🟣 BOTÓN PRIMARIO FITRANK
+================================================ */
+.btn-fit-fr {
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#7B3FE4,#9A63FF);
+  font-weight: 700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+  .btn-fit-fr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(123,63,228,0.45);
+  }
+
+
+
+/* ===============================================
+   🧩 FORMULARIOS – CONFIGURACIÓN
+================================================ */
+.card-config-fr {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.titulo-config-fr {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.form-fit-fr {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-fit-fr {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #d3d3d3;
+  background: #fafafa;
+  transition: .2s;
+}
+
+  .input-fit-fr:focus {
+    border-color: #7B3FE4;
+    box-shadow: 0 0 8px rgba(123,63,228,0.3);
+  }
+
+
+
+/* ===============================================
+   🏆 RANKING VISUAL
+================================================ */
+.ranking-container-fr {
+  margin-top: 20px;
+}
+
+.titulo-fr {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.ranking-list-fr {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-ranking-fr {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.posicion-fr {
+  font-size: 20px;
+  font-weight: 700;
+  width: 50px;
+}
+
+.datos-fr {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nombre-fr {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.puntaje-fr {
+  font-size: 14px;
+  opacity: .7;
+}
+
+
+
+/* ===============================================
+   🧊 SIDE PANEL (derecha)
+================================================ */
+/* 🔥 PANEL LATERAL (más ancho y profesional) */
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: -500px; /* se oculta hacia la derecha */
+  width: 480px; /* AUMENTADO */
+  height: 100vh;
+  background: black;
+  padding: 25px;
+  box-shadow: -6px 0 20px rgba(0,0,0,0.15);
+  border-left: 4px solid #7B3FE4; /* borde estilo FitRank */
+  z-index: 9999;
+  transition: right 0.35s ease-in-out;
+  overflow-y: auto;
+  border-radius: 10px 0 0 10px;
+}
+
+  /* Cuando está abierto */
+  .side-panel.open {
+    right: 0;
+  }
+
+/* Fondo oscuro */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  z-index: 9998;
+}
+
+/* Header del panel */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+  .panel-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #555;
+}
+
+/* ===========================================
+   📘 INFO CARD DEL RANKING
+=========================================== */
+.ranking-info-card {
+  background: #f8f7fc;
+  padding: 18px 22px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-left: 5px solid #7B3FE4;
+}
+
+.titulo-info {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111;
+  display: flex;
+  align-items: center;
+}
+
+.texto-info {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.simulador-fr {
+  background: #f6f3ff;
+  border-left: 4px solid #7B3FE4;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.resultado-simulador {
+  background: #ebe3ff;
+  border: 1px solid #d3c6ff;
+}
+
+.barra-simulador {
+  height: 8px;
+  width: 100%;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.barra-simulador-fill {
+  height: 100%;
+  background: #7B3FE4;
+  transition: width 0.4s ease;
+}
+
+.puntaje-num {
+  font-size: 1.4rem;
+  color: #7B3FE4;
+}
+
+/* ===============================================
+   🎈 TOOLTIP EXPLICACIÓN
+================================================ */
+.tooltip-explicacion {
+  background: #7B3FE4;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-top: 5px;
+  animation: fadeIn .2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+  }
+}

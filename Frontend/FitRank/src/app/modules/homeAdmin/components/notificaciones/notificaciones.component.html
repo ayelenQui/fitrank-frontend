@@ -1,0 +1,187 @@
+<div class="noti-wrapper text-black">
+
+  <!-- ===========================
+        🔝 HEADER
+  ============================ -->
+  <div class="noti-header d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h3 class="text-titulo fw-bold mb-4">
+         Notificaciones
+      </h3>
+      <span class="subtitulo">Administrar avisos para profesores y socios</span>
+    </div>
+
+    <button class="btn btn-outline-secondary btn-icon btn-secondary"
+            (click)="cargarHistorial()">
+      <i class="bi bi-clock-history me-1"></i> Historial
+    </button>
+  </div>
+
+  <!-- ===========================
+        📜 HISTORIAL
+  ============================ -->
+  <div *ngIf="mostrarHistorial" class="panel-card mb-4">
+    <h5 class="panel-title mb-3">
+      <i class="bi bi-journal-text"></i> Historial de Notificaciones
+    </h5>
+
+    <div class="historial-scroll">
+      <div class="historial-item" *ngFor="let h of historial">
+        <div class="d-flex justify-content-between mb-1">
+          <p class="hist-title">{{ h.titulo }}</p>
+          <span class="hist-date">
+            <i class="bi bi-calendar3"></i>
+            {{ h.fechaCreacion | date:'dd/MM HH:mm' }}
+          </span>
+        </div>
+
+        <p class="hist-msg">{{ h.mensaje }}</p>
+
+        <p class="hist-user">
+          <i class="bi bi-person-fill"></i>
+          <strong>{{ h.emisor }}</strong> → {{ h.receptor }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===========================
+        🟣 SUPER SWITCH
+  ============================ -->
+  <div class="fr-switch mb-4">
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="modo === 'profesores'"
+            (click)="modo = 'profesores'">
+      <i class="bi bi-person-badge me-1"></i>
+      Profesores
+    </button>
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="modo === 'socios'"
+            (click)="modo = 'socios'">
+      <i class="bi bi-person me-1"></i>
+      Socios
+    </button>
+  </div>
+
+  <!-- ===========================
+        👨‍🏫 PROFESORES
+  ============================ -->
+  <div *ngIf="modo === 'profesores'">
+
+    <input type="text"
+           class="input-group form-control search mb-3"
+           placeholder="Buscar profesor…"
+           [(ngModel)]="filtroProfesor"
+           (input)="buscarProfesor()">
+
+    <div class="usuarios-scroll">
+      <div class="usuario-card"
+           *ngFor="let p of profesores"
+           [class.selected]="usuarioSeleccionado === p.id"
+           (click)="usuarioSeleccionado = p.id">
+
+        <img [src]="p.fotoUrl || 'assets/default-user.png'" class="foto">
+
+        <div>
+          <p class="nombre">{{ p.nombreCompleto }}</p>
+          <p class="rol"><i class="bi bi-person-badge"></i> Profesor</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===========================
+        🧍 SOCIOS
+  ============================ -->
+  <div *ngIf="modo === 'socios'">
+
+    <input type="text"
+           class="input-group form-control search mb-3"
+           placeholder="Buscar socio…"
+           [(ngModel)]="filtroSocio"
+           (input)="buscarSocio()">
+
+    <div class="usuarios-scroll">
+      <div class="usuario-card"
+           *ngFor="let s of socios"
+           [class.selected]="usuarioSeleccionado === s.id"
+           (click)="usuarioSeleccionado = s.id">
+
+        <img [src]="s.fotoUrl || 'assets/default-user.png'" class="foto">
+
+        <div>
+          <p class="nombre">{{ s.nombreCompleto }}</p>
+          <p class="rol"><i class="bi bi-person"></i> Socio</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===========================
+        ✨ BOTONES DE ENVÍO
+  =========================== -->
+  <div class="d-flex gap-2 mt-4">
+
+    <!-- Individual -->
+    <button class="btn btn-fitrank flex-fill btn-secondary"
+            (click)="showModal = 'individual'"
+            [disabled]="!usuarioSeleccionado">
+      <i class="bi bi-person-check me-1"></i>
+      Individual
+    </button>
+
+    <!-- Masiva -->
+    <button class="btn btn-warning flex-fill btn-secondary"
+            (click)="showModal = 'masiva'">
+      <i class="bi bi-broadcast me-1"></i>
+      Masiva
+    </button>
+
+  </div>
+
+
+  <!-- ===========================
+        🟣 MODAL MENSAJE (Glass)
+  =========================== -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="showModal=null"></div>
+
+  <div class="modal-fitrank" *ngIf="showModal">
+
+    <h4 class="modal-title">
+      <i class="bi bi-pencil-square"></i>
+      {{ showModal === 'individual' ? 'Mensaje individual' : 'Notificación masiva' }}
+    </h4>
+
+    <label class="form-label">Título</label>
+    <input type="text" class="form-control mb-3" [(ngModel)]="titulo">
+
+    <label class="form-label">Mensaje</label>
+    <textarea rows="4" class="form-control mb-3" [(ngModel)]="mensaje"></textarea>
+
+    <!-- BOTÓN INDIVIDUAL -->
+    <button *ngIf="showModal === 'individual'"
+            class="btn btn-fitrank w-100 mb-2 btn-secondary"
+            (click)="enviar()">
+      <i class="bi bi-send-fill"></i>
+      Enviar individual
+    </button>
+
+    <!-- BOTÓN MASIVO -->
+    <button *ngIf="showModal === 'masiva'"
+            class="btn btn-warning w-100 mb-2 btn-secondary"
+            (click)="enviarMasiva()">
+      <i class="bi bi-broadcast"></i>
+      Enviar masiva
+    </button>
+
+    <button class="btn btn-secondary w-100"
+            (click)="showModal=null">
+      Cancelar
+    </button>
+
+  </div>

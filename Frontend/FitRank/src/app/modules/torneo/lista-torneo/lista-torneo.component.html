@@ -1,0 +1,26 @@
+<app-header-socio></app-header-socio>
+<button type="button" class="btn-volver" (click)="volverAtras()">Volver</button>
+
+<div class="crear-torneo-container">
+  <h2 class="titulo titulo-form">Lista de Torneos</h2>
+
+  <!-- Grid de torneos -->
+  <div class="torneos-grid">
+    <button class="torneo-btn" *ngFor="let torneo of torneos" (click)="verRanking(torneo.id)">
+      {{ torneo.nombre }}
+    </button>
+  </div>
+
+  <!-- Formulario para crear torneo -->
+  <div class="form-container crear-torneo-form">
+    <h3 class="subtitulo">Crear Torneo</h3>
+    <div class="form-grid">
+      <div class="form-group campo-form">
+        <label for="nuevoNombre">Nombre del torneo</label>
+        <input id="nuevoNombre" type="text" [(ngModel)]="nuevoNombre" name="nuevoNombre" placeholder="Nombre del torneo" />
+      </div>
+    </div>
+    <button class="btn-principal" (click)="crearTorneo()">Crear</button>
+    <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+  </div>
+</div>

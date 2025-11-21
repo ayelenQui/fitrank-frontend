@@ -1,0 +1,299 @@
+/* Branding FitRank */
+.text-fitrank {
+  color: #8B52FF !important;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+.bg-fitrank {
+  background-color: #8B52FF !important;
+}
+
+.bg-fitrank-subtle {
+  background-color: #efe8ff !important;
+}
+
+.btn-fitrank {
+  background-color: #8B52FF !important;
+  color: #fff;
+  border: none;
+  transition: all .2s ease;
+}
+
+  .btn-fitrank:hover {
+    background-color: #7a3ef0 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(139,82,255,.3);
+  }
+
+.btn-outline-fitrank {
+  color: #8B52FF;
+  border: 2px solid #8B52FF;
+  background: transparent;
+  transition: all .2s ease;
+}
+
+  .btn-outline-fitrank:hover {
+    background: #8B52FF;
+    color: #fff;
+  }
+
+/* WRAPPER */
+.ocupacion-wrapper {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* TARJETA OCUPACIÓN */
+.ocupacion-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.titulo-ocu {
+  font-size: 1.6rem;
+  margin-bottom: .5rem;
+}
+
+.contador {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #7b2ff7;
+  line-height: 1;
+}
+
+.sub {
+  color: #666;
+  margin-top: .3rem;
+}
+
+/* TARJETA LISTA MOVIMIENTOS */
+.movimientos-card {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* SCROLLABLE */
+.lista-movimientos {
+  max-height: 250px; /* 👈 altura controlada */
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-right: .5rem;
+}
+
+/* ITEM MOVIMIENTO */
+.movimiento {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.avatar {
+  width: 45px; /* 👈 tamaño avatar */
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.nombre {
+  font-weight: 600;
+}
+
+.fecha {
+  font-size: .8rem;
+  color: #666;
+}
+
+/* ENTRADA/SALIDA */
+.tipo {
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+  .tipo.entrada {
+    color: #10b981;
+  }
+
+  .tipo.salida {
+    color: #ef4444;
+  }
+
+
+
+
+
+/* 🔥 Acciones rápidas protagonistas */
+.quick-action {
+  background: #8B52FF;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(139,82,255,.25);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+  .quick-action:hover {
+    transform: translateY(-3px);
+    background: #7a3ef0;
+    box-shadow: 0 10px 22px rgba(139,82,255,.35);
+  }
+
+/* Tarjetas clickeables secundarias (si las agregás luego) */
+.action-card {
+  transition: transform .2s ease, box-shadow .2s ease;
+  cursor: pointer;
+}
+
+  .action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139,82,255,.2);
+  }
+.header-fitrank {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(139, 82, 255, 0.15);
+}
+
+.logo-container svg {
+  width: 85px;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+  .logo-container svg:hover {
+    transform: scale(1.05);
+  }
+
+/* Botón logout */
+.btn-outline-fitrank {
+  color: #8B52FF;
+  border: 2px solid #8B52FF;
+  background: transparent;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+  .btn-outline-fitrank:hover {
+    background: #8B52FF;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(139, 82, 255, 0.25);
+  }
+.quick-action {
+  background-color: #fff;
+  border: 2px solid #8B52FF;
+  color: #8B52FF;
+  border-radius: 16px;
+  font-weight: 600;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+  .quick-action:hover {
+    background-color: #8B52FF;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(139,82,255,0.3);
+  }
+/* 🔹 Tarjeta de retención */
+.card-retencion {
+  background:black;
+  color: #fff;
+  border: 2px solid rgba(140, 82, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(140, 82, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 650px;
+  margin: 2rem auto;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+  /* 🔹 Título */
+  .card-retencion h5 {
+    color: #c59aff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  /* 🔹 Texto */
+  .card-retencion p {
+    color: #ddd;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 🔹 Botones */
+  .card-retencion .btn {
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card-retencion .btn-primary {
+    background: linear-gradient(90deg, #6c63ff, #8c52ff);
+    color: #fff;
+  }
+
+    .card-retencion .btn-primary:hover {
+      background: linear-gradient(90deg, #8c52ff, #6c63ff);
+      transform: translateY(-2px);
+    }
+
+  .card-retencion .btn-success {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+  }
+
+    .card-retencion .btn-success:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+  .card-retencion .btn-warning {
+    background: linear-gradient(90deg, #facc15, #eab308);
+    color: #333;
+  }
+
+    .card-retencion .btn-warning:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+/* 🔹 Animación suave */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

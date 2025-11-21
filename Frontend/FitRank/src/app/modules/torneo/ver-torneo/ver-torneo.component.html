@@ -1,0 +1,41 @@
+<app-header-socio></app-header-socio>
+<button type="button" class="btn-volver" (click)="volverAtras()">Volver</button>
+
+<div class="crear-rutina-container">
+  <h2 class="titulo titulo-form">{{ nombreTorneo }}</h2>
+
+  <form class="form-container" (ngSubmit)="agregarParticipante()">
+
+    <div class="section datos-rutina">
+      <h3>Agregar Participante</h3>
+      <div class="form-grid">
+        <div class="form-group campo-form">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" [(ngModel)]="nombre" name="nombre" placeholder="Nombre participante" required />
+        </div>
+
+        <div class="form-group campo-form">
+          <label for="puntaje">Puntaje</label>
+          <input id="puntaje" type="number" [(ngModel)]="puntaje" name="puntaje" placeholder="Puntaje" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-principal">Agregar</button>
+    </div>
+  </form>
+
+  <h3 class="subtitulo">Ranking</h3>
+
+<div class="ranking-grid">
+  <div 
+    class="ranking-item" 
+    *ngFor="let p of participantes; let i = index"
+    [ngClass]="{'posicion-baja': i >= 5}">
+    
+    <span class="ranking-pos">{{ i + 1 }}.</span>
+    <span class="ranking-nombre">{{ p.nombre }}</span>
+    <span class="ranking-puntaje">{{ p.puntaje }}</span>
+  </div>
+</div>
+
+</div>

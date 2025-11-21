@@ -1,0 +1,103 @@
+/* ==============================
+   🌟 FITRANK DASHBOARD (Socio / Profesor)
+   ============================== */
+
+.fit-dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* Header fijo */
+app-header-socio,
+app-header-profesor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 2000;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Layout general */
+.fit-dashboard-body {
+  display: flex;
+  flex: 1;
+  margin-top: 70px;
+  position: relative;
+}
+
+/* Sidebar */
+app-sidebar-socio,
+app-sidebar-profesor {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 70px);
+  border-right: 1px solid #1d1d25;
+  background: #12121a;
+  z-index: 1500;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Contenido */
+.fit-dashboard-main {
+  flex: 1;
+  margin-left: 250px;
+  padding: 24px;
+  min-height: calc(100vh - 70px);
+  background: #fff;
+}
+
+/* Footer “detrás” del sidebar */
+app-footer {
+  background: #0f0d13;
+  color: #fff;
+  text-align: center;
+  padding: 25px 40px;
+  border-top: 2px solid rgba(157, 78, 221, 0.3);
+  font-family: 'Work Sans', sans-serif;
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 100;
+}
+
+  /* El truco: pseudo-elemento para tapar el espacio debajo del sidebar */
+  app-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: #12121a; /* mismo color del sidebar */
+    z-index: -1;
+  }
+
+/* Responsive */
+@media (max-width: 991px) {
+  app-sidebar-socio,
+  app-sidebar-profesor {
+    transform: translateX(-100%);
+    width: 230px;
+    height: calc(100vh - 70px);
+  }
+
+    app-sidebar-socio.open,
+    app-sidebar-profesor.open {
+      transform: translateX(0);
+    }
+
+  .fit-dashboard-main {
+    margin-left: 0;
+  }
+
+  app-footer::before {
+    width: 0; /* el footer ocupa todo en móvil */
+  }
+}

@@ -1,0 +1,162 @@
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+  max-width: 950px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+/* TÍTULOS */
+.titulo {
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.subtitulo {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* CONTENEDOR DE CARDS */
+.botones-tipo-rutina {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* CARD BASE */
+.card {
+  flex: 1 1 280px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: #8b52ff;
+    box-shadow: 0 6px 20px rgba(139, 82, 255, 0.15);
+  }
+
+  /* CARD SELECCIONADA */
+  .card.seleccionada {
+    border: 2px solid #8b52ff;
+    box-shadow: 0 8px 25px rgba(139, 82, 255, 0.25);
+    transform: translateY(-6px);
+  }
+
+/* TÍTULO DE CADA CARD */
+.titulo-card {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+
+/* CÍRCULO DE ÍCONO */
+.icono-circulo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(139, 82, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.icono-card {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.card.seleccionada .icono-circulo {
+  background: #8b52ff;
+}
+
+.card.seleccionada .icono-card {
+  filter: brightness(0) invert(1);
+}
+
+/* DESCRIPCIÓN DE LA CARD */
+.subtitulo-card {
+  font-size: 0.95rem;
+  color: #777;
+  margin: 0;
+  line-height: 1.4;
+  max-width: 260px;
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-empezar {
+  background-color: #8b52ff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 12px 40px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+  .btn-empezar:hover {
+    background-color: #733ed9;
+    transform: translateY(-2px);
+  }
+
+  /* BOTÓN DESHABILITADO */
+  .btn-empezar:disabled {
+    background-color: #ddd;
+    color: #888;
+    cursor: not-allowed;
+  }
+
+/* ESTILO DIFERENCIAL SI ES MANUAL */
+.manual-activo {
+  background: linear-gradient(90deg, #8b52ff, #a67cff);
+}
+
+/* BOTÓN VOLVER */
+.btn-volver {
+  background-color: #f5e085;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  margin: 20px;
+  transition: all 0.3s ease;
+}
+
+  .btn-volver:hover {
+    background-color: #f0d769;
+    transform: translateY(-1px);
+  }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .botones-tipo-rutina {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}

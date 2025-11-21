@@ -1,0 +1,67 @@
+<div class="maquina-container" *ngIf="!loading && maquina">
+
+  <!-- HEADER / VIDEO -->
+  <div class="header">
+
+    <h2 class="titulo">{{ maquina.nombre }}</h2>
+
+    <!-- VIDEO DE LA MÁQUINA -->
+    <div class="video-wrapper" *ngIf="maquina.urlImagen">
+      <iframe 
+        width="100%"
+        height="280"
+        [src]="sanitizer.bypassSecurityTrustResourceUrl(convertirAEmbed(maquina.urlImagen))"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+  <!-- EJERCICIOS ASOCIADOS -->
+  <h3 class="subtitulo">Ejercicios para esta máquina</h3>
+
+  <div class="ejercicios-list" *ngIf="maquina.ejercicios?.length; else sinEj">
+    <div class="ejercicio-card" *ngFor="let e of maquina.ejercicios">
+
+      <img [src]="e.urlImagen" class="ej-img">
+
+      <div class="ej-info">
+        <h4>{{ e.nombre }}</h4>
+
+        <p class="desc">{{ e.descripcion }}</p>
+
+        <p class="duracion">
+          ⏱ <strong>{{ e.duracionEstimada || '–' }}</strong> seg
+        </p>
+
+        <p class="grupo">
+          💪 <strong>{{ e.grupoMuscular }}</strong>
+        </p>
+
+        <!-- VIDEO DEL EJERCICIO -->
+        <div *ngIf="e.urlVideo" class="video-ejercicio">
+          <iframe
+            [src]="sanitizer.bypassSecurityTrustResourceUrl(embedVideo(e.urlVideo))"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIN EJERCICIOS -->
+  <ng-template #sinEj>
+    <p class="no-ejercicios">
+      No hay ejercicios cargados para esta máquina.
+    </p>
+  </ng-template>
+
+</div>
+
+<!-- LOADING -->
+<div class="loading" *ngIf="loading">
+  Cargando información...
+</div>

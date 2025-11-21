@@ -1,0 +1,16 @@
+ .home__accionrapidaseccion__contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+ }
+
+ .home__accionrapidaseccion__titulo{
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+ }
+.boton {
+  color: #8B52FF;
+}

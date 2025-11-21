@@ -1,0 +1,15 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 20px;
+}
+.boton {
+  color: #8B52FF;
+  border-radius: 50px;
+  margin-top: 50px;
+  background-color: #8B52FF;
+  
+  color: #FFFFFF;
+}

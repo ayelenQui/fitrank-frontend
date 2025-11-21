@@ -1,0 +1,205 @@
+<div class="container-fluid py-4">
+
+  <!-- 🔝 Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-titulo fw-bold  d-flex align-items-center gap-2">
+      Gestion de Socios
+    </h2>
+
+    <button class="btn text-black d-flex align-items-center gap-2" (click)="generarInvitacion()">
+      <i class="bi bi-person-plus"></i>
+      Nuevo socio
+    </button>
+  </div>
+  <!-- 🔽 FILTROS (estilo pill moderno) -->
+  <div class="filtros-switch mb-3">
+
+    <button class="filtro-pill btn-secondary "
+            [class.active]="filtroActivo === 'proximos'"
+            (click)="filtroActivo = 'proximos'; filtrarProximosVencimientos()">
+
+      <i class="bi bi-clock-history"></i>
+      Próximos a vencer
+    </button>
+
+    <button class="filtro-pill btn-secondary"
+            [class.active]="filtroActivo === 'vencidos'"
+            (click)="filtroActivo = 'vencidos'; filtrarVencidos()">
+
+      <i class="bi bi-exclamation-octagon"></i>
+      Cuota vencida
+    </button>
+
+    <button class="filtro-pill btn-secondary"
+            [class.active]="filtroActivo === 'todos'"
+            (click)="filtroActivo = 'todos'; limpiarFiltros()">
+
+      <i class="bi bi-arrow-repeat"></i>
+      Ver todos
+    </button>
+
+  </div>
+  <!-- 🔍 BUSCADOR -->
+  <div class="input-group mb-3">
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <input type="text"
+           class="form-control"
+           placeholder="Buscar socio..."
+           [(ngModel)]="searchTerm"
+           (ngModelChange)="onSearchChange()" />
+  </div>
+
+
+  <!-- ================================
+       📋 LISTADO DE SOCIOS
+  ================================ -->
+  <div class="panel-fitrank">
+
+    <!-- HEADER NEGRO -->
+    <div class="panel-header-fitrank">
+      <div>
+        <h3 class="panel-title-fitrank">Socios</h3>
+        <p class="panel-subtitle-fitrank">Listado completo del gimnasio</p>
+      </div>
+
+      <span class="panel-pill-fitrank">● Activos</span>
+    </div>
+
+    <!-- CUERPO -->
+    <div class="panel-body-fitrank">
+
+      <!-- TABLA -->
+      <div class="table-wrapper-fitrank">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th><i class="bi bi-image"></i></th>
+              <th>Nombre</th>
+              <th>Nivel</th>
+              <th>Estado</th>
+              <th>Puntaje</th>
+              <th><i class="bi bi-gear"></i></th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let socio of sociosFiltrados">
+
+              <!-- FOTO -->
+              <td>
+                <img [src]="socio.fotoUrl || 'assets/default-user.png'"
+                     class="rounded-circle shadow-sm"
+                     width="40" height="40"
+                     style="object-fit: cover;">
+              </td>
+
+              <!-- NOMBRE -->
+              <td class="fw-semibold">
+                {{ socio.nombre }} {{ socio.apellido }}
+              </td>
+
+              <!-- NIVEL -->
+              <td>
+                <span class="text-black">
+                  <i class="bi bi-star-fill"></i>
+                  {{ socio.nivel || 'Sin nivel' }}
+                </span>
+              </td>
+
+              <!-- ESTADO CUOTA -->
+              <td>
+                <span class="badge px-3 py-2 d-flex align-items-center gap-1"
+                      [ngClass]="{
+                      'bg-success': isCuotaAlDia(socio),
+                      'bg-warning text-dark': isCuotaProximaVencer(socio),
+                      'bg-danger': isCuotaVencida(socio)
+                    }">
+                  <i class="bi"
+                     [ngClass]="{
+                     'bi-check-circle': isCuotaAlDia(socio),
+                     'bi-exclamation-triangle': isCuotaProximaVencer(socio),
+                     'bi-x-circle': isCuotaVencida(socio)
+                   }"></i>
+
+                  {{ getEstadoCuota(socio) }}
+                </span>
+              </td>
+
+              <!-- PUNTAJE -->
+              <td class="fw-bold">
+                <i class="bi bi-graph-up-arrow text-success"></i>
+                {{ socio.puntaje || 0 }}
+              </td>
+
+              <!-- ACCIONES -->
+              <td>
+                <button class="btn-tag-light d-flex align-items-center gap-1 btn-secondary"
+                        (click)="verDetalle(socio.id)">
+                  <i class="bi bi-eye"></i>
+                  Ver detalle
+                </button>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- 🟣 DRAWER DETALLE DEL SOCIO -->
+  <div *ngIf="socioSeleccionado" class="drawer-overlay" (click)="cerrarDrawer()"></div>
+
+  <div class="drawer shadow-lg" *ngIf="socioSeleccionado">
+
+    <div class="drawer-header d-flex justify-content-between align-items-center">
+      <h4 class="fw-bold">
+        <i class="bi bi-person-badge-fill text-fitrank"></i>
+        {{ socioSeleccionado?.nombre }} {{ socioSeleccionado?.apellido }}
+      </h4>
+
+      <button class="btn-close btn-secondary" (click)="cerrarDrawer()"></button>
+    </div>
+
+    <div class="drawer-content text-black">
+
+      <!-- FOTO -->
+      <div class="text-center mb-3">
+        <img [src]="socioSeleccionado?.fotoUrl || 'assets/default-user.png'"
+             width="120" height="120"
+             class="rounded-circle border shadow-sm"
+             style="object-fit: cover;">
+      </div>
+
+      <!-- DATOS -->
+      <p><i class="bi bi-credit-card"> </i> <strong>DNI:</strong> {{ socioSeleccionado?.dni }}</p>
+      <p><i class="bi bi-gender-ambiguous"> </i> <strong>Sexo:</strong> {{ socioSeleccionado?.sexo }}</p>
+      <p><i class="bi bi-person"></i> <strong>Usuario:</strong> {{ socioSeleccionado?.nombreUsuario }}</p>
+      <p><i class="bi bi-star-fill text-warning"></i> <strong>Nivel:</strong> {{ socioSeleccionado?.nivel }}</p>
+      <p><i class="bi bi-weight"></i> <strong>Peso: </strong> {{ socioSeleccionado?.peso }} kg</p>
+      <p><i class="bi bi-arrows-expand"></i> <strong>Altura:</strong> {{ socioSeleccionado?.altura }} cm</p>
+      <p><i class="bi bi-graph-up"></i> <strong>Puntaje:</strong> {{ socioSeleccionado?.puntaje }}</p>
+
+      <p>
+        <i class="bi bi-calendar2-check"></i>
+        <strong>Cuota pagada hasta:</strong>
+        {{ socioSeleccionado?.cuotaPagadaHasta | date:'dd/MM/yyyy' }}
+      </p>
+
+      <hr>
+
+      <button class="btn  w-100 btn-secondary" (click)="cerrarDrawer()">
+        Cerrar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

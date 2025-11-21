@@ -1,0 +1,40 @@
+.estado-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f6ff;
+}
+
+.card-estado {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.titulo {
+  color: #5f00ff;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.mensaje {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.btn-fitrank {
+  background: #5f00ff;
+  color: white;
+  padding: 10px 26px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+  .btn-fitrank:hover {
+    background: #4a00cc;
+  }

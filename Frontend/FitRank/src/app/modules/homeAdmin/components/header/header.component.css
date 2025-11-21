@@ -1,0 +1,45 @@
+.dashboard-header {
+  background: #0e0d11;
+  color: white;
+  padding: 18px 28px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 🟣 Importante */
+}
+
+/* Botón logout */
+.btn-logout {
+  background: #7b3fe4;
+  border: none;
+  padding: 10px 18px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* 🟣 SIEMPRE empuja a la derecha */
+}
+
+  .btn-logout:hover {
+    background: #9d61ff;
+    transform: translateY(-2px);
+  }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* 🟣 En mobile lo dejamos abajo y centrado */
+  .btn-logout {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

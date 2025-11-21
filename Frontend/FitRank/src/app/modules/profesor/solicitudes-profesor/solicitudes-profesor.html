@@ -1,0 +1,93 @@
+<div class="contenedor">
+  <h2>Solicitudes Pendientes</h2>
+
+  <div *ngIf="cargando" class="text-center my-4">
+    <p>Cargando solicitudes...</p>
+  </div>
+
+  <div *ngIf="!cargando && solicitudes.length === 0" class="text-center my-4">
+    <p>No hay solicitudes registradas.</p>
+  </div>
+
+  <div *ngFor="let s of solicitudes"
+       class="card"
+       [ngClass]="{
+      'pendiente': !s.profesorId,
+      'asignada-mi': esTomadaPorMi(s),
+      'asignada-otro': !esTomadaPorMi(s) && s.profesorId
+    }"
+       (click)="toggleDetalles(s.id)">
+    <div class="resumen">
+      <span class="nombre">{{ s.nombreSocio }}</span>
+      <span class="nombre">{{ s.edad }}</span>
+      <span class="nombre">{{ s.nivel }}</span>
+      <span class="fecha">{{ s.fechaSolicitud | date: 'shortDate' }}</span>
+
+      <span class="estado"
+            [ngClass]="{
+          'pendiente': !s.profesorId,
+          'asignada': s.profesorId
+        }">
+        {{
+ !s.profesorId
+          ? 'Pendiente'
+          : esTomadaPorMi(s)
+          ? 'Asignada a mí'
+          : 'Asignada a otro profesor'
+        }}
+      </span>
+    </div>
+
+    <div *ngIf="solicitudSeleccionadaId === s.id" class="detalles">
+      <hr />
+      <p><b>Edad:</b> {{ s.edad }} años</p>
+      <p><b>Peso:</b> {{ s.pesoKg }} kg | <b>Altura:</b> {{ s.alturaCm }} cm</p>
+      <p><b>Nivel:</b> {{ s.nivel }} | <b>Objetivo:</b> {{ s.objetivo }}</p>
+      <p>
+        <b>Sesiones por semana:</b> {{ s.sesionesPorSemana }} |
+        <b>Minutos:</b> {{ s.minutosPorSesion }}
+      </p>
+
+      <div class="screening mt-2">
+        <b>Screening médico</b>
+        <ul>
+          <li *ngIf="s.dolorLumbar">⚠️ Dolor lumbar</li>
+          <li *ngIf="s.dolorRodilla">⚠️ Dolor rodilla</li>
+          <li *ngIf="s.hipertension">⚠️ Hipertensión</li>
+          <li *ngIf="s.diabetes">⚠️ Diabetes</li>
+          <li *ngIf="s.cirugiaReciente">⚠️ Cirugía reciente</li>
+          <li *ngIf="s.embarazo">⚠️ Embarazo</li>
+        </ul>
+      </div>
+
+      <div *ngIf="s.mensajeSocio" class="mensaje mt-2">
+        <hr />
+        <p><b>Mensaje del socio:</b></p>
+        <p>{{ s.mensajeSocio }}</p>
+      </div>
+
+      <div class="acciones mt-3 d-flex gap-2">
+        <!-- Si la solicitud está libre -->
+        <button *ngIf="!s.profesorId"
+                class="btn-crear btn-secondary"
+              (click)="tomarYCrearRutina(s); $event.stopPropagation()">
+          Tomar y crear rutina
+        </button>
+
+        <!-- Si la tomó este profesor -->
+        <button *ngIf="esTomadaPorMi(s)"
+                class="btn-ver btn-secondary"
+               (click)="tomarYCrearRutina(s); $event.stopPropagation()">
+
+          Ver / continuar rutina
+        </button>
+
+        <!-- Si la tomó otro -->
+        <div *ngIf="!esTomadaPorMi(s) && s.profesorId"
+             class="alert alert-warning py-1 px-2">
+          ⚠️ Ya tomada por otro profesor
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.grafico-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 576px) {
+  .grafico-progreso {
+    height: 30px;           /* aún más compacto en móviles */
+    max-width: 100%;        /* ocupa todo el ancho disponible */
+  }
+}

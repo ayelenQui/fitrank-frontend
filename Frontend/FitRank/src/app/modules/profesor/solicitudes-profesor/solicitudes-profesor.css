@@ -1,0 +1,191 @@
+/* ===== CONTENEDOR GENERAL ===== */
+.contenedor {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #1c1c1c;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+h2 {
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* ===== CARD DE SOLICITUD ===== */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  color: white;
+}
+
+.card:hover {
+  border-color: #7b3fe4;
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(123, 63, 228, 0.35);
+}
+
+/* ===== RESUMEN ===== */
+.resumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.nombre {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.fecha {
+  color: white;
+  font-size: 0.9rem;
+}
+
+.estado {
+  padding: 0.35rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.estado.pendiente {
+  background: #f59e0b;
+  color: #fff;
+}
+
+.estado.aprobada {
+  background: #22c55e;
+}
+
+.estado.rechazada {
+  background: #ef4444;
+}
+
+/* ===== DETALLES ===== */
+.detalles {
+  padding: 1rem 1.5rem 1.3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  animation: fadeIn 0.3s ease;
+}
+
+.detalles p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.8rem 0;
+}
+
+/* ===== SCREENING MÉDICO ===== */
+.screening p {
+  font-weight: 700;
+  color: #a886ff;
+  margin-bottom: 0.5rem;
+}
+
+.screening ul {
+  list-style: none;
+  padding-left: 1rem;
+  color: #fbbf24;
+}
+
+.screening li {
+  margin-bottom: 0.3rem;
+}
+
+/* ===== MENSAJE DEL SOCIO ===== */
+.mensaje {
+  font-style: italic;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+/* ===== BOTÓN CREAR RUTINA ===== */
+.btn-crear {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background: linear-gradient(145deg, #7b3fe4, #9d6aff);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-crear:hover {
+  background: linear-gradient(145deg, #9d6aff, #7b3fe4);
+  transform: scale(1.03);
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 1.5rem;
+  }
+
+  .resumen {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .nombre {
+    font-size: 1rem;
+  }
+
+  .btn-crear {
+    font-size: 0.95rem;
+  }
+}

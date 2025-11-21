@@ -1,0 +1,148 @@
+:root{
+  --brand:#8B52FF;       /* morado FitRank */
+  --accent:#FAEB92;      /* amarillo FitRank */
+  --text:#1f2937;        /* gris oscuro */
+  --muted:#6b7280;       /* gris medio */
+  --ok:#22c55e;          /* verde */
+  --border:#e5e7eb;
+  --panel:#ffffff;
+  --shadow:0 10px 30px rgba(17,24,39,.08);
+  --br:14px;
+}
+
+/* ===== Contenedor principal ===== */
+.wrap{
+  max-width: 900px;
+  margin: 40px auto 60px;
+  padding: 24px 22px 28px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--br);
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+/* ===== Header ===== */
+.header{
+  background: linear-gradient(180deg,#fff,#fafafa);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--brand);
+  border-radius: 10px;
+  padding: 12px 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.header h1{
+  margin: 4px 0 16px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}
+
+/* ===== Toolbar ===== */
+.toolbar{
+  display: grid;
+  grid-template-columns: 1fr 180px; /* un poco más ancho el select para orden */
+  gap: 10px;
+  justify-content: center;
+}
+.toolbar input[type="search"],
+.toolbar select{
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: .9rem;
+  background: #fff;
+  color: var(--text);
+  transition: border-color .2s, box-shadow .2s;
+}
+.toolbar input::placeholder{ color:#9ca3af; }
+.toolbar input:focus,
+.toolbar select:focus{
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(139,82,255,.25);
+  outline: none;
+}
+
+/* ===== Estados: cargando / error / vacío ===== */
+.alert{
+  margin: 12px 0 18px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+  background: #fdecef;
+  color: #991b1b;
+}
+.empty{
+  margin: 6px 0 0;
+  padding: 14px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  text-align: center;
+  background: #fcfcfc;
+}
+
+/* ===== Grid ===== */
+.grid{
+  list-style:none;
+  padding:0; margin:0;
+  display:grid; gap:16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* ===== Tarjeta del logro obtenido ===== */
+.card{
+  background:#fff;
+  border:1.5px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  box-shadow:0 4px 14px rgba(0,0,0,.04);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
+  border-color:#e3d6ff;
+}
+
+/* Cabecera: nombre + puntos */
+.card-head{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.card h3{
+  margin:0; font-size:1rem; font-weight:700; color:#111827;
+}
+/* Puntos del logro */
+.badge{
+  font-size:.78rem; font-weight:700;
+  padding:6px 10px; border-radius:999px; white-space:nowrap;
+  border:1px solid #e8e1a5; background:var(--accent); color:#111;
+  box-shadow:0 2px 6px rgba(250,235,146,.35);
+}
+
+/* Meta: fecha obtenida (estilo “chip fecha”) */
+.meta{
+  margin-top:10px;
+  font-size:.9rem; color:#4b5563;
+  display:flex; align-items:center; gap:8px;
+  border-top:1px dashed #e5e7eb; padding-top:8px;
+}
+.meta strong{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 8px; border-radius:999px;
+  background:#f3f4ff; color:#3b2a77; border:1px solid #e5e7ff;
+  font-weight:700; font-size:.82rem;
+}
+.meta strong::before{
+  content:"📅"; /* si preferís un punto: "•" */
+  font-size:.9rem; line-height:1;
+}
+
+/* ===== Responsividad ===== */
+@media (max-width:560px){
+  .toolbar{ grid-template-columns:1fr; }
+}

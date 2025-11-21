@@ -1,0 +1,83 @@
+<div class="container py-4" *ngIf="socio$ | async as socio">
+  <div class="d-flex align-items-center mb-4">
+    <img [src]="socio.avatar" class="rounded-circle me-3 shadow" width="80" />
+    <div>
+      <h2 class="fw-bold mb-1">{{ socio.nombre }}</h2>
+      <p class="text-muted mb-0">{{ socio.email }}</p>
+      <span class="badge bg-violet mt-2">{{ socio.membresia }}</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'info'" (click)="setActive('info')">
+        Información
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'progreso'" (click)="setActive('progreso')">
+        Progreso
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'actividad'" (click)="setActive('actividad')">
+        Actividad reciente
+      </button>
+    </li>
+  </ul>
+
+  <!-- Contenido de pestañas -->
+  <div [ngSwitch]="activeTab">
+    <!-- Info -->
+    <div *ngSwitchCase="'info'">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card info-card">
+            <div class="card-body text-center">
+              <h6 class="text-muted">Estado</h6>
+              <h5>
+                <span class="badge" [ngClass]="{
+                  'bg-success': socio.estado === 'Activo',
+                  'bg-secondary': socio.estado === 'Inactivo'
+                }">{{ socio.estado }}</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card info-card">
+            <div class="card-body text-center">
+              <h6 class="text-muted">Puntos totales</h6>
+              <h5 class="fw-bold text-violet">{{ socio.puntos }}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card info-card">
+            <div class="card-body text-center">
+              <h6 class="text-muted">Fecha de alta</h6>
+              <h5>{{ socio.fechaAlta | date }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Actividad -->
+    <div *ngSwitchCase="'actividad'">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="fw-bold mb-3">Actividad reciente</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Ingresó al gimnasio - 10:15 AM</li>
+            <li class="list-group-item">Clase de musculación - 11:00 AM</li>
+            <li class="list-group-item">Actualizó peso corporal - 11:45 AM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

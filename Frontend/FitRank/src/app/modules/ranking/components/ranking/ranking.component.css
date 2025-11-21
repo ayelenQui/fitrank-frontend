@@ -1,0 +1,65 @@
+.ranking-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--color-fondo-tarjetas);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+/* prioridad a esto */
+.titulo {
+  text-align: center;
+  /* font-size: 1.8rem; */
+  margin-bottom: 1.5rem;
+  color: #ffd700;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card-ranking {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-acento);
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card-ranking:hover {
+  transform: translateY(-4px);
+  background: var(--color-acento-secundario);
+}
+
+.posicion {
+  font-size: 1.4rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.datos {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nombre {
+  font-weight: 500;
+}
+
+.puntaje {
+  color: var(--color-texto-principal);
+  font-weight: bold;
+}
+
+.cargando {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
