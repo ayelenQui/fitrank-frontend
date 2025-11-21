@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AsistenciaListadoDTO, SocioInactivoDTO } from './interface/asistencia.interface';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AsistenciaService {
-  private apiUrl = 'https://localhost:7226/api/Asistencia';
+  private apiUrl = `${environment.apiUrl}/Asistencia`;
 
   constructor(private http: HttpClient) { }
 

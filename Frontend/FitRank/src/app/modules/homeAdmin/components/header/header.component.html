@@ -1,18 +1,14 @@
-<header class="dashboard-header d-flex justify-content-between align-items-center mb-4 px-4 py-3 shadow-sm">
+<header class="dashboard-header ">
+
   <!-- IZQUIERDA -->
-  <div class="header-left d-flex align-items-center gap-2">
-    <h4 class="fw-semibold text-fitrank m-0">
-      Bienvenido, <span class="gym-name">{{ gimnasioNombre || 'FitRank Gym' }}</span>
+  <div class="header-left">
+    <span class="header-label">Bienvenido,</span>
+    <h4 class="header-title">
+      {{ gimnasioNombre || 'FitRank Gym' }}
     </h4>
   </div>
 
-  <!-- DERECHA -->
-  <div class="header-right d-flex align-items-center gap-4">
-    <span>{{ fechaActual | date:'fullDate':'':'es-AR' }}</span>
 
 
-    <button class="btn btn-outline-fitrank btn-sm d-flex align-items-center gap-2" (click)="logout()">
-      <i class="bi bi-box-arrow-right"></i> Salir
-    </button>
-  </div>
 </header>
+

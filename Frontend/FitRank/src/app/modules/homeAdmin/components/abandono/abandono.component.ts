@@ -51,7 +51,7 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
     
   }
 
-  // 🔹 Cargar todas las asistencias registradas
+  
   cargarAsistencias(): void {
     const token = this.authService.obtenerToken();
     console.log("TOKEN:", token);
@@ -76,7 +76,7 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // 🔹 Filtra por nombre de socio
+
   filtrarPorSocio(): void {
     const filtro = this.filtroSocio.trim().toLowerCase();
     this.asistenciasFiltradas = filtro
@@ -84,7 +84,7 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
       : this.asistencias;
   }
 
-  // 🔹 Cargar socios que llevan X días sin asistir
+  
   cargarSociosInactivos(): void {
     const token = this.authService.obtenerToken();
     if (!token) {
@@ -199,7 +199,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
         animation: {
           animateRotate: true,
           animateScale: true,
-          duration: 800, // ⚡ más rápida
+          duration: 800,
           easing: 'easeInOutCubic'
         },
         plugins: {
@@ -214,7 +214,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
       }
     });
 
-    // 🔁 Actualización rápida (cada 1.5 segundos)
+  
     setInterval(() => {
       activos += Math.floor(Math.random() * 6 - 3);
       inactivos += Math.floor(Math.random() * 3 - 2);
@@ -223,7 +223,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
       if (inactivos < 0) inactivos = 0;
 
       chart.data.datasets[0].data = [activos, inactivos];
-      chart.update('active'); // efecto con animación leve
+      chart.update('active'); 
     }, 1500);
   }
 
@@ -257,7 +257,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
       },
       options: {
         animation: {
-          duration: 700, // ⚡ más fluido
+          duration: 700,
           easing: 'easeOutCubic'
         },
         scales: {
@@ -279,7 +279,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
       }
     });
 
-    // 🔁 Movimiento constante (cada 1 segundo)
+    
     setInterval(() => {
       const nuevosValores = chart.data.datasets[0].data.map(v => {
         let nuevo = (v as number) + Math.floor(Math.random() * 6 - 3);

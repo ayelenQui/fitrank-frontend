@@ -1,0 +1,279 @@
+<!-- 🔮 SWITCH FITRANK -->
+<div class="fr-switch mb-4">
+  <button class="fr-switch-option btn-secondary"
+          [class.active]="vista === 'estado'"
+          (click)="vista = 'estado'">
+    <i class="bi bi-activity icon-fr"></i> Estado
+  </button>
+
+  <button class="fr-switch-option btn-secondary"
+          [class.active]="vista === 'config'"
+          (click)="vista = 'config'">
+    <i class="bi bi-gear icon-fr"></i> Configuración
+  </button>
+
+  <button class="fr-switch-option btn-secondary"
+          [class.active]="vista === 'ranking'"
+          (click)="vista = 'ranking'">
+    <i class="bi bi-trophy-fill icon-fr"></i> Ranking
+  </button>
+</div>
+
+
+<!-- ===========================================================
+      📌 1️⃣ ESTADO DEL RANKING
+=========================================================== -->
+<div class="panel-guias-fr text-black" *ngIf="vista === 'estado'">
+
+  <div class="tarjeta-fr estado-fr text-black">
+    <h3>
+      <i class="bi"
+         [ngClass]="tieneConfiguracion ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger'"></i>
+      {{ tieneConfiguracion ? 'Ranking Activo' : 'Ranking Desactivado' }}
+    </h3>
+
+    <p *ngIf="!tieneConfiguracion">
+      Para activar el ranking necesitás configurar los parámetros del cálculo.
+    </p>
+
+    <p *ngIf="tieneConfiguracion">
+      El ranking está activo. Podés editar la configuración cuando quieras.
+    </p>
+  </div>
+
+  <div class="tarjeta-fr accion-fr">
+    <h3><i class="bi bi-gear-wide-connected"></i> Configuración del Ranking</h3>
+
+    <p *ngIf="!tieneConfiguracion">Completá los valores para iniciar el ranking.</p>
+    <p *ngIf="tieneConfiguracion">Ajustá los multiplicadores cuando quieras.</p>
+
+    <button class="btn-fit-fr btn-secondary" (click)="abrirPanel()">
+      {{ tieneConfiguracion ? 'Editar Configuración' : 'Configurar Ahora' }}
+    </button>
+  </div>
+
+  <div class="tarjeta-fr ayuda-fr">
+    <h3><i class="bi bi-info-circle"></i> ¿Qué significa cada parámetro?</h3>
+
+    <ul>
+      <li><strong>Grupo Muscular:</strong> donde se aplican las reglas del puntaje.</li>
+      <li><strong>Multiplicador Peso:</strong> influencia del peso levantado.</li>
+      <li><strong>Multiplicador Repeticiones:</strong> valor numérico de cada repetición.</li>
+      <li><strong>Factor de Progresión:</strong> cómo escala semana a semana.</li>
+    </ul>
+  </div>
+
+</div>
+
+
+<!-- ===========================================================
+      📌 2️⃣ CONFIGURACIÓN INICIAL (NO HAY CONFIG AÚN)
+=========================================================== -->
+<div class="card-config-fr"
+     *ngIf="vista === 'config' && !tieneConfiguracion">
+
+  <h3 class="titulo-config-fr">⚙️ Configuración Inicial del Ranking</h3>
+
+  <div class="form-fit-fr">
+
+    <label>Grupo Muscular</label>
+    <select [(ngModel)]="configuracion.GrupoMuscularId"
+            (change)="verificarConfiguracion()"
+            class="input-fit-fr">
+      <option *ngFor="let g of gruposMusculares" [value]="g.id">{{ g.nombre }}</option>
+    </select>
+
+    <label>Multiplicador Peso</label>
+    <input type="number" class="input-fit-fr" [(ngModel)]="configuracion.MultiplicadorPeso">
+
+    <label>Multiplicador Repeticiones</label>
+    <input type="number" class="input-fit-fr" [(ngModel)]="configuracion.MultiplicadorRepeticiones">
+
+    <label>Factor de Progresión</label>
+    <input type="number" class="input-fit-fr" [(ngModel)]="configuracion.FactorProgresion">
+
+    <button class="btn-fit-fr mt-3  btn-secondary" (click)="agregarConfiguracion()">Guardar</button>
+
+  </div>
+</div>
+
+
+<!-- ===========================================================
+      📌 3️⃣ LISTADO DEL RANKING
+=========================================================== -->
+<div class="ranking-container-fr text-black"
+     *ngIf="vista === 'ranking' && tieneConfiguracion && !cargando; else loading">
+
+  <div class="ranking-info-card">
+    <h3 class="titulo-info">
+      <i class="bi bi-info-circle-fill me-1"></i>
+      ¿Cómo funciona el Ranking FitRank?
+    </h3>
+
+    <p class="texto-info">
+      Cada grupo muscular tiene parámetros que modifican el puntaje total de los socios.
+    </p>
+
+    <p class="texto-info">
+      Cambiando los multiplicadores podés priorizar fuerza, repeticiones o progresión.
+    </p>
+  </div>
+
+  <h2 class="titulo-fr">Ranking del Gimnasio</h2>
+
+  <div class="ranking-list-fr">
+
+    <div *ngFor="let socio of ranking; let i = index" class="card-ranking-fr">
+
+      <div class="posicion-fr">{{ getMedalla(i) || (i+1) + '.' }}</div>
+
+      <div class="datos-fr">
+        <span class="nombre-fr">{{ socio.nombreCompleto }}</span>
+        <span class="puntaje-fr">{{ socio.puntajeTotal | number:'1.0-0' }} pts</span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Loader -->
+<ng-template #loading>
+  <div class="cargando text-black">
+    <i class="fas fa-spinner fa-spin"></i> Cargando ranking...
+  </div>
+</ng-template>
+
+
+<!-- ===========================================================
+      📌 4️⃣ SIDE PANEL (CONFIG + EDICIÓN)
+=========================================================== -->
+<div class="overlay" *ngIf="panelAbierto" (click)="cerrarPanel()"></div>
+
+<div class="side-panel" [class.open]="panelAbierto">
+
+  <div class="panel-header">
+    <h2 class="text-white">{{ tieneConfiguracion ? 'Editar Configuración' : 'Configurar Ranking' }}</h2>
+    <button class="close-btn btn-secondary" (click)="cerrarPanel()">✖</button>
+  </div>
+
+  <div class="panel-body text-black">
+
+    <label class="text-white">Grupo Muscular</label>
+    <select [(ngModel)]="configuracion.GrupoMuscularId"
+            (change)="verificarConfiguracion()"
+            class="input-fit-fr">
+      <option *ngFor="let g of gruposMusculares" [value]="g.id">{{ g.nombre }}</option>
+    </select>
+
+    <p class="small mt-1 text-muted" *ngIf="configuracionActual">
+      Editando parámetros de <strong>{{ getNombreGrupoSeleccionado() }}</strong>.
+
+    </p>
+
+    <!-- Multiplicador Peso -->
+    <div class="campo">
+
+      <label class="text-white">
+        Multiplicador Peso</label>
+        <input type="number"
+               [(ngModel)]="configuracion.MultiplicadorPeso"
+               class="input-fit-fr"
+               (focus)="mostrarTooltip('peso')"
+               (blur)="ocultarTooltip()">
+
+        <div class="tooltip-explicacion" *ngIf="tooltipActivo === 'peso'">
+          Define cuánto afecta el peso al puntaje total.
+        </div>
+    </div>
+
+    <!-- Multiplicador Repeticiones -->
+    <div class="campo">
+
+      <label class="text-white">Multiplicador Repeticiones</label>
+      <input type="number"
+             [(ngModel)]="configuracion.MultiplicadorRepeticiones"
+             class="input-fit-fr"
+             (focus)="mostrarTooltip('reps')"
+             (blur)="ocultarTooltip()">
+
+      <div class="tooltip-explicacion" *ngIf="tooltipActivo === 'reps'">
+        Valor de cada repetición realizada.
+      </div>
+    </div>
+
+    <!-- Progresión -->
+    <div class="campo">
+
+      <label class="text-white">Factor de Progresión</label>
+      <input type="number"
+             [(ngModel)]="configuracion.FactorProgresion"
+             class="input-fit-fr"
+             (focus)="mostrarTooltip('progresion')"
+             (blur)="ocultarTooltip()">
+
+      <div class="tooltip-explicacion" *ngIf="tooltipActivo === 'progresion'">
+        Aumento del puntaje semana a semana.
+      </div>
+    </div>
+    <!-- =======================================================
+        🔢 SIMULADOR DE PUNTAJE
+  ======================================================= -->
+    <div class="simulador-fr mt-4">
+
+      <h4 class="mb-2"><i class="bi bi-lightbulb"></i> Simulador de Puntaje</h4>
+      <p class="small text-muted">Probá cómo cambiaría el puntaje para este grupo muscular.</p>
+
+      <!-- Inputs -->
+      <div class="d-flex gap-2 mt-3">
+        <div class="flex-fill">
+          <label>Peso (kg)</label>
+          <input type="number"
+                 class="input-fit-fr"
+                 [(ngModel)]="simPeso"
+                 (input)="calcularSimulacion()" />
+        </div>
+
+        <div class="flex-fill">
+          <label>Repeticiones</label>
+          <input type="number"
+                 class="input-fit-fr"
+                 [(ngModel)]="simReps"
+                 (input)="calcularSimulacion()" />
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="resultado-simulador mt-3 p-3 rounded">
+        <p class="m-0">
+          Puntaje estimado:
+          <strong class="puntaje-num">{{ simResultado | number:'1.0-2' }}</strong> pts
+        </p>
+
+        <!-- Barra de progreso -->
+        <div class="barra-simulador mt-2">
+          <div class="barra-simulador-fill"
+               [style.width.%]="simResultado * 2"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTÓN ACTUALIZAR -->
+    <button class="btn-fit-fr mt-3 btn-secondary"
+            *ngIf="tieneConfiguracion"
+            (click)="actualizarConfiguracion()">
+      Actualizar
+    </button>
+
+    <!-- BOTÓN GUARDAR -->
+    <button class="btn-fit-fr mt-3 btn-secondary"
+            *ngIf="!tieneConfiguracion"
+            (click)="agregarConfiguracion()">
+      Guardar
+    </button>
+
+  </div>
+
+</div>

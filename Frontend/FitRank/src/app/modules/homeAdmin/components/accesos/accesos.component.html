@@ -1,88 +1,130 @@
-<div class="scanner-container d-flex flex-column align-items-center justify-content-center py-4">
-  <!-- 📷 Título -->
-  <h2 id="typingText" class="fw-bold text-fitrank mb-3">Control de Acceso QR</h2>
-  <p class="text-black mb-4 text-center">
-    Escaneá el código QR del socio para validar su ingreso.
-  </p>
+<div class="qr-container row">
 
-  <!-- 📷 Escáner -->
-  <div class=" scanner-frame p-2 rounded-4 shadow-lg  position-relative">
-    <ngx-scanner-qrcode #scanner
-                        (event)="onScan($event)"
-                        class="rounded-4 overflow-hidden"
-                        style="width: 300px; height: 300px;">
-    </ngx-scanner-qrcode>
-  </div>
+  <!-- ============================
+       COLUMNA IZQUIERDA
+  ============================ -->
+  <div class="col-lg-6 col-12 qr-left">
 
-  <!-- 🎛️ Botones -->
-  <div class="mt-4 d-flex gap-3">
-    <button class="btn btn-fitrank" (click)="startScanner()"> Iniciar</button>
-    <button class="btn btn-outline-danger" (click)="stopScanner()">Detener</button>
-  </div>
+    <div class="scanner-wrapper">
 
-  <!-- ⏳ Estado -->
-  <div *ngIf="loading" class="mt-4 text-center">
-    <div class="spinner-border text-fitrank" role="status"></div>
-    <p class="mt-2 text-light">Validando QR...</p>
-  </div>
-
-  <!-- ✅ Resultado -->
-  <div *ngIf="!loading && mensaje" class="mt-4 w-100 text-center">
-    <div [ngClass]="exito ? 'alert alert-success mx-auto w-75' : 'alert alert-danger mx-auto w-75'"
-         class="px-4 py-2 rounded-3 fw-bold">
-      {{ mensaje }}
-    </div>
-  </div>
-
-  <!-- 🔹 Detalle del socio -->
-  <div *ngIf="exito && socio" class="card  text-dark mt-3 p-3 shadow-lg rounded-4 mx-auto" style="max-width: 420px;">
-    <!-- ✅ Resultado  <img [src]="socio.fotoUrl || 'assets/img/default-user.png'"
-                          class="rounded-circle mx-auto mb-3"
-                          width="120" height="120" alt="Foto socio">-->
-
-    <h4 class="text-fitrank fw-bold">{{ socio.nombre }} {{ socio.apellido }}</h4>
-    <p><strong>Nivel:</strong> {{ socio.nivel }}</p>
-    <p><strong>Apellido:</strong> {{ socio.apellido }}</p>
-    <p><strong>Sexo:</strong> {{ socio.sexo }}</p>
-    <p><strong>Cuota paga hasta:</strong> {{ socio.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</p>
-    <p><strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
-
-    <div class="mt-3">
-      <h5 class="text-fitrank mb-2"> Últimas asistencias</h5>
-      <ul class="list-group bg-dark">
-        <li *ngFor="let a of asistencias" class="list-group-item bg-dark text-light border-secondary">
-          {{ a.gimnasioNombre }} — {{ a.fecha | date:'dd/MM/yyyy' }}
-          <span class="text-muted">({{ a.horaEntrada | date:'HH:mm' }})</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="ocupacion-wrapper">
-
-  <!-- 🔵 OCUPACIÓN EN VIVO -->
-  <div class="ocupacion-card">
-    <h2>🏋️ Ocupación Actual</h2>
-    <div class="contador">{{ personasDentro }}</div>
-    <p class="sub">personas dentro del gimnasio</p>
-  </div>
-
-  <!-- 🟣 LISTA DE MOVIMIENTOS EN TIEMPO REAL -->
-  <div class="movimientos-card">
-    <h3>📋 Movimientos Recientes</h3>
-
-    <div class="movimiento" *ngFor="let m of ocupacion">
-      <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
-
-      <div class="info">
-        <div class="nombre">{{ m.nombre }}</div>
-        <div class="fecha">{{ m.fecha | date:'dd/MM HH:mm' }}</div>
+      <!-- HEADER -->
+      <div class="text-center mb-4">
+        <h2 class="text-titulo fw-bold mb-4"><i class="bi bi-qr-code-scan me-2 text-black"></i>Control de Acceso QR</h2>
+        <p class="subtitulo">Escaneá el código del socio para validar el ingreso.</p>
       </div>
 
-      <div class="tipo" [ngClass]="m.tipo">
-        {{ m.tipo === 'entrada' ? 'Entró' : 'Salió' }}
+      <!-- SCANNER -->
+      <div class="scanner-frame shadow-lg rounded-4 p-3 mx-auto">
+        <ngx-scanner-qrcode #scanner
+                            (event)="onScan($event)"
+                            class="rounded-4 overflow-hidden scanner-cam">
+        </ngx-scanner-qrcode>
       </div>
-    </div>
+
+      <!-- BOTONES -->
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button class="btn btn-fitrank btn-secondary" (click)="startScanner()">
+          <i class="bi bi-play-fill"></i> Iniciar
+        </button>
+        <button class="btn btn-outline-danger btn-secondary" (click)="stopScanner()">
+          <i class="bi bi-stop-fill"></i> Detener
+        </button>
+      </div>
+
+      <!-- LOADING -->
+      <div *ngIf="loading" class="mt-4 text-center">
+        <div class="spinner-border text-fitrank" role="status"></div>
+        <p class="loading-text"><i class="bi bi-hourglass-split"></i> Validando QR...</p>
+      </div>
+
+      <!-- RESULTADO -->
+      <div *ngIf="!loading && mensaje" class="resultado-wrapper">
+        <div [ngClass]="exito ? 'alert alert-success result-box' : 'alert alert-danger result-box'">
+          <i class="bi"
+             [ngClass]="exito ? 'bi-check-circle-fill' : 'bi-x-circle-fill'">
+          </i>
+          {{ mensaje }}
+        </div>
+      </div>
+
+      <!-- INFO SOCIO -->
+      <div *ngIf="exito && socio" class="card socio-card shadow-lg rounded-4 mx-auto mt-3">
+
+        <div class="text-center mb-3">
+          <div class="foto-wrapper">
+            <img [src]="socio.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+                 alt="foto socio" class="foto-socio">
+          </div>
+          <h4 class="text-fitrank fw-bold mt-2">
+            {{ socio.nombre }} {{ socio.apellido }}
+          </h4>
+          <p class="nivel"><i class="bi bi-stars"></i> Nivel {{ socio.nivel }}</p>
+        </div>
+
+        <div class="detalle">
+          <p><i class="bi bi-person-vcard"></i> <strong>Apellido:</strong> {{ socio.apellido }}</p>
+          <p><i class="bi bi-gender-ambiguous"></i> <strong>Sexo:</strong> {{ socio.sexo }}</p>
+          <p><i class="bi bi-calendar-check"></i> <strong>Cuota paga hasta:</strong> {{ socio.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</p>
+          <p><i class="bi bi-building"></i> <strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
+        </div>
+
+        <!-- ASISTENCIAS -->
+        <div class="mt-3">
+          <h5 class="text-fitrank"><i class="bi bi-clock-history"></i> Últimas asistencias</h5>
+
+          <ul class="list-group mt-2">
+            <li *ngFor="let a of asistencias"
+                class="list-group-item asistencia-item">
+              <i class="bi bi-geo-alt-fill me-1"></i>
+              {{ a.gimnasioNombre }} — {{ a.fecha | date:'dd/MM/yyyy' }}
+              <span class="hora">({{ a.horaEntrada | date:'HH:mm' }})</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div> <!-- Fin izquierda -->
+
+  </div>
+
+
+
+  <!-- ============================
+       COLUMNA DERECHA
+  ============================ -->
+  <div class="col-lg-6 col-12 qr-right">
+
+    <div class="ocupacion-wrapper">
+
+      <!-- OCUPACIÓN ACTUAL -->
+      <div class="ocupacion-card text-black">
+        <h3><i class="bi bi-people-fill me-2"></i>Ocupación Actual</h3>
+        <div class="contador">{{ personasDentro }}</div>
+        <p class="sub">personas dentro del gimnasio</p>
+      </div>
+
+      <!-- MOVIMIENTOS -->
+      <div class="movimientos-card text-black">
+        <h4 class="mb-3"><i class="bi bi-arrow-left-right me-2"></i>Movimientos Recientes</h4>
+
+        <div class="movimiento" *ngFor="let m of ocupacion">
+          <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
+
+          <div class="info">
+            <div class="nombre">{{ m.nombre }}</div>
+            <div class="fecha">{{ m.fecha | date:'dd/MM HH:mm' }}</div>
+          </div>
+
+          <div class="tipo" [ngClass]="m.tipo">
+            <i class="bi" [ngClass]="m.tipo === 'entrada' ? 'bi-box-arrow-in-right' : 'bi-box-arrow-right'"></i>
+            {{ m.tipo === 'entrada' ? 'Entró' : 'Salió' }}
+          </div>
+        </div>
+
+      </div>
+
+    </div> <!-- Fin derecha -->
 
   </div>
 

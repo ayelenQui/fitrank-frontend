@@ -76,13 +76,13 @@ export class MisLogrosComponent {
 
     this.data.misLogros(this.user.socioId, this.user.gimnasioId).subscribe({
       next: r => { this.logros.set(r); this.loading.set(false); },
-      //error: e => { console.error(e); this.error.set('No se pudo cargar tus logros.'); this.loading.set(false); }
+      
     });
   }
 
   
   setOrden(value: string) {
-    // normalizamos el string a nuestro tipo
+  
     const v = (value as Order);
     this.orden.set(v);
   }

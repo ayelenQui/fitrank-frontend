@@ -1,156 +1,302 @@
-<div class="admin-dashboard container-fluid py-4">
-  <!-- 🔹 Header -->
-  <h2 class="fw-bold text-center">RESUMEN</h2>
-  <div class="dashboard-header d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid dashboard-container">
+  <div class="row">
 
-    <button class="btn-volver" (click)="irAGenerarInvitacion()">NUEVO SOCIO</button>
-  </div>
+    <!-- ==========================================================
+         COLUMNA IZQUIERDA
+    =========================================================== -->
+    <div class="col-md-8">
 
-  <!-- 🔹 KPIs -->
-  <div class="row g-4 mb-4 kpi-card">
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="kpi-card text-black">
-        <h6 class="kpi-card">Socios activos</h6>
-        <h3>124</h3>
-        <p class="text-success">▲ +8% este mes</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="kpi-card text-black">
-        <h6>Profesores activos</h6>
-        <h3>8</h3>
-        <p class="text-danger">▼ -1% semana</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="kpi-card text-black">
-        <h6>Socios en riesgo</h6>
-        <h3>5</h3>
-        <p class="text-warning">⚠ atención</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="kpi-card text-black">
-        <h6>Promedio de asistencia</h6>
-        <h3>89%</h3>
-        <p class="text-success">▲ +4% mes anterior</p>
-      </div>
-    </div>
-  </div>
-  <!-- 🔹 Gráfico principal -->
-  <div class="card chart-card mb-4 shadow-sm">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
-      <h5 class="fw-bold text-fitrank mb-0">
-        Seguimiento de Socios e Ingresos
-      </h5>
-      <span class="badge bg-light text-dark">Últimos 6 meses</span>
-    </div>
-
-    <div class="card-body">
-      <!-- Mock visual del gráfico -->
-      <div class="chart-placeholder">
-        <div class="chart-bars">
-          <div class="bar ingreso" style="height: 80%"></div>
-          <div class="bar asistencia" style="height: 65%"></div>
-          <div class="bar ingreso" style="height: 90%"></div>
-          <div class="bar asistencia" style="height: 70%"></div>
-          <div class="bar ingreso" style="height: 50%"></div>
-          <div class="bar asistencia" style="height: 40%"></div>
+      <!-- HEADER -->
+      <div class="dashboard-header d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h2 class="dashboard-title text-black">PANEL GENERAL</h2>
+          <p class="dashboard-sub text-black">Resumen del gimnasio</p>
         </div>
 
-        <!-- Etiquetas -->
-        <div class="chart-labels mt-3">
-          <span>Ene</span>
-          <span>Feb</span>
-          <span>Mar</span>
-          <span>Abr</span>
-          <span>May</span>
-          <span>Jun</span>
+        <!-- HEADER -->
+        <div class="gestion-header">
+          <div>
+            <h2 class="titulo">Máquinas y ejercicios</h2>
+            <p class="subtitulo">Gestioná todo el contenido del gimnasio desde un solo lugar</p>
+          </div>
+
+          <div class="header-actions">
+            <button class="btn btn-outline btn-secondary">
+              Notificación
+            </button>
+
+            <button class="btn btn-primary btn-secondary ms-2" (click)="generarInvitacion()">
+              Nuevo Socio
+            </button>
+          </div>
+
         </div>
       </div>
-    </div>
 
-    <div class="card-footer bg-white text-black  d-flex justify-content-between">
-      <span>Ingresos totales: <strong>$480.000</strong></span>
-      <span> Asistencias: <strong>1.245</strong></span>
-    </div>
-  </div>
+      <!-- ===============================
+       KPIs
+  =============================== -->
+      <div class="row g-3 mb-4">
+
+        <!-- ⭐ SOCIOS TOTALES + CRECIMIENTO -->
+        <div class="col-md-3 col-6">
+          <div class="kpi-box">
+            <div class="kpi-label text-black">Socios totales</div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="kpi-value">{{ stats.totalSocios }}</div>
+
+              <span class="kpi-growth-text"
+                    [ngClass]="stats.porcentajeCrecimiento! >= 0 ? 'text-success' : 'text-danger'">
+                {{ stats.porcentajeCrecimiento }}%
+              </span>
+            </div>
+
+            <div class="kpi-progress mt-2">
+              <div class="kpi-progress-bar"
+                   [style.width.%]="stats.porcentajeCrecimiento"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⭐ SOCIOS HOY -->
+        <div class="col-md-3 col-6">
+          <div class="kpi-box">
+            <div class="kpi-label text-black">Socios hoy</div>
+            <div class="kpi-value">{{ stats.sociosActivosHoy }}</div>
+          </div>
+        </div>
+
+        <!-- ⭐ PRÓXIMOS A VENCER -->
+        <div class="col-md-3 col-6">
+          <div class="kpi-box">
+            <div class="kpi-label text-black">Próximos a vencer</div>
+            <div class="kpi-value text-warning">{{ stats.cuotasPorVencer }}</div>
+          </div>
+        </div>
+
+        <!-- ⭐ RIESGO ALTO -->
+        <div class="col-md-3 col-6">
+          <div class="kpi-box kpi-box-riesgo">
+            <div class="kpi-label">Riesgo alto</div>
+            <div class="kpi-value text-danger">{{ stats.sociosRiesgoAlto }}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==========================
+       MINI-GRÁFICOS CON SWITCH
+  =========================== -->
+
+      <div class="panel-box mb-4">
+
+        <!-- SWITCH DE GRÁFICOS -->
+        <div class="switch-group mb-3">
+          <button class="switch-btn btn-secondary"
+                  [class.active]="graficoActivo === 'asistencias'"
+                  (click)="graficoActivo = 'asistencias'">
+            Asistencias
+          </button>
+
+          <button class="switch-btn btn-secondary"
+                  [class.active]="graficoActivo === 'tendencia'"
+                  (click)="graficoActivo = 'tendencia'">
+            Tendencia semanal
+          </button>
+
+          <button class="switch-btn btn-secondary"
+                  [class.active]="graficoActivo === 'riesgo'"
+                  (click)="graficoActivo = 'riesgo'">
+            Riesgo alto
+          </button>
+        </div>
+
+        <!-- CONTENIDO DE GRÁFICOS -->
+        <div class="row g-3">
+
+          <!-- GRAFICO ASISTENCIAS -->
+          <div *ngIf="graficoActivo === 'asistencias'">
+            <div class="mini-chart-box">
+              <div class="mini-chart-title">Asistencias</div>
+              <canvas id="chartAsistencias"></canvas>
+            </div>
+          </div>
+
+          <!-- GRAFICO TENDENCIA -->
+          <div *ngIf="graficoActivo === 'tendencia'">
+            <div class="mini-chart-box">
+              <div class="mini-chart-title">Tendencia semanal</div>
+              <canvas id="chartLinea"></canvas>
+            </div>
+          </div>
+
+          <!-- GRAFICO RIESGO -->
+          <div *ngIf="graficoActivo === 'riesgo'">
+            <div class="mini-chart-box">
+              <div class="mini-chart-title">Riesgo alto</div>
+              <canvas id="chartRiesgo"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
 
-  <!-- 🔹 Acciones rápidas -->
-  <div class="row g-4 mb-4">
-    <div class="col-md-3">
-      <button class="btn-volver">
-        <span class="material-symbols-outlined">qr_code_scanner</span>
-        Acceso QR
-      </button>
-    </div>
-    <div class="col-md-3">
-      <button class="btn-volver">
-        <span class="material-symbols-outlined">person_search</span>
-        Riesgo de abandono
-      </button>
-    </div>
-    <div class="col-md-3">
-      <button class="btn-volver">
-        <span class="material-symbols-outlined">add_circle</span>
-        Crear rutina
-      </button>
-    </div>
-    <div class="col-md-3">
-      <button class="btn-volver">
-        <span class="material-symbols-outlined">leaderboard</span>
-        Ranking socios
-      </button>
-    </div>
-  </div>
+      <!-- ===============================
+       SOCIOS EN ALTO RIESGO
+  ================================ -->
+      <div class="panel-box mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="panel-title">Socios en alto riesgo</div>
+          <div class="switch-group">
+            <button class="btn-outline btn-secondary"
+                    (click)="irASociosRiesgo()">
+              Ver todos
+            </button>
+          </div>
 
-  <!-- 🔹 Ranking de socios -->
-  <div class="card ranking-card">
-    <h5 class="fw-bold text-fitrank mb-3">Socios</h5>
-    <table class="table table-borderless align-middle">
-      <thead>
-        <tr>
-          <th>Ranking</th>
-          <th>Nombre</th>
-          <th>Puntos</th>
-          <th>Asistencias</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Ayelén Quiroga</td>
-          <td>1520</td>
-          <td>98%</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Axel López</td>
-          <td>1410</td>
-          <td>94%</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Lau Fernández</td>
-          <td>1360</td>
-          <td>92%</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Agus Ramos</td>
-          <td>1305</td>
-          <td>90%</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Miriam Torres</td>
-          <td>1280</td>
-          <td>88%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+        </div>
 
+        <div *ngIf="sociosRiesgoAlto?.length; else sinR">
+          <div *ngFor="let socio of sociosRiesgoAlto" class="list-item">
+            <div>
+              <div class="item-title">{{ socio.nombre }} {{ socio.apellido }}</div>
+              <div class="item-sub">
+                Nivel: {{ socio.nivel }} — Cuota: {{ socio.cuotaPagadaHasta | date:'dd/MM' }}
+              </div>
+            </div>
+            <span class="badge bg-danger">{{ calcularRiesgoTotal(socio) }}%</span>
+          </div>
+        </div>
 
+        <ng-template #sinR>
+          <p class="empty-text">No hay socios en riesgo 🔥</p>
+        </ng-template>
+      </div>
+
+      <!-- ===============================
+       SOLICITUDES DE RUTINA
+  ================================ -->
+      <div class="panel-box mb-4 text-black">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="panel-title">Solicitudes de rutinas</div>
+
+          <div class="switch-group">
+            <button class="btn-outline btn-secondary"
+                    (click)="router.navigate(['/solicitudes-profesor'])">
+              Ver todos
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-sub mb-2">Total pendientes: {{ statsSolicitudes }}</div>
+
+        <div *ngIf="solicitudesPendientes.length; else sinSol">
+          <div *ngFor="let sol of solicitudesPendientes | slice:0:4" class="list-item">
+            <div>
+              <div class="item-title">{{ sol.nombreSocio }}</div>
+              <div class="item-sub">Motivo: {{ sol.mensajeSocio || 'Sin mensaje' }}</div>
+              <div class="item-sub">{{ sol.fechaSolicitud | date:'dd/MM/yyyy' }}</div>
+            </div>
+            <span class="badge bg-primary">Pendiente</span>
+          </div>
+        </div>
+
+        <ng-template #sinSol>
+          <p class="empty-text">No hay solicitudes pendientes 🎉</p>
+        </ng-template>
+      </div>
+
+    </div> <!-- FIN COLUMNA IZQUIERDA -->
+    <!-- ==========================================================
+         SIDEBAR DERECHO (CALENDARIO + ACTIVIDAD)
+    =========================================================== -->
+    <div class="col-md-4 sidebar-right">
+
+      <!-- CALENDARIO -->
+      <div class="panel-box small-calendar-box mb-3">
+        <div class="panel-title mb-2">Calendario</div>
+
+        <div class="calendar-nav mb-2 d-flex justify-content-between align-items-center ">
+          <button class="btn btn-dark btn-sm" (click)="mesAnterior()">‹</button>
+          <strong class="text-black">{{ mesActualNombre }} {{ anioActual }}</strong>
+          <button class="btn btn-dark btn-sm" (click)="mesSiguiente()">›</button>
+        </div>
+
+        <div class="calendar-grid small-calendar bg-dark">
+          <div class="day-header" *ngFor="let d of diasSemana">{{ d }}</div>
+
+          <div class="day-cell"
+               *ngFor="let day of diasCalendario"
+               (click)="seleccionarDia(day)"
+               [class.today]="day.esHoy">
+            {{ day.numero }}
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIVIDAD EN TIEMPO REAL (MAPA + LISTA) -->
+      <div class="panel-box activity-panel mb-0 text-black">
+
+        <div class="activity-header d-flex justify-content-between align-items-center">
+          <div>
+            <div class="panel-title text-white">Actividad en tiempo real</div>
+            <div class="panel-sub text-white">Ingresos y egresos del gimnasio</div>
+          </div>
+
+          <span class="activity-pill">
+            ● En vivo
+          </span>
+        </div>
+
+        <div class="activity-content">
+
+          <!-- MAPA -->
+          <div class="activity-map">
+            <div class="activity-map-header">
+              <span class="map-label">Personas dentro</span>
+              <span class="map-count">{{ personasDentro }}</span>
+            </div>
+
+            <!-- PINS -->
+            <div *ngFor="let p of pins"
+                 class="activity-pin-real"
+                 [style.top.%]="p.top"
+                 [style.left.%]="p.left">
+
+              <img [src]="p.foto" class="pin-foto">
+
+              <div class="pin-tooltip text-black">
+                {{ p.nombre }}<br>
+                <small>{{ p.hora | date:'HH:mm' }}</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- LISTA -->
+          <div class="activity-list text-black">
+            <div class="ocupacion-item"
+                 *ngFor="let o of ocupacion | slice:0:6">
+              <div class="d-flex align-items-center">
+                <img [src]="o.foto" class="header-foto">
+                <div class="ms-2">
+                  <strong class="activity-name">{{ o.nombre }}</strong><br>
+                  <small class="activity-time">{{ o.fecha | date:'HH:mm' }}</small>
+                </div>
+              </div>
+
+              <span class="badge activity-badge"
+                    [ngClass]="o.tipo === 'entrada' ? 'badge-entrada' : 'badge-salida'">
+                {{ o.tipo === 'entrada' ? 'Entrada' : 'Salida' }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div> <!-- FIN SIDEBAR DERECHO -->
+
+  </div> <!-- FIN ROW -->
+</div> <!-- FIN CONTAINER -->

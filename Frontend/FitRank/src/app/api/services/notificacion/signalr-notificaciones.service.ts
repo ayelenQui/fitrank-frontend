@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,11 @@ export class SignalRNotificacionesService {
   private ocupacionSource = new BehaviorSubject<any>(null);
   ocupacion$ = this.ocupacionSource.asObservable();
 
-  private conectado = false; // <-- evita conexiones dobles
+  private themeSubject = new BehaviorSubject<any>(null);
+  theme$ = this.themeSubject.asObservable();
+
+
+  private conectado = false;
 
   constructor(private authService: AuthService) { }
 
@@ -36,15 +41,13 @@ export class SignalRNotificacionesService {
     console.log("🔑 Token enviado al hub:", token.substring(0, 20) + "...");
 
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:7226/hubs/notificaciones', {
+      .withUrl(`https://localhost:7226/hubs/notificaciones`, {
         accessTokenFactory: () => this.authService.obtenerToken() ?? ''
       })
       .withAutomaticReconnect()
       .build();
 
-    // ==========================
-    // 🟡 Logs de conexión
-    // ==========================
+
     this.hubConnection.onreconnecting(error => {
       console.warn("🟡 SignalR reconectando...", error);
     });
@@ -71,6 +74,26 @@ export class SignalRNotificacionesService {
       console.log("📊 [EVENTO] OcupacionActualizada:", data);
       this.ocupacionSource.next(data);
     });
+
+    this.hubConnection.on('ThemeUpdated', (data) => {
+      console.log("🎨 [EVENTO] ThemeUpdated recibido:", data);
+
+      // Guardar en localStorage para que lo aplique el interceptor
+      localStorage.setItem('gym-theme', JSON.stringify(data));
+
+      // Aplicar al DOM instantáneamente
+      document.documentElement.style.setProperty('--color-principal', data.colorPrincipal);
+      document.documentElement.style.setProperty('--color-secundario', data.colorSecundario);
+
+      if (data.logoUrl) {
+        document.documentElement.style.setProperty('--logo-gimnasio', `url('${data.logoUrl}')`);
+      }
+
+      // Emitir para otros componentes si quieren reaccionar
+      this.themeSubject.next(data);
+    });
+
+
 
     // ==========================
     // 🚀 Iniciar conexión

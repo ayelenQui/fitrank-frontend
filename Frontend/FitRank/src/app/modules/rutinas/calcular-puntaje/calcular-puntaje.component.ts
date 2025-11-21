@@ -31,19 +31,19 @@ export class CalcularPuntajeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 🔹 Obtener datos del navigation state
+   
     const navigation = history.state;
     this.puntajeEjercicio = navigation.puntaje || 0;
     this.rutinaId = navigation.rutinaId;
 
-    // 🔹 Obtener el socio logueado
+   
     const user = this.auth.obtenerUser();
     this.socioId = user.id;
 
-    // 🔹 Animar el puntaje del ejercicio actual
+
     this.animarPuntaje();
 
-    // 🔹 Cargar el puntaje total del usuario
+    
     this.obtenerPuntajeTotalUsuario();
   }
 
@@ -55,12 +55,12 @@ export class CalcularPuntajeComponent implements OnInit {
     }
   }
 
-  // ✅ Llama al endpoint que trae el puntaje total del socio
+  
   obtenerPuntajeTotalUsuario(): void {
     if (this.socioId) {
       this.puntajeService.obtenerPuntajeTotal(this.socioId).subscribe({
         next: (data) => {
-          this.puntajeTotalUsuario = Math.round(data); // 🔹 Redondea al entero más cercano
+          this.puntajeTotalUsuario = Math.round(data); 
           console.log('🏋️ Puntaje total del socio:', this.puntajeTotalUsuario);
         },
         error: (err) => console.error('❌ Error al obtener puntaje total:', err)
@@ -70,7 +70,7 @@ export class CalcularPuntajeComponent implements OnInit {
     }
   }
 
-  // ✅ Animación con GSAP (solo una vez)
+  
   animarPuntaje(): void {
     this.puntajeAnimado = 0;
     this.displayPuntaje = 0;

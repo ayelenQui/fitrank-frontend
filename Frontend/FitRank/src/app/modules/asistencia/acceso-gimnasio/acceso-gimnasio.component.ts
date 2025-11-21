@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment'; 
 
 @Component({
   selector: 'app-acceso-gimnasio',
@@ -28,7 +29,7 @@ export class AccesoGimnasioComponent implements OnInit {
   }
 
   validarQR(qrData: string) {
-    this.http.post('https://localhost:7226/api/Asistencia/validar-qr', { qrData })
+    this.http.post(`${environment.apiUrl}/Asistencia/validar-qr`, { qrData })
       .subscribe({
         next: (res: any) => {
           this.mensaje = res.mensaje;

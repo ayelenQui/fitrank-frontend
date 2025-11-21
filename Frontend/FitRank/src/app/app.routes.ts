@@ -72,15 +72,6 @@ export const appRoutes: Route[] = [
   },
 
 
-
-
-
-
-
-
-
-
-  //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)
   {
     path: 'logros',
     loadChildren: () =>
@@ -101,4 +92,13 @@ export const appRoutes: Route[] = [
   { path: 'pago-fallido', component: PagoFallidoComponent },
   { path: 'pago-pendiente', component: PagoPendienteComponent },
 
+  
+  {
+    path: 'maquina/:id',
+    loadComponent: () =>
+      import('./modules/maquina/maquina-detalle.component')
+        .then(m => m.MaquinaDetalleComponent)
+  }
 ];
+
+

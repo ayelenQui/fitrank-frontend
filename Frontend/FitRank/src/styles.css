@@ -1,121 +1,66 @@
 :root {
-    --color-fondo-principal: #FAFAFA;
-    --color-fondo-secundario: #E0E0E0;
-    --color-fondo-tarjetas: #EAEAEA;
-    --color-texto-principal: #121212;
-    --color-texto-secundario: #808080;
-    --color-hover-exito: #5A9A00;
-    --color-error-alerta: #FF4C4C;
-    --color-acento: #FAEB92;
-    --color-acento-secundario: #8B52FF;
-    --font-titulo: 'Bebas Neue', sans-serif;
-    --font-secundaria: 'Work Sans', sans-serif;
+  /* THEME PRINCIPAL DEL GIMNASIO */
+  --color-principal: #000000; /* Sidebar negro por defecto */
+  --color-secundario: #8B52FF;
+  --logo-gimnasio: none;
+  /* BASE */
+  --color-fondo: #f7f7f7;
+  --color-texto-principal: #121212;
+  --color-texto-secundario: #808080;
+  --font-titulo: 'Bebas Neue', sans-serif;
+  --font-secundaria: 'Work Sans', sans-serif;
+  --fondo-gimnasio: #f7f7f7;
 }
 
-
-html,
-body {
-  font-family: sans-serif;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-  .preloader
-
-{
-  position: fixed;
-  inset: 0;
-  background: #000;
-  color: white;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 1.5s ease;
-  overflow: hidden;
+/* ================================
+   BOTONES DE ACCIÓN (SECONDARY)
+================================ */
+.btn-secondary {
+  background-color: var(--color-secundario) !important;
+  border-color: var(--color-secundario) !important;
+  color: var(--texto-secundario) !important;
 }
 
-.preloader.hide {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* --- LOGO --- */
-.logo-3d {
-  width: 600px;
-  height: auto;
-  transform-style: preserve-3d;
- 
-
-  margin-bottom: 10px; /* 💥 separa el texto del logo */
-}
-
-@keyframes rotateLogo {
-  0% {
-    transform: rotateY(0deg) rotateX(0deg) scale(1);
+  .btn-secondary:hover {
+    filter: brightness(0.9);
   }
 
-  100% {
-    transform: rotateY(0deg) rotateX(10deg) scale(1);
-  }
-}
-
-
-
-/* --- CONTADOR --- */
-#counter {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #8B52FF;
-  
-  margin-bottom: 20px; /* 🔽 separa del texto principal */
-}
-
-/* --- FRASE --- */
-#phrase {
-  font-size: 4rem;
-  font-weight: 800;
+/* ================================
+   BOTONES ESTRUCTURALES (PRIMARY)
+================================ */
+.btn-primary {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
   color: #fff;
-  border-right: 3px solid #8B52FF;
-  white-space: nowrap;
-  overflow: hidden;
-  letter-spacing: 3px;
-  
-  margin-top: 30px; /* 🟣 espacio entre contador y frase */
 }
 
-/* --- CURSOR --- */
-.cursor {
-  border-color: transparent;
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+  background-color: var(--color-principal) !important;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-  .logo-3d {
-    width: 350px;
-    margin-bottom: 50px;
+
+  .sidebar .item:hover {
+    filter: brightness(1.2);
   }
 
-  #counter {
-    font-size: 1.8rem;
-  }
+/* ================================
+   CARDS
+================================ */
+.card {
+  border-color: var(--color-principal);
+}
 
-  #phrase {
-    font-size: 1.4rem;
-  }
+.card-header {
+  background-color: var(--color-principal);
+  color: #fff;
+}
 
-
-  .dark-theme {
-    background-color: #0e0a1f !important;
-    color: #ffffff !important;
-    transition: background-color 0.4s ease, color 0.4s ease;
-  }
-
-    .dark-theme .card,
-    .dark-theme .table,
-    .dark-theme .bg-light {
-      background-color: #1a1033 !important;
-      color: #fff !important;
-    }
+/* ================================
+   FONDO GENERAL
+================================ */
+body {
+  background: var(--color-fondo);
 }

@@ -50,7 +50,7 @@ volverA = '/rutina/mis-rutinas'; // default
   ) { }
 
   ngOnInit(): void {
-      // lee state pasado en la navegación (más robusto que router.currentNavigation)
+      
   const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
   if (st.socioId) {
     this.socioId = st.socioId;

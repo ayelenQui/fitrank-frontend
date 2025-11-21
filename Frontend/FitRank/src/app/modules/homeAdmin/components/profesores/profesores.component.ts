@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./profesores.component.css']
 })
 export class ProfesoresComponent implements OnInit {
-
+  vista: string = 'listado';
   profesores: ProfesorDTO[] = [];
   profesoresFiltrados: ProfesorDTO[] = [];
   formProfesor!: FormGroup;

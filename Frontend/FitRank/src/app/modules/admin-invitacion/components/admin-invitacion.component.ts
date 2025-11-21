@@ -9,6 +9,7 @@ import { gsap } from 'gsap';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { TypingService } from '../../../api/services/typingService';
 import { Location } from '@angular/common';
+import { environment } from '../../../../environments/environment'; 
 
 interface InvitacionResponse {
   success: boolean;
@@ -114,19 +115,18 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
     };
 
     this.http
-      .post<InvitacionResponse>('https://localhost:7226/api/Admin/generar-invitacion', payload, { headers })
+      .post<InvitacionResponse>(`${environment.apiUrl}/Admin/generar-invitacion`, payload, { headers })
       .subscribe({
         next: (response) => {
           this.loading = false;
 
           console.log('Respuesta backend:', response);
 
-          // 🔥 SI ES MERCADO PAGO → MOSTRAR QR Y LINK
           if (metodoPago === 'MercadoPago') {
 
             this.qrImage = response.qrImage || null;
 
-            // 💥 ACA SE ARREGLA — tomar la propiedad EXACTA DEL BACKEND
+            
             this.linkPago = response.url || null;
 
             console.log('LINK RECIBIDO:', this.linkPago);
@@ -136,7 +136,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
           }
 
 
-          // 🔥 SI ES EFECTIVO → mensaje normal
           this.mensaje = '✔ Invitación generada correctamente.';
         },
         error: (err) => {

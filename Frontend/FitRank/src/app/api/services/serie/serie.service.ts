@@ -8,7 +8,7 @@ import { SerieDTO, AgregarSerieDTO, ActualizarSerieDTO } from './interface/serie
   providedIn: 'root'
 })
 export class SerieService {
-  private apiUrl = 'https://localhost:7226/api/Serie';
+  private apiUrl = `${environment.apiUrl}/Serie`;
 
   constructor(private http: HttpClient) { }
 

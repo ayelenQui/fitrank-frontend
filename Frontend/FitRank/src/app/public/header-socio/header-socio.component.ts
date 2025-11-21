@@ -28,14 +28,13 @@ export class HeaderSocioComponent implements OnInit {
     this.signalRNoti.notificacion$.subscribe(n => {
       console.log("HEADER recibió:", n);
 
-      // 🟣 guardar notificación para mostrar en la campana
       this.notificaciones.unshift(n);
 
-      // 🟣 activar badge
+     
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-      // 🟣 Popup automático en tiempo real
+      
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -88,7 +87,7 @@ export class HeaderSocioComponent implements OnInit {
     this.hayNotificacionesNuevas = false;
     this.notificacionesNuevas = 0;
     this.mostrarPopup = !this.mostrarPopup; 
-    // abrir popup o sidebar de notificaciones
+   
   }
 
 }

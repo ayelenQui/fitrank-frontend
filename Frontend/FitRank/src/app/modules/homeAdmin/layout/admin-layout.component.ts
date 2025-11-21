@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationStart, NavigationEnd, Event } from '@angular/router';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -14,10 +15,54 @@ import { SignalRNotificacionesService } from '@app/api/services/notificacion/sig
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(private signalR: SignalRNotificacionesService) { }
+  loadingTabs = false;
+  isDarkMode = false; 
+
+  constructor(
+    private signalR: SignalRNotificacionesService,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    console.log("🟣 AdminLayoutComponent cargado → iniciando conexión SignalR...");
+    console.log("AdminLayout cargado.");
     this.signalR.iniciarConexion();
+
+  
+    const saved = localStorage.getItem('fitrank_dark');
+    if (saved === '1') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark');
+    }
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.loadingTabs = true;
+      }
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          this.loadingTabs = false;
+        }, 1200);
+      }
+    });
   }
-}
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+
+    console.log("toggleDarkMode ejecutado →", this.isDarkMode);
+
+    if (this.isDarkMode) {
+      document.body.classList.add('dark');
+      console.log("Clase agregada:", document.body.classList);
+    } else {
+      document.body.classList.remove('dark');
+      console.log("Clase removida:", document.body.classList);
+    }
+  }
+  logout(): void {
+    this.authService.logout();
+    window.location.href = '/login';
+  }
+  }
+

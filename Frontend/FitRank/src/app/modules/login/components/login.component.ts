@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Maneja error de query param (e.g., de activación)
+    
     this.route.queryParams.subscribe(params => {
       if (params['error']) {
         this.error = params['error'];
       }
     });
 
-    // Form de login
+   
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]

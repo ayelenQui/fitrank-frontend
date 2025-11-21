@@ -111,25 +111,25 @@
       <section class="mb-5">
         <div class="row g-3 justify-content-center">
           <div class="col-12 col-md-3">
-            <button class="quick-action w-100" (click)="navegarA('/ranking')">
+            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/ranking')">
               <span class="material-symbols-outlined me-2">emoji_events</span>
               Ranking
             </button>
           </div>
           <div class="col-12 col-md-3">
-            <button class="quick-action w-100" (click)="navegarA('/rutina/crear/')">
+            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/crear/')">
               <span class="material-symbols-outlined me-2">add_circle</span>
               Crear rutina
             </button>
           </div>
           <div class="col-12 col-md-3">
-            <button class="quick-action w-100" (click)="navegarA('/rutina/mis-rutinas')">
+            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
               <span class="material-symbols-outlined me-2">list_alt</span>
               Mis rutinas
             </button>
           </div>
           <div class="col-12 col-md-3">
-            <button class="quick-action w-100" (click)="navegarA('/socios/1/gimnasios/1/logros')">
+            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/socios/1/gimnasios/1/logros')">
               <span class="material-symbols-outlined me-2">military_tech</span>
               Mis logros
             </button>
@@ -142,13 +142,13 @@
         <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p>
 
         <div class="d-flex flex-column gap-2 mt-3">
-          <button class="btn btn-primary w-100" (click)="responder('cambiar-rutina')">
+          <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')">
             🔄 Cambiar rutina
           </button>
-          <button class="btn btn-success w-100" (click)="responder('estoy-bien')">
+          <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')">
             ✅ Estoy bien
           </button>
-          <button class="btn btn-warning w-100" (click)="responder('contactar-profesor')">
+          <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')">
             Que me contacte un profesor
           </button>
         </div>
@@ -197,7 +197,7 @@
               </div>
 
               <div class="text-center mt-4">
-                <button class="btn btn-fitrank px-4 py-2"
+                <button class="btn  btn-secondary"
                         (click)="navegarA('/notificaciones-globales')">
                   Ver todas
                 </button>
@@ -234,7 +234,7 @@
               </div>
 
               <div class="text-center mt-4">
-                <button class="btn btn-fitrank px-4 py-2"
+                <button class="btn btn-secondary"
                         (click)="navegarA('/notificaciones-personales')">
                   Ver todas
                 </button>
@@ -246,7 +246,7 @@
 
       <!-- 🚪 LOGOUT -->
       <div class="text-center mt-5">
-        <button class="btn btn-outline-fitrank px-4 py-2" (click)="logout()">
+        <button class="btn btn-outline-fitrank px-4 py-2 btn-secondary" (click)="logout()">
           <span class="material-symbols-outlined me-2">logout</span> Cerrar sesión
         </button>
       </div>
@@ -266,28 +266,28 @@
 
     <div class="row g-4 justify-content-center">
       <div class="col-12 col-md-4">
-        <button class="quick-action w-100" (click)="navegarA('/profesor/rutinas')">
+        <button class="quick-action w-100 btn-secondary" (click)="navegarA('/profesor/rutinas')">
           <span class="material-symbols-outlined me-2">list_alt</span>
           Ver mis rutinas creadas
         </button>
       </div>
       <div class="row g-4 justify-content-center">
         <div class="col-12 col-md-4">
-          <button class="quick-action w-100" (click)="navegarA('solicitudes-profesor')">
+          <button class="quick-action  btn-secondary" (click)="navegarA('solicitudes-profesor')">
             <span class="material-symbols-outlined me-2">list_alt</span>
             Panel de Solictudes Generales
           </button>
         </div>
 
         <div class="col-12 col-md-4">
-          <button class="quick-action w-100" (click)="navegarA('/profesor/alumnos')">
+          <button class="quick-action  btn-secondary" (click)="navegarA('/profesor/alumnos')">
             <span class="material-symbols-outlined me-2">group</span>
             Ver mis alumnos
           </button>
         </div>
 
         <div class="col-12 col-md-4">
-          <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
+          <button class="quick-action  btn-secondary" (click)="navegarA('/notificaciones-profesor')">
             <span class="material-symbols-outlined me-2">notifications_active</span>
             Notificaciones
           </button>

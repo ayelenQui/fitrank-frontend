@@ -1,300 +1,129 @@
-/* 🌌 Fondo general */
-.scanner-container {
-
+/* CONTENEDOR PRINCIPAL */
+.qr-container {
   min-height: 100vh;
-  color: #fff;
-  text-align: center;
-  animation: fadeIn 0.7s ease-in;
-}
-
-/* 🎯 Título */
-.text-fitrank {
- font-size: 3.8rem;
-  font-weight: 700;
-  color: black;
-  
-  font-family: 'Bebas Neue', sans-serif;
-}
-
-
-h2.fw-bold {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  animation: slideDown 0.8s ease-out;
-  font-family: 'Bebas Neue', sans-serif;
-}
-
-/* 📷 Marco del escáner */
-.scanner-frame {
-  border: 2px solid rgba(155, 93, 229, 0.6);
-  box-shadow: 0 0 20px rgba(155, 93, 229, 0.5);
-  transition: all 0.3s ease;
-}
-
-  .scanner-frame:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 30px rgba(155, 93, 229, 0.8);
-  }
-
-.ocupacion-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-  margin-top: 20px;
-}
-
-/* 🔵 Tarjeta del contador */
-.ocupacion-card {
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 30px;
-  text-align: center;
-  border: 2px solid #8c52ff22;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-  transition: 0.3s ease;
-}
-
-  .ocupacion-card:hover {
-    transform: scale(1.02);
-  }
-
-  .ocupacion-card h2 {
-    font-family: 'Bebas Neue';
-    color: #8c52ff;
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-.contador {
-  font-size: 4.5rem;
-  font-weight: bold;
-  color: #0f0d13;
-}
-
-.sub {
-  color: #888;
-  margin-top: -5px;
-  font-size: 1.1rem;
-}
-
-/* 🟣 Lista de movimientos */
-.movimientos-card {
-  background: #ffffff;
-  border-radius: 15px;
   padding: 20px;
-  border: 2px solid #8c52ff22;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  gap: 20px;
 }
 
-  .movimientos-card h3 {
-    font-family: 'Bebas Neue';
-    margin-bottom: 15px;
-    color: #333;
-    font-size: 1.8rem;
+/* COLUMNA IZQUIERDA */
+.qr-left {
+  padding-right: 20px;
+  border-right: 2px solid #e7e7e7;
+}
+
+@media (max-width: 992px) {
+  .qr-left {
+    border-right: none;
+    border-bottom: 2px solid #e7e7e7;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+}
+
+/* COLUMNA DERECHA */
+.qr-right {
+  padding-left: 20px;
+}
+
+/* ------------------------ */
+/*     SCANNER LADO IZQ    */
+/* ------------------------ */
+.scanner-frame {
+  max-width: 380px;
+}
+
+.scanner-cam {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+/* RESULTADO */
+.result-box {
+  font-size: 18px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* FOTO SOCIO */
+.foto-wrapper {
+  width: 110px;
+  height: 110px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin: auto;
+  border: 4px solid #8B52FF;
+}
+
+.foto-socio {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ------------------------ */
+/*     PANEL DERECHA       */
+/* ------------------------ */
+.ocupacion-wrapper {
+  padding: 10px;
+}
+
+.ocupacion-card {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+  .ocupacion-card .contador {
+    font-size: 56px;
+    font-weight: bold;
+    color: #8B52FF;
   }
 
-/* 🔽 Cada movimiento */
+.movimientos-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
 .movimiento {
   display: flex;
   align-items: center;
-  padding: 12px;
-  border-radius: 12px;
-  background: #f8f8fb;
-  margin-bottom: 10px;
-  transition: 0.25s ease;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-  .movimiento:hover {
-    background: #f3edff;
-    transform: translateX(5px);
+  .movimiento .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
-/* avatar */
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 12px;
-}
-
-.info {
-  flex: 1;
-}
-
-.nombre {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.fecha {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-/* 🟢 entrada / 🔴 salida */
 .tipo {
   font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  text-transform: capitalize;
+  padding: 5px 12px;
+  border-radius: 12px;
+}
+.text-titulo {
+  text-align: center;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 50px;
 }
 
   .tipo.entrada {
-    background: #def9e5;
-    color: #0c8b2c;
+    background: #d7ffd6;
+    color: #0f8f0f;
   }
 
   .tipo.salida {
-    background: #ffe3e3;
-    color: #d02121;
+    background: #ffe4e4;
+    color: #da1a1a;
   }
-
-/* 📱 responsive */
-@media (max-width: 768px) {
-  .ocupacion-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-
-/* 🎛️ Botones personalizados */
-.btn-fitrank {
-  background: linear-gradient(135deg, #9b5de5, #6a0dad);
-  color: #fff;
-  border: none;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-
-}
-
-  .btn-fitrank:hover {
-    background: linear-gradient(135deg, #b47aff, #8a2be2);
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(155, 93, 229, 0.6);
-  }
-
-.btn-outline-danger {
-  border: 2px solid #ff5c5c;
-  color: #ff5c5c;
-  transition: 0.3s;
-  font-weight: 600;
-}
-
-  .btn-outline-danger:hover {
-    background: #ff5c5c;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(255, 92, 92, 0.5);
-  }
-
-/* 🌀 Spinner */
-.spinner-border.text-fitrank {
-  border-color: #9b5de5 !important;
-  border-right-color: transparent !important;
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-/* ✅ Mensajes de resultado */
-.alert-success {
-  background-color: rgba(75, 181, 67, 0.1);
-  border: 1px solid #4bb543;
-  color: #4bb543;
-}
-
-.alert-danger {
-  background-color: rgba(255, 92, 92, 0.1);
-  border: 1px solid #ff5c5c;
-  color: #ff5c5c;
-}
-
-/* 🧍 Tarjeta de socio */
-.card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(6px);
-  animation: fadeInUp 0.7s ease-in;
-}
-
-  .card h4 {
-    color: #9b5de5;
-  }
-
-  .card p {
-    margin-bottom: 0.3rem;
-    font-size: 0.95rem;
-  }
-
-  .card ul.list-group {
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-.list-group-item {
-  transition: background 0.3s;
-}
-
-  .list-group-item:hover {
-    background-color: rgba(155, 93, 229, 0.1);
-  }
-
-/* ✨ Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 💡 Responsive */
-@media (max-width: 576px) {
-  .scanner-frame {
-    width: 240px !important;
-    height: 240px !important;
-  }
-
-  .card {
-    width: 90%;
-    padding: 1rem;
-  }
-
-  .btn-fitrank,
-  .btn-outline-danger {
-    font-size: 0.9rem;
-    padding: 6px 14px;
-  }
-}

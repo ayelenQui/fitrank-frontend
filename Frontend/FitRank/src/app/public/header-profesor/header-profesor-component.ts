@@ -26,14 +26,13 @@ export class HeaderProfesorComponent implements OnInit {
     this.signalRNoti.notificacion$.subscribe(n => {
       console.log("HEADER recibió:", n);
 
-      // 🟣 guardar notificación para mostrar en la campana
       this.notificaciones.unshift(n);
 
-      // 🟣 activar badge
+    
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-      // 🟣 Popup automático en tiempo real
+   
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -57,7 +56,7 @@ export class HeaderProfesorComponent implements OnInit {
   }
 
   irAlHome(): void {
-    this.router.navigate(['/home/home-socio']); // o podés hacer /home/home-profesor si lo separás
+    this.router.navigate(['/home/home-socio']); 
   }
 
   irA(ruta: string): void {
@@ -67,6 +66,6 @@ export class HeaderProfesorComponent implements OnInit {
     this.hayNotificacionesNuevas = false;
     this.notificacionesNuevas = 0;
     this.mostrarPopup = !this.mostrarPopup;
-    // abrir popup o sidebar de notificaciones
+    
   }
 }

@@ -17,13 +17,13 @@
           <h2 class=" plan-card__title">Planificá cuántos días de entreno</h2>
           <div class="plan-card__row">
             <input type="number"
-                   class="plan-card__input"
+                   class="plan-card__input btn-secondary"
                    formControlName="cantidadDias"
                    placeholder="1..."
                    min="1"
                    max="7" />
             <button type="submit"
-                    class="btn-fitrank"
+                    class="btn-fitrank btn-secondary"
                     [disabled]="form.get('cantidadDias')?.invalid">
               Generar sesiones
             </button>
@@ -41,7 +41,7 @@
       <div class="dias-tabs mb-4">
         <button *ngFor="let sesion of sesiones.controls; let i = index"
                 (click)="seleccionarSesion(i)"
-                class=""
+                class="btn-secondary"
                 [ngClass]="{ active: sesionActiva === i }">
           Día {{ i + 1 }}
         </button>
@@ -53,7 +53,7 @@
           <div formArrayName="sesiones">
             <div *ngIf="sesiones.at(sesionActiva)"
                  [formGroupName]="sesionActiva"
-                 class="bloques-container">
+                 class="bloques-container btn-secondary">
 
               <!-- LISTA DE EJERCICIOS -->
               <div formArrayName="ejercicios" class="ejercicios-dropzone">
@@ -67,7 +67,7 @@
 
                 <div *ngFor="let ejercicio of getEjercicios(sesionActiva).controls; let j = index; trackBy: trackByIndex"
                      [formGroupName]="j"
-                     class="bloque">
+                     class="bloque btn-secondary">
                   <div class="bloque-header">
                     <!--<div class="d-flex align-items-center gap-2">
                       <img *ngIf="ejercicio.get('urlImagen')?.value"
@@ -83,7 +83,7 @@
                       </div>
                     <!--</div>-->
                     <button type="button"
-                            class="btn btn-sm btn-outline-danger"
+                            class="btn btn-sm btn-outline-danger btn-secondary"
                             (click)="eliminarEjercicio(sesionActiva, j)">
                       🗑
                     </button>
@@ -107,14 +107,14 @@
                         <input type="number" class="form-control" formControlName="duracion" />
                       </div>
                       <button type="button"
-                              class="btn btn-outline-danger btn-sm"
+                              class="btn btn-outline-danger btn-sm btn-secondary"
                               (click)="eliminarSerie(sesionActiva, j, k)">
                         Quitar
                       </button>
                     </div>
 
                     <button type="button"
-                            class="btn btn-outline-primary btn-sm mt-2"
+                            class="btn btn-outline-primary btn-sm mt-2 btn-secondary"
                             (click)="agregarSerie(sesionActiva, j)">
                       Agregar serie
                     </button>
@@ -123,7 +123,7 @@
               </div>
 
               <div class="text-end mt-4">
-                <button type="submit" class="btn btn-outline-primary btn-sm mt-2">
+                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 btn-secondary">
                   Guardar Día {{ sesionActiva + 1 }}
                 </button>
                 <div class="text-end mt-3 fw-bold text-secondary">
@@ -146,7 +146,7 @@
 
       <!-- GUARDAR -->
       <div class="text-center mt-5">
-        <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="guardarTodo()">
+        <button type="button" class="btn btn-outline-primary btn-sm mt-2 btn-secondary" (click)="guardarTodo()">
           Guardar Rutina
         </button>
       </div>

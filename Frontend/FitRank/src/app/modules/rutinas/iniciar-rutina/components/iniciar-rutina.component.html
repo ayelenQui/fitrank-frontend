@@ -1,6 +1,6 @@
 <!-- 🔙 Botón volver -->
 
-<button type="button" class="btn-volver" (click)="volverAtras()">
+<button type="button" class="btn-volver btn-secondary" (click)="volverAtras()">
   Volver
 </button>
 
@@ -21,7 +21,7 @@
         <div *ngFor="let r of rutinas" class="card border-0 rounded-4 shadow-sm p-3">
           <h5 class="titulo">{{ r.nombre }}</h5>
           <p class="text-50 small">{{ r.descripcion }}</p>
-          <button class="btn btn-success mt-2 fw-bold" (click)="seleccionarRutina(r)">
+          <button class="btn btn-success mt-2 fw-bold btn-secondary" (click)="seleccionarRutina(r)">
             Ver sesiones
           </button>
         </div>
@@ -45,7 +45,7 @@
         <div class="overlay"></div>
         <div class="sesion-header">
           <h3 class="titulo sesion-dia text-white-50">Sesión {{ s.numeroDeSesion +1 }}</h3>
-          <button class="btn-ver" (click)="seleccionarSesion(s)">
+          <button class="btn-ver btn-secondary" (click)="seleccionarSesion(s)">
 
             <span class="material-symbols-outlined fs-1">play_arrow</span>
           </button>
@@ -73,7 +73,7 @@
 
   <!-- 🔹 3️⃣ Listado de Ejercicios -->
   <div *ngIf="sesionSeleccionada && !ejercicioSeleccionado">
-    <button class="btn btn-link mb-3" (click)="sesionSeleccionada = null">← Volver a sesiones</button>
+    <button class="btn btn-link mb-3 btn-secondary" (click)="sesionSeleccionada = null">← Volver a sesiones</button>
     <h4 class="fw-bold mb-4 text-center">{{ sesionSeleccionada.nombre }}</h4>
 
     <div *ngFor="let e of sesionSeleccionada.ejerciciosAsignados"
@@ -108,7 +108,7 @@
         </li>
       </ul>
 
-      <button class="btn mt-3 fw-bold py-2"
+      <button class="btn mt-3 fw-bold py-2 btn-secondary"
               [disabled]="e.completadoHoy"
               [ngClass]="e.completadoHoy ? 'btn-secondary' : 'btn-success'"
               (click)="!e.completadoHoy && seleccionarEjercicio(e)">
@@ -116,14 +116,14 @@
       </button>
     </div>
 
-    <button class="btn text-center mt-4 fw-bold py-2" (click)="finalizarSesionParcial()">
+    <button class="btn text-center mt-4 fw-bold py-2 btn-secondary" (click)="finalizarSesionParcial()">
       🏁 Finalizar sesión por hoy
     </button>
   </div>
 
   <!-- 🔹 4️⃣ Ejercicio en curso -->
   <div *ngIf="ejercicioSeleccionado">
-    <button class="btn btn-link text-white mb-3" (click)="ejercicioSeleccionado = null">← Volver a ejercicios</button>
+    <button class="btn btn-link text-white mb-3 btn-secondary" (click)="ejercicioSeleccionado = null">← Volver a ejercicios</button>
 
     <div class="entrenamiento-container  text-white p-4 rounded-4 mx-auto "
          style="max-width: 400px; min-height: 600px  ">
@@ -131,7 +131,7 @@
 
         <span class="fw-bold">Hoy Entrenamiento</span>
 
-        <button class="btn btn-link text-success fw-bold">Finalizar</button>
+        <button class="btn btn-link text-success fw-bold btn-secondary">Finalizar</button>
       </div>
       <div *ngIf="!mostrarRegistro" class="text-center mt-5">
         <h2 class="fw-bold">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h2>
@@ -175,7 +175,7 @@
         <h1 class="display-3 fw-bold mt-4">{{ tiempoFormateado }}</h1>
         <p class="text-uppercase text-white-50">Tiempo de la serie</p>
         <!-- 🔹 Botón Play -->
-        <button *ngIf="!entrenando && !mostrandoCuentaRegresiva" class="btn-play idle" (click)="mostrarCuenta()">
+        <button *ngIf="!entrenando && !mostrandoCuentaRegresiva" class="btn-play idle " (click)="mostrarCuenta()">
           <span class="material-symbols-outlined fs-1">play_arrow</span>
         </button>
 
@@ -188,14 +188,14 @@
          
 
           <!-- Botón de Finalizar -->
-          <button *ngIf="entrenando" class="btn-stop" (click)="finalizarSerie()">
+          <button *ngIf="entrenando" class="btn-stop " (click)="finalizarSerie()">
             <span class="material-symbols-outlined fs-1">stop</span>
           </button>
         </div>
       </div>
 
       <div *ngIf="mostrarRegistro" class="mt-5">
-        <button class="btn btn-link text-white mb-3" (click)="mostrarRegistro = false">← Volver al cronómetro</button>
+        <button class="btn btn-link text-white mb-3 btn-secondary" (click)="mostrarRegistro = false">← Volver al cronómetro</button>
 
         <h4 class="text-center mb-4 text-white">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h4>
 
@@ -221,7 +221,7 @@
         </div>
 
         <div class="d-flex flex-column gap-3">
-          <button class="btn btn-success rounded-pill fw-bold py-3" (click)="guardarActividad()">
+          <button class="btn btn-success rounded-pill fw-bold py-3 btn-secondary" (click)="guardarActividad()">
             Guardar / Iniciar Siguiente Serie
           </button>
 

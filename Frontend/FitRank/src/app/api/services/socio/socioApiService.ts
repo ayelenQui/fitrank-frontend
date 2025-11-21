@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { Socio, CreateSocioRequest, UpdateSocioRequest } from './interfaces/socio.interface';
+import { Socio, CreateSocioRequest, UpdateSocioRequest,SocioDTO } from './interfaces/socio.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -85,6 +86,12 @@ export class SocioApiService {
     return this.http.patch<Socio>(`${this.apiUrl}/${id}`, changes, this.getHttpOptions())
       .pipe(catchError(this.handleError));
   }
+
+  getTodosLosSocios(): Observable<SocioDTO[]> {
+    return this.http.get<SocioDTO[]>(`${this.apiUrl}`);
+  }
+
+
 
   // UPDATE - Actualizar foto de perfil
   updateFotoPerfil(id: number, fotoDePerfil: string): Observable<Socio> {

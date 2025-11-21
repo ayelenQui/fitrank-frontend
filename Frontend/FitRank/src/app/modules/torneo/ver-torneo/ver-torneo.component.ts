@@ -26,7 +26,7 @@ export class RankingTorneoComponent implements OnInit {
   ngOnInit() {
   this.torneoId = Number(this.route.snapshot.paramMap.get('id'));
 
-  // obtener nombre y ranking en paralelo
+
   this.torneosService.listarTorneos().subscribe(torneos => {
     const torneo = torneos.find(t => t.id === this.torneoId);
     if (torneo) {
@@ -34,7 +34,7 @@ export class RankingTorneoComponent implements OnInit {
     }
   });
 
-  this.cargarRanking(); // carga solo participantes
+  this.cargarRanking(); 
 }
 
   cargarRanking() {

@@ -32,7 +32,7 @@ export class VisitanteHome {
     this.router.navigate(['/login']);
   }
   ngAfterViewInit(): void {
-    // Animar cada sección al aparecer
+
     gsap.utils.toArray<HTMLElement>('section').forEach((section, i) => {
       gsap.from(section, {
         opacity: 0,
@@ -48,7 +48,6 @@ export class VisitanteHome {
       });
     });
 
-    // Animar tarjetas individualmente
     gsap.utils.toArray<HTMLElement>('.estilo').forEach((card) => {
       gsap.from(card, {
         opacity: 0,

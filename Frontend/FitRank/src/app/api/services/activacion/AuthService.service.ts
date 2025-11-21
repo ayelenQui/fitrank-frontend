@@ -2,13 +2,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';  // guarda token después de login
+import { tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://localhost:7226/api/Auth';  
+  private baseUrl = `${environment.apiUrl}/Auth`;
   constructor(private http: HttpClient) { }
 
   login(Email: string, Password: string): Observable<{ token: string; user: any }> {
@@ -79,7 +80,7 @@ isAdmin(): boolean {
 
   try {
     const u = JSON.parse(userStr);
-    // Normalizo claves para que el resto del código use camelCase
+    
     return {
       id: u.id ?? u.Id ?? null,
       nombre: u.nombre ?? u.Nombre ?? null,
@@ -87,14 +88,19 @@ isAdmin(): boolean {
       username: u.username ?? u.Username ?? null,
       rol: (u.rol ?? u.Rol ?? '').toString(),
       cuotaPagadaHasta: u.cuotaPagadaHasta ?? u.CuotaPagadaHasta ?? null,
-      // si alguna vez guardás nivel:
+      
       nivel: u.nivel ?? u.Nivel ?? null,
       gimnasioId: u.gimnasioId ?? u.GimnasioId ?? null
     };
   } catch {
     return null;
   }
-}
+  }
+  obtenerGimnasioId(): number | null {
+    const user = this.obtenerUser();
+    return user?.gimnasioId ?? null;
+  }
+
 
 
   logout(): void {

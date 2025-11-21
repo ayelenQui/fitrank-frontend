@@ -1,7 +1,7 @@
-<header class="header-socio">
+<header class="header-socio sidebar">
 
 
-  <button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
+  <button class="fit-sb-toggle d-md-none btn-secondary" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
 
 
   <div class="header__logo">
@@ -13,9 +13,9 @@
 
   <nav class="header__nav">
     <!--<button class="header__navboton" (click)="navegarA('/torneo/lista-torneo')">Torneos</button>-->
-    <button class="header__navboton" (click)="navegarA('/ranking')">Ranking</button>
-    <button class="header__navboton" (click)="navegarA('/rutina/mis-rutinas')">Mis Rutinas</button>
-    <button class="header__navboton" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
+    <button class="header__navboton btn-secondary" (click)="navegarA('/ranking')">Ranking</button>
+    <button class="header__navboton btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">Mis Rutinas</button>
+    <button class="header__navboton btn-secondary" (click)="navegarA('/rutina/crear/')">Crear Rutina</button>
   </nav>
 
 
@@ -32,7 +32,7 @@
          class="header__imagen" />
     <span class="header__nombre">{{ user?.nombre }}</span>
 
-    <button class="header__logout" (click)="logout()">
+    <button class="header__logout btn-secondary" (click)="logout()">
       <span class="material-symbols-outlined">logout</span>
       Cerrar sesión
     </button>
@@ -40,7 +40,7 @@
 </header>
 
 <!-- 🔹 Menú móvil -->
-<nav class="nav-movil" [class.active]="sidebarOpen">
+<nav class="nav-movil btn-secondary" [class.active]="sidebarOpen">
   <button (click)="navegarA('/ranking')">Ranking</button>
   <button (click)="navegarA('/rutina/mis-rutinas')"> Mis Rutinas</button>
   <button (click)="navegarA('/rutina/crear')"> Crear Rutina</button>
@@ -51,7 +51,7 @@
 <div class="popup-notificaciones" *ngIf="mostrarPopup">
   <div class="popup-header">
     <h4>Notificaciones</h4>
-    <button class="cerrar" (click)="mostrarPopup = false">✖</button>
+    <button class="cerrar btn-secondary" (click)="mostrarPopup = false">✖</button>
   </div>
 
   <div class="popup-body">

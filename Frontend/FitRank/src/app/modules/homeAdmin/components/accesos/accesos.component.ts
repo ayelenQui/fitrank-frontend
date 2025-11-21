@@ -63,7 +63,7 @@ export class AccesosComponent implements OnInit {
 
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
-  // ✅ este es el evento actual que emite los resultados
+
   onScan(results: ScannerQRCodeResult[]) {
     if (!results || results.length === 0) return;
 
@@ -71,7 +71,7 @@ export class AccesosComponent implements OnInit {
     this.resultado = qrData;
     this.validarQR(qrData);
 
-    // detenemos momentáneamente para evitar lecturas múltiples
+    
     this.scanner.stop();
   }
 
@@ -98,7 +98,7 @@ export class AccesosComponent implements OnInit {
   }
 
   cargarDetalleComoAdmin(usuarioId: number) {
-    const token = this.authService.obtenerToken(); // ✅ token del admin logueado
+    const token = this.authService.obtenerToken(); 
     if (!token) {
       this.mensaje = '⚠️ No hay sesión activa de administrador.';
       return;
