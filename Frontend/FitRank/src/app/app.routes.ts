@@ -26,6 +26,7 @@ import { PagoExitosoComponent } from './modules/pago-exitoso/pago-exitoso.compon
 import { PagoFallidoComponent } from './modules/pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './modules/pago-pendiente/pago-pendiente.component';
 import { HistorialEntrenamientos } from './modules/entrenamiento/historial-entrenamientos/historial-entrenamientos';
+import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -50,8 +51,17 @@ export const appRoutes: Route[] = [
   children: [
     { path: '', component: SolicitudesProfesor }
   ]
-},
+  },
 
+  {
+    path: 'profesor',
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      //{path: 'alumnos', component : Alumnos}, //Jero: no se que vamos a mostrar aca en la vista lo dejo comentado
+      {path: 'progreso-alumnos', component : ProgresoAlumnos}
+    ]
+  },
 
   {
     path: 'rutina',

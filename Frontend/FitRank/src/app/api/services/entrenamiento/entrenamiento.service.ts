@@ -34,4 +34,14 @@ export class EntrenamientoService {
   getHistorialDeSocio(socioId: number): Observable<any[]> {
     return this.http.get<EntrenamientoHistorialDTO[]>(`${this.apiUrl}/socio/${socioId}/historial`);
   }
+
+  getHistorialAlumnosDelProfesor(profesorId: number, nombre?: string) {
+    let url = `${this.apiUrl}/profesor/${profesorId}/historial`;
+
+    if (nombre && nombre.trim().length > 0) {
+      url += `?nombre=${nombre}`;
+    }
+
+    return this.http.get<EntrenamientoHistorialDTO[]>(url);
+  }
 }
