@@ -139,3 +139,172 @@ section {
       margin-top: 2rem;
     }
 }
+/* ------------------------------- */
+/* 💜 AJUSTE RESPONSIVE GLOBAL     */
+/* ------------------------------- */
+
+/* HERO principal */
+.hero-section {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(to top, #0a0a0a, #181818 60%, #ffffff 100%);
+}
+
+  /* Texto FitRank */
+  .hero-section h1 {
+    font-size: 2.3rem;
+    line-height: 1.1;
+  }
+
+    .hero-section h1 span.titulo {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+  /* Hero imagen */
+  .hero-section img {
+    max-width: 80%;
+    margin-top: 2rem;
+    transform: none; /* evita deformación */
+    box-shadow: 0 0 25px rgba(139, 82, 255, 0.4);
+  }
+
+  /* Párrafo */
+  .hero-section p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Botones */
+  .hero-section .btn {
+    width: 100%;
+    margin-bottom: 0.8rem;
+  }
+
+/* ------------------------------- */
+/* 💜 NAV SUPERIOR RESPONSIVE      */
+/* ------------------------------- */
+
+.navbar {
+  padding: 0.8rem 1.2rem;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  padding: 0.8rem 0;
+}
+
+/* Botón iniciar sesión visible SIEMPRE */
+.btn-login {
+  background-color: #8b52ff !important;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+}
+
+/* Ajuste para el toggler */
+.navbar-toggler {
+  border: none;
+}
+
+/* ------------------------------- */
+/* 💜 Secciones generales          */
+/* ------------------------------- */
+
+section {
+  padding: 3rem 1.5rem;
+}
+
+h2 {
+  font-size: 1.8rem !important;
+}
+
+.feature-card {
+  padding: 1.5rem !important;
+}
+
+/* Cards de 2 columnas en móvil */
+@media (max-width: 576px) {
+  .feature-card {
+    margin-bottom: 1rem;
+  }
+
+    .feature-card i {
+      font-size: 2.5rem;
+    }
+}
+
+/* ------------------------------- */
+/* 💜 FORMULARIO CONTACTO          */
+/* ------------------------------- */
+
+form .form-control {
+  font-size: 0.95rem;
+  padding: 0.7rem;
+}
+
+form .btn-primary {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+/* ------------------------------- */
+/* 💜 Ajustes ultra responsive     */
+/* ------------------------------- */
+
+@media (max-width: 400px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+    .hero-section h1 span.titulo {
+      font-size: 2.4rem;
+    }
+
+  .hero-section img {
+    max-width: 85%;
+  }
+}
+/* --------------------------------------- */
+/* 💜 VERSION DESKTOP GRANDE DEL HERO      */
+/* --------------------------------------- */
+@media (min-width: 992px) {
+
+  .hero-section {
+    padding: 6rem 2rem;
+    text-align: left;
+  }
+
+    .hero-section h1 {
+      font-size: 4.2rem !important;
+      line-height: 1.1;
+    }
+
+      .hero-section h1 span.titulo {
+        font-size: 5rem !important;
+      }
+
+    .hero-section p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-section img {
+      max-width: 100% !important;
+      transform: scale(1.15) !important;
+      margin-top: 0;
+    }
+
+    .hero-section .btn {
+      width: auto !important;
+    }
+}
