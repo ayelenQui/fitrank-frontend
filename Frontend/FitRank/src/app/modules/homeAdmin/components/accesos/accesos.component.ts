@@ -1,7 +1,6 @@
-import { Component, ViewChild , OnInit} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxScannerQrcodeComponent, ScannerQRCodeResult } from 'ngx-scanner-qrcode';
-import { HttpClient } from '@angular/common/http';
+import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
 import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
@@ -28,10 +27,6 @@ export class AccesosComponent implements OnInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
-  devices: MediaDeviceInfo[] = [];
-  currentDevice: MediaDeviceInfo | null = null;
-
-
   resultado = '';
   mensaje = '';
   exito: boolean | null = null;
@@ -40,20 +35,21 @@ export class AccesosComponent implements OnInit {
   socio: SocioDTO | null = null;
   asistencias: AsistenciaDetalleUsuarioDTO[] = [];
 
-  constructor(private asistenciaService: AsistenciaService,
-    private authService: AuthService, private typingService: TypingService, private signalR : SignalRNotificacionesService) { }
+  constructor(
+    private asistenciaService: AsistenciaService,
+    private authService: AuthService,
+    private typingService: TypingService,
+    private signalR: SignalRNotificacionesService
+  ) { }
+
   ngOnInit(): void {
 
-
+    // Actualización en tiempo real por SignalR
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
-      if (evento.tipo === "entrada") {
-        this.personasDentro++;
-      }
-      if (evento.tipo === "salida") {
-        this.personasDentro--;
-      }
+      if (evento.tipo === "entrada") this.personasDentro++;
+      if (evento.tipo === "salida") this.personasDentro--;
 
       this.ocupacion.unshift({
         nombre: evento.nombre,
@@ -68,17 +64,28 @@ export class AccesosComponent implements OnInit {
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
 
+  // ======================================================
+  // 📌 CAPTURA DEL QR — MÁXIMA COMPATIBILIDAD PRODUCCIÓN
+  // ======================================================
   onScan(result: any) {
-    if (!result) return;
+    console.log("📸 Resultado crudo del QR:", result);
 
-    const qrData = result.text ?? result.value ?? result;
+    // Manejo universal de formatos (texto, objeto, value, text)
+    const qrData =
+      result?.text ??
+      result?.value ??
+      (typeof result === 'string' ? result : null);
+
+    if (!qrData) {
+      console.warn("⚠️ QR vacío o no reconocido");
+      return;
+    }
 
     this.resultado = qrData;
     this.validarQR(qrData);
 
     this.scanner.stop();
   }
-
 
   validarQR(qrData: string) {
     this.loading = true;
@@ -89,7 +96,6 @@ export class AccesosComponent implements OnInit {
         this.exito = res.valido ?? true;
         this.loading = false;
 
-        // Solo si el QR fue válido
         if (res.usuarioId) {
           this.cargarDetalleComoAdmin(res.usuarioId);
         }
@@ -103,22 +109,26 @@ export class AccesosComponent implements OnInit {
   }
 
   cargarDetalleComoAdmin(usuarioId: number) {
-    const token = this.authService.obtenerToken(); 
+    const token = this.authService.obtenerToken();
+
     if (!token) {
       this.mensaje = '⚠️ No hay sesión activa de administrador.';
       return;
     }
 
     this.loading = true;
+
     this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId).subscribe({
       next: (res) => {
         console.log('📋 Detalle socio:', res);
+
         if (res.exito) {
           this.socio = res.socio;
           this.asistencias = res.asistencias;
         } else {
           this.mensaje = res.mensaje;
         }
+
         this.loading = false;
       },
       error: (err) => {
@@ -129,7 +139,6 @@ export class AccesosComponent implements OnInit {
     });
   }
 
-  
   startScanner() {
     this.scanner.start();
   }
