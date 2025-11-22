@@ -28,6 +28,9 @@ export class AccesosComponent implements OnInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
+  devices: MediaDeviceInfo[] = [];
+  currentDevice: MediaDeviceInfo | null = null;
+
 
   resultado = '';
   mensaje = '';
@@ -40,6 +43,7 @@ export class AccesosComponent implements OnInit {
   constructor(private asistenciaService: AsistenciaService,
     private authService: AuthService, private typingService: TypingService, private signalR : SignalRNotificacionesService) { }
   ngOnInit(): void {
+
 
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
@@ -64,16 +68,17 @@ export class AccesosComponent implements OnInit {
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
 
-  onScan(results: ScannerQRCodeResult[]) {
-    if (!results || results.length === 0) return;
+  onScan(result: any) {
+    if (!result) return;
 
-    const qrData = results[0].value;
+    const qrData = result.text ?? result.value ?? result;
+
     this.resultado = qrData;
     this.validarQR(qrData);
 
-    
     this.scanner.stop();
   }
+
 
   validarQR(qrData: string) {
     this.loading = true;

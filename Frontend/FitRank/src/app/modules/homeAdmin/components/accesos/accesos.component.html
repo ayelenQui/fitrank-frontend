@@ -16,9 +16,11 @@
       <!-- SCANNER -->
       <div class="scanner-frame shadow-lg rounded-4 p-3 mx-auto">
         <ngx-scanner-qrcode #scanner
-                            (event)="onScan($event)"
-                            class="rounded-4 overflow-hidden scanner-cam">
+                            class="rounded-4 overflow-hidden scanner-cam"
+                            [device]="currentDevice"
+                            (scanSuccess)="onScan($event)">
         </ngx-scanner-qrcode>
+
       </div>
 
       <!-- BOTONES -->
