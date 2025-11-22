@@ -1,10 +1,28 @@
-<div class="estado-wrapper success">
-  <div class="card-estado">
-    <h1 class="titulo">🎉 ¡Pago Exitoso!</h1>
-    <p class="mensaje">El pago se registró correctamente en FitRank.</p>
+<div class="pago-exitoso-container">
 
-    <button class="btn-fitrank btn-secondary" (click)="volver()">
-      Volver al panel
-    </button>
+  <div class="mensaje-box">
+
+    <h2 class="titulo">¡Pago exitoso! 💜</h2>
+
+    <!-- MENSAJE PARA SOCIO -->
+    <p *ngIf="!esAdmin" class="subtitulo">
+      Gracias por tu pago.<br />
+      Revisá tu correo para acceder a tu pase FitRank.
+    </p>
+
+    <!-- MENSAJE PARA ADMIN -->
+    <div *ngIf="esAdmin" class="admin-detalles">
+      <p class="subtitulo">
+        ✔ Pago acreditado correctamente.<br />
+        ✔ Correo enviado exitosamente.<br />
+        ✔ Ingreso registrado en el sistema.
+      </p>
+
+      <button class="btn-volver" (click)="volver()">
+        Volver al panel
+      </button>
+    </div>
+
   </div>
+
 </div>
