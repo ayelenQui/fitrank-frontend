@@ -92,9 +92,11 @@ export class SocioApiService {
   }
 
 
+ 
   obtenerPerfilCompleto(socioId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Socio/completo/${socioId}`);
+    return this.http.get(`${this.apiUrl}/completo/${socioId}`);
   }
+
 
   actualizarPerfil(socioId: number, dto: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/editar-perfil/${socioId}`, dto);
