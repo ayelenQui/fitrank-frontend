@@ -92,7 +92,18 @@ export class SocioApiService {
   }
 
 
+  obtenerPerfilCompleto(socioId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/Socio/completo/${socioId}`);
+  }
 
+  actualizarPerfil(socioId: number, dto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/editar-perfil/${socioId}`, dto);
+  }
+
+  // ✅ Agregar nueva medida corporal
+  agregarMedida(socioId: number, dto: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Socio/${socioId}/medidas`, dto);
+  }
   // UPDATE - Actualizar foto de perfil
   updateFotoPerfil(id: number, fotoDePerfil: string): Observable<Socio> {
     const body = { fotoDePerfil };

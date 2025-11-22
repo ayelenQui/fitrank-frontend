@@ -13,6 +13,11 @@ import { NotificacionService } from '../../../../api/services/notificacion/notif
 import { Socio } from '@app/api/services/socio/socio.service';
 import { HeaderProfesorComponent } from '@app/public/header-profesor/header-profesor-component';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
+import { MedidaCorporalService } from '@app/api/services/medida/medida-corporal.service';
+import { FormsModule } from '@angular/forms';
+import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
+
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true,
-  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent]
+  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;
@@ -30,9 +35,12 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
 
   socio: SocioType | null = null;
   esProfesor = false;
-
+  fotoArchivo: File | null = null;
   personasDentro: number = 0;
+  ultimaMedida: any = null;
 
+
+ 
   ocupacion: Array<{
     nombre: string;
     foto: string | null;
@@ -40,13 +48,37 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
+  mostrarEditarPerfil = false;
+  mostrarMedidas = false;
+
+  formEditar = {
+    nombre: '',
+    apellido: '',
+    sexo: '',
+    fotoUrl: '',
+    altura: 0,
+    peso: 0
+  };
+
+  formMedida = {
+    pechoCm: 0,
+    cinturaCm: 0,
+    caderaCm: 0,
+    brazoDerechoCm: 0,
+    brazoIzquierdoCm: 0,
+    pesoKg: 0
+  };
+
+  historialMedidas: any[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private notificacionService: NotificacionService,
     private socioService: SocioApiService,
-    private signalRNoti: SignalRNotificacionesService
+    private signalRNoti: SignalRNotificacionesService,
+    private medidaService: MedidaCorporalService,
+    private imagenApiService: ImagenApiService
   ) { }
 
   ngAfterViewInit() {
@@ -130,6 +162,10 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.esProfesor = rol === 'profesor';
 
     if (!this.esProfesor) {
+     
+        this.cargarDatosSocio();
+      
+
       //cargar socio con servicio API
       this.socioService.getSocioById(this.user.id).subscribe({
         next: (socio: SocioType) => {
@@ -199,4 +235,148 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   navegarA(ruta: string) {
     this.router.navigate([ruta]);
   }
+  toggleEditarPerfil() {
+    this.mostrarEditarPerfil = !this.mostrarEditarPerfil;
+
+    if (this.socio) {
+      this.formEditar = {
+        nombre: this.socio.nombre,
+        apellido: this.socio.apellido,
+        sexo: this.socio.sexo,
+        fotoUrl: this.socio.fotoUrl,
+        altura: this.socio.altura,
+        peso: this.socio.peso
+      };
+    }
+  }
+
+  guardarPerfil() {
+
+    if (this.fotoArchivo) {
+      this.imagenApiService.subirImagen(this.fotoArchivo).subscribe({
+        next: (res) => {
+          // Guardamos la URL que devolvió Cloudflare R2
+          this.formEditar.fotoUrl = res.url;
+
+          this.actualizarPerfil();
+        },
+        error: (err) => {
+          console.error("Error al subir imagen:", err);
+          Swal.fire("Error", "No se pudo subir la foto", "error");
+        }
+      });
+
+    } else {
+      this.actualizarPerfil();
+    }
+  }
+
+  actualizarPerfil() {
+    this.socioService.actualizarPerfil(this.socio!.id!, this.formEditar)
+      .subscribe({
+        next: () => {
+          Swal.fire("Éxito", "Perfil actualizado correctamente", "success");
+          this.cargarDatosSocio();
+          this.mostrarEditarPerfil = false;
+        },
+        error: (err) => {
+          console.error(err);
+          Swal.fire("Error", "No se pudo actualizar el perfil", "error");
+        }
+      });
+  }
+
+
+
+
+  guardarMedida() {
+    const dto = {
+      socioId: this.socio!.id,
+      ...this.formMedida
+    };
+
+    this.medidaService.agregar(dto)
+      .subscribe(() => {
+        this.cargarHistorialMedidas();
+        this.formMedida = {
+          pechoCm: 0,
+          cinturaCm: 0,
+          caderaCm: 0,
+          brazoDerechoCm: 0,
+          brazoIzquierdoCm: 0,
+          pesoKg: 0
+        };
+      });
+  }
+  cargarHistorialMedidas() {
+    this.medidaService.obtenerHistorial(this.socio!.id)
+      .subscribe(res => {
+        this.historialMedidas = res;
+      });
+  }
+  cargarDatosSocio() {
+
+    // 1️⃣ Obtener los datos del socio
+    this.socioService.getSocioById(this.user.id).subscribe({
+      next: (socio) => {
+        this.socio = socio;
+        if (this.socio.fechaRegistro) {
+          const fecha = new Date(this.socio.fechaRegistro);
+          const vence = new Date(fecha);
+          vence.setDate(vence.getDate() + 30); // ➕ 30 días
+
+          this.socio.cuotaPagadaHasta = vence.toISOString();
+
+        }
+        // Rellenar el formulario de edición
+        this.formEditar = {
+          nombre: socio.nombre,
+          apellido: socio.apellido,
+          sexo: socio.sexo,
+          fotoUrl: socio.fotoUrl,
+          altura: socio.altura,
+          peso: socio.peso
+        };
+
+        // 2️⃣ Obtener historial de medidas
+        this.medidaService.obtenerHistorial(this.socio.id).subscribe({
+          next: (historial) => {
+            this.historialMedidas = historial || [];
+
+            // 3️⃣ Obtener última medida
+            if (this.historialMedidas.length > 0) {
+              this.ultimaMedida = this.historialMedidas[0];
+            } else {
+              this.ultimaMedida = null;
+            }
+          },
+          error: (err) => {
+            console.error("Error al cargar historial de medidas:", err);
+            this.historialMedidas = [];
+            this.ultimaMedida = null;
+          }
+        });
+      },
+      error: (err) => {
+        console.error("Error al cargar socio:", err);
+        this.socio = null;
+      }
+    });
+  }
+  toggleMedidas() {
+    this.mostrarMedidas = !this.mostrarMedidas;
+
+    if (this.mostrarMedidas) {
+      this.cargarHistorialMedidas();
+    }
+  }
+  onSeleccionarFoto(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.fotoArchivo = file;
+  }
+  
+
+
 }

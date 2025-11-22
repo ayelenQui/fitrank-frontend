@@ -34,6 +34,215 @@
           Nivel Actual: <strong>{{ socio.nivel }}</strong>
         </div>
       </div>
+      <!-- PANEL DEL SOCIO (EDITAR + MEDIDAS) -->
+      <div class="panel-perfil bg-white shadow rounded-4 p-4 mb-4 text-black">
+
+        <!-- CABECERA -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="fw-bold text-fitrank m-0">Mi Perfil</h3>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()">
+              ✏️ Editar Perfil
+            </button>
+
+            <button class="btn btn-secondary" (click)="toggleMedidas()">
+              📏 Medidas Corporales
+            </button>
+          </div>
+        </div>
+
+        <!-- FOTO + DATOS -->
+        <div class="row g-3">
+          <div class="col-md-3 text-center">
+            <img [src]="socio?.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+                 class="rounded-circle border"
+                 width="120" height="120" />
+          </div>
+
+          <div class="col-md-9">
+            <p><strong>Nombre:</strong> {{ socio?.nombre }} {{ socio?.apellido }}</p>
+            <p><strong>Sexo:</strong> {{ socio?.sexo }}</p>
+            <p><strong>Altura:</strong> {{ socio?.altura }} cm</p>
+            <p><strong>Peso:</strong> {{ socio?.peso }} kg</p>
+            <p><strong>Inicio:</strong> {{ socio?.fechaRegistro | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Cuota paga hasta:</strong> {{ socio?.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</p>
+
+
+          </div>
+        </div>
+
+
+        <!-- PANEL EDITAR PERFIL -->
+        <div *ngIf="mostrarEditarPerfil" class="editar-perfil-card mt-4 p-4">
+
+          <h4 class="fw-bold mb-4 titulo-seccion">
+            <i class="bi bi-pencil-square me-2"></i> Editar Perfil
+          </h4>
+
+          <div class="row g-4">
+
+            <!-- FOTO -->
+            <div class="col-md-6">
+              <label>Foto de Perfil</label>
+              <input type="file"
+                     class="form-control"
+                     accept="image/*"
+                     (change)="onSeleccionarFoto($event)">
+            </div>
+
+
+            <!-- CAMPOS -->
+            <div class="col-md-8">
+
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-person me-1"></i> Nombre
+                  </label>
+                  <input class="form-control" [(ngModel)]="formEditar.nombre">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-person me-1"></i> Apellido
+                  </label>
+                  <input class="form-control" [(ngModel)]="formEditar.apellido">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-gender-ambiguous me-1"></i> Sexo
+                  </label>
+                  <select class="form-control" [(ngModel)]="formEditar.sexo">
+                    <option value="">Seleccionar</option>
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                    <option value="X">Otro</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-rulers me-1"></i> Altura (cm)
+                  </label>
+                  <input type="number" class="form-control" [(ngModel)]="formEditar.altura">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-activity me-1"></i> Peso (kg)
+                  </label>
+                  <input type="number" class="form-control" [(ngModel)]="formEditar.peso">
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- BOTÓN GUARDAR -->
+          <div class="text-end mt-4">
+            <button class="btn-guardar" (click)="guardarPerfil()">
+              <i class="bi bi-save me-2"></i> Guardar
+            </button>
+          </div>
+
+        </div>
+
+
+        <!-- PANEL MEDIDAS CORPORALES -->
+        <div *ngIf="mostrarMedidas" class="mt-4 p-3 border rounded-3 text-black">
+
+          <h4 class="fw-bold mb-3">Medidas Corporales</h4>
+
+          <!-- Formulario nueva medida -->
+          <!-- Formulario nueva medida -->
+          <div class="row g-3">
+
+            <div class="col-md-4">
+              <label>Pecho (cm)</label>
+              <input class="form-control" placeholder="Ej: 95" [(ngModel)]="formMedida.pechoCm">
+              <small class="text-muted">
+                ➤ Medí la circunferencia pasando la cinta por la parte más alta del pecho.
+              </small>
+            </div>
+
+            <div class="col-md-4">
+              <label>Cintura (cm)</label>
+              <input class="form-control" placeholder="Ej: 72" [(ngModel)]="formMedida.cinturaCm">
+              <small class="text-muted">
+                ➤ Medí alrededor del ombligo sin apretar la cinta.
+              </small>
+            </div>
+
+            <div class="col-md-4">
+              <label>Cadera (cm)</label>
+              <input class="form-control" placeholder="Ej: 98" [(ngModel)]="formMedida.caderaCm">
+              <small class="text-muted">
+                ➤ Medí la zona más ancha de la cadera y glúteos.
+              </small>
+            </div>
+
+            <div class="col-md-4">
+              <label>Brazo Derecho (cm)</label>
+              <input class="form-control" placeholder="Ej: 28" [(ngModel)]="formMedida.brazoDerechoCm">
+              <small class="text-muted">
+                ➤ Rodeá el brazo por el punto medio entre hombro y codo.
+              </small>
+            </div>
+
+            <div class="col-md-4">
+              <label>Brazo Izquierdo (cm)</label>
+              <input class="form-control" placeholder="Ej: 27.5" [(ngModel)]="formMedida.brazoIzquierdoCm">
+              <small class="text-muted">
+                ➤ Misma técnica que brazo derecho, siempre relajado.
+              </small>
+            </div>
+
+            <div class="col-md-4">
+              <label>Peso (kg)</label>
+              <input class="form-control" placeholder="Ej: 63.2" [(ngModel)]="formMedida.pesoKg">
+              <small class="text-muted">
+                ➤ Preferiblemente en ayunas o mismo horario cada día.
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="text-end mt-3">
+            <button class="btn btn-success" (click)="guardarMedida()">➕ Agregar Medida</button>
+          </div>
+
+          <!-- Historial -->
+          <h5 class="mt-4">Historial</h5>
+
+          <table class="table table-striped mt-2">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Pecho</th>
+                <th>Cintura</th>
+                <th>Cadera</th>
+                <th>Peso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of historialMedidas">
+                <td>{{ m.fecha | date:'dd/MM/yyyy' }}</td>
+                <td>{{ m.pechoCm }}</td>
+                <td>{{ m.cinturaCm }}</td>
+                <td>{{ m.caderaCm }}</td>
+                <td>{{ m.pesoKg }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
 
       <!-- 🏋️‍♂️ PANEL PRINCIPAL -->
       <div class="row g-4 mb-5 justify-content-center align-items-stretch">
@@ -64,14 +273,14 @@
 
           <!-- 🔵 OCUPACIÓN EN VIVO -->
           <div class="ocupacion-card">
-            <h2 class="titulo-ocu">🏋️ Ocupación Actual</h2>
+            <h2 class="titulo-ocu"> Ocupación Actual</h2>
             <div class="contador">{{ personasDentro }}</div>
             <p class="sub">personas dentro del gimnasio</p>
           </div>
 
           <!-- 🟣 MOVIMIENTOS (compacto) -->
           <div class="movimientos-card">
-            <h3>📋 Movimientos Recientes</h3>
+            <h3> Movimientos Recientes</h3>
 
             <div class="lista-movimientos">
               <div class="movimiento" *ngFor="let m of ocupacion">
@@ -105,7 +314,7 @@
           </div>
         </div>
       </div>
-    
+
 
       <!-- ⚡ ACCIONES RÁPIDAS -->
       <section class="mb-5">

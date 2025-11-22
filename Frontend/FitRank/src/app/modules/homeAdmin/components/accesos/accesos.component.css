@@ -127,3 +127,8 @@
     background: #ffe4e4;
     color: #da1a1a;
   }
+.scanner-cam video {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 450px !important;
+}
