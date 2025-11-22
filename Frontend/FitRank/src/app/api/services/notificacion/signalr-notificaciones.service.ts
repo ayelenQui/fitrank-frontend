@@ -41,7 +41,7 @@ export class SignalRNotificacionesService {
     console.log("🔑 Token enviado al hub:", token.substring(0, 20) + "...");
 
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`https://localhost:7226/hubs/notificaciones`, {
+      .withUrl(environment.hubUrl, {
         accessTokenFactory: () => this.authService.obtenerToken() ?? ''
       })
       .withAutomaticReconnect()
