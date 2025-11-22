@@ -27,6 +27,7 @@ import { PagoFallidoComponent } from './modules/pago-fallido/pago-fallido.compon
 import { PagoPendienteComponent } from './modules/pago-pendiente/pago-pendiente.component';
 import { HistorialEntrenamientos } from './modules/entrenamiento/historial-entrenamientos/historial-entrenamientos';
 import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
+import { MisReportes } from './modules/reportes/mis-reportes/mis-reportes';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -110,7 +111,15 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./modules/maquina/maquina-detalle.component')
         .then(m => m.MaquinaDetalleComponent)
+  },
+
+  {
+    path: 'reportes', 
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'mis-reportes', component : MisReportes}
+    ]
   }
+  
 ];
-
-

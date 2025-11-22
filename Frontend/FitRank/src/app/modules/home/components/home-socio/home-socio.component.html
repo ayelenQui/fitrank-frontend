@@ -266,11 +266,21 @@
 
     <div class="row g-4 justify-content-center">
       <div class="col-12 col-md-4">
-        <button class="quick-action w-100 btn-secondary" (click)="navegarA('/profesor/rutinas')">
+        <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
           <span class="material-symbols-outlined me-2">list_alt</span>
           Ver mis rutinas creadas
         </button>
       </div>
+
+       <div class="col-12 col-md-4">
+
+
+          <button class="quick-action w-100  btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
+            <span class="material-symbols-outlined me-2">group</span>
+            Ver progreso alumnos
+          </button>
+        </div>
+
       <div class="row g-4 justify-content-center">
         <div class="col-12 col-md-4">
           <button class="quick-action  btn-secondary" (click)="navegarA('solicitudes-profesor')">
@@ -286,14 +296,14 @@
           </button>
         </div>
 
+          <!-- No puedo acceder al gimnasioId de los profesores en en login
         <div class="col-12 col-md-4">
-
-
-          <button class="quick-action w-100  btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
-            <span class="material-symbols-outlined me-2">group</span>
-            Ver progreso alumnos
+          <button class="quick-action w-100  btn-secondary" (click)="navegarA('/reportes/mis-reportes')">
+            <span class="material-symbols-outlined me-2">assignment</span>
+            Mis reportes
           </button>
         </div>
+        -->
 
         <div class="col-12 col-md-4">
           <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
