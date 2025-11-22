@@ -23,5 +23,6 @@ export class SidebarComponent {
     {label: 'Tiempo Real', route: 'realtime' },
     { label: 'Máquinas y Ejercicios', route: 'maquina-ejercicio' },
     { label: 'Personalizacion', route: 'configuracion-gimnasio' },
+    { label: 'Reportes', route: 'reportes-admin' }
   ];
 }

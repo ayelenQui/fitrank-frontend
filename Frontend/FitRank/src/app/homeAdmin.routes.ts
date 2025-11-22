@@ -12,6 +12,7 @@ import { RealtimeComponent } from './modules/homeAdmin/components/realtime/realt
 import { AdminLayoutComponent } from './modules/homeAdmin/layout/admin-layout.component';
 import { PagosComponent } from './modules/homeAdmin/components/pagos/pagos.component';
 import { ConfigGimnasioComponent } from './modules/homeAdmin/components/personalizacion/configuracion-gimnasio.component';
+import { ReportesAdmin } from './modules/reportes/reportes-admin/reportes-admin';
 
 
 
@@ -36,6 +37,7 @@ export const homeAdminRoutes: Routes = [
       },
 
       { path: 'realtime', component: RealtimeComponent },
+      { path: 'reportes-admin', component: ReportesAdmin },
       {
         path: 'socios/:id',
         loadComponent: () => import('./../app/modules/homeAdmin/components/socios/socios-detalle/socio-detalle.component').then(m => m.SocioDetalleComponent)
