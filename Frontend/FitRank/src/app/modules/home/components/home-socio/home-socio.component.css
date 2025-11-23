@@ -4,6 +4,215 @@
   font-family: 'Bebas Neue', sans-serif !important;
 }
 
+.fondo {
+  background-color: #FFEFD5 !important;
+}
+/* ============================
+   PANEL PERFIL (DESKTOP)
+============================= */
+/* =============================== */
+/* 🟣 SIDEBAR DE NOTIFICACIONES    */
+/* =============================== */
+
+.sidebar-noti {
+  position: sticky;
+  top: 100px; /* queda fijo debajo del header */
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease-in-out;
+  scrollbar-width: thin;
+  scrollbar-color: #c5b2ff #f4f4f4;
+}
+
+  /* Scrollbar más fino (Chrome) */
+  .sidebar-noti::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar-noti::-webkit-scrollbar-thumb {
+
+    border-radius: 20px;
+  }
+
+  /* Títulos */
+  .sidebar-noti h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #5e35f2;
+  }
+
+  /* Items */
+  .sidebar-noti .list-group-item {
+    border-radius: 12px;
+    margin-bottom: 8px;
+    background: #f8f5ff !important;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+
+    .sidebar-noti .list-group-item:hover {
+      transform: scale(1.02);
+     
+    }
+
+  /* Iconos */
+  .sidebar-noti .material-symbols-outlined {
+    font-size: 28px;
+  
+    transition: 0.2s;
+  }
+
+ 
+
+  /* Botones “Ver todas” */
+  .sidebar-noti button {
+    font-family: 'Bebas Neue', sans-serif;
+    border-radius: 14px;
+    padding: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Logout dentro del sidebar */
+  .sidebar-noti .btn-outline-fitrank {
+    border-radius: 14px;
+    padding: 10px;
+    margin-top: 12px;
+    font-size: 1.1rem;
+    width: 100%;
+  }
+
+
+/* =============================== */
+/* 📱 RESPONSIVE (MÓVIL)          */
+/* =============================== */
+
+@media (max-width: 992px) {
+  .sidebar-noti {
+    position: relative;
+    top: 0;
+    max-height: none;
+    margin-bottom: 25px;
+  }
+}
+
+.panel-perfil {
+  border: 1px solid #eee;
+}
+
+  /* Título */
+  .panel-perfil h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+  }
+
+  /* Foto */
+  .panel-perfil img {
+    border: 3px solid #8c52ff;
+    padding: 4px;
+  }
+
+  /* Botones */
+  .panel-perfil .btn-fitrank,
+  .panel-perfil .btn-secondary {
+    padding: 8px 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: .5px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  /* Datos */
+  .panel-perfil p {
+    margin: 4px 0;
+    font-size: 16px;
+  }
+
+/* ============================
+   MODO EDITAR PERFIL
+============================= */
+.editar-perfil-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #faf9ff;
+}
+
+  .editar-perfil-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+  }
+
+/* ============================
+   MODO MEDIDAS
+============================= */
+.panel-perfil input,
+.panel-perfil select {
+  border-radius: 8px !important;
+}
+
+/* ============================
+   RESPONSIVE — MÓVIL
+============================= */
+@media (max-width: 768px) {
+
+  /* Panel principal */
+  .panel-perfil {
+    padding: 20px 16px !important;
+  }
+
+    /* Centrar todo */
+    .panel-perfil .row {
+      text-align: center;
+    }
+
+    /* FOTO CENTRADA Y MÁS GRANDE */
+    .panel-perfil img {
+      width: 140px !important;
+      height: 140px !important;
+      margin-bottom: 10px;
+    }
+
+    /* BOTONES AL 100% */
+    .panel-perfil .btn-fitrank,
+    .panel-perfil .btn-secondary {
+      width: 100%;
+      font-size: 18px;
+      padding: 12px;
+    }
+
+    /* Espacio entre botones */
+    .panel-perfil .d-flex.gap-2 {
+      flex-direction: column !important;
+    }
+
+    /* Datos debajo de la foto */
+    .panel-perfil .col-md-9 {
+      margin-top: 15px;
+    }
+
+  /* Editar Perfil */
+  .editar-perfil-card {
+    padding: 14px !important;
+  }
+
+    /* Inputs */
+    .editar-perfil-card input,
+    .editar-perfil-card select {
+      font-size: 16px;
+      padding: 10px;
+    }
+
+  /* Tablas más pequeñas */
+  table {
+    font-size: 14px;
+  }
+}
+
 .bg-fitrank {
   background-color: #8B52FF !important;
 }
@@ -71,6 +280,46 @@
   color: #666;
   margin-top: .3rem;
 }
+/* Contenedor tipo historias de Instagram */
+.movimientos-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px 5px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+}
+
+  /* Oculta barra de scroll en Chrome/Safari */
+  .movimientos-row::-webkit-scrollbar {
+    display: none;
+  }
+
+/* Cada burbuja */
+.movimiento-foto {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  text-align: center;
+}
+
+  /* Avatar tipo historia */
+  .movimiento-foto .avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #8c52ff; /* borde violeta */
+    padding: 2px;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+  }
+
+    /* Animación al tocar */
+    .movimiento-foto .avatar:active {
+      transform: scale(0.9);
+    }
+
 
 /* TARJETA LISTA MOVIMIENTOS */
 .movimientos-card {
@@ -379,3 +628,12 @@
     transform: translateY(0);
   }
 }
+.cuota-card {
+  border-left: 5px solid var(--color-secundario);
+}
+
+  .cuota-card .alert {
+    border-radius: 12px;
+    font-size: 0.9rem;
+    padding: 10px;
+  }

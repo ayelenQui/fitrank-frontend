@@ -16,7 +16,7 @@ import { SignalRNotificacionesService } from '@app/api/services/notificacion/sig
 import { MedidaCorporalService } from '@app/api/services/medida/medida-corporal.service';
 import { FormsModule } from '@angular/forms';
 import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
-
+import { FooterComponent } from '@app/modules/footer/components/footer.component';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true,
-  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule]
+  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule, FooterComponent]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;
@@ -39,6 +39,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   personasDentro: number = 0;
   ultimaMedida: any = null;
 
+  diasRestantesCuota: number | null = null;
 
  
   ocupacion: Array<{
@@ -113,6 +114,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    
     this.signalRNoti.iniciarConexion();
 
     this.signalRNoti.notificacion$.subscribe(n => {
@@ -145,7 +147,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       });
     });
 
-
+   
 
 
     this.user = this.authService.obtenerUser();
@@ -226,6 +228,27 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
 
     this.mostrarRetencion = false;
   }
+
+
+  calcularDiasRestantes() {
+    if (!this.socio?.cuotaPagadaHasta) {
+      this.diasRestantesCuota = null;
+      return;
+    }
+
+    const hoy = new Date();
+    const vencimiento = new Date(this.socio.cuotaPagadaHasta);
+
+    // Normalizo las horas para evitar errores por horas del día
+    hoy.setHours(0, 0, 0, 0);
+    vencimiento.setHours(0, 0, 0, 0);
+
+    const diffMs = vencimiento.getTime() - hoy.getTime();
+    const dias = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+    this.diasRestantesCuota = dias;
+  }
+
 
   logout() {
     this.authService.logout();
@@ -320,14 +343,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.socioService.getSocioById(this.user.id).subscribe({
       next: (socio) => {
         this.socio = socio;
-        if (this.socio.fechaRegistro) {
-          const fecha = new Date(this.socio.fechaRegistro);
-          const vence = new Date(fecha);
-          vence.setDate(vence.getDate() + 30); // ➕ 30 días
-
-          this.socio.cuotaPagadaHasta = vence.toISOString();
-
-        }
+        this.calcularDiasRestantes();
         // Rellenar el formulario de edición
         this.formEditar = {
           nombre: socio.nombre,

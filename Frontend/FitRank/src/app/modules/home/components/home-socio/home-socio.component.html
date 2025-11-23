@@ -1,40 +1,94 @@
+<div *ngIf="!esProfesor" class="fondo container-fluid min-vh-100 bg-light py-4">
 
-<div *ngIf="!esProfesor">
   <app-header-socio [user]="user"></app-header-socio>
-  <div class="container-fluid min-vh-100 bg-light py-4">
-    <!-- 🟣 HEADER -->
-    <!-- <header class="d-flex justify-content-between align-items-center bg-white shadow rounded-4 p-3 mb-5">
-      <div class="d-flex align-items-center gap-3">
-        <svg width="60" viewBox="0 0 365 338"> ... </svg>
-        <h2 class="fw-bold mb-0 text-fitrank">FitRank</h2>
+
+  <!-- SALUDO -->
+  <div class="text-center mb-4">
+    <h2 class="display-6 fw-bold text-dark">¡Hola, {{ user.nombre }}!</h2>
+    <p class="text-muted fs-5">Tu progreso te está llevando al siguiente nivel </p>
+    <div class="badge bg-fitrank-subtle text-fitrank fs-6">
+      Nivel Actual: <strong>{{ socio?.nivel }}</strong>
+    </div>
+  </div>
+
+
+  <!-- ===================================== -->
+  <!-- 🟣 DASHBOARD 3 COLUMNAS -->
+  <!-- ===================================== -->
+  <div class="row g-4">
+
+    <!-- ========================= -->
+    <!-- 🟡 COLUMNA IZQUIERDA -->
+    <!-- ========================= -->
+    <div class="col-lg-4 col-md-12">
+
+      <!-- Ocupación -->
+      <div class="ocupacion-card bg-white shadow rounded-4 p-4 mb-4">
+        <h2 class="titulo-ocu text-center">Ocupación Actual</h2>
+        <div class="contador text-center">{{ personasDentro }}</div>
+        <p class="sub text-center">personas dentro del gimnasio</p>
       </div>
 
-      <div class="d-flex align-items-center gap-4">
-        <div class="d-flex align-items-center gap-3">
-          <div class="text-end me-2">
-            <p class="fw-semibold mb-0">{{ user?.Nombre }}</p>
-            <small class="text-muted">Mi perfil</small>
+      <!-- Movimientos -->
+      <div class="movimientos-card bg-white shadow rounded-4 p-4 mb-4">
+        <h3 class="fw-bold text-center">Movimientos Recientes</h3>
+
+        <div class="movimientos-row">
+          <div class="movimiento-foto" *ngFor="let m of ocupacion">
+            <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar" />
           </div>
-          <img src="assets/img/avatar-default.png" class="rounded-circle border" width="45" height="45" />
-        </div>
-
-        <button class="btn btn-outline-fitrank d-flex align-items-center gap-2" (click)="logout()">
-          <span class="material-symbols-outlined">logout</span>
-          Cerrar sesión
-        </button>
-      </div>
-    </header> -->
-    <!-- 👋 SALUDO -->
-    <div class="text-center mb-4">
-      <h2 class="display-6 fw-bold text-dark">¡Hola, {{ user.nombre }}!</h2>
-      <p class="text-muted fs-5">Tu progreso te está llevando al siguiente nivel 💪</p>
-
-      <div class="d-flex justify-content-center align-items-center mt-2 mb-2">
-        <div *ngIf="socio" class="badge bg-fitrank-subtle text-fitrank fs-6">
-          Nivel Actual: <strong>{{ socio.nivel }}</strong>
         </div>
       </div>
-      <!-- PANEL DEL SOCIO (EDITAR + MEDIDAS) -->
+      <!-- RESUMEN DE CUOTA -->
+      <div class="cuota-card bg-white shadow rounded-4 p-4 mb-4">
+
+        <h3 class="fw-bold text-center mb-3">
+          Estado de tu Cuota
+        </h3>
+
+        <div class="d-flex justify-content-center mb-3">
+          <span class="material-symbols-outlined me-2"
+                style="font-size: 32px; color: var(--color-secundario);">
+            account_balance_wallet
+          </span>
+          <div>
+            <p class="m-0 text-dark fw-semibold">
+              Vence el:
+              <strong>{{ socio?.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</strong>
+            </p>
+
+            <small class="text-muted">
+              Te quedan
+              <strong>{{ diasRestantesCuota }}</strong>
+              días de acceso
+            </small>
+          </div>
+        </div>
+
+      
+
+
+        <!-- BOTÓN RENOVAR -->
+        <div class="text-center mt-3">
+          <button class="btn btn-fitrank w-100"
+                  (click)="navegarA('/pagos')">
+            <span class="material-symbols-outlined me-2">autorenew</span>
+            Renovar cuota Con Descuento
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- 🟣 COLUMNA CENTRAL -->
+    <!-- ========================= -->
+    <div class="col-lg-5 col-md-12">
+
+      <!-- PERFIL COMPLETO -->
       <div class="panel-perfil bg-white shadow rounded-4 p-4 mb-4 text-black">
 
         <!-- CABECERA -->
@@ -42,424 +96,175 @@
           <h3 class="fw-bold text-fitrank m-0">Mi Perfil</h3>
 
           <div class="d-flex gap-2">
-            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()">
-              ✏️ Editar Perfil
-            </button>
-
-            <button class="btn btn-secondary" (click)="toggleMedidas()">
-              📏 Medidas Corporales
-            </button>
+            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button>
+            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
+            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
+            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
           </div>
         </div>
 
         <!-- FOTO + DATOS -->
         <div class="row g-3">
-          <div class="col-md-3 text-center">
+          <div class="col-md-4 text-center">
             <img [src]="socio?.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
                  class="rounded-circle border"
                  width="120" height="120" />
           </div>
 
-          <div class="col-md-9">
+          <div class="col-md-8">
             <p><strong>Nombre:</strong> {{ socio?.nombre }} {{ socio?.apellido }}</p>
             <p><strong>Sexo:</strong> {{ socio?.sexo }}</p>
             <p><strong>Altura:</strong> {{ socio?.altura }} cm</p>
             <p><strong>Peso:</strong> {{ socio?.peso }} kg</p>
             <p><strong>Inicio:</strong> {{ socio?.fechaRegistro | date:'dd/MM/yyyy' }}</p>
-            <p><strong>Cuota paga hasta:</strong> {{ socio?.cuotaPagadaHasta | date:'dd/MM/yyyy' }}</p>
-
-
+ 
           </div>
         </div>
 
-
-        <!-- PANEL EDITAR PERFIL -->
+        <!-- EDITAR PERFIL -->
         <div *ngIf="mostrarEditarPerfil" class="editar-perfil-card mt-4 p-4">
-
-          <h4 class="fw-bold mb-4 titulo-seccion">
-            <i class="bi bi-pencil-square me-2"></i> Editar Perfil
-          </h4>
-
-          <div class="row g-4">
-
-            <!-- FOTO -->
-            <div class="col-md-6">
-              <label>Foto de Perfil</label>
-              <input type="file"
-                     class="form-control"
-                     accept="image/*"
-                     (change)="onSeleccionarFoto($event)">
-            </div>
-
-
-            <!-- CAMPOS -->
-            <div class="col-md-8">
-
-              <div class="row g-3">
-
-                <div class="col-md-6">
-                  <label class="form-label">
-                    <i class="bi bi-person me-1"></i> Nombre
-                  </label>
-                  <input class="form-control" [(ngModel)]="formEditar.nombre">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">
-                    <i class="bi bi-person me-1"></i> Apellido
-                  </label>
-                  <input class="form-control" [(ngModel)]="formEditar.apellido">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">
-                    <i class="bi bi-gender-ambiguous me-1"></i> Sexo
-                  </label>
-                  <select class="form-control" [(ngModel)]="formEditar.sexo">
-                    <option value="">Seleccionar</option>
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                    <option value="X">Otro</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">
-                    <i class="bi bi-rulers me-1"></i> Altura (cm)
-                  </label>
-                  <input type="number" class="form-control" [(ngModel)]="formEditar.altura">
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">
-                    <i class="bi bi-activity me-1"></i> Peso (kg)
-                  </label>
-                  <input type="number" class="form-control" [(ngModel)]="formEditar.peso">
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- BOTÓN GUARDAR -->
-          <div class="text-end mt-4">
-            <button class="btn-guardar" (click)="guardarPerfil()">
-              <i class="bi bi-save me-2"></i> Guardar
-            </button>
-          </div>
+          <h4 class="fw-bold mb-4 titulo-seccion"> <i class="bi bi-pencil-square me-2"></i> Editar Perfil </h4> <div class="row g-4"> <!-- FOTO --> <div class="col-md-6"> <label>Foto de Perfil</label> <input type="file" class="form-control" accept="image/*" (change)="onSeleccionarFoto($event)"> </div> <!-- CAMPOS --> <div class="col-md-8"> <div class="row g-3"> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-person me-1"></i> Nombre </label> <input class="form-control" [(ngModel)]="formEditar.nombre"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-person me-1"></i> Apellido </label> <input class="form-control" [(ngModel)]="formEditar.apellido"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-gender-ambiguous me-1"></i> Sexo </label> <select class="form-control" [(ngModel)]="formEditar.sexo"> <option value="">Seleccionar</option> <option value="F">Femenino</option> <option value="M">Masculino</option> <option value="X">Otro</option> </select> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-rulers me-1"></i> Altura (cm) </label> <input type="number" class="form-control" [(ngModel)]="formEditar.altura"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-activity me-1"></i> Peso (kg) </label> <input type="number" class="form-control" [(ngModel)]="formEditar.peso"> </div> </div> </div> </div> <!-- BOTÓN GUARDAR --> <div class="text-end mt-4"> <button class="btn-guardar" (click)="guardarPerfil()"> <i class="bi bi-save me-2"></i> Guardar </button> </div>
 
         </div>
 
-
-        <!-- PANEL MEDIDAS CORPORALES -->
+        <!-- MEDIDAS -->
         <div *ngIf="mostrarMedidas" class="mt-4 p-3 border rounded-3 text-black">
-
-          <h4 class="fw-bold mb-3">Medidas Corporales</h4>
-
-          <!-- Formulario nueva medida -->
-          <!-- Formulario nueva medida -->
-          <div class="row g-3">
-
-            <div class="col-md-4">
-              <label>Pecho (cm)</label>
-              <input class="form-control" placeholder="Ej: 95" [(ngModel)]="formMedida.pechoCm">
-              <small class="text-muted">
-                ➤ Medí la circunferencia pasando la cinta por la parte más alta del pecho.
-              </small>
-            </div>
-
-            <div class="col-md-4">
-              <label>Cintura (cm)</label>
-              <input class="form-control" placeholder="Ej: 72" [(ngModel)]="formMedida.cinturaCm">
-              <small class="text-muted">
-                ➤ Medí alrededor del ombligo sin apretar la cinta.
-              </small>
-            </div>
-
-            <div class="col-md-4">
-              <label>Cadera (cm)</label>
-              <input class="form-control" placeholder="Ej: 98" [(ngModel)]="formMedida.caderaCm">
-              <small class="text-muted">
-                ➤ Medí la zona más ancha de la cadera y glúteos.
-              </small>
-            </div>
-
-            <div class="col-md-4">
-              <label>Brazo Derecho (cm)</label>
-              <input class="form-control" placeholder="Ej: 28" [(ngModel)]="formMedida.brazoDerechoCm">
-              <small class="text-muted">
-                ➤ Rodeá el brazo por el punto medio entre hombro y codo.
-              </small>
-            </div>
-
-            <div class="col-md-4">
-              <label>Brazo Izquierdo (cm)</label>
-              <input class="form-control" placeholder="Ej: 27.5" [(ngModel)]="formMedida.brazoIzquierdoCm">
-              <small class="text-muted">
-                ➤ Misma técnica que brazo derecho, siempre relajado.
-              </small>
-            </div>
-
-            <div class="col-md-4">
-              <label>Peso (kg)</label>
-              <input class="form-control" placeholder="Ej: 63.2" [(ngModel)]="formMedida.pesoKg">
-              <small class="text-muted">
-                ➤ Preferiblemente en ayunas o mismo horario cada día.
-              </small>
-            </div>
-
-          </div>
-
-
-          <div class="text-end mt-3">
-            <button class="btn btn-success" (click)="guardarMedida()">➕ Agregar Medida</button>
-          </div>
-
-          <!-- Historial -->
-          <h5 class="mt-4">Historial</h5>
-
-          <table class="table table-striped mt-2">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Pecho</th>
-                <th>Cintura</th>
-                <th>Cadera</th>
-                <th>Peso</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let m of historialMedidas">
-                <td>{{ m.fecha | date:'dd/MM/yyyy' }}</td>
-                <td>{{ m.pechoCm }}</td>
-                <td>{{ m.cinturaCm }}</td>
-                <td>{{ m.caderaCm }}</td>
-                <td>{{ m.pesoKg }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <h4 class="fw-bold mb-3">Medidas Corporales</h4> <!-- Formulario nueva medida --> <!-- Formulario nueva medida --> <div class="row g-3"> <div class="col-md-4"> <label>Pecho (cm)</label> <input class="form-control" placeholder="Ej: 95" [(ngModel)]="formMedida.pechoCm"> <small class="text-muted"> ➤ Medí la circunferencia pasando la cinta por la parte más alta del pecho. </small> </div> <div class="col-md-4"> <label>Cintura (cm)</label> <input class="form-control" placeholder="Ej: 72" [(ngModel)]="formMedida.cinturaCm"> <small class="text-muted"> ➤ Medí alrededor del ombligo sin apretar la cinta. </small> </div> <div class="col-md-4"> <label>Cadera (cm)</label> <input class="form-control" placeholder="Ej: 98" [(ngModel)]="formMedida.caderaCm"> <small class="text-muted"> ➤ Medí la zona más ancha de la cadera y glúteos. </small> </div> <div class="col-md-4"> <label>Brazo Derecho (cm)</label> <input class="form-control" placeholder="Ej: 28" [(ngModel)]="formMedida.brazoDerechoCm"> <small class="text-muted"> ➤ Rodeá el brazo por el punto medio entre hombro y codo. </small> </div> <div class="col-md-4"> <label>Brazo Izquierdo (cm)</label> <input class="form-control" placeholder="Ej: 27.5" [(ngModel)]="formMedida.brazoIzquierdoCm"> <small class="text-muted"> ➤ Misma técnica que brazo derecho, siempre relajado. </small> </div> <div class="col-md-4"> <label>Peso (kg)</label> <input class="form-control" placeholder="Ej: 63.2" [(ngModel)]="formMedida.pesoKg"> <small class="text-muted"> ➤ Preferiblemente en ayunas o mismo horario cada día. </small> </div> </div> <div class="text-end mt-3"> <button class="btn btn-success" (click)="guardarMedida()">➕ Agregar Medida</button> </div> <!-- Historial --> <h5 class="mt-4">Historial</h5> <table class="table table-striped mt-2"> <thead> <tr> <th>Fecha</th> <th>Pecho</th> <th>Cintura</th> <th>Cadera</th> <th>Peso</th> </tr> </thead> <tbody> <tr *ngFor="let m of historialMedidas"> <td>{{ m.fecha | date:'dd/MM/yyyy' }}</td> <td>{{ m.pechoCm }}</td> <td>{{ m.cinturaCm }}</td> <td>{{ m.caderaCm }}</td> <td>{{ m.pesoKg }}</td> </tr> </tbody> </table>
 
         </div>
+
       </div>
 
-      <!-- 🏋️‍♂️ PANEL PRINCIPAL -->
-      <div class="row g-4 mb-5 justify-content-center align-items-stretch">
-        <!-- Entrenamiento del día -->
-        <div class="col-lg-7 col-md-8">
-          <div class="card overflow-hidden shadow-sm border-0 h-100">
-            <div class="row g-0 h-100">
-              <div class="col-md-6"
-                   style="
-                background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80');
-                background-size: cover;
-                background-position: center;
-                height: 100%;
-              "></div>
-              <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
-                <h4 class="fw-bold mb-2 text-fitrank">Entrenamiento del día</h4>
-                <p class="text-muted mb-3">Rutina actual: <strong>Full Body Power</strong></p>
-                <button class="btn btn-fitrank d-flex align-items-center gap-2 w-100"
-                        (click)="navegarA('/rutina/mis-rutinas')">
-                  <span class="material-symbols-outlined">play_arrow</span>
-                  Iniciar entrenamiento
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ocupacion-wrapper">
 
-          <!-- 🔵 OCUPACIÓN EN VIVO -->
-          <div class="ocupacion-card">
-            <h2 class="titulo-ocu"> Ocupación Actual</h2>
-            <div class="contador">{{ personasDentro }}</div>
-            <p class="sub">personas dentro del gimnasio</p>
+      <!-- ENTRENAMIENTO DEL DÍA -->
+      <div class="card overflow-hidden shadow-sm border-0 rounded-4 mb-4">
+        <div class="row g-0">
+          <div class="col-md-6" style="
+              background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80');
+              background-size:cover;background-position:center;min-height:230px;">
           </div>
 
-          <!-- 🟣 MOVIMIENTOS (compacto) -->
-          <div class="movimientos-card">
-            <h3> Movimientos Recientes</h3>
+          <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+            <h4 class="fw-bold mb-2 text-fitrank">Entrenamiento del día</h4>
+            <p class="text-muted mb-3">Rutina actual: <strong>Full Body Power</strong></p>
 
-            <div class="lista-movimientos">
-              <div class="movimiento" *ngFor="let m of ocupacion">
-
-                <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
-
-                <div class="info">
-                  <div class="nombre">{{ m.nombre }}</div>
-                  <div class="fecha">{{ m.fecha | date:'dd/MM HH:mm' }}</div>
-                </div>
-
-                <span class="tipo" [ngClass]="m.tipo">
-                  {{ m.tipo === 'entrada' ? 'Entró' : 'Salió' }}
-                </span>
-
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        <!-- Progreso semanal -->
-        <div class="col-lg-4 col-md-6">
-          <div class="card p-4 text-center shadow-sm border-0 h-100">
-            <h6 class="section-title mb-3">Progreso semanal</h6>
-            <div class="progress mb-2" style="height: 12px">
-              <div class="progress-bar bg-fitrank" style="width: 70%"></div>
-            </div>
-            <p class="text-muted small mb-1">Completaste <strong>7/10 objetivos</strong></p>
-            <span class="badge bg-fitrank-subtle text-fitrank">+5% vs semana pasada</span>
+            <button class="btn btn-fitrank d-flex align-items-center gap-2 w-100"
+                    (click)="navegarA('/rutina/mis-rutinas')">
+              <span class="material-symbols-outlined">play_arrow</span>
+              Iniciar entrenamiento
+            </button>
           </div>
         </div>
       </div>
 
-
-      <!-- ⚡ ACCIONES RÁPIDAS -->
-      <section class="mb-5">
-        <div class="row g-3 justify-content-center">
-          <div class="col-12 col-md-3">
-            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/ranking')">
-              <span class="material-symbols-outlined me-2">emoji_events</span>
-              Ranking
-            </button>
-          </div>
-          <div class="col-12 col-md-3">
-            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/crear/')">
-              <span class="material-symbols-outlined me-2">add_circle</span>
-              Crear rutina
-            </button>
-          </div>
-          <div class="col-12 col-md-3">
-            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
-              <span class="material-symbols-outlined me-2">list_alt</span>
-              Mis rutinas
-            </button>
-          </div>
-          <div class="col-12 col-md-3">
-            <button class="quick-action w-100 btn-secondary" (click)="navegarA('/socios/1/gimnasios/1/logros')">
-              <span class="material-symbols-outlined me-2">military_tech</span>
-              Mis logros
-            </button>
-          </div>
-        </div>
-      </section>
-      <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
-      <div *ngIf="mostrarRetencion" class="card-retencion text-center">
-        <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5>
-        <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p>
-
-        <div class="d-flex flex-column gap-2 mt-3">
-          <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')">
-            🔄 Cambiar rutina
-          </button>
-          <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')">
-            ✅ Estoy bien
-          </button>
-          <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')">
-            Que me contacte un profesor
-          </button>
-        </div>
-      </div>
-
-      <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) -->
-      <div *ngIf="mostrarRetencion" class="card-retencion text-center">
-        <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5>
-        <p>
-          Hace algunos días que no registramos tus entrenamientos.<br />
-          ¿Querés retomar con energía?
-        </p>
-      </div>
-
-      <!-- 🔔 NOTIFICACIONES (Globales + Personales) -->
-      <section class="mb-5">
-        <div class="container">
-          <div class="row g-4 justify-content-center align-items-start">
-            <!-- 🌍 Globales -->
-            <div class="col-md-6 col-lg-5">
-              <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Globales</h3>
-              <div class="list-group shadow-sm rounded-4">
-                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                  <span class="material-symbols-outlined me-3 mt-1">campaign</span>
-                  <div>
-                    <p class="fw-semibold mb-1">Nueva clase disponible</p>
-                    <small class="text-muted">Yoga funcional se ha añadido a la grilla semanal.</small>
-                  </div>
-                </div>
-
-                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                  <span class="material-symbols-outlined me-3 mt-1">event</span>
-                  <div>
-                    <p class="fw-semibold mb-1">Competencia mensual</p>
-                    <small class="text-muted">Inscribite al desafío “Strong Week” antes del viernes.</small>
-                  </div>
-                </div>
-
-                <div class="list-group-item d-flex align-items-start bg-light border-0">
-                  <span class="material-symbols-outlined me-3 mt-1">local_fire_department</span>
-                  <div>
-                    <p class="fw-semibold mb-1">Nuevos récords en el gimnasio</p>
-                    <small class="text-muted">Se superó la marca de 10.000 entrenamientos este mes 💪</small>
-                  </div>
-                </div>
-              </div>
-
-              <div class="text-center mt-4">
-                <button class="btn  btn-secondary"
-                        (click)="navegarA('/notificaciones-globales')">
-                  Ver todas
-                </button>
-              </div>
-            </div>
-
-            <!-- 🧍 Personales -->
-            <div class="col-md-6 col-lg-5">
-              <h3 class="fw-bold text-dark mb-4 text-center">Notificaciones Personales</h3>
-              <div class="list-group shadow-sm rounded-4">
-                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                  <span class="material-symbols-outlined me-3 mt-1">celebration</span>
-                  <div>
-                    <p class="fw-semibold mb-1">¡Nuevo logro desbloqueado!</p>
-                    <small class="text-muted">Has conseguido el logro “Guerrero del Fin de Semana”.</small>
-                  </div>
-                </div>
-
-                <div class="list-group-item d-flex align-items-start bg-light border-0 border-bottom">
-                  <span class="material-symbols-outlined me-3 mt-1">calendar_month</span>
-                  <div>
-                    <p class="fw-semibold mb-1">Recordatorio de Clase</p>
-                    <small class="text-muted">Tu clase de Spinning es hoy a las 18:00.</small>
-                  </div>
-                </div>
-
-                <div class="list-group-item d-flex align-items-start bg-light border-0">
-                  <span class="material-symbols-outlined text-secondary me-3 mt-1">task_alt</span>
-                  <div>
-                    <p class="fw-semibold mb-1">Rutina Actualizada</p>
-                    <small class="text-muted">Tu entrenador ha actualizado tu rutina de piernas.</small>
-                  </div>
-                </div>
-              </div>
-
-              <div class="text-center mt-4">
-                <button class="btn btn-secondary"
-                        (click)="navegarA('/notificaciones-personales')">
-                  Ver todas
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- ACCIONES RÁPIDAS -->
+      <section class="mb-4">
+        <div class="row g-3 justify-content-center"> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/ranking')"> <span class="material-symbols-outlined me-2">emoji_events</span> Ranking </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/crear/')"> <span class="material-symbols-outlined me-2">add_circle</span> Crear rutina </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')"> <span class="material-symbols-outlined me-2">list_alt</span> Mis rutinas </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/socios/1/gimnasios/1/logros')"> <span class="material-symbols-outlined me-2">military_tech</span> Mis logros </button> </div> </div>
       </section>
 
-      <!-- 🚪 LOGOUT -->
-      <div class="text-center mt-5">
-        <button class="btn btn-outline-fitrank px-4 py-2 btn-secondary" (click)="logout()">
-          <span class="material-symbols-outlined me-2">logout</span> Cerrar sesión
-        </button>
-      </div>
+      <!-- TARJETA RETENCIÓN -->
+      <div *ngIf="mostrarRetencion" class="card-retencion text-center mb-4">
+        <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5> <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p> <div class="d-flex flex-column gap-2 mt-3"> <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')"> 🔄 Cambiar rutina </button> <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')"> ✅ Estoy bien </button> <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')"> Que me contacte un profesor </button> </div>
+      </div> <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) --> <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
+    
+
+      <app-footer></app-footer>
+
     </div>
+
+
+
+
+
+    <!-- ========================= -->
+    <!-- 🔵 COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
+    <!-- ========================= -->
+    <div class="col-lg-3 col-md-12">
+      <h4 class="fw-bold text-center mb-3"> Notificaciones</h4>
+      <!-- NOTIFICACIONES GLOBALES -->
+      <div class="sidebar-noti bg-white shadow rounded-4 p-3 mb-4">
+        <h4 class="fw-bold text-center mb-3">Globales</h4>
+
+        <div class="list-group small">
+          <div class="list-group-item border-0 border-bottom bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">campaign</span>
+            <div>
+              <p class="fw-semibold mb-1">Nueva clase disponible</p>
+              <small class="text-muted">Yoga funcional se añadió esta semana.</small>
+            </div>
+          </div>
+
+          <div class="list-group-item border-0 border-bottom bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">event</span>
+            <div>
+              <p class="fw-semibold mb-1">Competencia mensual</p>
+              <small class="text-muted">Inscribite al desafío Strong Week.</small>
+            </div>
+          </div>
+
+          <div class="list-group-item border-0 bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">local_fire_department</span>
+            <div>
+              <p class="fw-semibold mb-1">Nuevos récords!</p>
+              <small class="text-muted">Más de 10.000 entrenamientos este mes.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <button class="btn btn-secondary w-100" (click)="navegarA('/notificaciones-globales')">
+            Ver todas
+          </button>
+        </div>
+      </div>
+
+      <!-- NOTIFICACIONES PERSONALES -->
+      <div class="sidebar-noti bg-white shadow rounded-4 p-3">
+        <h4 class="fw-bold text-center mb-3">Personales</h4>
+
+        <div class="list-group small">
+          <div class="list-group-item border-0 border-bottom bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">celebration</span>
+            <div>
+              <p class="fw-semibold mb-1">¡Nuevo logro!</p>
+              <small class="text-muted">“Guerrero del Fin de Semana”.</small>
+            </div>
+          </div>
+
+          <div class="list-group-item border-0 border-bottom bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">calendar_month</span>
+            <div>
+              <p class="fw-semibold mb-1">Clase hoy</p>
+              <small class="text-muted">Spinning a las 18:00.</small>
+            </div>
+          </div>
+
+          <div class="list-group-item border-0 bg-light d-flex">
+            <span class="material-symbols-outlined me-2 mt-1">task_alt</span>
+            <div>
+              <p class="fw-semibold mb-1">Rutina actualizada</p>
+              <small class="text-muted">Se actualizó tu rutina de piernas.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <button class="btn btn-secondary w-100" (click)="navegarA('/notificaciones-personales')">
+            Ver todas
+          </button>
+        </div>
+
+        <!-- Logout -->
+        <div class="text-center mt-4">
+          <button class="btn btn-outline-fitrank w-100 btn-secondary" (click)="logout()">
+            <span class="material-symbols-outlined me-2">logout</span>
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
 
@@ -467,59 +272,60 @@
 <div *ngIf="esProfesor" class="container py-5 text-center">
   <app-header-profesor [user]="user"></app-header-profesor><br />
 
-    <h2 class="display-6 fw-bold text-dark">¡Profe, {{ user.nombre }}!</h2>
+  <h2 class="display-6 fw-bold text-dark">¡Profe, {{ user.nombre }}!</h2>
 
 
-   
-    <p class="text-muted mb-5">Gestioná tus rutinas, alumnos y notificaciones 👇</p>
+
+  <p class="text-muted mb-5">Gestioná tus rutinas, alumnos y notificaciones 👇</p>
+
+  <div class="row g-4 justify-content-center">
+    <div class="col-12 col-md-4">
+      <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
+        <span class="material-symbols-outlined me-2">list_alt</span>
+        Ver mis rutinas creadas
+      </button>
+    </div>
+
+    <div class="col-12 col-md-4">
+
+
+      <button class="quick-action w-100  btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
+        <span class="material-symbols-outlined me-2">group</span>
+        Ver progreso alumnos
+      </button>
+    </div>
 
     <div class="row g-4 justify-content-center">
       <div class="col-12 col-md-4">
-        <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
+        <button class="quick-action  btn-secondary" (click)="navegarA('solicitudes-profesor')">
           <span class="material-symbols-outlined me-2">list_alt</span>
-          Ver mis rutinas creadas
+          Panel de Solictudes Generales
         </button>
       </div>
 
-       <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4">
+        <button class="quick-action  btn-secondary" (click)="navegarA('/profesor/alumnos')">
+          <span class="material-symbols-outlined me-2">group</span>
+          Ver mis alumnos
+        </button>
+      </div>
 
+      <!-- No puedo acceder al gimnasioId de los profesores en en login
+      <div class="col-12 col-md-4">
+        <button class="quick-action w-100  btn-secondary" (click)="navegarA('/reportes/mis-reportes')">
+          <span class="material-symbols-outlined me-2">assignment</span>
+          Mis reportes
+        </button>
+      </div>
+      -->
 
-          <button class="quick-action w-100  btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
-            <span class="material-symbols-outlined me-2">group</span>
-            Ver progreso alumnos
-          </button>
-        </div>
+      <div class="col-12 col-md-4">
+        <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
 
-      <div class="row g-4 justify-content-center">
-        <div class="col-12 col-md-4">
-          <button class="quick-action  btn-secondary" (click)="navegarA('solicitudes-profesor')">
-            <span class="material-symbols-outlined me-2">list_alt</span>
-            Panel de Solictudes Generales
-          </button>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <button class="quick-action  btn-secondary" (click)="navegarA('/profesor/alumnos')">
-            <span class="material-symbols-outlined me-2">group</span>
-            Ver mis alumnos
-          </button>
-        </div>
-
-          <!-- No puedo acceder al gimnasioId de los profesores en en login
-        <div class="col-12 col-md-4">
-          <button class="quick-action w-100  btn-secondary" (click)="navegarA('/reportes/mis-reportes')">
-            <span class="material-symbols-outlined me-2">assignment</span>
-            Mis reportes
-          </button>
-        </div>
-        -->
-
-        <div class="col-12 col-md-4">
-          <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
-
-            <span class="material-symbols-outlined me-2">notifications_active</span>
-            Notificaciones
-          </button>
-        </div>
+          <span class="material-symbols-outlined me-2">notifications_active</span>
+          Notificaciones
+        </button>
       </div>
     </div>
+  </div>
+</div>

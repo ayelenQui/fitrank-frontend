@@ -1,15 +1,16 @@
-<header class="header-socio sidebar">
+<header class="header-socio">
 
 
-  <button class="fit-sb-toggle d-md-none btn-secondary" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
+  <button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú"><i class="bi bi-sliders"></i></button>
 
 
   <div class="header__logo">
-    <img src="assets/img/logo/logo-negro-lila.svg" alt="FitRank Logo" class="header__imagologo" (click)="irAlHome()" /><br />
-
-    <br />
-    <span class="titulo">Socio</span>
+    <img src="assets/img/logo/logo-negro-lila.svg"
+         alt="FitRank Logo"
+         class="header__imagologo"
+         (click)="irAlHome()" />
   </div>
+
 
   <nav class="header__nav">
     <!--<button class="header__navboton" (click)="navegarA('/torneo/lista-torneo')">Torneos</button>-->
@@ -21,7 +22,8 @@
 
   <div class="header__perfil">
     <div class="noti-icon" (click)="abrirNotificaciones()">
-      <i class="bi bi-bell-fill" [class.activa]="hayNotificacionesNuevas"></i>
+  
+      <i class="bi bi-chat-dots"[class.activa]="hayNotificacionesNuevas"></i>
       <span class="badge" *ngIf="notificacionesNuevas > 0">
         {{ notificacionesNuevas }}
       </span>
@@ -30,7 +32,7 @@
     <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
          alt="Perfil"
          class="header__imagen" />
-    <span class="header__nombre">{{ user?.nombre }}</span>
+   
 
     <button class="header__logout btn-secondary" (click)="logout()">
       <span class="material-symbols-outlined">logout</span>

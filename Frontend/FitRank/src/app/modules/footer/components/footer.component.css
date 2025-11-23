@@ -1,45 +1,56 @@
+/* Mostrar solo en móviles */
+.mobile-only {
+  display: none !important;
+}
 
-/* ===== Bottom Nav ===== */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: flex !important;
+  }
+}
+
+/* Bottom nav con forma CURVA + transparencia */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
-  background: black;
-  border-top: 1px solid #ddd;
+  right: 0;
+  height: 72px;
+  background: rgba(40, 40, 40, 0.55); /* gris oscuro transparente */
+  backdrop-filter: blur(14px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  /* ⭐ Forma curva moderna */
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
   display: flex;
   justify-content: space-around;
-  padding: 8px 0;
-  z-index: 20;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 999;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.28); /* sombra arriba */
 }
 
-  .bottom-nav a {
-    color: white;
+  /* Items */
+  .bottom-nav .nav-item {
+    flex: 1;
+    text-align: center;
+    color: #FFFFFF;
     text-decoration: none;
-    font-size: 14px;
-    display: flex;
-
-
-    flex-direction: column;
-    align-items: center;
+    font-size: 12px;
   }
-    .bottom-nav a:hover {
-      color: #8B52FF;
-    }
-    .bottom-nav a i {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-    .bottom-nav a span {
-      font-size: 12px;
-    }
-    .bottom-nav a.active {
-      color: #8B52FF;
-      font-weight: bold;
-    }
-      .bottom-nav a.active i {
-        color: #8B52FF;
-      }
-      .bottom-nav a.active span {
-        font-weight: bold;
-      }
+
+  /* Íconos suaves */
+  .bottom-nav .nav-icon span {
+    font-size: 26px;
+    margin-bottom: 3px;
+    color: #FFFFFF;
+    font-variation-settings: 'wght' 200, /* línea fina */
+    'opsz' 24;
+  }
+
+  /* Estado activo: violeta FitRank */
+  .bottom-nav .nav-item.active span,
+  .bottom-nav .nav-item.active {
+    color: #8B52FF !important;
+  }

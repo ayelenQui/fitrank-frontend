@@ -25,6 +25,7 @@ export interface SocioDTO {
   nivel: string;
   fotoUrl?: string | null;
   cuotaPagadaHasta?: string | null;
+  fechaRegistro?: string | null;
   gimnasioNombre?: string | null;
   gimnasioId?: number;
   altura?: number;
