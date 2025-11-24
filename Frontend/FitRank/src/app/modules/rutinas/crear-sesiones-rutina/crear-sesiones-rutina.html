@@ -75,7 +75,17 @@
                            class="bloque-img"
                            alt="Ejercicio" />-->
                       <div>
+
+                        <div class="mb-3">
+                          <label for="nombreSesion">Nombre de la sesión</label>
+                          <input type="text"
+                                id="nombreSesion"
+                                class="form-control"
+                                [formControl]="nombreSesionControl" />
+                          </div>
+
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
+
                         <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
                         <small class="text-muted d-block">
                           ⏱ {{ ejercicio.get('duracionEstimada')?.value }} min
@@ -155,18 +165,38 @@
     <!-- 🟣 SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-content">
-        <h5 class="fw-bold mb-3"> Hace Click para Agregar tus Ejercicios</h5>
+        <h5 class="fw-bold mb-3">Haz click para agregar tus ejercicios</h5>
+
+        <!-- Input de búsqueda -->
         <input type="text"
                class="form-control mb-3"
                placeholder="Buscar Ejercicios..."
                [(ngModel)]="filtro"
                (input)="filtrarEjercicios()" />
 
+        <!-- Botones de grupos musculares -->
+<div class="grupo-muscular-list mb-3">
+  <!-- Botón "Todos" -->
+  <button class="btn btn-outline-primary btn-sm me-2 mb-2"
+          (click)="recargarEjercicios()">
+    Todos
+  </button>
+
+  <!-- Botones de cada grupo muscular -->
+  <button *ngFor="let g of gruposMusculares"
+          class="btn btn-outline-secondary btn-sm me-2 mb-2"
+          [class.active]="grupoSeleccionadoId === g.id"
+          (click)="filtrarPorGrupo(g.id)">
+    {{ g.nombre }}
+  </button>
+</div>
+
+
+        <!-- Listado de ejercicios filtrados -->
         <div class="ejercicio-list">
           <div *ngFor="let e of ejerciciosFiltrados"
                class="ejercicio-item"
                (click)="agregarEjercicio(e)">
-        <!--<img *ngIf="e.urlImagen" [src]="e.urlImagen" alt="{{ e.nombre }}" />-->
             <div>
               <h6>{{ e.nombre }}</h6>
               <small>{{ e.nombreGrupoMuscular }}</small>
@@ -175,5 +205,7 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+
+  </div> <!-- cierre de "contenido" -->
+
+</div> <!-- cierre de "rutina-layout" -->

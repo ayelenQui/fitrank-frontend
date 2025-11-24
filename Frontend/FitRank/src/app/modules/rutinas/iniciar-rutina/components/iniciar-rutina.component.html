@@ -44,7 +44,7 @@
       <div *ngFor="let s of rutinaSeleccionada?.sesiones" class="sesion-card" [style.background-image]="'url(' + (s.ejerciciosAsignados[0]?.ejercicio?.urlImagen || 'assets/img/sessions/default-bg.jpg') + ')'">
         <div class="overlay"></div>
         <div class="sesion-header">
-          <h3 class="titulo sesion-dia text-white-50">Sesión {{ s.numeroDeSesion +1 }}</h3>
+          <h3 class="titulo sesion-dia text-white-50">{{ s.nombre }}</h3>
           <button class="btn-ver btn-secondary" (click)="seleccionarSesion(s)">
 
             <span class="material-symbols-outlined fs-1">play_arrow</span>
