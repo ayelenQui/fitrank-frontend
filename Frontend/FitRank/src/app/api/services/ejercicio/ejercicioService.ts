@@ -29,4 +29,9 @@ export class EjercicioService {
   update(id: number, ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
     return this.http.put<EjercicioDTO>(`${this.baseUrl}/${id}`, ejercicio);
   }
+
+  // EjercicioService
+  getByGrupoMuscular(grupoId: number): Observable<EjercicioDTO[]> {
+    return this.http.get<EjercicioDTO[]>(`${this.baseUrl}/grupo/${grupoId}`);
+  }
 }
