@@ -1,7 +1,5 @@
 <header class="header-socio">
-
-
-  <button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú"><i class="bi bi-sliders"></i></button>
+  <app-sidebar-socio></app-sidebar-socio>
 
 
   <div class="header__logo">
@@ -22,8 +20,8 @@
 
   <div class="header__perfil">
     <div class="noti-icon" (click)="abrirNotificaciones()">
-  
-      <i class="bi bi-chat-dots"[class.activa]="hayNotificacionesNuevas"></i>
+
+      <i class="bi bi-chat-dots" [class.activa]="hayNotificacionesNuevas"></i>
       <span class="badge" *ngIf="notificacionesNuevas > 0">
         {{ notificacionesNuevas }}
       </span>
@@ -32,7 +30,7 @@
     <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
          alt="Perfil"
          class="header__imagen" />
-   
+
 
     <button class="header__logout btn-secondary" (click)="logout()">
       <span class="material-symbols-outlined">logout</span>
@@ -41,13 +39,7 @@
   </div>
 </header>
 
-<!-- 🔹 Menú móvil -->
-<nav class="nav-movil btn-secondary" [class.active]="sidebarOpen">
-  <button (click)="navegarA('/ranking')">Ranking</button>
-  <button (click)="navegarA('/rutina/mis-rutinas')"> Mis Rutinas</button>
-  <button (click)="navegarA('/rutina/crear')"> Crear Rutina</button>
-  <button (click)="logout()"> Cerrar sesión</button>
-</nav>
+
 
 <!-- 🔔 POPUP DE NOTIFICACIONES -->
 <div class="popup-notificaciones" *ngIf="mostrarPopup">
