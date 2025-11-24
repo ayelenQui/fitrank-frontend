@@ -75,7 +75,17 @@
                            class="bloque-img"
                            alt="Ejercicio" />-->
                       <div>
+
+                        <div class="mb-3">
+                          <label for="nombreSesion">Nombre de la sesión</label>
+                          <input type="text"
+                                id="nombreSesion"
+                                class="form-control"
+                                [formControl]="nombreSesionControl" />
+                          </div>
+
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
+
                         <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
                         <small class="text-muted d-block">
                           ⏱ {{ ejercicio.get('duracionEstimada')?.value }} min

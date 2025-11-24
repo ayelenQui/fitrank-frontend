@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule, FormControl } from '@angular/forms';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
@@ -333,5 +333,9 @@ volverA = '/rutina/mis-rutinas'; // default
     this.location.back();
   }
 
-
+get nombreSesionControl(): FormControl {
+  const control = this.sesiones.at(this.sesionActiva)?.get('nombre');
+  if (!control) throw new Error('El control "nombre" no existe');
+  return control as FormControl;
+}
 }
