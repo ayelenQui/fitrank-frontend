@@ -64,3 +64,9 @@
 body {
   background: var(--color-fondo);
 }
+.text-titulo {
+  text-align: center;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 50px;
+}

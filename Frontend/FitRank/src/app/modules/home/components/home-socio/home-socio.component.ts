@@ -168,7 +168,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
         this.cargarDatosSocio();
       
 
-      //cargar socio con servicio API
+      
       this.socioService.getSocioById(this.user.id).subscribe({
         next: (socio: SocioType) => {
           this.socio = socio;

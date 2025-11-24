@@ -48,7 +48,7 @@ export class RutinaService {
     console.log('🌐 GET:', url);
     return this.http.get<RutinaCompletaDTO[]>(url);
   }
-  // 🔹 Obtener rutina completa por ID
+  
   getRutinaCompletaPorId(rutinaId: number): Observable<RutinaCompletaDTO> {
     return this.http.get<RutinaCompletaDTO>(`${this.apiUrl}/detalle/${rutinaId}`);
   }
@@ -64,6 +64,16 @@ solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO):
   actualizarEstado(solicitudId: number): Observable<any> {
     return this.http.put(`${this.apiUrlSolicitudes}/${solicitudId}/terminar`, {});
   }
+  //para el socio
+
+  getFavoritas(socioId: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
+  }
+  //para el admin el global
+  getFavoritasGimnasio(gimnasioId: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/gimnasio/${gimnasioId}`);
+  }
+
 
 
 }

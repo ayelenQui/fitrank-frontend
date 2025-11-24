@@ -510,3 +510,43 @@
     color: #7d3bea;
     font-weight: 600;
   }
+.switch-group {
+  display: flex;
+  gap: 10px;
+}
+
+.switch-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #1b1b1b;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+  .switch-btn.active {
+    background: #8B52FF;
+    border-color: #8B52FF;
+  }
+
+.rutina-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+  .rutina-card h4 {
+    margin: 0 0 4px;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+.favoritos {
+  color: #8B52FF;
+  font-weight: 600;
+}
+
+.no-data {
+  color: #666;
+  margin-bottom: 12px;
+}

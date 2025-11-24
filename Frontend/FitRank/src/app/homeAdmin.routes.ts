@@ -8,12 +8,12 @@ import { RankingComponent } from './modules/homeAdmin/components/ranking/ranking
 import { AccesosComponent } from './modules/homeAdmin/components/accesos/accesos.component';
 import { NotificacionesComponent } from './modules/homeAdmin/components/notificaciones/notificaciones.component';
 import { AbandonoComponent } from './modules/homeAdmin/components/abandono/abandono.component';
-import { RealtimeComponent } from './modules/homeAdmin/components/realtime/realtime.component';
+
 import { AdminLayoutComponent } from './modules/homeAdmin/layout/admin-layout.component';
 import { PagosComponent } from './modules/homeAdmin/components/pagos/pagos.component';
 import { ConfigGimnasioComponent } from './modules/homeAdmin/components/personalizacion/configuracion-gimnasio.component';
 import { ReportesAdmin } from './modules/reportes/reportes-admin/reportes-admin';
-
+import { LogrosAdminComponent } from "./modules/homeAdmin/components/logro/logros-admin.component"; 
 
 
 export const homeAdminRoutes: Routes = [
@@ -35,8 +35,8 @@ export const homeAdminRoutes: Routes = [
         path: 'configuracion-gimnasio',
         component: ConfigGimnasioComponent
       },
-
-      { path: 'realtime', component: RealtimeComponent },
+      { path: 'logros-admin', component: LogrosAdminComponent },
+     
       { path: 'reportes-admin', component: ReportesAdmin },
       {
         path: 'socios/:id',
@@ -54,8 +54,14 @@ export const homeAdminRoutes: Routes = [
         loadComponent: () =>
           import('@app/modules/maquina/maquina-detalle.component')
             .then(m => m.MaquinaDetalleComponent)
-      }
+      },
 
+      {
+        path: 'logros-gimnasio',
+        loadComponent: () =>
+          import('./modules/homeAdmin/components/logro/logros-admin.component')
+            .then(m => m.LogrosAdminComponent)
+      },
 
      
     ],

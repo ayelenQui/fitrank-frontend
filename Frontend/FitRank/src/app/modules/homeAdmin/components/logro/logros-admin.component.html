@@ -1,0 +1,24 @@
+<div class="logros-wrapper">
+
+  <h2 class="titulo-fitrank">Logros del Gimnasio</h2>
+  <p class="subtitulo">Activá o desactivá los logros disponibles</p>
+
+  <div *ngIf="cargando" class="loading">Cargando logros...</div>
+
+  <div class="logro-card" *ngFor="let logro of logros">
+
+    <div class="info-logro">
+      <h4>{{ logro.nombre }}</h4>
+      <p>{{ logro.descripcion }}</p>
+    </div>
+
+    <label class="switch">
+      <input type="checkbox"
+             [checked]="logro.estaHabilitado"
+             (change)="toggleLogro(logro)">
+      <span class="slider round"></span>
+    </label>
+
+  </div>
+
+</div>

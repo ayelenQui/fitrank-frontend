@@ -20,7 +20,7 @@ export class SidebarComponent {
     {  label: 'Accesos QR', route: 'accesos' },
     {  label: 'Notificaciones', route: 'notificaciones' },
     { label: 'Abandono', route: 'abandono' },
-    {label: 'Tiempo Real', route: 'realtime' },
+    {label: 'Logros', route: 'logros-admin' },
     { label: 'Máquinas y Ejercicios', route: 'maquina-ejercicio' },
     { label: 'Personalizacion', route: 'configuracion-gimnasio' },
     { label: 'Reportes', route: 'reportes-admin' }

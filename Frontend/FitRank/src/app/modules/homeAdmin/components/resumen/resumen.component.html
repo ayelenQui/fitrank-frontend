@@ -88,58 +88,21 @@
       <!-- ==========================
        MINI-GRÁFICOS CON SWITCH
   =========================== -->
+      <!-- SWITCH DE RUTINAS FAVORITAS DEL GIMNASIO -->
+      <div class="switch-group mb-3 mt-4">
+        <button class="switch-btn btn-secondary active">
+          💜 Rutinas favoritas del gimnasio
+        </button>
+      </div>
 
-      <div class="panel-box mb-4">
+      <div *ngIf="rutinasFavoritasGimnasio.length === 0" class="no-data">
+        Aún no hay rutinas favoritas marcadas por los socios.
+      </div>
 
-        <!-- SWITCH DE GRÁFICOS -->
-        <div class="switch-group mb-3">
-          <button class="switch-btn btn-secondary"
-                  [class.active]="graficoActivo === 'asistencias'"
-                  (click)="graficoActivo = 'asistencias'">
-            Asistencias
-          </button>
-
-          <button class="switch-btn btn-secondary"
-                  [class.active]="graficoActivo === 'tendencia'"
-                  (click)="graficoActivo = 'tendencia'">
-            Tendencia semanal
-          </button>
-
-          <button class="switch-btn btn-secondary"
-                  [class.active]="graficoActivo === 'riesgo'"
-                  (click)="graficoActivo = 'riesgo'">
-            Riesgo alto
-          </button>
-        </div>
-
-        <!-- CONTENIDO DE GRÁFICOS -->
-        <div class="row g-3">
-
-          <!-- GRAFICO ASISTENCIAS -->
-          <div *ngIf="graficoActivo === 'asistencias'">
-            <div class="mini-chart-box">
-              <div class="mini-chart-title">Asistencias</div>
-              <canvas id="chartAsistencias"></canvas>
-            </div>
-          </div>
-
-          <!-- GRAFICO TENDENCIA -->
-          <div *ngIf="graficoActivo === 'tendencia'">
-            <div class="mini-chart-box">
-              <div class="mini-chart-title">Tendencia semanal</div>
-              <canvas id="chartLinea"></canvas>
-            </div>
-          </div>
-
-          <!-- GRAFICO RIESGO -->
-          <div *ngIf="graficoActivo === 'riesgo'">
-            <div class="mini-chart-box">
-              <div class="mini-chart-title">Riesgo alto</div>
-              <canvas id="chartRiesgo"></canvas>
-            </div>
-          </div>
-
-        </div>
+      <div *ngFor="let r of rutinasFavoritasGimnasio" class="rutina-card">
+        <h4>{{ r.nombre }}</h4>
+        <p>{{ r.descripcion }}</p>
+        <small class="favoritos">✨ Elegida por {{ r.cantidadFavoritos }} socios</small>
       </div>
 
 

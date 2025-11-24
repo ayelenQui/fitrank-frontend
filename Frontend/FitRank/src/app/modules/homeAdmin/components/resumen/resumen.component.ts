@@ -7,7 +7,7 @@ import { Solicitud } from '@app/api/services/profesor/interfaces/solicitud.inter
 import { SolicitudService } from '@app/api/services/profesor/Solicitud.Service';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 import Chart from 'chart.js/auto';
-
+import { RutinaService } from '@app/api/services/rutina/rutinaService';
 
 
 
@@ -26,7 +26,8 @@ export class ResumenComponent implements OnInit, AfterViewInit
     private asistenciaService: AsistenciaService,
     private solicitudService: SolicitudService, 
     public router: Router,
-    private signalR: SignalRNotificacionesService
+    private signalR: SignalRNotificacionesService,
+    private rutinaService: RutinaService
   ) { }
   graficoActivo: string = 'asistencias';
 
@@ -53,6 +54,12 @@ export class ResumenComponent implements OnInit, AfterViewInit
   sociosRiesgoAlto: any[] = [];
   statsSolicitudes = 0;
 
+  rutinasFavoritasGimnasio: any[] = [];
+
+
+
+
+
 
   solicitudesPendientes: Solicitud[] = [];
 
@@ -76,61 +83,17 @@ export class ResumenComponent implements OnInit, AfterViewInit
     this.cargarRiesgoInactivos();
     this.cargarSolicitudesPendientes();
     this.escucharOcupacion();
+    this.cargarFavoritasGimnasio(); 
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.cargarMiniGraficos();
-      this.renderLinea();
+     
     }, 200);
   }
 
   
 
-  cargarMiniGraficos() {
-    // GRAFICO 1
-    new Chart("chartAsistencias", {
-      type: "doughnut",
-      data: {
-        labels: ["Asistencias", "Ausencias"],
-        datasets: [{
-          data: [70, 30],
-          backgroundColor: ["#9ACD32", "#D8BFD8"],
-          borderWidth: 0, 
-        }]
-      },
-      options: { cutout: "70%" }
-    });
-
-    // GRAFICO 2
-    new Chart("chartActivos", {
-      type: "bar",
-      data: {
-        labels: ["L", "M", "X", "J", "V", "S", "D"],
-        datasets: [{
-          data: [5, 8, 7, 10, 6, 4, 3],
-          backgroundColor: "#7b3fe4",
-          borderWidth: 0, 
-        }]
-      },
-      options: { plugins: { legend: { display: false } } }
-    });
-
-    // GRAFICO 3
-    new Chart("chartRiesgo", {
-      type: "doughnut",
-      data: {
-        labels: ["Riesgo", "OK"],
-
-        datasets: [{
-          data: [this.stats.sociosRiesgoAlto, 10],
-          backgroundColor: ["#EE82EE", "#333"],
-          borderWidth: 0, 
-        }]
-      },
-      options: { cutout: "70%" }
-    });
-  }
 
   cargarSocios() {
     this.socioService.getSocios().subscribe({
@@ -343,50 +306,18 @@ export class ResumenComponent implements OnInit, AfterViewInit
     this.stats.porcentajeCrecimiento = Math.round(crecimiento);
   }
 
-  renderLinea() {
-    const ctx = document.getElementById('chartLinea') as HTMLCanvasElement;
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
-        datasets: [{
-          label: 'Balance',
-          data: [5, 8, 6, 12, 9, 10, 7],
-          borderColor: '#9dff4d',  
-          backgroundColor: 'transparent',
-          borderWidth: 3,
-          tension: 0.45, 
-          pointRadius: 0,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            enabled: true,
-            backgroundColor: '#222',
-            titleColor: '#fff',
-            bodyColor: '#fff',
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: '#fff' },
-            grid: { display: false }
-          },
-          y: {
-            ticks: { display: false },
-            grid: { display: false }
-          }
-        }
-      }
-    });
-  }
 
   generarInvitacion() {
     this.router.navigate(['/admin-invitacion']);
   } 
+  cargarFavoritasGimnasio() {
+    const gymId = Number(localStorage.getItem('gimnasioId'));
+
+    this.rutinaService.getFavoritasGimnasio(gymId).subscribe({
+      next: res => this.rutinasFavoritasGimnasio = res,
+      error: err => console.error(err)
+    });
+  }
+
 
 }
