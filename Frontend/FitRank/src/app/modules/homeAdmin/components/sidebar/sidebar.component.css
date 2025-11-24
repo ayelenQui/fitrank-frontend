@@ -1,3 +1,6 @@
+/* ===========================
+   SIDEBAR DESKTOP
+=========================== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -12,18 +15,12 @@
   padding: 2rem 1rem;
   z-index: 1000;
   box-shadow: 4px 0 25px rgba(0,0,0,.3);
+  transition: transform .3s ease-in-out;
 }
 
-.sidebar-header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: .25rem;
-}
-
-.sidebar-header small {
-  opacity: .85;
-}
-
+/* ===========================
+   ITEMS
+=========================== */
 .nav-item {
   display: flex;
   align-items: center;
@@ -36,27 +33,54 @@
   transition: all .3s ease;
 }
 
-  .nav-item:hover, .nav-item.active {
+  .nav-item:hover,
+  .nav-item.active {
     background: #8b52ff;
     transform: translateX(5px);
   }
-
-.material-symbols-outlined {
-  font-size: 22px;
-}
 
 .sidebar-footer {
   font-size: .85rem;
   opacity: .9;
 }
 
+/* ===========================
+   BOTÓN HAMBURGUESA
+=========================== */
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  background: #8b52ff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 1100;
+  cursor: pointer;
+  display: none;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
 @media (max-width: 768px) {
+
+  /* Oculto por defecto */
   .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 1rem;
+    transform: translateX(-100%);
+    height: 100vh;
+  }
+
+    /* Cuando se abre */
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+  /* Mostrar botón hamburguesa */
+  .sidebar-toggle {
+    display: block;
   }
 
   .sidebar-header {
@@ -65,13 +89,11 @@
 
   nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: .5rem;
   }
 
   .nav-item {
-    margin-bottom: 0;
-    padding: .5rem .75rem;
-    border-radius: 8px;
+    padding: .65rem 1rem;
   }
 }

@@ -17,7 +17,7 @@ import { MedidaCorporalService } from '@app/api/services/medida/medida-corporal.
 import { FormsModule } from '@angular/forms';
 import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
 import { FooterComponent } from '@app/modules/footer/components/footer.component';
-
+import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true,
-  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule, FooterComponent]
+  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule, FooterComponent, SidebarSocioComponent]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;

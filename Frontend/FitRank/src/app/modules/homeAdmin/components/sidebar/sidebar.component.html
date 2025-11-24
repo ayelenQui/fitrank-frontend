@@ -1,7 +1,13 @@
-<aside class="sidebar">
+<!-- BOTÓN HAMBURGUESA (solo móvil) -->
+<button class="sidebar-toggle" (click)="toggleSidebar()">
+  ☰
+</button>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" [class.open]="isSidebarOpen">
   <div>
     <div class="sidebar-header mb-4 text-center">
-      <h1>Tu logo Aqui </h1>
+      <h1>Tu logo Aqui</h1>
       <small>Administrador</small>
     </div>
 
@@ -10,7 +16,6 @@
          [routerLink]="it.route"
          routerLinkActive="active"
          class="nav-item">
-        
         {{ it.label }}
       </a>
     </nav>

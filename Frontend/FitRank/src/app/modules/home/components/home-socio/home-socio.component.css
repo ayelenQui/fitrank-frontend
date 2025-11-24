@@ -5,7 +5,7 @@
 }
 
 .fondo {
-  background-color: #FFEFD5 !important;
+  background-color: #F0FFFF !important;
 }
 /* ============================
    PANEL PERFIL (DESKTOP)
@@ -20,7 +20,7 @@
   max-height: calc(100vh - 130px);
   overflow-y: auto;
   border-radius: 18px;
-  background: #ffffff;
+  background: #FAEBD7;
   padding: 20px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
   transition: all 0.25s ease-in-out;
@@ -139,7 +139,7 @@
 .editar-perfil-card {
   border: 1px solid #ddd;
   border-radius: 12px;
-  background: #faf9ff;
+  background: #FAEBD7;
 }
 
   .editar-perfil-card h4 {
@@ -198,10 +198,11 @@
   /* Editar Perfil */
   .editar-perfil-card {
     padding: 14px !important;
+    background: #FAEBD7;
   }
 
     /* Inputs */
-    .editar-perfil-card input,
+    .editar-perfil- input,
     .editar-perfil-card select {
       font-size: 16px;
       padding: 10px;
@@ -257,7 +258,7 @@
 
 /* TARJETA OCUPACIÓN */
 .ocupacion-card {
-  background: #fff;
+  background: #FAEBD7;
   padding: 1.5rem;
   border-radius: 18px;
   text-align: center;
@@ -288,6 +289,7 @@
   padding: 10px 5px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Firefox */
+  background: #FAEBD7;
 }
 
   /* Oculta barra de scroll en Chrome/Safari */
@@ -323,7 +325,7 @@
 
 /* TARJETA LISTA MOVIMIENTOS */
 .movimientos-card {
-  background: #fff;
+  background: #FAEBD7;
   padding: 1.2rem;
   border-radius: 18px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -366,7 +368,7 @@
   color: #666;
 }
 .editar-perfil-card {
-  background: #ffffff;
+  background: #FAEBD7;
   border-radius: 16px;
   border: 1px solid #dedede;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
@@ -630,6 +632,7 @@
 }
 .cuota-card {
   border-left: 5px solid var(--color-secundario);
+  background: #FAEBD7;
 }
 
   .cuota-card .alert {

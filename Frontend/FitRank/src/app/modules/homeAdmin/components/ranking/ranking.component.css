@@ -339,3 +339,178 @@
     opacity: 1;
   }
 }
+/* =====================================================
+   📱 RESPONSIVE FITRANK – Vista Mobile (max 768px)
+===================================================== */
+@media (max-width: 768px) {
+
+  /* ========================
+     SWITCH FITRANK
+  ======================== */
+  .fr-switch {
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .fr-switch-option {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+
+  /* ========================
+     TARJETAS DE GUÍAS
+  ======================== */
+  .panel-guias-fr {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .tarjeta-fr {
+    padding: 16px;
+  }
+
+    .tarjeta-fr h3 {
+      font-size: 18px;
+    }
+
+
+  /* ========================
+     BOTÓN PRIMARIO
+  ======================== */
+  .btn-fit-fr {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+
+  /* ========================
+     FORMULARIOS
+  ======================== */
+  .card-config-fr {
+    padding: 16px;
+  }
+
+  .titulo-config-fr {
+    font-size: 20px;
+  }
+
+  .input-fit-fr {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+
+  /* ========================
+     RANKING
+  ======================== */
+  .titulo-fr {
+    font-size: 22px;
+  }
+
+  .card-ranking-fr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .posicion-fr {
+    width: auto;
+    font-size: 18px;
+  }
+
+  .nombre-fr {
+    font-size: 15px;
+  }
+
+  .puntaje-fr {
+    font-size: 13px;
+  }
+
+
+  /* ========================
+     SIDE PANEL LATERAL
+  ======================== */
+  .side-panel {
+    width: 100%;
+    right: -100%;
+    padding: 18px;
+    border-left: none;
+    border-radius: 0;
+  }
+
+    .side-panel.open {
+      right: 0;
+    }
+
+  .panel-header h2 {
+    font-size: 1.2rem;
+  }
+
+
+  /* ========================
+     INFO CARD DEL RANKING
+  ======================== */
+  .ranking-info-card {
+    padding: 16px;
+  }
+
+  .titulo-info {
+    font-size: 18px;
+  }
+
+  .texto-info {
+    font-size: 14px;
+  }
+
+  .puntaje-num {
+    font-size: 1.2rem;
+  }
+}
+
+
+/* =====================================================
+   📱 RESPONSIVE — MUY PEQUEÑO (max 480px)
+===================================================== */
+@media (max-width: 480px) {
+
+  .fr-switch-option {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .tarjeta-fr h3 {
+    font-size: 16px;
+  }
+
+  .btn-fit-fr {
+    font-size: 14px;
+  }
+
+  .titulo-config-fr {
+    font-size: 18px;
+  }
+
+  .card-ranking-fr {
+    padding: 12px;
+  }
+
+  .titulo-fr {
+    font-size: 20px;
+  }
+
+  .side-panel {
+    padding: 14px;
+  }
+
+  .titulo-info {
+    font-size: 16px;
+  }
+
+  .texto-info {
+    font-size: 13px;
+  }
+}

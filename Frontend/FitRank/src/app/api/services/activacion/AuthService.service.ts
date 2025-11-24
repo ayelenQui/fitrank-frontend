@@ -13,10 +13,21 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(Email: string, Password: string): Observable<{ token: string; user: any }> {
+
     const body = { Email, Password };
     return this.http.post<{ token: string; user: any }>(`${this.baseUrl}/login`, body).pipe(
       tap(response => {
         if (response.token) {
+          const gimnasioIdToken = this.obtenerClaimGimnasioIdDesdeToken(response.token);
+
+          const gimnasioId =
+            gimnasioIdToken ??
+            response.user.gimnasioId ??
+            response.user.GimnasioId ??
+            null;
+
+
+
           const mappedUser = {
             Id: response.user.id,
             Nombre: response.user.nombre,
@@ -24,7 +35,8 @@ export class AuthService {
             Username: response.user.username,
             Rol: response.user.rol,
             CuotaPagadaHasta: response.user.cuotaPagadaHasta,
-            GimnasioId: response.user.gimnasioId ?? response.user.GimnasioId ?? null
+            GimnasioId: gimnasioId
+
           };
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(mappedUser));
@@ -111,6 +123,19 @@ isAdmin(): boolean {
   
   isLoggedIn(): boolean {
     return !!this.obtenerToken();
+  }
+
+  private obtenerClaimGimnasioIdDesdeToken(token: string): number | null {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      // Antes buscabas gimnasioId → NO existe
+      // Ahora buscamos "groupsid" → SÍ existe
+      return payload["groupsid"] ? Number(payload["groupsid"]) : null;
+
+    } catch {
+      return null;
+    }
   }
 
 

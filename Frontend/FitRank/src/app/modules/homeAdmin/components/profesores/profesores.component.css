@@ -307,3 +307,165 @@
   color: white;
   font-family: 'Bebas Neue', sans-serif;
 }
+/* ==========================================================
+   📱 FITRANK RESPONSIVE – Vista Mobile (max 768px)
+========================================================== */
+@media (max-width: 768px) {
+
+  /* =============== TITULOS =============== */
+  .text-titulo {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  /* =============== SWITCH FITRANK =============== */
+  .fr-switch {
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .fr-switch-option {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  /* =============== INPUT GROUP =============== */
+  .input-group {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .input-group-icon {
+    font-size: 16px;
+  }
+
+
+  /* =============== PANEL GENERAL =============== */
+  .panel-fitrank {
+    border-radius: 20px;
+  }
+
+  .panel-header-fitrank {
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .panel-body-fitrank {
+    padding: 16px;
+  }
+
+  .panel-title-fitrank {
+    font-size: 18px;
+  }
+
+  .panel-subtitle-fitrank {
+    font-size: 12px;
+  }
+
+
+  /* =============== TABLA =============== */
+  .table-wrapper-fitrank {
+    overflow-x: auto;
+  }
+
+    .table-wrapper-fitrank thead th {
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    .table-wrapper-fitrank tbody td {
+      padding: 10px;
+      font-size: 13px;
+    }
+
+
+  /* =============== CARD ESTADISTICAS =============== */
+  .card-stat-fitrank {
+    padding: 14px;
+  }
+
+    .card-stat-fitrank h6 {
+      font-size: 14px;
+    }
+
+    .card-stat-fitrank .nombre {
+      font-size: 15px;
+    }
+
+    .card-stat-fitrank .valor {
+      font-size: 13px;
+    }
+
+
+  /* =============== FORMULARIO FITRANK =============== */
+  .card-form-fitrank {
+    padding: 16px;
+  }
+
+
+  /* =============== BOTONES =============== */
+  .btn-primary-fitrank,
+  .btn-outline-fitrank {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .btn-tag-info,
+  .btn-tag-light,
+  .btn-tag-danger {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+
+  /* =============== TAGS / LABELS =============== */
+  .text-formu {
+    font-size: 22px;
+  }
+}
+
+
+
+/* ==========================================================
+   📱 FITRANK RESPONSIVE – MUY PEQUEÑO (max 480px)
+========================================================== */
+@media (max-width: 480px) {
+
+  .text-titulo {
+    font-size: 26px;
+  }
+
+  .fr-switch {
+    padding: 4px;
+  }
+
+  .fr-switch-option {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .panel-header-fitrank {
+    padding: 12px;
+  }
+
+  .panel-title-fitrank {
+    font-size: 16px;
+  }
+
+  .panel-subtitle-fitrank {
+    font-size: 12px;
+  }
+
+  .card-stat-fitrank .nombre {
+    font-size: 14px;
+  }
+
+  .text-formu {
+    font-size: 20px;
+  }
+}

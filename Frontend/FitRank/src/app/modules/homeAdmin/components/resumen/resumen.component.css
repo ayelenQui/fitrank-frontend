@@ -550,3 +550,135 @@
   color: #666;
   margin-bottom: 12px;
 }
+/* ===========================================
+   RESPONSIVE GENERAL (CELULAR Y TABLET)
+=========================================== */
+
+@media (max-width: 768px) {
+
+  /* Contenedor general más comprimido */
+  .dashboard-container {
+    padding: 12px;
+  }
+
+  /* Títulos más chicos */
+  .dashboard-title {
+    font-size: 24px;
+  }
+
+  .dashboard-sub {
+    font-size: 13px;
+  }
+
+  /* KPI BOX — columnas en una sola columna */
+  .kpi-box,
+  .kpi-box-riesgo {
+    margin-bottom: 12px;
+  }
+
+  /* Paneles ocupan toda la pantalla */
+  .panel-box {
+    padding: 16px;
+  }
+
+  /* Mini chart: altura ajustada para celular */
+  .mini-chart-box {
+    min-height: 200px;
+    padding: 12px;
+  }
+
+    .mini-chart-box canvas {
+      height: 150px !important;
+    }
+
+  /* Switch group más compacto */
+  .switch-group {
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .switch-btn {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  /* Actividad en tiempo real: se apilan */
+  .activity-content {
+    flex-direction: column;
+  }
+
+  .activity-map {
+    height: 220px;
+  }
+
+  .activity-list {
+    max-height: 200px;
+  }
+
+  /* Lista de actividad */
+  .ocupacion-item {
+    padding: 10px 4px;
+  }
+
+  /* Calendario ordenador vertical */
+  .calendar-grid {
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .day-cell {
+    padding: 5px 0;
+  }
+
+  /* Botones */
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* Contenedor de botones en paneles */
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    margin-top: 10px;
+  }
+}
+
+/* ===========================================
+   EXTRA SMALL (CELULAR MUY CHICO)
+=========================================== */
+@media (max-width: 480px) {
+
+  .dashboard-title {
+    font-size: 20px;
+  }
+
+  .mini-chart-title {
+    font-size: 16px;
+  }
+
+  .panel-title {
+    font-size: 16px;
+  }
+
+  .panel-sub {
+    font-size: 12px;
+  }
+
+  /* Ajustar padding en paneles */
+  .panel-box {
+    padding: 14px;
+  }
+
+  .kpi-value {
+    font-size: 22px;
+  }
+
+  .activity-map {
+    height: 200px;
+  }
+}

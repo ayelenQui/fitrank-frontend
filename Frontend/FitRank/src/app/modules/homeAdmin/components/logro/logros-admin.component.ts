@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogrosGimnasioService } from '@app/api/services/logro/logro-gimnasio.service';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-logros-admin',
@@ -13,12 +14,23 @@ export class LogrosAdminComponent implements OnInit {
 
   logros: any[] = [];
   cargando = true;
+  gimnasioId!: number; // <<-- LO DEFINIMOS
 
-  gimnasioId: number = Number(localStorage.getItem('gimnasioId'));
-
-  constructor(private logrosService: LogrosGimnasioService) { }
+  constructor(
+    private logrosService: LogrosGimnasioService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    /* OBTENER EL GIMNASIO ID DEL LOGIN */
+    this.gimnasioId = this.authService.obtenerGimnasioId() ?? 0;
+
+    if (!this.gimnasioId || this.gimnasioId <= 0) {
+      console.error("⚠ No se encontró gimnasioId del usuario logueado");
+      this.cargando = false;
+      return;
+    }
+
     this.cargarLogros();
   }
 
