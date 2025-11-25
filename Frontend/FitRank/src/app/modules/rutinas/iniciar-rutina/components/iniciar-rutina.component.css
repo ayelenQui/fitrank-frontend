@@ -28,6 +28,21 @@ body {
   background: var(--bg-1);
 }
 
+.encabezados-lista {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: white;
+}
+
+.lista-ejercicios li {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 /* ================================
    OVERLAY CUENTA REGRESIVA (FULLSCREEN MOBILE)
 ================================ */
@@ -269,7 +284,7 @@ body {
   font-family: var(--font-title);
 }
 .sesion-dia { font-size: 1.4rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
-.sesion-info-box { text-align: right; }
+.sesion-info-box { text-align: right; color:white }
 .duracion-total { color: #c77dff; font-weight: 600; }
 
 /* lista en flujo normal, scrolleable y sin tapar el botón */

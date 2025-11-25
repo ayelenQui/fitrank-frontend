@@ -50,16 +50,22 @@
             <span class="material-symbols-outlined fs-1">play_arrow</span>
           </button>
           <div class="sesion-info-box">
-            <p class="lista-ejercicios text-center">Tiempo</p>
+            <p class="lista-ejercicios text-center">Duración aprox.</p>
             <p class="duracion-total">⏱ {{ calcularDuracionTotal(s.ejerciciosAsignados) }} min</p>
           </div>
         </div>
 
-        <div class="sesion-detalle">.
+        <div class="sesion-detalle">
+            <!-- TÍTULOS -->
+        <div class="encabezados-lista">
+          <span class="ejercicio-titulo">Ejercicios</span>
+           <span class="tiempo-titulo">Tiempo por serie aprox</span>
+        </div>
+
           <ul class="lista-ejercicios">
             <li *ngFor="let e of s.ejerciciosAsignados">
              {{ e.ejercicio?.nombre }}
-              <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min</span>
+              <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min aprox.</span>
             </li>
           </ul>
 
