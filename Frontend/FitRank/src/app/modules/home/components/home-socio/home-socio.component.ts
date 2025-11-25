@@ -396,12 +396,15 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
   
   renovarCuota() {
-    this.pagosService.renovarCuota(this.user.id, this.user.email)
+    const email = this.user.email;
+
+    this.pagosService.renovarCuota(this.user.id, email)
       .subscribe({
         next: (res) => window.location.href = res.linkPago,
         error: (err) => console.error("MP error:", err)
       });
   }
+
 
 
 }
