@@ -72,12 +72,31 @@
         <!-- BOTÓN RENOVAR -->
         <div class="text-center mt-3">
           <button class="btn btn-fitrank w-100"
-                 (click)="renovarCuota()">
+                  (click)="renovarCuota()">
             <span class="material-symbols-outlined me-2">autorenew</span>
-            Renovar cuota 
+            Renovar cuota
           </button>
         </div>
 
+      </div>
+      <!-- ================================
+       🟣 MODAL QR DE PAGO – FITRANK
+  =================================== -->
+      <div class="qr-overlay" *ngIf="mostrarQR" (click)="mostrarQR = false">
+        <div class="qr-modal shadow-lg" (click)="$event.stopPropagation()">
+
+          <button class="close-btn" (click)="mostrarQR = false">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+
+          <h3 class="text-center mb-3 fw-bold">Escaneá para pagar tu cuota</h3>
+
+          <img *ngIf="qrImage"
+               [src]="qrImage"
+               class="qr-img mb-3">
+
+         
+        </div>
       </div>
 
     </div>
