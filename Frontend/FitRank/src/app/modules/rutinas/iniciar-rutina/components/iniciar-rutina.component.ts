@@ -131,9 +131,22 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     this.cargarRutinas();
     this.generarSemana();
     this.cargarConfiguracionGruposMusculares()
+    this.cargarActividadesDesdeLocalStorage();
 
 
   }
+
+  cargarActividadesDesdeLocalStorage(): void {
+  const key = `actividades_${this.socioId}`;
+  const guardado = localStorage.getItem(key);
+
+  if (guardado) {
+    this.actividadesRealizadas = JSON.parse(guardado);
+    console.log("🔁 Actividades restauradas desde LocalStorage", this.actividadesRealizadas);
+  }
+}
+
+  
 
   cargarConfiguracionGruposMusculares(): void {
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
@@ -186,6 +199,16 @@ cargarRutinas(): void {
     next: (data) => {
       console.log('📦 Rutinas cargadas:', data);
       this.rutinas = data || [];
+      //NUEVO
+    this.rutinas.forEach(r => {
+      r.sesiones?.forEach(s => {
+        s.ejerciciosAsignados?.forEach(e => {
+          e.completadoHoy = this.actividadesRealizadas.some(a =>
+            e.series.some(s => s.id === a.serieId)
+          );
+        });
+      });
+    });
 
       if (rutinaId) {
         this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId) ?? null;
@@ -227,6 +250,7 @@ cargarRutinas(): void {
 
 
 
+
  
   seleccionarRutina(r: RutinaCompletaDTO): void {
     this.rutinaSeleccionada = r;
@@ -238,6 +262,12 @@ cargarRutinas(): void {
   seleccionarSesion(s: any): void {
     this.sesionSeleccionada = s;
     this.ejercicioSeleccionado = null;
+
+    // NUEVO
+     // Inicializar completados hoy si no existe
+    this.sesionSeleccionada.ejerciciosAsignados.forEach((e: EjercicioAsignadoDTO) => {
+      if (e.completadoHoy === undefined) e.completadoHoy = false;
+    });
   }
 
   seleccionarEjercicio(e: EjercicioAsignadoDTO): void {
@@ -306,6 +336,8 @@ cargarRutinas(): void {
      
         this.actividadesRealizadas.push(res);
 
+        this.guardarActividadesEnLocalStorage();
+
         this.procesarSiguienteSerie();
       },
       error: (err) => {
@@ -314,6 +346,12 @@ cargarRutinas(): void {
       },
     });
   }
+
+  guardarActividadesEnLocalStorage(): void {
+  const key = `actividades_${this.socioId}`;
+  localStorage.setItem(key, JSON.stringify(this.actividadesRealizadas));
+}
+
 
   private crearDTOActividad(): RegistrarActividadDTO {
     return {
@@ -355,48 +393,38 @@ private finalizarEjercicio(): void {
   this.mostrarRegistro = false;
   this.indiceSerieActual = 0;
 
-  if (this.ejercicioSeleccionado) {
+  if (this.sesionSeleccionada && this.ejercicioSeleccionado) {
     this.ejercicioSeleccionado.completadoHoy = true;
+
+    const ejercicio = this.sesionSeleccionada.ejerciciosAsignados.find(
+      (      x: { id: number | undefined; }) => x.id === this.ejercicioSeleccionado?.id
+    );
+    if (ejercicio) ejercicio.completadoHoy = true;
   }
 
-  const ejercicio = this.sesionSeleccionada?.ejerciciosAsignados.find(
-    (x: any) => x.id === this.ejercicioSeleccionado?.id
-  );
-  if (ejercicio) ejercicio.completadoHoy = true;
-
-  const todosCompletados = this.sesionSeleccionada?.ejerciciosAsignados.every(
-    (x: any) => x.completadoHoy
+  const todosCompletados = !!this.sesionSeleccionada?.ejerciciosAsignados.every(
+    (    x: { completadoHoy: any; }) => x.completadoHoy
   );
 
   const puntajeEjercicio = this.actividadesRealizadas
     .filter(
-      (a) =>
+      a =>
         a.serieId &&
-        this.ejercicioSeleccionado?.series.some((s) => s.id === a.serieId)
+        this.ejercicioSeleccionado?.series.some(s => s.id === a.serieId)
     )
     .reduce((acc, a) => acc + (a.punto || 0), 0);
 
   console.log("📊 Puntaje total del ejercicio:", puntajeEjercicio);
 
-  // Preparamos el state que enviaremos al componente de puntaje
   const navState: any = {
     puntaje: puntajeEjercicio,
     rutinaId: this.rutinaSeleccionada?.id
   };
 
-  // si tenemos entrenamiento activo (viene del backend al crear entrenamiento), enviamos su id
-  if (this.entrenamientoActivo?.id) {
-    navState.entrenamientoId = this.entrenamientoActivo.id;
-  }
+  if (this.entrenamientoActivo?.id) navState.entrenamientoId = this.entrenamientoActivo.id;
+  if (this.sesionSeleccionada?.id) navState.sesionId = this.sesionSeleccionada.id;
+  else if (this.sesionSeleccionada?.numeroDeSesion) navState.sesionId = this.sesionSeleccionada.numeroDeSesion;
 
-  // identificador de sesion para volver exactamente a la misma
-  if (this.sesionSeleccionada?.id) {
-    navState.sesionId = this.sesionSeleccionada.id;
-  } else if (this.sesionSeleccionada?.numeroDeSesion) {
-    navState.sesionId = this.sesionSeleccionada.numeroDeSesion;
-  }
-
-  // 🔵 SI TERMINÓ TODA LA SESIÓN
   if (todosCompletados) {
     Swal.fire({
       title: "🏁 ¡Sesión completada por hoy!",
@@ -410,14 +438,10 @@ private finalizarEjercicio(): void {
       confirmButtonText: "Ver mi puntaje",
       showClass: { popup: "animate__animated animate__fadeInUp animate__faster" },
       hideClass: { popup: "animate__animated animate__fadeOutDown animate__faster" }
-    }).then(() => {
-      // navegamos al componente de puntaje pasando el state que permite regresar a la sesión
-      this.router.navigate(['/rutina/calcular-puntaje'], { state: navState });
-    });
+    }).then(() => this.router.navigate(['/rutina/calcular-puntaje'], { state: navState }));
     return;
   }
 
-  // 🟣 SI TERMINÓ SOLO EL EJERCICIO
   Swal.fire({
     title: "✅ ¡Ejercicio completado!",
     text: "¡Buen trabajo! 💥 Calculando tus puntos.",
@@ -429,11 +453,9 @@ private finalizarEjercicio(): void {
     confirmButtonText: "Continuar",
     showClass: { popup: "animate__animated animate__fadeInUp animate__faster" },
     hideClass: { popup: "animate__animated animate__fadeOutDown animate__faster" }
-  }).then(() => {
-    // navegamos al componente de puntaje pasando el mismo state
-    this.router.navigate(['/rutina/calcular-puntaje'], { state: navState });
-  });
+  }).then(() => this.router.navigate(['/rutina/calcular-puntaje'], { state: navState }));
 }
+
 
 
 
@@ -503,6 +525,7 @@ private finalizarEjercicio(): void {
       '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'
     );
     if (confirmar) {
+      localStorage.removeItem(`actividades_${this.socioId}`);
       this.router.navigate(['/rutina/mis-rutinas']);
     }
   }
