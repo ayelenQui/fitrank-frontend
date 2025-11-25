@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { finalize } from 'rxjs/operators';  // Para loading
+import { finalize } from 'rxjs/operators';  
 
 @Component({
   selector: 'app-activacion',
@@ -29,7 +29,7 @@ export class ActivacionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Tomar token de query params (del email: ?token=GUID)
+  
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
       console.log('Token recibido:', this.token); 
@@ -38,18 +38,17 @@ export class ActivacionComponent implements OnInit {
         this.router.navigate(['/login']);
         return;
       }
-      // Validar token inmediatamente
+      
       this.validarToken();
     });
 
-    // Form para nueva contraseña
     this.form = this.fb.group({
       nuevaPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmarPassword: ['', [Validators.required, Validators.minLength(8)]]
-    }, { validators: this.passwordMatchValidator });  // Custom validator para match
+    }, { validators: this.passwordMatchValidator });  
   }
 
-  // Custom validator: Chequea que passwords coincidan
+  
   passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const nueva = group.get('nuevaPassword')?.value;
     const confirmar = group.get('confirmarPassword')?.value;
@@ -74,7 +73,7 @@ export class ActivacionComponent implements OnInit {
         this.loading = false;
         this.error = 'Error al validar token. Intenta de nuevo.';
         console.error(err);
-        // ⚠️ NO redirigimos inmediatamente. Dejamos que Angular muestre el mensaje.
+        
       }
     });
   }
@@ -94,7 +93,7 @@ export class ActivacionComponent implements OnInit {
         this.mensaje = '✅ Cuenta activada con éxito. Iniciando sesión...';
         const email = response.email || (response as any).Email;
 
-        // Esperar 1 segundo antes de intentar el login automático
+       
         setTimeout(() => {
           this.autoLogin(email);
         }, 1000);

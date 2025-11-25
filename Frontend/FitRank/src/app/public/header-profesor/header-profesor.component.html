@@ -1,7 +1,7 @@
 <header class="header-profesor d-flex align-items-center justify-content-between px-3">
   <!-- Logo -->
   <div class="d-flex align-items-center gap-2">
-    <button class="btn-menu" (click)="toggleSidebar()">
+    <button class="btn-menu btn-secondary" (click)="toggleSidebar()">
       <i class="bi bi-list"></i>
     </button>
     <img src="assets/img/logo/logo-negro-lila.svg" class="logo" alt="FitRank" (click)="irAlHome()" />
@@ -10,11 +10,11 @@
 
   <!-- Acciones derecha -->
   <div class="acciones d-flex align-items-center gap-3">
-    <button class="btn btn-link text-black" (click)="irA('/solicitudes-profesor')">
+    <button class="btn btn-link text-black btn-secondary" (click)="irA('/solicitudes-profesor')">
       <i class="titulo bi bi-clipboard-check"></i> Solicitudes
     </button>
 
-    <button class="titulo btn btn-link text-black" (click)="irA('rutina/mis-rutinas')">
+    <button class="titulo btn btn-link text-black btn-secondary" (click)="irA('rutina/mis-rutinas')">
       <i class="bi bi-journal-text"></i> Mis Rutinas
     </button>
 
@@ -28,7 +28,7 @@
         {{ notificacionesNuevas }}
       </span>
     </div>
-    <button class="btn-logout" (click)="logout()">
+    <button class="btn-logout btn-secondary" (click)="logout()">
       <i class=" bi-box-arrow-right"></i>
       <span class="titulo">Cerrar Sesión</span>
     </button>
@@ -38,7 +38,7 @@
 <div class="popup-notificaciones" *ngIf="mostrarPopup">
   <div class="popup-header">
     <h4>Notificaciones</h4>
-    <button class="cerrar" (click)="mostrarPopup = false">✖</button>
+    <button class="cerrar btn-secondary" (click)="mostrarPopup = false">✖</button>
   </div>
 
   <div class="popup-body">

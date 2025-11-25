@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule, FormControl } from '@angular/forms';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
@@ -11,6 +11,10 @@ import { SerieService } from '@app/api/services/serie/serie.service';
 import{ Location } from '@angular/common'; 
 import Swal from 'sweetalert2';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
+import { GrupoMuscularDTO } from '@app/api/services/grupoMuscular/grupoMuscular.interface';
+import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscular.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -29,15 +33,19 @@ export class CrearSesionesRutinaComponent implements OnInit {
   filtro: string = '';
 
   solicitudId?: number;
-volverA = '/rutina/mis-rutinas'; // default
+  volverA = '/rutina/mis-rutinas'; // default
 
   form!: FormGroup;
   mostrarSesiones = false;
   sesionActiva = 0;
 
+  gruposMusculares: GrupoMuscularDTO[] = [];
+  grupoSeleccionadoId?: number;
+
   constructor(
     private fb: FormBuilder,
     private ejercicioService: EjercicioService,
+    private grupoMuscularService: GrupoMuscularService,
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
@@ -46,11 +54,12 @@ volverA = '/rutina/mis-rutinas'; // default
     private serieService: SerieService,
     private sesionService: SesionService,
     private cdr: ChangeDetectorRef,
-    private rutinaService: RutinaService
+    private rutinaService: RutinaService,
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-      // lee state pasado en la navegación (más robusto que router.currentNavigation)
+      
   const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
   if (st.socioId) {
     this.socioId = st.socioId;
@@ -77,6 +86,12 @@ volverA = '/rutina/mis-rutinas'; // default
         this.ejerciciosFiltrados = [...this.ejerciciosDisponibles];
       },
       error: (err) => console.error('Error cargando ejercicios', err)
+    });
+
+    // Traer grupos musculares
+    this.grupoMuscularService.obtenerTodos().subscribe({
+      next: grupos => this.gruposMusculares = grupos,
+      error: err => console.error('Error cargando grupos musculares', err)
     });
   }
 
@@ -331,6 +346,61 @@ volverA = '/rutina/mis-rutinas'; // default
   }
   volverAtras(): void {
     this.location.back();
+  }
+
+  get nombreSesionControl(): FormControl {
+    const control = this.sesiones.at(this.sesionActiva)?.get('nombre');
+    if (!control) throw new Error('El control "nombre" no existe');
+    return control as FormControl;
+  }
+
+filtrarPorGrupo(grupoId: number): void {
+  this.grupoSeleccionadoId = grupoId;
+
+  this.ejercicioService.getByGrupoMuscular(grupoId).subscribe({
+    next: ejercicios => this.ejerciciosFiltrados = ejercicios,
+    error: err => console.error('Error filtrando ejercicios', err)
+  });
+}
+
+// crear-sesiones-rutina.component.ts
+recargarEjercicios() {
+  this.ejercicioService.getAll().subscribe(res => {
+    this.ejerciciosFiltrados = res;
+    this.grupoSeleccionadoId = undefined;
+  });
+}
+
+abrirVideo(url: string) {
+  window.open(url, "_blank");
+}
+  esYoutube(url: string): boolean {
+    if (!url) return false;
+    return url.includes("youtube.com") || url.includes("youtu.be");
+  }
+  convertirAEmbed(url: string): string {
+    if (!url) return '';
+
+    // YouTube normal
+    if (url.includes('watch?v=')) {
+      const id = url.split('v=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // YouTube short link
+    if (url.includes('youtu.be/')) {
+      const id = url.split('youtu.be/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // YouTube shorts
+    if (url.includes('/shorts/')) {
+      const id = url.split('/shorts/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // si ya es embed
+    return url;
   }
 
 

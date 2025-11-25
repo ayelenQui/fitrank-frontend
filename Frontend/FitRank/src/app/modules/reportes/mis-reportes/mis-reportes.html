@@ -1,0 +1,36 @@
+<div class="reportes-container">
+  <h2>Mis Reportes</h2>
+
+  <h4>Crear reporte nuevo</h4>
+
+  <form [formGroup]="crearForm" (ngSubmit)="crearReporte()">
+    <label>Título</label>
+    <input type="text" formControlName="titulo" placeholder="Ingresa el título del reporte" />
+
+    <label>Descripción</label>
+    <textarea formControlName="descripcion" rows="5" placeholder="Describe el problema"></textarea>
+
+    <button type="submit" [disabled]="enviando">
+      {{ enviando ? 'Enviando...' : 'Enviar reporte' }}
+    </button>
+  </form>
+
+  <div *ngIf="cargando">Cargando reportes...</div>
+
+  <div *ngIf="!cargando && reportesUsuario.length === 0">
+    <p>No tienes reportes enviados aún.</p>
+  </div>
+
+  <ul class="reportes-list" *ngIf="reportesUsuario.length > 0">
+  <li *ngFor="let rep of reportesUsuario">
+    <strong>{{ rep.titulo }}</strong>
+    <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
+      Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
+    </small>
+    <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
+  </li>
+</ul>
+
+
+  <hr />
+</div>

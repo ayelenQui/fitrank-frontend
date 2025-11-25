@@ -9,6 +9,25 @@
   background: white;
   color: #fff;
 }
+/* Botón logout */
+.btn-logout {
+  background: #7b3fe4;
+  border: none;
+  padding: 10px 18px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* 🟣 SIEMPRE empuja a la derecha */
+}
+
+  .btn-logout:hover {
+    background: #9d61ff;
+    transform: translateY(-2px);
+  }
 
 .layout-sidebar {
   grid-area: sidebar;
@@ -52,3 +71,92 @@
   border-radius: 12px 0 0 0;
   overflow-y: auto;
 }
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-logo {
+  width: 90px;
+  opacity: 0.9;
+  animation: pulseLogo 1.8s infinite ease-in-out;
+}
+
+/* Animación muy suave del logo */
+@keyframes pulseLogo {
+  0% {
+    transform: scale(1);
+    opacity: .85;
+  }
+
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: .85;
+  }
+}
+
+.loading-dots {
+  font-weight: 700;
+  font-size: 22px;
+  color: #7a42f5;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dots::after {
+  content: '';
+  animation: dots 1.4s infinite steps(4);
+  margin-left: 5px;
+  width: 1em;
+  display: inline-block;
+}
+
+@keyframes dots {
+  0% {
+    content: '';
+  }
+
+  33% {
+    content: '.';
+  }
+
+  66% {
+    content: '..';
+  }
+
+  100% {
+    content: '...';
+  }
+}
+.toggle-dark {
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.1);
+  color: #fff;
+}
+
+  .toggle-dark i {
+    font-size: 1.1rem;
+  }
+
+  .toggle-dark:hover {
+    background: rgba(0,0,0,0.25);
+  }

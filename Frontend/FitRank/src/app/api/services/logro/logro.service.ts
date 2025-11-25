@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { LogroRest } from './interfaces/logro.rest';
 import { LogroCrearRest } from './interfaces/logro.crear.rest';
 import { LogroUsuarioDto } from '../socio/interfaces/socio-logro.rest';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class LogroService {
-    private baseUrl ='https://localhost:7226/api'
+  private baseUrl = `${environment.apiUrl}/Logro`;
   private http = inject(HttpClient);
 
   listar(): Observable<LogroRest[]> {

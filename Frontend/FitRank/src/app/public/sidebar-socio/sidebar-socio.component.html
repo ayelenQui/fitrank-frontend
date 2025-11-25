@@ -2,7 +2,7 @@
 <button class="fit-sb-toggle d-md-none" (click)="toggleSidebar()" aria-label="Abrir menú">☰</button>
 
 <!-- Sidebar -->
-<nav class="fit-sidebar" [class.open]="sidebarOpen">
+<nav class="fit-sidebar sidebar" [class.open]="sidebarOpen">
   <div class="fit-sb-header">
     
     <button class="fit-sb-close d-md-none" (click)="closeSidebar()">✕</button>
@@ -13,8 +13,9 @@
     <li><a routerLink="/rutina/mis-rutinas" routerLinkActive="active" (click)="closeSidebar()">Mis rutinas</a></li>
     <li><a routerLink="/rutina/mis-entrenamientos" routerLinkActive="active" (click)="closeSidebar()">Mis entrenamientos</a></li>
     <li><a routerLink="/rutina/crear" routerLinkActive="active" (click)="closeSidebar()">Crear rutina</a></li>
-    <li><a routerLink="/rutina/solicitar" routerLinkActive="active" (click)="closeSidebar()">Solicitar rutina</a></li> 
+    <li><a routerLink="/rutina/solicitar-rutina" routerLinkActive="active" (click)="closeSidebar()">Solicitar rutina</a></li> 
     <li><a routerLink="/socios/1/gimnasios/1/logros" routerLinkActive="active" (click)="closeSidebar()">Mis Logros</a></li>
     <li><a routerLink="/batalla/mis-batallas" routerLinkActive="active" (click)="closeSidebar()">Mis Batallas</a></li>
+    <li><a routerLink="/reportes/mis-reportes" routerLinkActive="active" (click)="closeSidebar()">Mis Reportes</a></li>
   </ul>
 </nav>

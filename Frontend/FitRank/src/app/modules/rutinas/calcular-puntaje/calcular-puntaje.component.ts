@@ -31,36 +31,59 @@ export class CalcularPuntajeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 🔹 Obtener datos del navigation state
+   
     const navigation = history.state;
     this.puntajeEjercicio = navigation.puntaje || 0;
     this.rutinaId = navigation.rutinaId;
 
-    // 🔹 Obtener el socio logueado
+   
     const user = this.auth.obtenerUser();
     this.socioId = user.id;
 
-    // 🔹 Animar el puntaje del ejercicio actual
+
     this.animarPuntaje();
 
-    // 🔹 Cargar el puntaje total del usuario
+    
     this.obtenerPuntajeTotalUsuario();
   }
 
-  volverARutina(): void {
-    if (this.rutinaId) {
-      this.router.navigate(['/rutina/iniciar-rutina', this.rutinaId]);
-    } else {
-      this.router.navigate(['/rutina']);
-    }
+ volverARutina(): void {
+  // Recuperamos state original que nos dio iniciar-rutina
+  const navState: any = history.state || {};
+
+    if (navState.sinEjercicios) {
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
+    this.router.navigate(['/rutina']);
+    return;
   }
 
-  // ✅ Llama al endpoint que trae el puntaje total del socio
+  const rutinaId = navState.rutinaId ?? this.rutinaId;
+  const sesionId = navState.sesionId;
+  const entrenamientoId = navState.entrenamientoId;
+
+  // Navegamos explícitamente de vuelta a iniciar-rutina pasando la info para restaurar
+  if (rutinaId) {
+    const stateToReturn: any = {};
+    if (sesionId) stateToReturn.sesionId = sesionId;
+    if (entrenamientoId) stateToReturn.entrenamientoId = entrenamientoId;
+    // También podríamos reenviar puntaje si queremos, p.ej. stateToReturn.puntaje = this.puntajeEjercicio;
+
+    this.router.navigate(['/rutina/iniciar-rutina', rutinaId], { state: stateToReturn });
+  } else {
+    // fallback a la vista principal de rutinas
+    this.router.navigate(['/rutina']);
+  }
+}
+
+
+
+  
   obtenerPuntajeTotalUsuario(): void {
     if (this.socioId) {
       this.puntajeService.obtenerPuntajeTotal(this.socioId).subscribe({
         next: (data) => {
-          this.puntajeTotalUsuario = Math.round(data); // 🔹 Redondea al entero más cercano
+          this.puntajeTotalUsuario = Math.round(data); 
           console.log('🏋️ Puntaje total del socio:', this.puntajeTotalUsuario);
         },
         error: (err) => console.error('❌ Error al obtener puntaje total:', err)
@@ -70,7 +93,7 @@ export class CalcularPuntajeComponent implements OnInit {
     }
   }
 
-  // ✅ Animación con GSAP (solo una vez)
+  
   animarPuntaje(): void {
     this.puntajeAnimado = 0;
     this.displayPuntaje = 0;

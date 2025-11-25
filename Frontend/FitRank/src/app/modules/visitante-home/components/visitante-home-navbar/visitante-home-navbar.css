@@ -1,19 +1,54 @@
-.nav-item {
-  background-color: white;
-  color: white;
-  border-bottom: 3px solid;
-  font-family: 'Bebas Neue', 'Anton', sans-serif;
-}
-.btn-primary {
-  background-color: #8b52ff;
-  border-color: #8b52ff;
-  
-}
-.nav-link i {
-  transition: color 0.3s ease;
+/* HEADER GLOBAL */
+.fitrank-header {
+  padding: 0.6rem 1rem;
+  height: 65px;
 }
 
-.nav-link:hover i,
-.btn-outline-dark:hover i {
-  color: #8b52ff !important;
+/* LOGO AJUSTE */
+.navbar-brand svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* BOTÓN FITRANK */
+.btn-outline-fitrank {
+  border: 2px solid #8b52ff;
+  color: #8b52ff;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+  .btn-outline-fitrank:hover {
+    background: #8b52ff;
+    color: #fff;
+  }
+
+/* HAMBURGUESA AJUSTADA */
+.navbar-toggler {
+  border: none !important;
+  padding: 4px !important;
+}
+
+/* ICONO DE HAMBURGUESA */
+.navbar-toggler-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .fitrank-header {
+    height: 60px;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .navbar-brand span {
+    font-size: 1.2rem;
+  }
+
+  .btn-outline-fitrank {
+    padding: 0.5rem !important;
+    font-size: 0.9rem !important;
+  }
 }

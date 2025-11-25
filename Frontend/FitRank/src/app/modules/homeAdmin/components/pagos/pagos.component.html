@@ -1,0 +1,143 @@
+<div class="panel-fitrank">
+
+  <!-- HEADER NEGRO -->
+  <div class="panel-header-fitrank">
+    <div>
+      <h3 class="text-titulo fw-bold mb-4">Ingresos</h3>
+      <p class="panel-subtitle-fitrank fw-bold">Resumen financiero del gimnasio</p>
+    </div>
+    <!-- Cuota Actual -->
+    <div class="panel-pill-fitrank ">
+      <h4 class="mb-1 fw-bold mb-4">Cuota mensual</h4>
+      <h2 class="fw-bold">${{ cuotaActual }}</h2>
+    </div>
+  </div>
+
+  <!-- CUERPO -->
+  <div class="panel-body-fitrank">
+
+    <!-- 🔮 SWITCH / FILTROS DE INGRESOS -->
+    <div class="fr-switch mb-4">
+
+      <button class="fr-switch-option btn-secondary"
+              [class.active]="filtroIngresos === 'hoy'"
+              (click)="filtroIngresos = 'hoy'">
+        <i class="bi bi-calendar2-week icon-fr"></i>
+        Hoy
+      </button>
+
+      <button class="fr-switch-option btn-secondary"
+              [class.active]="filtroIngresos === 'mes'"
+              (click)="filtroIngresos = 'mes'">
+        <i class="bi bi-calendar-month icon-fr"></i>
+        Este mes
+      </button>
+
+      <button class="fr-switch-option btn-secondary"
+              [class.active]="filtroIngresos === 'total'"
+              (click)="filtroIngresos = 'total'">
+        <i class="bi bi-graph-up-arrow icon-fr"></i>
+        Totales
+      </button>
+
+    </div>
+
+    <!-- KPIs con switch FitRank -->
+    <div class="ingresos-kpis">
+
+      <button class="ingreso-card-btn btn-secondary"
+              [class.active]="kpiSeleccionado === 'hoy'"
+              (click)="seleccionarKPI('hoy')">
+
+        <div class="kpi-icon"><i class="bi bi-calendar2-week"></i></div>
+        <p class="label">Hoy</p>
+        <h2 class="valor">$ {{ ingresoHoy | number:'1.0-0' }}</h2>
+      </button>
+
+      <button class="ingreso-card-btn btn-secondary"
+              [class.active]="kpiSeleccionado === 'mes'"
+              (click)="seleccionarKPI('mes')">
+
+        <div class="kpi-icon"><i class="bi bi-calendar-month"></i></div>
+        <p class="label">Este mes</p>
+        <h2 class="valor">$ {{ ingresoMes | number:'1.0-0' }}</h2>
+      </button>
+
+      <button class="ingreso-card-btn btn-secondary"
+              [class.active]="kpiSeleccionado === 'total'"
+              (click)="seleccionarKPI('total')">
+
+        <div class="kpi-icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <p class="label">Total histórico</p>
+        <h2 class="valor">$ {{ ingresoTotal | number:'1.0-0' }}</h2>
+      </button>
+
+    </div>
+
+
+    <!-- GRID 2 COLUMNAS -->
+    <div class="ingresos-grid-2">
+
+      <!-- Últimos ingresos -->
+      <div class="panel-card h-100">
+        <h5 class="panel-title mb-3">
+
+          <span class="panel-pill-fitrank">● Actualizado</span>
+        </h5>
+
+        <div *ngFor="let ing of ingresos | slice:0:6" class="ingreso-item text-black">
+          <div class="info">
+            <p class="monto">$ {{ ing.monto }}</p>
+            <small class="detalle">
+              <i class="bi bi-clock"></i> {{ ing.fecha | date:'dd/MM HH:mm' }}
+              • <i class="bi bi-credit-card"></i> {{ ing.metodoPago }}
+            </small>
+            <div *ngIf="ing.observaciones" class="obs">{{ ing.observaciones }}</div>
+          </div>
+
+          <span class="badge confirmado" *ngIf="ing.confirmado">
+            <i class="bi bi-check-circle-fill"></i>
+          </span>
+
+          <span class="badge pendiente" *ngIf="!ing.confirmado">
+            <i class="bi bi-x-circle-fill"></i>
+          </span>
+        </div>
+
+        <div *ngIf="ingresos.length === 0" class="sin-ingresos">
+          <p>No hay ingresos cargados todavía.</p>
+        </div>
+      </div>
+
+      <!-- Métodos de pago -->
+      <div class="panel-card h-100">
+        <h5 class="panel-title mb-3">
+          <i class="bi bi-credit-card-2-front"></i> Métodos de pago
+        </h5>
+
+        <div class="metodos-listv text-black">
+
+          <div class="m-pago">
+            <div class="left">
+              <i class="bi bi-phone-fill mp-icon text-black"></i>
+              <span>Mercado Pago</span>
+            </div>
+            <span class="monto mp-color">$ {{ ingresoMpago | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="m-pago">
+            <div class="left">
+              <i class="bi bi-cash-stack ef-icon text-black"></i>
+              <span>Efectivo</span>
+            </div>
+            <span class="monto ef-color">$ {{ ingresoEfectivo | number:'1.0-0' }}</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

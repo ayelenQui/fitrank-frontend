@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import Swal from 'sweetalert2';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
-
+import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 
 @Component({
   selector: 'app-header-socio',
   templateUrl: './header-socio.component.html',
   styleUrls: ['./header-socio.component.css'],
   standalone: true,
-  imports: [CommonModule, DatePipe]
+  imports: [CommonModule, DatePipe, SidebarSocioComponent]
 })
 export class HeaderSocioComponent implements OnInit {
   @Input() user: any = null;
@@ -28,14 +28,13 @@ export class HeaderSocioComponent implements OnInit {
     this.signalRNoti.notificacion$.subscribe(n => {
       console.log("HEADER recibió:", n);
 
-      // 🟣 guardar notificación para mostrar en la campana
       this.notificaciones.unshift(n);
 
-      // 🟣 activar badge
+     
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-      // 🟣 Popup automático en tiempo real
+      
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -88,7 +87,7 @@ export class HeaderSocioComponent implements OnInit {
     this.hayNotificacionesNuevas = false;
     this.notificacionesNuevas = 0;
     this.mostrarPopup = !this.mostrarPopup; 
-    // abrir popup o sidebar de notificaciones
+   
   }
 
 }

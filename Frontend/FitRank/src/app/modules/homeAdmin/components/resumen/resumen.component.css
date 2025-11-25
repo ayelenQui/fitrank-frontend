@@ -1,320 +1,684 @@
-.dashboard-admin {
-  background: #0f0f11;
-  color: #fff;
-  min-height: 100vh;
-  animation: fadeIn 0.6s ease;
-  font-family: 'Bebas Neue', sans-serif;
+/* ===========================================
+   LAYOUT GENERAL
+=========================================== */
+.dashboard-container {
+  padding: 20px 40px;
 }
 
-.btn-volver {
-  background-color: #f5e085;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-weight: 600;
-  margin: 20px;
-  transition: all 0.3s ease;
-  font-family: 'Bebas Neue', sans-serif;
-}
-
-  .btn-volver:hover {
-    background-color: #f0d769;
-    transform: translateY(-1px);
-    font-family: 'Bebas Neue', sans-serif;
-  }
-
-
-
-/* 🔹 Títulos */
-.titulo-seccion {
-  font-family: 'Bebas Neue', sans-serif;
-  color: #8c52ff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* 🔹 KPIs */
-.card-kpi {
-  background: #1d1d22;
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-  font-family: 'Bebas Neue', sans-serif;
-}
-  .card-kpi h6 {
-    font-family: 'Bebas Neue', sans-serif;
-  }
-
-  .card-kpi:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(140, 82, 255, 0.3);
-  }
-h2 {
-  font-size: 3.8rem;
+.dashboard-title {
+  font-size: 32px;
   font-weight: 700;
-  color: black;
-  font-family: 'Bebas Neue', sans-serif;
+  color: #5B29EC;
+  margin-bottom: 4px;
 }
 
-  .card-kpi h3 {
-    color: #fff;
-    margin: 0.5rem 0;
-  }
-
-  .card-kpi p {
-    color: #b3b3b3;
-    font-size: 0.9rem;
-  }
-
-.icon {
-  font-size: 2rem;
-  color: #8c52ff;
+.dashboard-sub {
+  color: #6e6e6e;
+  font-size: 14px;
 }
 
-
-/* 🔹 Botones rápidos */
-.acciones-rapidas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-family: 'Bebas Neue', sans-serif;
+.sidebar-right {
+  margin-top: 10px;
 }
-
-.btn-accion {
-  flex: 1 1 auto;
-  min-width: 180px;
-  padding: 1rem;
-  border-radius: 12px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  color: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-  .btn-accion .material-symbols-outlined {
-    font-size: 1.5rem;
-  }
-
-/* Colores FitRank */
-.violeta {
-  background: linear-gradient(135deg, #8c52ff, #6f2bff);
-}
-
-.oscuro {
-  background: #222;
-}
-
-.verde {
-  background: linear-gradient(135deg, #2ecc71, #1eaa5b);
-}
-
-.celeste {
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-}
-h6 {
-  font-family: 'Bebas Neue', sans-serif;
-}
-.btn-accion:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
-}
-.chart-card {
+/* ───────────────────────────────────────────────
+   MINI-CHART BOX — Mantiene tamaño PRO 
+──────────────────────────────────────────────── */
+.mini-chart-box {
+  background: #fff;
   border-radius: 16px;
-  border: none;
-  overflow: hidden;
-  animation: fadeIn 0.6s ease;
-}
-
-  .chart-card .card-header {
-    border-bottom: 1px solid #eee;
-  }
-
-.text-fitrank {
-  color: #8c52ff !important;
-}
-
-/* 🔹 Placeholder general */
-.chart-placeholder {
-  height: 240px;
+  padding: 20px;
+  width: 100%;
+  min-height: 260px; /* Altura uniforme */
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+  /* Para que NO se estire en vertical */
+  .mini-chart-box canvas {
+    max-height: 180px;
+    width: 100% !important;
+    height: 180px !important;
+  }
+
+/* Título del mini gráfico */
+.mini-chart-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+/* Switch group */
+.switch-group {
+  display: flex;
+  gap: 10px;
+}
+
+.switch-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: #e6e6e6;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+  color: #000;
+}
+
+  .switch-btn.active {
+    background: #8B52FF;
+    color: #fff;
+  }
+
+/* Ajuste para que cada gráfico no expanda la columna */
+.panel-box .row > div {
+  width: 100%;
+}
+
+/* Espaciado perfecto entre mini-graficos */
+.panel-box .g-3 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+/* ===========================================
+   KPI BOXES
+=========================================== */
+.kpi-box,
+.kpi-box-riesgo {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+}
+
+  .kpi-box:hover,
+  .kpi-box-riesgo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  }
+
+.kpi-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #000;
+}
+
+.kpi-growth-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* CONTENEDOR DE BOTONES */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 🔵 BOTÓN OUTLINE – estilo FitRank */
+.btn-outline {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  color: black;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+    color: black;
+    border-color: #7B3FE4;
+    box-shadow: 0 4px 10px rgba(123,63,228,0.35);
+    transform: translateY(-1px);
+  }
+
+/* 🟣 BOTÓN PRIMARY – violeta FitRank */
+.btn-primary {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .25s ease;
+  box-shadow: 0 4px 12px rgba(123,63,228,0.35);
+}
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #9A63FF, #B186FF);
+    box-shadow: 0 6px 14px rgba(123,63,228,0.45);
+    transform: translateY(-2px);
+  }
+
+
+/* Barra progreso KPIs */
+.kpi-progress {
+  height: 6px;
+  background: #ece4ff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.kpi-progress-bar {
+  height: 100%;
+  background: #9c5bff;
+  border-radius: 10px;
+}
+
+/* ===========================================
+   PANEL BOXES
+=========================================== */
+.panel-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  margin-bottom: 20px;
+  transition: 0.2s ease;
+}
+
+  .panel-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  }
+
+.mini-chart-box {
+  background: #fff;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.mini-chart-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+/* ===========================================
+   TITULOS DE PANELES
+=========================================== */
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+.panel-sub {
+  font-size: 14px;
+  color: #777;
+}
+
+/* CONTENEDOR DEL GRÁFICO */
+.mini-chart-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  height: 260px; /* 👈 Tamaño controlado */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+  /* CANVAS PEQUEÑO */
+  .mini-chart-box canvas {
+    height: 180px !important; /* 👈 Tamaño real del gráfico */
+    width: 100% !important;
+  }
+
+
+/* ===========================================
+   LIST ITEMS (Socios riesgo / solicitudes)
+=========================================== */
+.list-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f7f3ff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-/* 🔹 Barras mockeadas */
-.chart-bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  width: 100%;
-  height: 200px;
-  margin-top: 1rem;
-  gap: 8px;
+.item-title {
+  font-weight: 600;
 }
 
-.bar {
-  width: 24px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  animation: growUp 1.4s ease-in-out;
+.item-sub {
+  font-size: 13px;
+  color: #777;
 }
 
-  /* 💰 Ingresos */
-  .bar.ingreso {
-    background: linear-gradient(135deg, #8c52ff, #6f2bff);
-    box-shadow: 0 4px 10px rgba(140, 82, 255, 0.3);
-  }
-
-  /* 🏋️ Asistencias */
-  .bar.asistencia {
-    background: black;
-    box-shadow: 0 4px 10px rgba(0, 201, 167, 0.3);
-  }
-
-  /* Hover dinámico */
-  .bar:hover {
-    transform: scale(1.08);
-    opacity: 0.9;
-  }
-
-/* 🔹 Etiquetas de meses */
-.chart-labels {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  color: #555;
-  font-size: 0.9rem;
-  font-weight: 500;
+/* ===========================================
+   BADGES
+=========================================== */
+.badge {
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 12px;
 }
 
-/* 🔹 Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.badge-entrada {
+  background: #d7f9d7;
+  color: #228b22;
 }
 
-@keyframes growUp {
-  from {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-
-  to {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+.badge-salida {
+  background: #ffe6e6;
+  color: #d43f3a;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .chart-placeholder {
-    height: 180px;
-  }
-
-  .bar {
-    width: 16px;
-  }
-}
-
-/* 🔹 Paneles */
-.card-panel {
-  background: #1d1d22;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 0.8s ease;
-}
-
-.titulo-panel {
-  font-family: 'Bebas Neue', sans-serif;
-  color: #b18aff;
-}
-
-/* 🔹 Tabla ranking */
-.table-dark {
+/* ===========================================
+   BOTÓN LINK
+=========================================== */
+.btn-link {
+  color: #7d3bea;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
   background: transparent;
 }
 
-  .table-dark th {
-    color: #8c52ff;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
+/* ===========================================
+   CALENDARIO
+=========================================== */
+.small-calendar-box {
+  padding: 20px;
+  border-radius:1px;
+}
 
-  .table-dark td {
-    color: #eaeaea;
-  }
+.calendar-nav button {
+  border-radius: 10px !important;
+}
 
-/* 🔹 Accesos rápidos */
-.grid-accesos {
+.calendar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  font-size: 13px;
 }
 
-.acceso-card {
-  background: #24242b;
-  border-radius: 12px;
-  padding: 1rem;
+.day-header {
   text-align: center;
-  color: #ccc;
+  font-weight: 600;
+  color: #777;
+}
+
+.day-cell {
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.15s;
 }
 
-  .acceso-card:hover {
-    background: #8c52ff;
-    color: #fff;
-    transform: translateY(-4px);
+  .day-cell:hover {
+    background: #f1e5ff;
   }
 
-  .acceso-card .material-symbols-outlined {
-    font-size: 2rem;
-    margin-bottom: 4px;
+  .day-cell.today {
+    background: #9c5bff;
+    color: white;
+    font-weight: 700;
   }
 
-/* 🔹 Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+/* ===========================================
+   ACTIVIDAD EN TIEMPO REAL
+=========================================== */
+.activity-panel {
+  padding: 0;
+  overflow: hidden;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.activity-header {
+  background: #000;
+  padding: 14px 18px;
+  border-radius: 18px 18px 0 0;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .acciones-rapidas {
+.activity-pill {
+  background: #7FFF00;
+  color: black;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.activity-content {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+}
+
+/* Caja del mapa */
+.activity-map {
+  position: relative;
+  flex: 1;
+  height: 260px;
+  background: #f7f3ff;
+  border-radius: 16px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.activity-map-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.map-label {
+  color: #555;
+}
+
+.map-count {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5B29EC;
+}
+
+/* PINS */
+.activity-pin-real {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.pin-foto {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pin-tooltip {
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  margin-top: 4px;
+}
+
+/* Lista actividad */
+.activity-list {
+  flex: 1;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.ocupacion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.header-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.activity-name {
+  font-size: 14px;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Badge en lista de actividad */
+.activity-badge {
+  font-size: 11px;
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+@media (max-width: 991px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  .activity-content {
     flex-direction: column;
+  }
+
+  .activity-map,
+  .activity-list {
+    max-height: none;
+  }
+}
+/* CONTENEDOR DEL SWITCH */
+.switch-group {
+  display: inline-flex;
+  background: #f3ecff;
+  padding: 4px;
+  border-radius: 999px;
+  gap: 4px;
+}
+
+/* ======== SWITCH TABS (mismo estilo que Máquinas/Ejercicios) ======== */
+.switch-group {
+  display: inline-flex;
+  background: #f3ecff;
+  padding: 4px;
+  border-radius: 999px;
+  gap: 4px;
+}
+
+.switch-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+  .switch-btn.active {
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #7d3bea;
+    font-weight: 600;
+  }
+.switch-group {
+  display: flex;
+  gap: 10px;
+}
+
+.switch-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #1b1b1b;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+  .switch-btn.active {
+    background: #8B52FF;
+    border-color: #8B52FF;
+  }
+
+.rutina-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+  .rutina-card h4 {
+    margin: 0 0 4px;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+.favoritos {
+  color: #8B52FF;
+  font-weight: 600;
+}
+
+.no-data {
+  color: #666;
+  margin-bottom: 12px;
+}
+/* ===========================================
+   RESPONSIVE GENERAL (CELULAR Y TABLET)
+=========================================== */
+
+@media (max-width: 768px) {
+
+  /* Contenedor general más comprimido */
+  .dashboard-container {
+    padding: 12px;
+  }
+
+  /* Títulos más chicos */
+  .dashboard-title {
+    font-size: 24px;
+  }
+
+  .dashboard-sub {
+    font-size: 13px;
+  }
+
+  /* KPI BOX — columnas en una sola columna */
+  .kpi-box,
+  .kpi-box-riesgo {
+    margin-bottom: 12px;
+  }
+
+  /* Paneles ocupan toda la pantalla */
+  .panel-box {
+    padding: 16px;
+  }
+
+  /* Mini chart: altura ajustada para celular */
+  .mini-chart-box {
+    min-height: 200px;
+    padding: 12px;
+  }
+
+    .mini-chart-box canvas {
+      height: 150px !important;
+    }
+
+  /* Switch group más compacto */
+  .switch-group {
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .switch-btn {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  /* Actividad en tiempo real: se apilan */
+  .activity-content {
+    flex-direction: column;
+  }
+
+  .activity-map {
+    height: 220px;
+  }
+
+  .activity-list {
+    max-height: 200px;
+  }
+
+  /* Lista de actividad */
+  .ocupacion-item {
+    padding: 10px 4px;
+  }
+
+  /* Calendario ordenador vertical */
+  .calendar-grid {
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .day-cell {
+    padding: 5px 0;
+  }
+
+  /* Botones */
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* Contenedor de botones en paneles */
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    margin-top: 10px;
+  }
+}
+
+/* ===========================================
+   EXTRA SMALL (CELULAR MUY CHICO)
+=========================================== */
+@media (max-width: 480px) {
+
+  .dashboard-title {
+    font-size: 20px;
+  }
+
+  .mini-chart-title {
+    font-size: 16px;
+  }
+
+  .panel-title {
+    font-size: 16px;
+  }
+
+  .panel-sub {
+    font-size: 12px;
+  }
+
+  /* Ajustar padding en paneles */
+  .panel-box {
+    padding: 14px;
+  }
+
+  .kpi-value {
+    font-size: 22px;
+  }
+
+  .activity-map {
+    height: 200px;
   }
 }

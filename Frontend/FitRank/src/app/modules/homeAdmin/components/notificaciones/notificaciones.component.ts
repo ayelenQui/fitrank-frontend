@@ -15,6 +15,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./notificaciones.component.css']
 })
 export class NotificacionesComponent implements OnInit {
+  modo: 'profesores' | 'socios' = 'profesores';
+  showModal: 'individual' | 'masiva' | null = null;
+
+  usuarioSeleccionado: number | null = null;
+
 
   usuariosOriginal: UsuarioNotificacion[] = [];
   profesores: UsuarioNotificacion[] = [];
@@ -25,7 +30,7 @@ export class NotificacionesComponent implements OnInit {
   historial: HistorialNoti[] = [];
   mostrarHistorial = false;
 
-  usuarioSeleccionado: number | null = null;
+ 
   titulo = '';
   mensaje = '';
   loading = false;

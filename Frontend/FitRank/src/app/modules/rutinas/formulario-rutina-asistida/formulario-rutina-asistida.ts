@@ -7,6 +7,7 @@ import { CrearSolicitudRutinaProfesorDTO } from '@app/api/services/rutina/interf
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { GeneralLayoutComponent } from '@app/layouts/general-layout/general-layout.component';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-rutina-asistida',
@@ -71,28 +72,55 @@ constructor(
     });
   }
 
-  enviar(): void {
-    if (this.solicitudForm.invalid) {
-      this.solicitudForm.markAllAsTouched();
-      return;
-    }
-
-    const dto: CrearSolicitudRutinaProfesorDTO = {
-      ...this.solicitudForm.value
-    };
-
-    this.enviando = true;
-    this.rutinaService.solicitarRutinaAsistida(this.usuarioId, dto).subscribe({
-      next: () => {
-        this.enviando = false;
-        alert('Solicitud enviada correctamente');
-        this.router.navigate(['/rutina/mis-rutinas']);
-      },
-      error: (err) => {
-        this.enviando = false;
-        console.error(err);
-        alert('Error al enviar solicitud');
-      }
-    });
+enviar(): void {
+  if (this.solicitudForm.invalid) {
+    this.solicitudForm.markAllAsTouched();
+    return;
   }
+
+  const dto: CrearSolicitudRutinaProfesorDTO = {
+    ...this.solicitudForm.value
+  };
+
+  this.enviando = true;
+
+  this.rutinaService.solicitarRutinaAsistida(this.usuarioId, dto).subscribe({
+    next: () => {
+      this.enviando = false;
+
+      Swal.fire({
+        title: 'Solicitud enviada',
+        text: 'Tu solicitud de rutina asistida se envió correctamente.',
+        icon: 'success',
+        imageUrl: 'assets/img/logo/logo-negro-lila.svg',
+        imageWidth: 80,
+        imageHeight: 80,
+        confirmButtonColor: '#8c52ff',
+        confirmButtonText: 'Aceptar',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      }).then(() => {
+        this.router.navigate(['/rutina/mis-rutinas']);
+      });
+    },
+    error: (err) => {
+      this.enviando = false;
+      console.error(err);
+
+      Swal.fire({
+        title: 'Error al enviar solicitud',
+        text: err?.error?.mensaje || 'Ocurrió un problema al enviar la solicitud. Intentá nuevamente.',
+        icon: 'error',
+        confirmButtonColor: '#8c52ff',
+        confirmButtonText: 'Reintentar',
+        footer: '<small>Si el problema persiste, contactá al administrador.</small>'
+      });
+    }
+  });
+}
+
 }

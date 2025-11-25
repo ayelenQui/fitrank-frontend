@@ -1,74 +1,149 @@
-<div class="container py-4">
-  <h2 class="text-center text-black fw-bold mb-4"> Gestión de Profesores</h2>
-  <div class="container mt-4 mb-5">
-    <h3 class="text-black fw-bold mb-4"> Estadísticas de Profesores</h3>
+<div class="container  p-2 m-2">
 
-    <div class="row g-3">
-      <!-- 🟣 Más solicitado -->
-      <div class="col-md-3 col-6" *ngIf="estadisticas?.topSolicitado">
-        <div class="card-stat text-black">
-          <h6>Más solicitado</h6>
-          <p class="nombre">{{ estadisticas?.topSolicitado?.nombreProfesor }}</p>
-          <p class="valor">{{ estadisticas?.topSolicitado?.cantidadSolicitudes }} solicitudes</p>
-        </div>
-      </div>
+  <!-- 🟪 Título -->
+  <h2 class="text-titulo  fw-bold mb-4">Gestión de Profesores</h2>
 
-      <!-- 🟡 Más pendientes -->
-      <div class="col-md-3 col-6" *ngIf="estadisticas?.topPendientes">
-        <div class="card-stat text-black">
-          <h6>Más pendientes</h6>
-          <p class="nombre">{{ estadisticas?.topPendientes?.nombreProfesor }}</p>
-          <p class="valor">{{ estadisticas?.topPendientes?.pendientes }} en espera</p>
-        </div>
-      </div>
+  <!-- 🔮 SWITCH FITRANK -->
+  <<div class="fr-switch mb-4">
 
-      <!-- 🟢 Más cumplidor -->
-      <div class="col-md-3 col-6" *ngIf="estadisticas?.topCumplidor">
-        <div class="card-stat text-black">
-          <h6>Más cumplidor</h6>
-          <p class="nombre">{{ estadisticas?.topCumplidor?.nombreProfesor }}</p>
-          <p class="valor">{{ estadisticas?.topCumplidor?.completadas }} resueltas</p>
-        </div>
-      </div>
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'estadisticas'"
+            (click)="vista = 'estadisticas'">
 
-      <!-- 💜 Mejor valorado -->
-      <div class="col-md-3 col-6" *ngIf="estadisticas?.topValorado">
-        <div class="card-stat text-black">
-          <h6>Mejor valorado</h6>
-          <p class="nombre">{{ estadisticas?.topValorado?.nombreProfesor }}</p>
-          <p class="valor">⭐ {{ estadisticas?.topValorado?.promedioValoracion }}</p>
-        </div>
-      </div>
-    </div>
+      <i class="bi bi-bar-chart-line icon-fr"></i>
+      Estadísticas
+    </button>
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'listado'"
+            (click)="vista = 'listado'">
+
+      <i class="bi bi-table icon-fr"></i>
+      Listado
+    </button>
+
+    <button class="fr-switch-option btn-secondary"
+            [class.active]="vista === 'nuevo'"
+            (click)="abrirFormulario(); vista = 'nuevo'">
+
+      <i class="bi bi-person-plus icon-fr"></i>
+      Nuevo Profesor
+    </button>
+
   </div>
 
 
-  <!-- 🟣 FORMULARIO DE PROFESOR -->
-  <div *ngIf="mostrarFormulario" class="card bg-dark text-white p-4 mb-4 rounded-4">
-    <h4 class="mb-3">{{ profesorSeleccionado ? '✏️ Editar Profesor' : '➕ Nuevo Profesor' }}</h4>
+  <!-- ==============================
+       📊 ESTADÍSTICAS
+  =============================== -->
+   <div *ngIf="vista === 'estadisticas'" class="panel-fitrank mt-4 mb-4">
+     <h3 class="text-black fw-bold mb-4">Estadísticas de Profesores</h3>
+
+     <div class="row g-3">
+
+       <!-- 🟣 Más solicitado -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank text-black">
+           <h6>Más solicitado</h6>
+           <p class="nombre">
+             {{ estadisticas?.topSolicitado?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topSolicitado?.cantidadSolicitudes || 0 }} solicitudes
+           </p>
+         </div>
+       </div>
+
+
+       <!-- 🟡 Más pendientes -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank text-black">
+           <h6>Más pendientes</h6>
+           <p class="nombre">
+             {{ estadisticas?.topPendientes?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topPendientes?.pendientes || 0 }} en espera
+           </p>
+         </div>
+       </div>
+
+       <!-- 🟢 Más cumplidor -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank text-black">
+           <h6>Más cumplidor</h6>
+           <p class="nombre">
+             {{ estadisticas?.topCumplidor?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             {{ estadisticas?.topCumplidor?.completadas || 0 }} resueltas
+           </p>
+         </div>
+       </div>
+
+
+       <!-- 💜 Mejor valorado -->
+       <div class="col-md-3 col-6">
+         <div class="card-stat-fitrank">
+           <h6>Mejor valorado</h6>
+           <p class="nombre">
+             {{ estadisticas?.topValorado?.nombreProfesor || 'Sin datos todavía' }}
+           </p>
+           <p class="valor">
+             ⭐ {{ estadisticas?.topValorado?.promedioValoracion || 0 }}
+           </p>
+         </div>
+       </div>
+
+     </div>
+   </div>
+  <div class="input-group d-flex justify-content-between mb-3 flex-wrap gap-2">
+    <input type="text"
+           class="form-control flex-grow-1"
+           placeholder="Buscar profesor..."
+           [(ngModel)]="filtro"
+           (input)="filtrarProfesores()">
+
+    <button class="btn-primary-fitrank btn-secondary" (click)="abrirFormulario(); vista = 'nuevo'">
+      Nuevo Profesor
+    </button>
+  </div>
+  <!-- ==============================
+       ➕ NUEVO PROFESOR / EDITAR
+  =============================== -->
+  <div *ngIf="vista === 'nuevo'" class="card-form-fitrank p-4 mb-4">
+    <h4 class="text-formu mb-3 ">
+      {{ profesorSeleccionado ? '✏️ Editar Profesor' : ' Agregar Profesor' }}
+    </h4>
 
     <form [formGroup]="formProfesor" (ngSubmit)="guardarProfesor()">
+
       <div class="row g-3">
         <div class="col-md-6">
           <label>Nombre</label>
           <input type="text" class="form-control" formControlName="nombre">
         </div>
+
         <div class="col-md-6">
           <label>Apellido</label>
           <input type="text" class="form-control" formControlName="apellido">
         </div>
+
         <div class="col-md-6">
           <label>DNI</label>
           <input type="number" class="form-control" formControlName="dni">
         </div>
+
         <div class="col-md-6">
           <label>Email</label>
           <input type="email" class="form-control" formControlName="email">
         </div>
+
         <div class="col-md-6">
           <label>Teléfono</label>
           <input type="text" class="form-control" formControlName="telefono">
         </div>
+
         <div class="col-md-6">
           <label>Sexo</label>
           <select class="form-select" formControlName="sexo">
@@ -78,18 +153,22 @@
             <option value="Otro">Otro</option>
           </select>
         </div>
+
         <div class="col-md-6">
           <label>Fecha Nacimiento</label>
           <input type="date" class="form-control" formControlName="fechaNacimiento">
         </div>
+
         <div class="col-md-6">
           <label>Matrícula</label>
           <input type="text" class="form-control" formControlName="matricula">
         </div>
+
         <div class="col-md-6">
           <label>Sueldo</label>
           <input type="number" class="form-control" formControlName="sueldo">
         </div>
+
         <div class="col-md-6" *ngIf="!profesorSeleccionado">
           <label>Contraseña</label>
           <input type="password" class="form-control" formControlName="password">
@@ -97,125 +176,93 @@
       </div>
 
       <div class="mt-4 d-flex justify-content-end gap-2">
-        <button type="submit" class="btn btn-fitrank">
+        <button class="btn-primary-fitrank btn-secondary" type="submit">
           {{ profesorSeleccionado ? 'Guardar Cambios' : 'Agregar Profesor' }}
         </button>
-        <button type="button" class="btn btn-secondary" (click)="cancelarFormulario()">Cancelar</button>
+
+        <button type="button" class="btn-outline-fitrank btn-secondary" (click)="cancelarFormulario()">Cancelar</button>
       </div>
+
     </form>
   </div>
 
-  <!-- 🔍 FILTRO -->
-  <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
-    <input type="text"
-           class="form-control w-auto flex-grow-1"
-           placeholder="Buscar por nombre o apellido..."
-           [(ngModel)]="filtro"
-           (input)="filtrarProfesores()">
+  <!-- ==============================
+       📋 LISTADO
+  =============================== -->
+  <<div *ngIf="vista === 'listado'">
 
-    <button class="btn btn-fitrank" (click)="abrirFormulario()">➕ Nuevo Profesor</button>
-  </div>
+    <!-- 🟪 PANEL ESTILO FITRANK -->
+    <div class="panel-fitrank">
 
-  <!-- 📋 LISTADO -->
-  <div class="table-responsive">
-    <table class="table table-dark table-hover align-middle">
-      <thead class="bg-fitrank text-white">
-        <tr>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>Matrícula</th>
-          <th>Sueldo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
+      <!-- HEADER NEGRO -->
+      <div class="panel-header-fitrank">
+        <div>
+          <h3 class="panel-title-fitrank">Profesores</h3>
+          <p class="panel-subtitle-fitrank">Listado completo del gimnasio</p>
+        </div>
 
-      <tbody>
-        <ng-container *ngFor="let profesor of profesoresFiltrados">
+        <span class="panel-pill-fitrank">● Activos</span>
+      </div>
 
-          <!-- 🔹 Fila principal -->
-          <tr>
-            <td>{{ profesor.nombre }} {{ profesor.apellido }}</td>
-            <td>{{ profesor.email }}</td>
-            <td>{{ profesor.telefono || '-' }}</td>
-            <td>{{ profesor.matricula }}</td>
-            <td>${{ profesor.sueldo }}</td>
-            <td>
-              <div class="d-flex flex-wrap gap-2">
-                <button class="btn btn-sm btn-outline-info" (click)="verRutinas(profesor)">
-                  🏋️ Ver Rutinas
-                </button>
-                <button class="btn btn-sm btn-outline-light" (click)="editarProfesor(profesor)">
-                  ✏️ Editar
-                </button>
-                <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.id)">
-                  🗑️ Eliminar
-                </button>
-              </div>
-            </td>
-          </tr>
+      <!-- FILTRO DE BÚSQUEDA -->
+      <div class="panel-body-fitrank">
 
-          <!-- 🔽 Bloque expandido -->
-          <tr *ngIf="profesorExpandido === profesor.id">
-            <td colspan="6">
-              <div class="card bg-dark text-white p-3 mt-3 rounded-4 border border-secondary">
-                <div class="row">
-                  <div class="col-md-4 text-center">
-                    <img [src]="profesor.fotoDePerfil || 'assets/img/default-user.jpg'"
-                         alt="Foto"
-                         class="rounded-circle border border-light mb-3"
-                         width="100" height="100">
-                    <p><strong>Sexo:</strong> {{ profesor.sexo }}</p>
-                    <p><strong>Edad:</strong> {{ calcularEdad(profesor.fechaNacimiento) }} años</p>
-                    <p><strong>Estado:</strong> {{ profesor.estado }}</p>
-                  </div>
+        
 
-                  <div class="col-md-8">
-                    <p><strong>Email:</strong> {{ profesor.email }}</p>
-                    <p>
-                      <strong>Teléfono:</strong> {{ profesor.telefono || 'No disponible' }}
-                      <button *ngIf="profesor.telefono"
-                              class="btn btn-success btn-sm ms-2"
-                              (click)="abrirWhatsApp(profesor.telefono, profesor.nombre)">
-                        <i class="bi bi-whatsapp"></i> WhatsApp
+        <!-- TABLA -->
+        <div class="table-wrapper-fitrank">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Matrícula</th>
+                <th>Sueldo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container *ngFor="let profesor of profesoresFiltrados">
+                <tr>
+                  <td>{{ profesor.nombre }} {{ profesor.apellido }}</td>
+                  <td>{{ profesor.email }}</td>
+                  <td>{{ profesor.telefono || '-' }}</td>
+                  <td>{{ profesor.matricula }}</td>
+                  <td>${{ profesor.sueldo }}</td>
+
+                  <td>
+                    <div class="d-flex gap-2 flex-wrap">
+
+                      <button class="btn-tag-info btn-secondary" (click)="verRutinas(profesor)">
+                        <i class="bi bi-list-check action-icon"></i>
+                        Rutinas
                       </button>
-                    </p>
 
-                    <p><strong>Gimnasio:</strong> {{ profesor.gimnasioNombre || 'Sin asignar' }}</p>
-                    <p><strong>Matrícula:</strong> {{ profesor.matricula }}</p>
-                    <p><strong>Sueldo:</strong> ${{ profesor.sueldo }}</p>
-                  </div>
-                </div>
+                      <button class="btn-tag-light btn-secondary" (click)="editarProfesor(profesor)">
+                        <i class="bi bi-pencil action-icon"></i>
+                        Editar
+                      </button>
 
-                <!-- 🏋️ Rutinas -->
-                <div class="mt-4">
-                  <h5 class="text-white mb-3">Rutinas creadas</h5>
+                      <button class="btn-tag-danger" (click)="eliminarProfesor(profesor.id)">
+                        <i class="bi bi-trash action-icon"></i>
+                        Eliminar
+                      </button>
 
-                  <div *ngIf="profesor.rutinas?.length; else sinRutinas" class="row g-3">
-                    <div *ngFor="let r of profesor.rutinas" class="col-md-4 col-12">
-                      <div class="bg-secondary p-3 rounded-3">
-                        <h6 class="fw-bold">{{ r.nombre }}</h6>
-                        <p class="small mb-1">{{ r.descripcion || 'Sin descripción' }}</p>
-                        <p class="small mb-1"><strong>Socio:</strong> {{ r.socioNombre || 'No asignado' }}</p>
-                        <p class="small mb-1"><strong>Tipo:</strong> {{ r.tipo || 'Manual' }}</p>
-                        <p class="small mb-1"><strong>Creada:</strong> {{ r.fechaCreacion | date:'dd/MM/yyyy' }}</p>
-                        <span class="badge" [ngClass]="r.activa ? 'bg-success' : 'bg-secondary'">
-                          {{ r.activa ? 'Activa' : 'Inactiva' }}
-                        </span>
-                      </div>
                     </div>
-                  </div>
+                  </td>
 
-                  <ng-template #sinRutinas>
-                    <p class="text-muted text-center mt-2">No tiene rutinas creadas aún.</p>
-                  </ng-template>
-                </div>
-              </div>
-            </td>
-          </tr>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
 
-        </ng-container>
-      </tbody>
-    </table>
+      </div>
+
+    </div>
+
   </div>
+
 </div>

@@ -1,4 +1,4 @@
-<button type="button" class="btn-volver" (click)="volverAtras()">
+<button type="button" class="btn-volver btn-secondary" (click)="volverAtras()">
   Volver
 </button>
 
@@ -22,19 +22,19 @@
 
       <!-- 📊 Panel de estadísticas -->
       <div class="stats-container d-flex flex-wrap justify-content-center gap-3 mt-4">
-        <button class="stat-card bg-white">
+        <button class="stat-card bg-white btn-secondary">
           <span class="stat-number">{{ totalRutinas }}</span>
           <span class="text-black stat-label">
             {{ rol === 'profesor' ? 'Rutinas creadas' : 'Rutinas asignadas' }}
           </span>
         </button>
 
-        <button class="stat-card active bg-white">
+        <button class="stat-card active bg-white btn-secondary">
           <span class="stat-number">{{ rutinasActivas }}</span>
           <span class="text-black stat-label">Activas</span>
         </button>
 
-        <button class="stat-card inactive bg-white">
+        <button class="stat-card inactive bg-white btn-secondary">
           <span class="stat-number">{{ rutinasInactivas }}</span>
           <span class="text-black stat-label">Inactivas</span>
         </button>
@@ -134,8 +134,7 @@
               </span>
             </button>
              <!-- ▶ Iniciar solo SOCIO -->
-            <button *ngIf="rol === 'socio'" class="btn btn-fitrank btn-sm fw-bold"
-                    (click)="iniciarRutina(r)">
+            <button *ngIf="rol === 'socio'" class="btn btn-fitrank btn-sm fw-bold btn-secondary" (click)="iniciarRutina(r)">
               <span class="material-symbols-outlined fs-6 align-middle me-1">play_arrow</span>
               Iniciar
             </button>
@@ -156,8 +155,8 @@
     <!-- 🔹 Mensaje si no hay rutinas -->
     <div *ngIf="!loading && !error && rutinas.length === 0" class="text-center text-muted mt-4">
       <p>{{ rol === 'profesor' ? 'No creaste rutinas todavía.' : 'Aún no tenés rutinas creadas.' }}</p>
-      <button class="btn btn-fitrank-light" (click)="crearRutina()">
-        ➕ {{ rol === 'profesor' ? 'Crear nueva rutina' : 'Crear mi primera rutina' }}
+      <button class="btn btn-fitrank-light btn-secondary" (click)="crearRutina()">
+         {{ rol === 'profesor' ? 'Crear nueva rutina' : 'Crear mi primera rutina' }}
       </button>
     </div>
   </div>

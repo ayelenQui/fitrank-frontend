@@ -18,6 +18,24 @@ export interface Socio {
   puntaje: number;                   
 }
 
+export interface SocioDTO {
+  id: number;
+  nombre: string;
+  apellido: string;
+  nivel: string;
+  fotoUrl?: string | null;
+  cuotaPagadaHasta?: string | null;
+  fechaRegistro?: string | null;
+  gimnasioNombre?: string | null;
+  gimnasioId?: number;
+  altura?: number;
+  peso?: number;
+  puntaje?: number;
+  dni?: number;
+  nombreUsuario?: string;
+  sexo?: string;
+  qrToken?: string;
+}
 export interface CreateSocioRequest {
   nombre: string;                    
   apellido: string;                  

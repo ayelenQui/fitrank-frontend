@@ -1,27 +1,451 @@
-.socios-page {
-  background-color: #f7f6f8;
-  min-height: 100vh;
+/* ===============================
+    PALETA FITRANK
+================================*/
+:root {
+  --fitrank-violet: #7a4cff;
+  --fitrank-violet-dark: #6939e6;
+  --fitrank-light: #f8f7ff;
+  --fitrank-gray: #f3f3f3;
+  --fitrank-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-.btn-primary {
-  background-color: #5911d4;
-  border: none;
+.text-titulo {
+  text-align: center;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 50px;
+}
+/* PANEL GENERAL */
+.panel-fitrank {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
 }
 
-  .btn-primary:hover {
-    background-color: #4a0eb3;
+/* HEADER NEGRO */
+.panel-header-fitrank {
+  background: #000;
+  color: #fff;
+  padding: 20px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title-fitrank {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.panel-subtitle-fitrank {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* PILL */
+.panel-pill-fitrank {
+  background: #b2ff59;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* CUERPO */
+.panel-body-fitrank {
+  padding: 24px;
+}
+
+/* TABLA */
+.table-wrapper-fitrank {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+
+  .table-wrapper-fitrank thead {
+    background: #7B3FE4;
+    color: white;
   }
 
-.table thead th {
-  color: #666;
+    .table-wrapper-fitrank thead th {
+      padding: 14px;
+    }
+
+  .table-wrapper-fitrank tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  .table-wrapper-fitrank tbody tr:hover {
+    background: #f4ecff;
+  }
+
+  /* Íconos negros */
+  .panel-header-fitrank i,
+  .table-wrapper-fitrank th i {
+    color: #000 !important;
+  }
+
+
+/* ===============================
+    BOTONES
+================================*/
+.btn-violet {
+  background: var(--fitrank-violet);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+  .btn-violet:hover {
+    background: var(--fitrank-violet-dark);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--fitrank-shadow);
+  }
+
+.btn-outline-violet {
+  border: 2px solid var(--fitrank-violet);
+  color: var(--fitrank-violet);
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+  .btn-outline-violet:hover {
+    background: var(--fitrank-violet);
+    color: white;
+  }
+
+/* ===============================
+    TABLA
+================================*/
+.table-hover tbody tr:hover {
+  background: #faf8ff;
+  transition: 0.15s ease;
+  padding: 6px;
+}
+
+.table th {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.tabla-scroll {
+  max-height: 550px;
+  overflow-y: auto;
+  border-radius: 12px;
+}
+
+  .tabla-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .tabla-scroll::-webkit-scrollbar-thumb {
+    background: var(--fitrank-violet);
+    border-radius: 8px;
+  }
+
+/* ===============================
+    BADGES
+================================*/
+.bg-violet {
+  background: var(--fitrank-violet) !important;
+  color: #fff !important;
+  padding: 6px 10px;
+  border-radius: 8px;
   font-weight: 600;
+  box-shadow: 0 0 10px rgba(122, 76, 255, 0.4);
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 0.4em 0.75em;
+/* ===============================
+    DRAWER LATERAL
+================================*/
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 20;
+  animation: fadeIn 0.3s;
+}
+/* ================================
+   CONTENEDOR DEL SWITCH
+================================ */
+/* 🔽 CONTENEDOR DE LOS FILTROS */
+.filtros-switch {
+  display: flex;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  padding: 6px;
+  border-radius: 16px;
+  width: fit-content;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+/* =====================================
+   🔍 BUSCADOR MODERNO FITRANK
+=====================================*/
+.input-group {
+  background: #A9A9A9;
+  border-radius: 14px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  border: 1px solid #e6e6e6;
+  transition: all .2s ease;
 }
 
-.table-responsive {
-  border-radius: 1rem;
+  .input-group:hover {
+    box-shadow: var(--fitrank-violet);
+  }
+
+  .input-group:focus-within {
+    border-color: var(--fitrank-violet);
+    ;
+    box-shadow: var(--fitrank-violet);
+  }
+
+/* Ícono negro moderno */
+.input-group-icon {
+  color: #000;
+  font-size: 18px;
+  opacity: .75;
+}
+
+/* Input */
+.input-group-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+  background: transparent;
+  color: var(--fitrank-violet);
+}
+
+  .fr-search-input::placeholder {
+    color: black;
+  }
+
+/* 🔽 BOTÓN PILL */
+.filtro-pill {
+  padding: 10px 18px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: black;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .25s ease;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  gap: 6px;
+}
+
+  /* Hover */
+  .filtro-pill:hover {
+    background: rgba(255,255,255,0.15);
+    color: black;
+  }
+
+  /* 🔥 ACTIVO — estilo FitRank violeta */
+  .filtro-pill.active {
+    background: linear-gradient(135deg, #7B3FE4, #9A63FF);
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(123,63,228,0.35);
+    transform: translateY(-1px);
+  }
+
+
+  /* Hover suave */
+  .filtro-pill:hover {
+    background: rgba(255,255,255,0.7);
+  }
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  height: 100%;
+  background: white;
+  padding: 20px;
+  box-shadow: -5px 0 18px rgba(0,0,0,0.15);
+  z-index: 21;
+  animation: slideIn 0.4s ease forwards;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  overflow-y: auto;
+}
+
+  .drawer::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .drawer::-webkit-scrollbar-thumb {
+    background: var(--fitrank-violet);
+    border-radius: 8px;
+  }
+
+.drawer-header h4 {
+  font-weight: 700;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===============================
+    IMÁGENES
+================================*/
+.rounded-circle {
+  border: 3px solid var(--fitrank-gray);
+}
+
+.table img {
+  border: 2px solid #eee;
+}
+
+/* ===============================
+    FILTROS — VISUAL
+================================*/
+.btn-danger i,
+.btn-secondary i,
+.btn-outline-violet i {
+  font-size: 1.1rem;
+}
+
+/* ===============================
+    ENCABEZADOS
+================================*/
+h2 i {
+  font-size: 1.6rem;
+}
+
+/* ===============================
+    TARJETAS Y SECCIONES
+================================*/
+.card {
+  border-radius: 14px;
+  box-shadow: var(--fitrank-shadow);
+  border: none;
+}
+/* ================================
+   OVERLAY — suave + blur
+================================*/
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.35s ease forwards;
+  z-index: 100;
+}
+
+/* ================================
+   DRAWER — glass, suave, sombra
+================================*/
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100%;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-left: 1px solid rgba(255,255,255,0.4);
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  box-shadow: -10px 0 25px rgba(0, 0, 0, 0.18);
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 1.0) forwards;
+  overflow-y: auto;
+  z-index: 101;
+}
+
+  /* Scroll estético */
+  .drawer::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .drawer::-webkit-scrollbar-thumb {
+    background: var(--fitrank-violet);
+    border-radius: 10px;
+  }
+
+/* ================================
+   HEADER
+================================*/
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+  .drawer-header h4 {
+    font-weight: 700;
+    color: #2c2c2c;
+  }
+
+  .drawer-header .btn-close {
+    background: rgba(0,0,0,0.1);
+    border-radius: 6px;
+    padding: 6px;
+    transition: 0.2s ease;
+  }
+
+    .drawer-header .btn-close:hover {
+      background: rgba(0,0,0,0.2);
+    }
+
+/* ================================
+   ANIMACIONES
+================================*/
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

@@ -82,13 +82,13 @@ export class FormularioRutinaIa implements OnInit{
     });
   }
 
-// ✅ Verifica si un ejercicio está seleccionado
+
 estaSeleccionado(nombre: string): boolean {
   const formArray = this.rutinaForm.get('preferencias.ejerciciosExcluidos') as FormArray;
   return formArray.value.includes(nombre);
 }
 
-// ✅ Alterna selección al hacer clic
+
 toggleEjercicio(nombre: string): void {
   const formArray = this.rutinaForm.get('preferencias.ejerciciosExcluidos') as FormArray;
   const index = formArray.value.indexOf(nombre);
@@ -107,12 +107,12 @@ toggleEjercicio(nombre: string): void {
       return;
     }
 
-    const idSocio = this.usuarioId; // ⚠️ Reemplazar con el ID del socio logueado (p.ej. desde el token)
+    const idSocio = this.usuarioId; 
     const data = this.rutinaForm.value;
 
-      // ⚠️ Asignamos el nivel del usuario logueado
+      
     if (this.nivel) {
-      data.nivel = this.nivel; // 'Principiante' | 'Intermedio' | 'Avanzado'
+      data.nivel = this.nivel; 
     } else {
       console.warn('No se encontró el nivel del usuario, se enviará Principiante por defecto');
       data.nivel = 'Principiante';

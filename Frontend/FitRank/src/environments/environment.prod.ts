@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tu-backend-produccion.com/api' ///despues tenemos que poner la de render 
+  apiUrl: 'https://fitrank-api-rqvs.onrender.com/api',
+  hubUrl: 'https://fitrank-api-rqvs.onrender.com/hubs/notificaciones'
 };

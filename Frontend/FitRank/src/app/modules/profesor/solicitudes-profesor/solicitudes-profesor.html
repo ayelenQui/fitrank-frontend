@@ -69,14 +69,14 @@
       <div class="acciones mt-3 d-flex gap-2">
         <!-- Si la solicitud está libre -->
         <button *ngIf="!s.profesorId"
-                class="btn-crear"
+                class="btn-crear btn-secondary"
               (click)="tomarYCrearRutina(s); $event.stopPropagation()">
           Tomar y crear rutina
         </button>
 
         <!-- Si la tomó este profesor -->
         <button *ngIf="esTomadaPorMi(s)"
-                class="btn-ver"
+                class="btn-ver btn-secondary"
                (click)="tomarYCrearRutina(s); $event.stopPropagation()">
 
           Ver / continuar rutina

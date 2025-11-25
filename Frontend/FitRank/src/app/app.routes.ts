@@ -30,6 +30,7 @@ import { CrearBatallaComponent } from './modules/batalla/crear-batalla/component
 import { MisBatallasComponent } from './modules/batalla/mis-batallas/components/mis-batallas.component';
 import { DetalleBatallaComponent } from './modules/batalla/detalle-batalla/detalle-batalla.component';
 import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
+import { MisReportes } from './modules/reportes/mis-reportes/mis-reportes';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -96,15 +97,6 @@ export const appRoutes: Route[] = [
   },
 
 
-
-
-
-
-
-
-
-
-  //LOGROS (Corregir para renderizar igual que el resto para el próximo MVP)
   {
     path: 'logros',
     loadChildren: () =>
@@ -125,4 +117,21 @@ export const appRoutes: Route[] = [
   { path: 'pago-fallido', component: PagoFallidoComponent },
   { path: 'pago-pendiente', component: PagoPendienteComponent },
 
+  
+  {
+    path: 'maquina/:id',
+    loadComponent: () =>
+      import('./modules/maquina/maquina-detalle.component')
+        .then(m => m.MaquinaDetalleComponent)
+  },
+
+  {
+    path: 'reportes', 
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'mis-reportes', component : MisReportes}
+    ]
+  }
+  
 ];

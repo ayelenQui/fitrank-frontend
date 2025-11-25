@@ -47,10 +47,10 @@ export class SolicitudesProfesor implements OnInit {
       next: () => {
         console.log('✅ Solicitud tomada por el profesor');
 
-        // 🔹 Actualiza el estado local (para que no desaparezca de la lista)
+        
         solicitud.profesorId = this.obtenerIdProfesorActual();
 
-        // 🔹 Redirige al creador de rutina
+        
         this.router.navigate(['/rutina/crear-manual'], {
           state: {
             socioId: solicitud.socioId,
@@ -71,7 +71,7 @@ export class SolicitudesProfesor implements OnInit {
     return user.id ?? user.Id ?? 0;
   }
 
-  // ✅ Versión corregida de esTomadaPorMi
+  
   esTomadaPorMi(s: Solicitud): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const profesorActualId = user.id ?? user.Id;

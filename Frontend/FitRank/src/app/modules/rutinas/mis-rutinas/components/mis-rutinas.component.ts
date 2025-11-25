@@ -62,7 +62,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
   );
 
-  // Animación tarjetas
+  
   gsap.fromTo(
     '.card',
     { y: 20, opacity: 0, scale: 0.95 },
@@ -87,11 +87,11 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   
 
   ngOnInit(): void {
-    // Demo de progreso semanal
+  
     this.sesionesCompletadas = 3;
     this.totalSesiones = 5;
 
-    // Demo de próximas sesiones
+
     this.proximasSesiones = [
       { dia: 'MIE', numero: 6, nombreRutina: 'Piernas y Glúteos', hora: '18:00 hs' },
       { dia: 'VIE', numero: 8, nombreRutina: 'Full Body', hora: '19:00 hs' },
@@ -109,7 +109,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    // 🔹 Cargar rutinas según el rol
+  
     if (this.rol === 'socio') {
       this.cargarRutinas();
     } else if (this.rol === 'profesor') {
@@ -169,7 +169,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     this.rutinaService.eliminar(id).subscribe({
       next: () => {
         this.rutinas = this.rutinas.filter(r => r.id !== id);
-        this.actualizarContadores(); // 🔹 recalcular totales
+        this.actualizarContadores(); 
       },
       error: (err) => console.error('Error al eliminar rutina:', err)
     });

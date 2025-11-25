@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SerieAsignadaCreateDTO } from './interfaces/serieAsignada.interface.rest';
+import { environment } from 'src/environments/environment'; 
 @Injectable({
   providedIn: 'root'
 
 })
 
 export class SerieAsignadaService {
-  private apiUrl = 'https://localhost:7226/api/SerieAsignada';
+  private apiUrl = `${environment.apiUrl}/SerieAsignada`;
   constructor(private http: HttpClient) { }
   // 🔹 Crear una nueva serie
   crearSerie(serie: SerieAsignadaCreateDTO): Observable<any> {

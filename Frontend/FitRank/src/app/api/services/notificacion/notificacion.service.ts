@@ -8,12 +8,13 @@ import {
   NotificacionDTO,
   NotificacionesRespuestaDTO, NotificacionIndividualDTO, NotificacionMasivaDTO, UsuarioNotificacion
 } from './interface/notificacion.interface';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacionService {
-  private apiUrl = 'https://localhost:7226/api/Notificacion';
+  private apiUrl = `${environment.apiUrl}/Notificacion`;
 
   constructor(private http: HttpClient) { }
 

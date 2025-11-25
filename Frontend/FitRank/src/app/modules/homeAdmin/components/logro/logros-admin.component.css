@@ -1,0 +1,90 @@
+.logros-wrapper {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 10px;
+}
+
+.titulo-fitrank {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  color: #8B52FF;
+}
+
+.subtitulo {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.logro-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-logro h4 {
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.info-logro p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* SWITCH estilo FitRank */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 30px;
+}
+
+  .switch input {
+    display: none;
+  }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: .3s;
+}
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: .3s;
+  }
+
+input:checked + .slider {
+  background-color: #8B52FF;
+}
+
+  input:checked + .slider:before {
+    transform: translateX(28px);
+  }
+
+.loading {
+  text-align: center;
+  font-weight: 600;
+  padding: 20px;
+}

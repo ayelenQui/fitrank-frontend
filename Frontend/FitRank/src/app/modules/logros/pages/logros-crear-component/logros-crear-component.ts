@@ -49,7 +49,7 @@ const payload = this.form.getRawValue() as LogroCrearRest;
 this.logroService.crear(payload).subscribe({
 next: _ => {
 this.loading.set(false);
-// Navega al listado o muestra toast
+
 this.router.navigate(['/logros']);
 },
 error: (err) => {

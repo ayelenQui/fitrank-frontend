@@ -7,9 +7,12 @@
   border-bottom: 2px solid var(--color-texto-secundario);
   height: 80px;
 }
+
+
 .header__logo {
   display: flex;
   justify-content: flex-start;
+
 }
 /* LOGO */
 .header__imagologo {
@@ -325,28 +328,37 @@
 }
 
 @media (max-width: 768px) {
-  .header-socio {
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    padding: 10px 16px;
-  }
 
-  /* 🔹 Mostrar el icono hamburguesa */
+  /* Mostrar hamburguesa */
   .fit-sb-toggle {
     display: block;
-    position: relative;
-    z-index: 1500;
   }
 
-  /* 🔹 Ocultar navegación y perfil */
-  .header__nav,
+  /* Ocultar menú grande */
+  .header__nav {
+    display: none !important;
+  }
+
+  /* 🔥 Mostrar perfil (campana + foto + nombre) */
   .header__perfil {
-    display: none;
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
   }
 
-  /* 🔹 Ajustar logo */
+  /* Ocultar botón logout en móvil */
+  .header__logout {
+    display: none !important;
+  }
+
+  /* Logo más chico */
   .header__imagologo {
     width: 42px;
   }
-}
 
+  /* Ajustar header general */
+  .header-socio {
+    grid-template-columns: auto 1fr auto;
+    padding: 10px 16px;
+  }
+}

@@ -1,0 +1,88 @@
+<div class="config-layout">
+
+  <!-- ==========================================================
+       COLUMNA IZQUIERDA — CONFIGURACIÓN
+  =========================================================== -->
+  <div class="config-left">
+
+    <h2 class="text-titulo fw-bold mb-4"> Personalización del Gimnasio</h2>
+    <p class="sub  fw-bold">Elegí colores, logo y mirá cómo queda tu aplicación en vivo.</p>
+
+    <!-- LOGO -->
+    <div class="card-config bg-dark">
+      <h4 class="section-title text-white">Logo del Gimnasio</h4>
+
+      <div class="logo-preview">
+        <img [src]="previewLogo || gimnasio.logoUrl || 'assets/img/default-user.png'"
+             dropzone="Ingresa Tu Logo Aqui"
+             class="logo-img" />
+      </div>
+
+      <input type="file" accept="image/*" class="form-control mt-2"
+             (change)="onLogoSeleccionado($event)">
+    </div>
+
+    <!-- COLORES -->
+    <div class="card-config text-white bg-dark">
+      <h4 class="section-title">Colores del Tema</h4>
+
+      <div class="color-row">
+        <label>Color Principal (Barra de Navegacion)</label>
+        <div class="color-input">
+          <input type="color" [(ngModel)]="gimnasio.colorPrincipal"
+                 (input)="aplicarTheme()">
+          <span class="preview-box"
+                [style.background]="gimnasio.colorPrincipal"></span>
+        </div>
+      </div>
+
+      <div class="color-row">
+        <label>Color Secundario (Botones de Acción)</label>
+        <div class="color-input">
+          <input type="color" [(ngModel)]="gimnasio.colorSecundario"
+                 (input)="aplicarTheme()">
+          <span class="preview-box"
+                [style.background]="gimnasio.colorSecundario"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="btn-row mt-4">
+      <button class="btn-restablecer btn-secondary" (click)="restablecer()">Restablecer a FitRank</button>
+      <button class="btn-guardar" (click)="guardar()">Guardar Cambios</button>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================
+       COLUMNA DERECHA — PREVIEW LIVE
+  =========================================================== -->
+  <div class="config-right">
+
+    <h3 class="preview-title">Vista previa en vivo</h3>
+
+    <!-- Modo de preview -->
+    <div class="preview-modes">
+      <button class="mode-btn"
+              [class.active]="modoPreview === 'desktop'"
+              (click)="modoPreview = 'desktop'">
+        <i class="bi bi-laptop"></i> Laptop
+      </button>
+
+      <button class="mode-btn"
+              [class.active]="modoPreview === 'mobile'"
+              (click)="modoPreview = 'mobile'">
+        <i class="bi bi-phone"></i> Celular
+      </button>
+    </div>
+
+    <!-- IFRAME -->
+    <iframe #previewIframe
+            class="preview-frame"
+            [class.mobile]="modoPreview === 'mobile'"
+            src="assets/preview/preview.html">
+    </iframe>
+
+  </div>
+</div>
