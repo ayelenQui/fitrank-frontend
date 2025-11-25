@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
@@ -8,10 +8,13 @@ import { AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProfesorService } from '@app/api/services/profesor/ProfesorService';
 import gsap from 'gsap';
+import { FilterRutinasPipe } from '@app/filter-rutinas-pipe';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-mis-rutinas',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeaderSocioComponent],
+  imports: [CommonModule, RouterLink, HeaderSocioComponent, FilterRutinasPipe],
   templateUrl: './mis-rutinas.component.html',
   styleUrls: ['./mis-rutinas.component.css', '../../../css-socio/socio-common.css']
 })
@@ -21,6 +24,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   error = '';
   userId?: number;
   rol?: string;
+  mostrarInactivas = false;
 
   // 📈 Datos para la sección lateral (Progreso / Próximas sesiones)
   sesionesCompletadas: number = 0;
@@ -42,7 +46,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     private auth: AuthService,
     private router: Router,
     private location: Location,
-    private profesorService: ProfesorService
+    private profesorService: ProfesorService,
+    private cdr: ChangeDetectorRef
   ) { }
     ngAfterViewInit() {
     gsap.fromTo(
@@ -119,8 +124,13 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     this.rutinaService.getRutinasPorSocio(this.userId!).subscribe({
       next: (data) => {
         console.log('📦 Rutinas del socio logueado:', data);
-        this.rutinas = data || [];
+        
+        this.rutinas = (data || []).map(r => ({
+          ...r,
+          esFavorita: r.favorita   // propiedad interna para manejar el icono
+        }));
         this.loading = false;
+        
 
         this.actualizarContadores();
       },
@@ -182,6 +192,78 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  toggleFavorita(rutina: any) {
+  rutina.esFavorita = !rutina.esFavorita;  // cambio visual inmediato
+
+  this.rutinaService.cambiarFavorita(rutina.id, rutina.esFavorita).subscribe({
+    next: () => {
+      rutina.favorita = rutina.esFavorita; // sincronizar con backend
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error("Error al cambiar favorito:", err);
+
+      // revertir si falla
+      rutina.esFavorita = !rutina.esFavorita;
+    }
+  });
+}
+
+
+
+toggleActiva(rutina: any) {
+
+  const titulo = rutina.activa
+    ? "¿Desactivar rutina?"
+    : "¿Activar rutina?";
+
+  const texto = rutina.activa
+    ? "¿Seguro que querés desactivar esta rutina?"
+    : "¿Querés volver a activarla?";
+
+  Swal.fire({
+    title: titulo,
+    text: texto,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: rutina.activa ? "Desactivar" : "Activar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6'
+  }).then((result) => {
+
+    if (!result.isConfirmed) return;
+
+    const nuevoEstado = !rutina.activa;
+
+    this.rutinaService.cambiarEstado(rutina.id, nuevoEstado).subscribe({
+      next: () => {
+
+        rutina.activa = nuevoEstado;
+        this.actualizarContadores();
+
+        Swal.fire({
+          icon: "success",
+          title: nuevoEstado ? "Rutina activada" : "Rutina desactivada",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      },
+      error: (err) => {
+        console.error("Error al cambiar estado:", err);
+
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un problema al cambiar el estado.",
+          confirmButtonColor: '#d33'
+        });
+      }
+    });
+
+  });
+}
 
 
   volverAtras(): void {

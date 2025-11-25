@@ -1,0 +1,184 @@
+.contenedor {
+  padding: 20px;
+}
+
+.tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tarjeta {
+  width: 260px;
+  background: #1c1c1c;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 6px #0001;
+  color: #fff;
+}
+
+.tarjeta h3 {
+  margin: 0 0 10px 0;
+}
+
+.pendiente { border-left: 5px solid #ff9800; }
+.activa { border-left: 5px solid #4caf50; }
+
+.historial {
+  border-left: 5px solid #607d8b;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn-detalle,
+.btn-aceptar,
+.btn-rechazar {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-titulo);
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 1.2rem);
+  transition: background-color 0.3s ease;
+  /* que el texto quede en el medio verticalmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-detalle:hover,
+.btn-aceptar:hover,
+.btn-rechazar:hover {
+  filter: brightness(0.9);
+}
+
+.btn-detalle {
+  background: var(--color-acento-secundario);
+  color: #fff;
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+}
+
+.btn-crear {
+  display: block;
+  padding: 0.3rem 3rem;
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 2rem);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 10px;
+  background-color: #e0d682;
+  color: black;
+  /* transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease; */
+  transition: transform 0.3s ease;
+}
+
+.btn-crear:hover {
+  transform: scale(1.1);
+}
+
+.btn-aceptar { background: #4caf50; color: white; }
+.btn-rechazar { background: #f44336; color: white; }
+
+.acciones-pendiente {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.mensaje-vacio {
+  font-style: italic;
+  color: #777;
+}
+
+.subtitulo {
+  font-size: clamp(1.5rem, 2vw + 1rem, 3rem);
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-texto);
+  margin-bottom: 20px;
+  font-family: var(--font-titulo);
+}
+
+strong {
+  color: var(--color-acento);
+}
+
+/* ----------------------------------------- */
+/* ----------- ESTILOS RESPONSIVE ---------- */
+/* ----------------------------------------- */
+
+/* --- Tablet / pantallas medianas --- */
+@media (max-width: 768px) {
+  .tarjetas {
+    justify-content: center;
+  }
+
+  .tarjeta {
+    width: 80%;
+    max-width: 350px;
+  }
+
+  .acciones-pendiente {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-aceptar,
+  .btn-rechazar {
+    width: 100%;
+  }
+}
+
+/* --- Celulares chicos --- */
+@media (max-width: 480px) {
+
+  .contenedor {
+    padding: 10px;
+  }
+
+  .btn-crear {
+    padding: 0.1rem 2rem;
+    margin-bottom: 1rem;
+    font-size: clamp(0.5rem, 3.5vw + 0.5rem, 2rem);
+  }
+
+  .tarjetas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tarjeta {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .tarjeta h3 {
+    font-size: 1.1rem;
+  }
+
+  .btn-detalle {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .btn-crear {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .acciones-pendiente {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-aceptar,
+  .btn-rechazar {
+    width: 100%;
+  }
+}

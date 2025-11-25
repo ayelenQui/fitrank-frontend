@@ -1,0 +1,43 @@
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
+<div class="crear-batalla-container">
+
+  <h2 class="titulo">Crear Batalla</h2>
+
+  <div class="form-batalla">
+
+    <!-- Selección de usuario -->
+    <div class="form-group">
+      <label>Seleccionar Usuario a Desafiar:</label>
+      <select [(ngModel)]="usuarioSeleccionado">
+        <option value="" disabled selected>Elegir usuario...</option>
+        <option *ngFor="let u of socios" [value]="u.id">
+          {{ u.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Tipo de batalla -->
+    <div class="form-group">
+      <label>Tipo de Batalla:</label>
+      <select [(ngModel)]="tipoSeleccionado">
+        <option [value]="BatallaTipo.Puntos">Batalla por puntos</option>
+      </select>
+    </div>
+
+    <!-- Duración -->
+    <div class="form-group">
+      <label>Días de duración:</label>
+      <input type="number" [(ngModel)]="diasDuracion" min="1" />
+    </div>
+
+    <button class="btn-crear" (click)="crear()">Crear Batalla</button>
+  </div>
+  
+    <div *ngIf="mensaje" class="alerta-exito">
+    {{ mensaje }}
+  </div>
+
+
+</div>

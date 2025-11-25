@@ -26,6 +26,9 @@ import { PagoExitosoComponent } from './modules/pago-exitoso/pago-exitoso.compon
 import { PagoFallidoComponent } from './modules/pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './modules/pago-pendiente/pago-pendiente.component';
 import { HistorialEntrenamientos } from './modules/entrenamiento/historial-entrenamientos/historial-entrenamientos';
+import { CrearBatallaComponent } from './modules/batalla/crear-batalla/components/crear-batalla.component';
+import { MisBatallasComponent } from './modules/batalla/mis-batallas/components/mis-batallas.component';
+import { DetalleBatallaComponent } from './modules/batalla/detalle-batalla/detalle-batalla.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -51,7 +54,15 @@ export const appRoutes: Route[] = [
     { path: '', component: SolicitudesProfesor }
   ]
 },
-
+  { path: 'batalla',
+   component: GeneralLayoutComponent,
+   canActivate: [AuthGuard],
+   children: [
+    { path: 'crear', component: CrearBatallaComponent },
+    { path: 'mis-batallas', component: MisBatallasComponent },
+    { path: 'batallas/:id', component: DetalleBatallaComponent }
+   ]
+  },
 
   {
     path: 'rutina',
