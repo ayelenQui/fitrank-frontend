@@ -270,9 +270,9 @@
 </div>
 
 <!-- 🧑‍🏫 PANEL DEL PROFESOR -->
-<div *ngIf="esProfesor" class="container py-5 text-center">
+<div *ngIf="esProfesor" class="">
   <app-header-profesor [user]="user"></app-header-profesor><br />
-
+  <div class="container py-5 text-center"> 
   <h2 class="display-6 fw-bold text-dark">¡Profe, {{ user.nombre }}!</h2>
 
 
@@ -328,5 +328,6 @@
         </button>
       </div>
     </div>
+  </div>
   </div>
 </div>

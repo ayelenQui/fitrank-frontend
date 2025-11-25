@@ -1,25 +1,15 @@
 <header class="header-profesor d-flex align-items-center justify-content-between px-3">
   <!-- Logo -->
   <div class="d-flex align-items-center gap-2">
-    <button class="btn-menu btn-secondary" (click)="toggleSidebar()">
+    <button class="btn-menu btn-secondary" (click)="toggleMobileMenu()">
       <i class="bi bi-list"></i>
     </button>
     <img src="assets/img/logo/logo-negro-lila.svg" class="logo" alt="FitRank" (click)="irAlHome()" />
-    <span class="titulo">Profesor</span>
   </div>
 
   <!-- Acciones derecha -->
   <div class="acciones d-flex align-items-center gap-3">
-    <button class="btn btn-link text-black btn-secondary" (click)="irA('/solicitudes-profesor')">
-      <i class="titulo bi bi-clipboard-check"></i> Solicitudes
-    </button>
-
-    <button class="titulo btn btn-link text-black btn-secondary" (click)="irA('rutina/mis-rutinas')">
-      <i class="bi bi-journal-text"></i> Mis Rutinas
-    </button>
-
     <div class="user-info text-end">
-
       <strong>{{ user?.nombre || 'Profesor' }}</strong>
     </div>
     <div class="noti-icon" (click)="abrirNotificaciones()">
@@ -52,4 +42,20 @@
       <div class="noti-fecha">{{ n.fechaCreacion | date:'dd/MM HH:mm' }}</div>
     </div>
   </div>
+</div>
+
+<!-- 🌙 MENÚ RESPONSIVE -->
+<div class="mobile-menu" *ngIf="menuAbierto">
+  <div class="mobile-item" (click)="irA('/solicitudes-profesor'); toggleMobileMenu()">
+    <i class="bi bi-clipboard-check"></i> Solicitudes
+  </div>
+
+  <div class="mobile-item" (click)="irA('rutina/mis-rutinas'); toggleMobileMenu()">
+    <i class="bi bi-journal-text"></i> Mis Rutinas
+  </div>
+
+   <div class="mobile-item" (click)="irA('/profesor/progreso-alumnos'); toggleMobileMenu()">
+    <i class="bi bi-journal-text"></i> Progreso alumnos
+  </div>
+
 </div>
