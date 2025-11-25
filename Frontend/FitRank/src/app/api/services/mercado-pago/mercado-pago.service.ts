@@ -14,4 +14,13 @@ export class MercadoPagoService {
       {}
     );
   }
+
+  renovarCuota(socioId: number, email: string) {
+    return this.http.post<any>(
+      environment.apiUrl + '/renovar-cuota',
+      { socioId, email }
+    );
+  }
+
+
 }

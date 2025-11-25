@@ -7,6 +7,8 @@
   border-bottom: 2px solid var(--color-texto-secundario);
   height: 80px;
 }
+
+
 .header__logo {
   display: flex;
   justify-content: flex-start;

@@ -1,6 +1,7 @@
 <div *ngIf="!esProfesor" class="fondo container-fluid min-vh-100 bg-light py-4">
 
   <app-header-socio [user]="user"></app-header-socio>
+  <app-sidebar-socio class="sidebar-escritorio"></app-sidebar-socio>
 
   <!-- SALUDO -->
   <div class="text-center mb-4">
@@ -65,13 +66,13 @@
           </div>
         </div>
 
-      
+
 
 
         <!-- BOTÓN RENOVAR -->
         <div class="text-center mt-3">
           <button class="btn btn-fitrank w-100"
-                  (click)="navegarA('/pagos')">
+                 (click)="renovarCuota()">
             <span class="material-symbols-outlined me-2">autorenew</span>
             Renovar cuota Con Descuento
           </button>
@@ -117,7 +118,7 @@
             <p><strong>Altura:</strong> {{ socio?.altura }} cm</p>
             <p><strong>Peso:</strong> {{ socio?.peso }} kg</p>
             <p><strong>Inicio:</strong> {{ socio?.fechaRegistro | date:'dd/MM/yyyy' }}</p>
- 
+
           </div>
         </div>
 
@@ -166,9 +167,9 @@
       <div *ngIf="mostrarRetencion" class="card-retencion text-center mb-4">
         <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5> <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p> <div class="d-flex flex-column gap-2 mt-3"> <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')"> 🔄 Cambiar rutina </button> <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')"> ✅ Estoy bien </button> <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')"> Que me contacte un profesor </button> </div>
       </div> <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) --> <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
-    
 
- 
+
+
 
     </div>
 

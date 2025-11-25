@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { GrupoMuscularDTO } from '@app/api/services/grupoMuscular/grupoMuscular.interface';
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscular.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -52,7 +54,8 @@ export class CrearSesionesRutinaComponent implements OnInit {
     private serieService: SerieService,
     private sesionService: SesionService,
     private cdr: ChangeDetectorRef,
-    private rutinaService: RutinaService
+    private rutinaService: RutinaService,
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -367,5 +370,38 @@ recargarEjercicios() {
     this.grupoSeleccionadoId = undefined;
   });
 }
+
+abrirVideo(url: string) {
+  window.open(url, "_blank");
+}
+  esYoutube(url: string): boolean {
+    if (!url) return false;
+    return url.includes("youtube.com") || url.includes("youtu.be");
+  }
+  convertirAEmbed(url: string): string {
+    if (!url) return '';
+
+    // YouTube normal
+    if (url.includes('watch?v=')) {
+      const id = url.split('v=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // YouTube short link
+    if (url.includes('youtu.be/')) {
+      const id = url.split('youtu.be/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // YouTube shorts
+    if (url.includes('/shorts/')) {
+      const id = url.split('/shorts/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
+    // si ya es embed
+    return url;
+  }
+
 
 }

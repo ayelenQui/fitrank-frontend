@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
 import { FooterComponent } from '@app/modules/footer/components/footer.component';
 import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
+import { MercadoPagoService } from '@app/api/services/mercado-pago/mercado-pago.service'; 
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +80,8 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     private socioService: SocioApiService,
     private signalRNoti: SignalRNotificacionesService,
     private medidaService: MedidaCorporalService,
-    private imagenApiService: ImagenApiService
+    private imagenApiService: ImagenApiService,
+    private pagosService: MercadoPagoService
   ) { }
 
   ngAfterViewInit() {
@@ -393,6 +395,13 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.fotoArchivo = file;
   }
   
+  renovarCuota() {
+    this.pagosService.renovarCuota(this.user.id, this.user.email)
+      .subscribe({
+        next: (res) => window.location.href = res.linkPago,
+        error: (err) => console.error("MP error:", err)
+      });
+  }
 
 
 }

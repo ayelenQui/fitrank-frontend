@@ -59,6 +59,7 @@
           <ul class="lista-ejercicios">
             <li *ngFor="let e of s.ejerciciosAsignados">
              {{ e.ejercicio?.nombre }}
+
               <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min</span>
             </li>
           </ul>
@@ -137,7 +138,7 @@
         <h2 class="fw-bold">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h2>
 
         <div class="ejercicio-visual mb-4">
-          <!--<img *ngIf="ejercicioSeleccionado?.ejercicio?.urlImagen"
+          <img *ngIf="ejercicioSeleccionado?.ejercicio?.urlImagen"
                [src]="ejercicioSeleccionado.ejercicio.urlImagen"
                alt="{{ ejercicioSeleccionado.ejercicio.nombre }}"
                class="img-ejercicio" />
@@ -148,7 +149,7 @@
                  autoplay
                  muted
                  loop>
-          </video>-->
+          </video>
         </div>
 
 

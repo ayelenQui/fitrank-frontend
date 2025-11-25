@@ -68,21 +68,37 @@
                 <div *ngFor="let ejercicio of getEjercicios(sesionActiva).controls; let j = index; trackBy: trackByIndex"
                      [formGroupName]="j"
                      class="bloque btn-secondary">
-                  <div class="bloque-header">
-                    <!--<div class="d-flex align-items-center gap-2">
-                      <img *ngIf="ejercicio.get('urlImagen')?.value"
-                           [src]="ejercicio.get('urlImagen')?.value"
-                           class="bloque-img"
-                           alt="Ejercicio" />-->
-                      <div>
 
+                  <div class="bloque-header">
+                    <div class="d-flex align-items-center gap-2">
+                      <!-- MINI VIDEO YOUTUBE -->
+                      <ng-container *ngIf="esYoutube(ejercicio.get('urlImagen')?.value); else imagenNormal">
+                        <div class="video-mini">
+                          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(convertirAEmbed(ejercicio.get('urlImagen')?.value))"
+                                  frameborder="0"
+                                  allowfullscreen>
+                          </iframe>
+                        </div>
+                      </ng-container>
+
+                      <!-- SI ES IMAGEN NORMAL -->
+                      <ng-template #imagenNormal>
+                        <img [src]="ejercicio.get('urlImagen')?.value"
+                             class="bloque-img"
+                             alt="Ejercicio">
+                      </ng-template>
+                      >
+
+
+
+                      <div>
                         <div class="mb-3">
                           <label for="nombreSesion">Nombre de la sesión</label>
                           <input type="text"
-                                id="nombreSesion"
-                                class="form-control"
-                                [formControl]="nombreSesionControl" />
-                          </div>
+                                 id="nombreSesion"
+                                 class="form-control"
+                                 [formControl]="nombreSesionControl" />
+                        </div>
 
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
 
@@ -91,13 +107,15 @@
                           ⏱ {{ ejercicio.get('duracionEstimada')?.value }} min
                         </small>
                       </div>
-                    <!--</div>-->
+                    </div>
+
                     <button type="button"
                             class="btn btn-sm btn-outline-danger btn-secondary"
                             (click)="eliminarEjercicio(sesionActiva, j)">
                       🗑
                     </button>
                   </div>
+
 
                   <!-- SERIES -->
                   <div class="bloque-body" formArrayName="series">
@@ -165,7 +183,7 @@
     <!-- 🟣 SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-content">
-        <h5 class="fw-bold mb-3">Haz click para agregar tus ejercicios</h5>
+        <h5 class="fw-bold mb-3 text-white">Haz click para agregar tus ejercicios</h5>
 
         <!-- Input de búsqueda -->
         <input type="text"
@@ -208,4 +226,4 @@
 
   </div> <!-- cierre de "contenido" -->
 
-</div> <!-- cierre de "rutina-layout" -->
+
