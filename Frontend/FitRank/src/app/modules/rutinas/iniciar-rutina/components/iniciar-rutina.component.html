@@ -50,17 +50,24 @@
             <span class="material-symbols-outlined fs-1">play_arrow</span>
           </button>
           <div class="sesion-info-box">
-            <p class="lista-ejercicios text-center">Tiempo</p>
+            <p class="lista-ejercicios text-center">Duración aprox.</p>
             <p class="duracion-total">⏱ {{ calcularDuracionTotal(s.ejerciciosAsignados) }} min</p>
           </div>
         </div>
 
-        <div class="sesion-detalle">.
+        <div class="sesion-detalle">
+            <!-- TÍTULOS -->
+        <div class="encabezados-lista">
+          <span class="ejercicio-titulo">Ejercicios</span>
+           <span class="tiempo-titulo">Tiempo por serie aprox</span>
+        </div>
+
           <ul class="lista-ejercicios">
             <li *ngFor="let e of s.ejerciciosAsignados">
              {{ e.ejercicio?.nombre }}
 
-              <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min</span>
+              <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min aprox.</span>
+
             </li>
           </ul>
 
@@ -74,53 +81,34 @@
 
   <!-- 🔹 3️⃣ Listado de Ejercicios -->
   <div *ngIf="sesionSeleccionada && !ejercicioSeleccionado">
-    <button class="btn btn-link mb-3 btn-secondary" (click)="sesionSeleccionada = null">← Volver a sesiones</button>
-    <h4 class="fw-bold mb-4 text-center">{{ sesionSeleccionada.nombre }}</h4>
+  <button class="btn btn-link mb-3 btn-secondary" (click)="sesionSeleccionada = null">← Volver a sesiones</button>
+  <h4 class="fw-bold mb-4 text-center">{{ sesionSeleccionada.nombre }}</h4>
 
-    <div *ngFor="let e of sesionSeleccionada.ejerciciosAsignados"
-         class="card border-0 rounded-4 shadow-sm p-3 mb-3 position-relative"
-         [ngClass]="{ 'opacity-50': e.completadoHoy }">
+  <ng-container *ngFor="let e of sesionSeleccionada.ejerciciosAsignados">
+    <div *ngIf="!e.completadoHoy" class="card border-0 rounded-4 shadow-sm p-3 mb-3 position-relative">
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-bold mb-0">{{ e.ejercicio?.nombre }}</h5>
-
-        <span *ngIf="e.completadoHoy" class="badge bg-secondary d-flex align-items-center gap-1">
-          <i class="bi bi-check-circle-fill"></i> Completado
-        </span>
       </div>
-
       <p class="small text-50 mb-2">{{ e.ejercicio?.descripcion }}</p>
 
-    <!--<img *ngIf="e.ejercicio?.urlImagen"
-           [src]="e.ejercicio.urlImagen"
-           class="img-fluid rounded-3 mb-2"
-           alt="{{ e.ejercicio?.nombre }}" />
-
-      <video *ngIf="e.ejercicio?.urlVideo"
-             [src]="e.ejercicio.urlVideo"
-             controls
-             class="rounded-3 shadow-sm mt-2"
-             style="max-height: 200px"></video>
--->
       <h6 class="mt-3 text-dark">Series:</h6>
       <ul class="list-group list-group-flush text-dark">
         <li *ngFor="let serie of e.series" class="list-group-item text-dark">
-          {{ e.ejercicio?.nombre }}:
-          <span>{{ e.series?.length }} series x {{ serie?.repeticiones }} reps</span>
+          {{ e.ejercicio?.nombre }}: <span>{{ e.series?.length }} x {{ serie?.repeticiones }} reps</span>
         </li>
       </ul>
 
-      <button class="btn mt-3 fw-bold py-2 btn-secondary"
-              [disabled]="e.completadoHoy"
-              [ngClass]="e.completadoHoy ? 'btn-secondary' : 'btn-success'"
-              (click)="!e.completadoHoy && seleccionarEjercicio(e)">
-        {{ e.completadoHoy ? '✔ Ejercicio completado' : 'Iniciar ejercicio' }}
+      <button class="btn mt-3 fw-bold py-2 btn-success" (click)="seleccionarEjercicio(e)">
+        Iniciar ejercicio
       </button>
     </div>
+  </ng-container>
 
-    <button class="btn text-center mt-4 fw-bold py-2 btn-secondary" (click)="finalizarSesionParcial()">
-      🏁 Finalizar sesión por hoy
-    </button>
-  </div>
+  <button class="btn text-center mt-4 fw-bold py-2 btn-secondary" (click)="finalizarSesionParcial()">
+    🏁 Finalizar sesión por hoy
+  </button>
+</div>
+
 
   <!-- 🔹 4️⃣ Ejercicio en curso -->
   <div *ngIf="ejercicioSeleccionado">

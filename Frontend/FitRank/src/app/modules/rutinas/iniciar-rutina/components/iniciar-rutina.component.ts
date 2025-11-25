@@ -131,9 +131,22 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     this.cargarRutinas();
     this.generarSemana();
     this.cargarConfiguracionGruposMusculares()
+    this.cargarActividadesDesdeLocalStorage();
 
 
   }
+
+  cargarActividadesDesdeLocalStorage(): void {
+  const key = `actividades_${this.socioId}`;
+  const guardado = localStorage.getItem(key);
+
+  if (guardado) {
+    this.actividadesRealizadas = JSON.parse(guardado);
+    console.log("🔁 Actividades restauradas desde LocalStorage", this.actividadesRealizadas);
+  }
+}
+
+  
 
   cargarConfiguracionGruposMusculares(): void {
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
@@ -173,28 +186,69 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   }
 
 
-  cargarRutinas(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    const rutinaId = idParam ? Number(idParam) : null;
+cargarRutinas(): void {
+  const idParam = this.route.snapshot.paramMap.get('id');
+  const rutinaId = idParam ? Number(idParam) : null;
 
-    this.rutinaService.getRutinaCompletaPorSocio(this.socioId).subscribe({
-      next: (data) => {
-        console.log('📦 Rutinas cargadas:', data);
-        this.rutinas = data || [];
+  // Capturamos state entrante (pudo venir desde calcular-puntaje)
+  const navState: any = history.state || {};
+  const restoreSesionId = navState.sesionId;
+  const restoreEntrenamientoId = navState.entrenamientoId;
 
-        if (rutinaId) {
-          this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId) ?? null;
+  this.rutinaService.getRutinaCompletaPorSocio(this.socioId).subscribe({
+    next: (data) => {
+      console.log('📦 Rutinas cargadas:', data);
+      this.rutinas = data || [];
+      //NUEVO
+    this.rutinas.forEach(r => {
+      r.sesiones?.forEach(s => {
+        s.ejerciciosAsignados?.forEach(e => {
+          e.completadoHoy = this.actividadesRealizadas.some(a =>
+            e.series.some(s => s.id === a.serieId)
+          );
+        });
+      });
+    });
 
-          if (this.rutinaSeleccionada) {
-            console.log('✅ Rutina seleccionada:', this.rutinaSeleccionada);
-          } else {
-            console.warn('⚠️ No se encontró la rutina con id', rutinaId);
+      if (rutinaId) {
+        this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId) ?? null;
+        if (this.rutinaSeleccionada) {
+          console.log('✅ Rutina seleccionada:', this.rutinaSeleccionada);
+        } else {
+          console.warn('⚠️ No se encontró la rutina con id', rutinaId);
+        }
+      }
+
+      // Si el navigation state incluye sesionId -> restauramos sesionSeleccionada
+      if (restoreSesionId && this.rutinaSeleccionada) {
+        // buscar la sesión dentro de la rutina
+        const foundSesion = this.rutinaSeleccionada.sesiones?.find((s: any) => s.id === restoreSesionId);
+        if (foundSesion) {
+          this.sesionSeleccionada = foundSesion;
+          // si la sesión tiene ejerciciosAsignados, dejamos el mismo flujo
+          console.log('🔁 Sesión restaurada desde state:', restoreSesionId);
+        } else {
+          // si no existe id (quizás usás numeroDeSesion en lugar de id)
+          const foundByNumero = this.rutinaSeleccionada.sesiones?.find((s: any) => s.numeroDeSesion === restoreSesionId);
+          if (foundByNumero) {
+            this.sesionSeleccionada = foundByNumero;
+            console.log('🔁 Sesión restaurada por numeroDeSesion:', restoreSesionId);
           }
         }
-      },
-      error: (err) => console.error('❌ Error al cargar rutinas', err),
-    });
-  }
+      }
+
+      // Restaurar entrenamiento activo de forma mínima (evita crear uno nuevo al volver)
+      if (restoreEntrenamientoId) {
+        // colocamos un objeto con el id para marcar que existe entrenamientoActivo
+        this.entrenamientoActivo = { id: restoreEntrenamientoId } as any;
+        console.log('🔁 Entrenamiento restaurado (id):', restoreEntrenamientoId);
+      }
+    },
+    error: (err) => console.error('❌ Error al cargar rutinas', err),
+  });
+}
+
+
 
 
  
@@ -208,7 +262,66 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   seleccionarSesion(s: any): void {
     this.sesionSeleccionada = s;
     this.ejercicioSeleccionado = null;
+
+    // Limpiamos actividades del día si queremos reiniciar
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
+    // NUEVO
+     // Inicializar completados hoy si no existe
+    this.sesionSeleccionada.ejerciciosAsignados.forEach((e: EjercicioAsignadoDTO) => {
+      if (e.completadoHoy === undefined) e.completadoHoy = false;
+    });
+
+      // 🔥 NUEVO: Si ya terminó todos los ejercicios al entrar
+  const todosCompletados = this.sesionSeleccionada.ejerciciosAsignados.every(
+    (x: any) => x.completadoHoy === true
+  );
+
+  if (todosCompletados) {
+    this.finalizarSesionAutomaticamente();
   }
+  }
+
+  private finalizarSesionAutomaticamente(): void {
+
+  Swal.fire({
+    title: "🏁 ¡Sesión completada!",
+    text: "Ya realizaste todos los ejercicios por hoy 💪",
+    imageUrl: "assets/img/logo/logo-negro-lila.svg",
+    imageWidth: 90,
+    imageHeight: 90,
+    confirmButtonColor: "#8c52ff",
+    confirmButtonText: "Ver puntaje"
+  }).then(() => {
+    // Limpiamos actividades del día
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
+    const puntajeTotal = this.calcularPuntajeTotal();
+
+    const navState: any = {
+      puntaje: puntajeTotal,
+      rutinaId: this.rutinaSeleccionada?.id,
+      sesionId: this.sesionSeleccionada?.id,
+      entrenamientoId: this.entrenamientoActivo?.id
+    };
+
+    this.router.navigate(['/rutina/calcular-puntaje'], { state: navState });
+  });
+}
+
+private calcularPuntajeTotal(): number {
+  return this.actividadesRealizadas
+    .filter(a =>
+      this.sesionSeleccionada?.ejerciciosAsignados.some((e: any) =>
+        e.series.some((s: any) => s.id === a.serieId)
+      )
+    )
+    .reduce((acc, a) => acc + (a.punto || 0), 0);
+}
+
+
 
   seleccionarEjercicio(e: EjercicioAsignadoDTO): void {
     this.ejercicioSeleccionado = e;
@@ -276,6 +389,8 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
      
         this.actividadesRealizadas.push(res);
 
+        this.guardarActividadesEnLocalStorage();
+
         this.procesarSiguienteSerie();
       },
       error: (err) => {
@@ -284,6 +399,12 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
       },
     });
   }
+
+  guardarActividadesEnLocalStorage(): void {
+  const key = `actividades_${this.socioId}`;
+  localStorage.setItem(key, JSON.stringify(this.actividadesRealizadas));
+}
+
 
   private crearDTOActividad(): RegistrarActividadDTO {
     return {
@@ -319,84 +440,79 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
 
   
-  private finalizarEjercicio(): void {
-    this.serieActual = null;
-    this.entrenando = false;
-    this.mostrarRegistro = false;
-    this.indiceSerieActual = 0;
+private finalizarEjercicio(): void {
+  this.serieActual = null;
+  this.entrenando = false;
+  this.mostrarRegistro = false;
+  this.indiceSerieActual = 0;
 
-    if (this.ejercicioSeleccionado) {
-      this.ejercicioSeleccionado.completadoHoy = true;
-    }
+  if (this.sesionSeleccionada && this.ejercicioSeleccionado) {
+    this.ejercicioSeleccionado.completadoHoy = true;
 
-    const ejercicio = this.sesionSeleccionada?.ejerciciosAsignados.find(
-      (x: any) => x.id === this.ejercicioSeleccionado?.id
+    const ejercicio = this.sesionSeleccionada.ejerciciosAsignados.find(
+      (      x: { id: number | undefined; }) => x.id === this.ejercicioSeleccionado?.id
     );
     if (ejercicio) ejercicio.completadoHoy = true;
-
-    const todosCompletados = this.sesionSeleccionada?.ejerciciosAsignados.every((x: any) => x.completadoHoy);
-
-   
-    const puntajeEjercicio = this.actividadesRealizadas
-      .filter(a => a.serieId && this.ejercicioSeleccionado?.series.some(s => s.id === a.serieId))
-      .reduce((acc, a) => acc + (a.punto || 0), 0);
-
-    console.log('📊 Puntaje total del ejercicio:', puntajeEjercicio);
-
-    if (todosCompletados) {
-      Swal.fire({
-        title: '🏁 ¡Sesión completada por hoy!',
-        text: 'Excelente trabajo  Completaste todo tu entrenamiento. ¡Seguimos sumando puntos!',
-        imageUrl: 'assets/img/logo/logo-negro-lila.svg',
-        imageWidth: 90,
-        imageHeight: 90,
-        imageAlt: 'FitRank Logo',
-       
-        color: '#white',
-        confirmButtonColor: '#8c52ff',
-        confirmButtonText: 'Ver mi puntaje',
-        showClass: {
-          popup: 'animate__animated animate__fadeInUp animate__faster'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutDown animate__faster'
-        }
-      }).then(() => {
-        this.router.navigate(['/rutina/calcular-puntaje'], {
-          state: {
-            puntaje: puntajeEjercicio,
-            rutinaId: this.rutinaSeleccionada?.id,
-            entrenamientoId: this.entrenamientoActivo?.id
-          },
-        });
-      });
-    } else {
-      Swal.fire({
-        title: '✅ ¡Ejercicio completado!',
-        text: '¡Buen trabajo! 💥 Calculando tus puntos.',
-        imageUrl: 'assets/img/logo/logo-negro-lila.svg',
-        imageWidth: 80,
-        imageHeight: 80,
-       
-        color: '#white',
-        confirmButtonColor: '#8c52ff',
-        confirmButtonText: 'Continuar',
-        showClass: {
-          popup: 'animate__animated animate__fadeInUp animate__faster'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutDown animate__faster'
-        }
-      }).then(() => {
-        this.router.navigate(['/rutina/calcular-puntaje'], {
-          state: {
-            puntaje: puntajeEjercicio,
-            rutinaId: this.rutinaSeleccionada?.id
-          },
-        });
-      });
-    }
   }
+
+  const todosCompletados = !!this.sesionSeleccionada?.ejerciciosAsignados.every(
+    (    x: { completadoHoy: any; }) => x.completadoHoy
+  );
+
+  const puntajeEjercicio = this.actividadesRealizadas
+    .filter(
+      a =>
+        a.serieId &&
+        this.ejercicioSeleccionado?.series.some(s => s.id === a.serieId)
+    )
+    .reduce((acc, a) => acc + (a.punto || 0), 0);
+
+  console.log("📊 Puntaje total del ejercicio:", puntajeEjercicio);
+
+  const navState: any = {
+    puntaje: puntajeEjercicio,
+    rutinaId: this.rutinaSeleccionada?.id
+  };
+
+  if (this.entrenamientoActivo?.id) navState.entrenamientoId = this.entrenamientoActivo.id;
+  if (this.sesionSeleccionada?.id) navState.sesionId = this.sesionSeleccionada.id;
+  else if (this.sesionSeleccionada?.numeroDeSesion) navState.sesionId = this.sesionSeleccionada.numeroDeSesion;
+
+  navState.sinEjercicios = todosCompletados;
+
+  if (todosCompletados) {
+    Swal.fire({
+      title: "🏁 ¡Sesión completada por hoy!",
+      text: "Excelente trabajo  Completaste todo tu entrenamiento. ¡Seguimos sumando puntos!",
+      imageUrl: "assets/img/logo/logo-negro-lila.svg",
+      imageWidth: 90,
+      imageHeight: 90,
+      imageAlt: "FitRank Logo",
+      color: "#white",
+      confirmButtonColor: "#8c52ff",
+      confirmButtonText: "Ver mi puntaje",
+      showClass: { popup: "animate__animated animate__fadeInUp animate__faster" },
+      hideClass: { popup: "animate__animated animate__fadeOutDown animate__faster" }
+    }).then(() => this.router.navigate(['/rutina/calcular-puntaje'], { state: navState }));
+    return;
+  }
+
+  Swal.fire({
+    title: "✅ ¡Ejercicio completado!",
+    text: "¡Buen trabajo! 💥 Calculando tus puntos.",
+    imageUrl: "assets/img/logo/logo-negro-lila.svg",
+    imageWidth: 80,
+    imageHeight: 80,
+    color: "#white",
+    confirmButtonColor: "#8c52ff",
+    confirmButtonText: "Continuar",
+    showClass: { popup: "animate__animated animate__fadeInUp animate__faster" },
+    hideClass: { popup: "animate__animated animate__fadeOutDown animate__faster" }
+  }).then(() => this.router.navigate(['/rutina/calcular-puntaje'], { state: navState }));
+}
+
+
+
 
   
   private reiniciarCronometro(): void {
@@ -420,6 +536,9 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   }
 
   volverARutinas(): void {
+    // Limpiamos el progreso del día
+    //localStorage.removeItem(`actividades_${this.socioId}`);
+
     this.rutinaSeleccionada = null;
     this.sesionSeleccionada = null;
     this.ejercicioSeleccionado = null;
@@ -438,6 +557,11 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
   finalizarEntrenamiento(): void {
     console.log('🏁 Entrenamiento finalizado:', this.entrenamientoActivo);
+
+    // Limpiar actividades
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
     this.entrenamientoActivo = null;
     this.rutinaSeleccionada = null;
     this.sesionSeleccionada = null;
@@ -464,6 +588,9 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
       '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'
     );
     if (confirmar) {
+      this.actividadesRealizadas = [];
+      localStorage.removeItem(`actividades_${this.socioId}`);
+      
       this.router.navigate(['/rutina/mis-rutinas']);
     }
   }
@@ -487,7 +614,4 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     this.sidebarOpen = !this.sidebarOpen;
     document.body.classList.toggle('sb-open', this.sidebarOpen);
   }
-
-
-
 }
