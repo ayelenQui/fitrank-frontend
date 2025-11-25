@@ -7,29 +7,9 @@
 .fondo {
   background-color: #FFFFFF !important;
 }
-/* ============================
-   PANEL PERFIL (DESKTOP)
-============================= */
-/* =============================== */
-/* 🟣 SIDEBAR DE NOTIFICACIONES    */
-/* =============================== */
-/* 🟣 SIDEBAR FIJA EN ESCRITORIO */
-.sidebar-escritorio {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px; /* ancho del sidebar */
-  height: 100vh;
-  z-index: 900;
-}
 
-/* 🟣 TODO EL CONTENIDO SE CORRE A LA DERECHA */
-.home-contenido,
-.fondo,
-.header-socio,
-.container-fluid {
-  margin-left: 250px !important; /* mismo ancho del sidebar */
-}
+
+
 
 .sidebar-noti {
   position: sticky;
