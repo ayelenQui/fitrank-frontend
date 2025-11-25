@@ -1,0 +1,147 @@
+
+
+.dashboard-wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+.sidebar-fixed {
+  width: 240px;
+  flex-shrink: 0;
+  background: #0f0d13;
+  border-right: 1px solid #2a2a2a;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #0f0d13;
+  color: #fff;
+}
+
+
+.dashboard-header {
+  padding: 1.2rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1c1a22;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.dashboard-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+}
+
+.dashboard-user {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+  .dashboard-user .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+.dashboard-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+
+
+@media (max-width: 768px) {
+
+
+  .dashboard-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  
+  .sidebar-fixed {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+    /* Estilo de sidebar comprimida */
+    .sidebar-fixed app-sidebar {
+      display: block;
+      width: 100%;
+    }
+
+  /* Header reducido */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .8rem;
+    padding: 1rem;
+  }
+
+  .dashboard-title {
+    font-size: 1.8rem;
+  }
+
+  .dashboard-user {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+
+  .admin-home {
+    width: 100%;
+    padding-top: .5rem;
+  }
+
+    .admin-home h2 {
+      font-size: 1.4rem;
+      margin-bottom: .5rem;
+    }
+
+    .admin-home .btn-primary {
+      width: 100%;
+      padding: .8rem;
+      font-size: 1.1rem;
+      border-radius: 10px;
+    }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+}
+
+
+
+@media (max-width: 430px) {
+
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-header {
+    padding: .8rem;
+  }
+
+  .dashboard-user .avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .admin-home h2 {
+    font-size: 1.3rem;
+  }
+
+  .admin-home .btn-primary {
+    padding: .7rem;
+    font-size: 1rem;
+  }
+}

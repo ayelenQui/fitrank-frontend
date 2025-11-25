@@ -254,6 +254,30 @@
                   </td>
 
                 </tr>
+                <tr *ngIf="profesorExpandido === profesor.id">
+                  <td colspan="6">
+                    <div class="rutinas-box p-3 rounded-3">
+
+                      <h5 class="fw-bold text-black mb-3">
+                        Rutinas asignadas a {{ profesor.nombre }}
+                      </h5>
+
+                      <div *ngIf="!profesor.rutinas?.length" class="text-muted">
+                        Este profesor no tiene rutinas asignadas.
+                      </div>
+
+                      <ul *ngIf="profesor.rutinas?.length" class="list-group">
+                        <li *ngFor="let r of profesor.rutinas" class="list-group-item">
+                          ⭐ <strong>{{ r.nombre }}</strong>
+                          <span class="text-muted ms-2">(Rutina)</span>
+
+                        </li>
+                      </ul>
+
+                    </div>
+                  </td>
+                </tr>
+
               </ng-container>
             </tbody>
           </table>

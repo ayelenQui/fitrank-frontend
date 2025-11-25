@@ -20,6 +20,10 @@ export class AccesosComponent implements OnInit {
 
   personasDentro: number = 0;
 
+
+  selectedDevice: any = null;
+
+
   ocupacion: Array<{
     nombre: string;
     foto: string | null;
@@ -145,5 +149,22 @@ export class AccesosComponent implements OnInit {
 
   stopScanner() {
     this.scanner.stop();
+  }
+
+  ngAfterViewInit() {
+
+    this.scanner?.devices?.subscribe((devices: any[]) => {
+      if (!devices || devices.length === 0) return;
+
+    
+      const backCam = devices.find(d =>
+        d.label.toLowerCase().includes('back') ||
+        d.label.toLowerCase().includes('rear')
+      );
+
+      const defaultCam = devices[0];
+
+      this.selectedDevice = backCam || defaultCam;
+    });
   }
 }

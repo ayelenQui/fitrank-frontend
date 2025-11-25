@@ -132,3 +132,23 @@
   height: auto !important;
   max-width: 450px !important;
 }
+
+
+/* 🔥 Agrandar cámara en escritorio */
+.scanner-cam {
+  width: 100%;
+  height: 550px; /* podés subirlo a 550px si querés más grande */
+  max-width: 650px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: #000;
+}
+
+/* Modo escritorio */
+@media (min-width: 992px) {
+  .scanner-frame {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
