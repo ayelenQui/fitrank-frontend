@@ -144,27 +144,37 @@ export class AccesosComponent implements OnInit {
   }
 
   startScanner() {
-    this.scanner.start();
+    if (!this.selectedDevice) {
+      console.warn("No se encontró cámara, iniciando por defecto");
+      this.scanner.start();
+      return;
+    }
+
+    this.scanner.start(this.selectedDevice);
   }
+
 
   stopScanner() {
     this.scanner.stop();
   }
 
   ngAfterViewInit() {
-
     this.scanner?.devices?.subscribe((devices: any[]) => {
       if (!devices || devices.length === 0) return;
 
-    
-      const backCam = devices.find(d =>
-        d.label.toLowerCase().includes('back') ||
-        d.label.toLowerCase().includes('rear')
+      let backCam = devices.find(d =>
+        d.label?.toLowerCase().includes('back') ||
+        d.label?.toLowerCase().includes('rear')
       );
 
-      const defaultCam = devices[0];
+      if (!backCam && devices.length > 1) {
+        backCam = devices[1]; // fallback
+      }
 
-      this.selectedDevice = backCam || defaultCam;
+      this.selectedDevice = backCam || devices[0];
+
+      console.log("📷 Cámara seleccionada:", this.selectedDevice);
     });
   }
+
 }
