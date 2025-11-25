@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
@@ -6,23 +6,30 @@ import { AsistenciaService } from '../../../../api/services/asistencia/asistenci
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
 import { TypingService } from "@app/api/services/typingService";
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-accesos',
   standalone: true,
-  imports: [CommonModule, NgxScannerQrcodeComponent],
+  imports: [CommonModule, NgxScannerQrcodeComponent, FormsModule],
   templateUrl: './accesos.component.html',
   styleUrls: ['./accesos.component.css']
 })
-export class AccesosComponent implements OnInit {
+export class AccesosComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scanner', { static: false }) scanner!: NgxScannerQrcodeComponent;
 
   personasDentro: number = 0;
 
-
+  dispositivos: any[] = [];
   selectedDevice: any = null;
 
+  socio: SocioDTO | null = null;
+  asistencias: AsistenciaDetalleUsuarioDTO[] = [];
+
+  mensaje = '';
+  exito: boolean | null = null;
+  loading = false;
 
   ocupacion: Array<{
     nombre: string;
@@ -30,14 +37,6 @@ export class AccesosComponent implements OnInit {
     fecha: Date;
     tipo: 'entrada' | 'salida';
   }> = [];
-
-  resultado = '';
-  mensaje = '';
-  exito: boolean | null = null;
-  loading = false;
-
-  socio: SocioDTO | null = null;
-  asistencias: AsistenciaDetalleUsuarioDTO[] = [];
 
   constructor(
     private asistenciaService: AsistenciaService,
@@ -48,7 +47,6 @@ export class AccesosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // Actualización en tiempo real por SignalR
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
@@ -61,19 +59,15 @@ export class AccesosComponent implements OnInit {
         fecha: new Date(evento.fecha),
         tipo: evento.tipo
       });
-
-      console.log("🔥 Ocupación actualizada:", evento);
     });
 
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
 
-  // ======================================================
-  // 📌 CAPTURA DEL QR — MÁXIMA COMPATIBILIDAD PRODUCCIÓN
-  // ======================================================
+  // =======================================================
+  // 📌 LECTURA QR
+  // =======================================================
   onScan(result: any) {
-    console.log("📸 QR detectado:", result);
-
     const qrText =
       result?.text ||
       result?.value ||
@@ -85,13 +79,12 @@ export class AccesosComponent implements OnInit {
     this.validarQR(qrText);
   }
 
-
   validarQR(qrData: string) {
     this.loading = true;
 
     this.asistenciaService.validarQR(qrData).subscribe({
       next: (res: any) => {
-        this.mensaje = res.mensaje || 'Acceso validado correctamente ✅';
+        this.mensaje = res.mensaje || 'Acceso validado correctamente';
         this.exito = res.valido ?? true;
         this.loading = false;
 
@@ -100,7 +93,7 @@ export class AccesosComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.mensaje = err.error?.mensaje || 'Error al validar el QR ❌';
+        this.mensaje = err.error?.mensaje || 'Error al validar QR';
         this.exito = false;
         this.loading = false;
       }
@@ -111,7 +104,7 @@ export class AccesosComponent implements OnInit {
     const token = this.authService.obtenerToken();
 
     if (!token) {
-      this.mensaje = '⚠️ No hay sesión activa de administrador.';
+      this.mensaje = 'No hay sesión activa';
       return;
     }
 
@@ -119,80 +112,61 @@ export class AccesosComponent implements OnInit {
 
     this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId).subscribe({
       next: (res) => {
-        console.log('📋 Detalle socio:', res);
-
         if (res.exito) {
           this.socio = res.socio;
           this.asistencias = res.asistencias;
         } else {
           this.mensaje = res.mensaje;
         }
-
         this.loading = false;
       },
-      error: (err) => {
-        console.error('❌ Error al obtener detalle:', err);
-        this.mensaje = 'No se pudieron cargar los datos del socio.';
+      error: () => {
+        this.mensaje = 'Error recuperando datos del socio';
         this.loading = false;
       }
     });
   }
 
+  // =======================================================
+  // 📌 INICIO / STOP
+  // =======================================================
   startScanner() {
-    if (!this.selectedDevice) {
-      console.warn("⚠️ No hay cámara seleccionada, usando default");
-      this.scanner.start();
-      return;
-    }
-
-    console.log("▶️ Iniciando scanner con:", this.selectedDevice);
-    this.scanner.start(this.selectedDevice.deviceId);
+    if (!this.selectedDevice) return;
+    this.scanner.start(this.selectedDevice);
   }
-
-
 
   stopScanner() {
     this.scanner.stop();
   }
 
-  
+  // =======================================================
+  // 📌 DETECCIÓN DE CÁMARAS (Celular / Escritorio)
+  // =======================================================
   ngAfterViewInit() {
-    this.scanner.devices.subscribe((devices: any[]) => {
-      if (!devices || devices.length === 0) {
-        console.warn("⚠️ No se detectaron cámaras");
-        return;
-      }
+    this.scanner.devices.subscribe(devices => {
+      this.dispositivos = devices;
 
-      console.log("📷 Cámaras detectadas:", devices);
+      if (!devices || devices.length === 0) return;
 
-      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-      let backCamera = null;
-
-      // 🔥 DESKTOP: buscar por label
-      if (!isMobile) {
-        backCamera = devices.find(d =>
-          d.label?.toLowerCase().includes('back') ||
-          d.label?.toLowerCase().includes('rear')
-        );
-      }
-
-      // 🔥 MOBILE: NO HAY LABELS → usar la última cámara (la trasera)
       if (isMobile) {
-        backCamera = devices[devices.length - 1];
+        // Buscar cámara trasera
+        const rear = devices.find(d =>
+          d.label.toLowerCase().includes("back") ||
+          d.label.toLowerCase().includes("rear") ||
+          d.label.toLowerCase().includes("environment")
+        );
+
+        this.selectedDevice = rear ?? devices[0];   // fallback
+        console.log("📱 Modo CELULAR -> cámara trasera seleccionada:", this.selectedDevice);
+
+      } else {
+        // Escritorio → usamos la primera cámara
+        this.selectedDevice = devices[0];
+        console.log("🖥️ Modo ESCRITORIO -> cámara por defecto:", this.selectedDevice);
       }
-
-      this.selectedDevice = backCamera || devices[0];
-
-      console.log("🎯 Cámara seleccionada:", this.selectedDevice);
-
-      // Iniciar scanner usando SOLO lo que la librería permite
-      setTimeout(() => {
-        this.startScanner();
-      }, 300);
     });
   }
-
-
 
 }

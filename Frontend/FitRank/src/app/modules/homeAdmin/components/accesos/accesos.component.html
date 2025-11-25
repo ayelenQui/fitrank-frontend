@@ -13,15 +13,32 @@
         <p class="subtitulo">Escaneá el código del socio para validar el ingreso.</p>
       </div>
 
-      <!-- SCANNER -->
-      <div class="scanner-frame shadow-lg rounded-4 p-3 mx-auto">
-        <ngx-scanner-qrcode #scanner
-                            class="rounded-4 overflow-hidden scanner-cam"
-                            (scanSuccess)="onScan($event)">
-        </ngx-scanner-qrcode>
+      <!-- CONTENEDOR DEL SCANNER -->
+      <div class="scanner-wrapper">
+
+        <!-- OPCIONAL SOLO EN ESCRITORIO: LISTA DE CÁMARAS -->
+        <div class="device-selector" *ngIf="dispositivos.length > 1">
+          <label class="label-cam">Seleccionar cámara:</label>
+          <select class="select-cam"
+                  [(ngModel)]="selectedDevice"
+                  (change)="startScanner()">
+            <option *ngFor="let cam of dispositivos" [ngValue]="cam">
+              {{ cam.label }}
+            </option>
+          </select>
+        </div>
+
+        <!-- MARCO DEL SCANNER -->
+        <div class="scanner-frame shadow-lg rounded-4 mx-auto">
+
+          <ngx-scanner-qrcode #scanner
+                              class="rounded-4 overflow-hidden scanner-cam"
+                              (scanSuccess)="onScan($event)">
+          </ngx-scanner-qrcode>
+
+        </div>
 
 
-      </div>
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">
