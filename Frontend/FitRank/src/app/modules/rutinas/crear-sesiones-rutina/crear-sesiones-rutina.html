@@ -193,21 +193,21 @@
                (input)="filtrarEjercicios()" />
 
         <!-- Botones de grupos musculares -->
-<div class="grupo-muscular-list mb-3">
-  <!-- Botón "Todos" -->
-  <button class="btn btn-outline-primary btn-sm me-2 mb-2"
-          (click)="recargarEjercicios()">
-    Todos
-  </button>
+        <div class="grupo-muscular-list mb-3">
+          <!-- Botón "Todos" -->
+          <button class="btn btn-outline-primary btn-sm me-2 mb-2"
+                  (click)="recargarEjercicios()">
+            Todos
+          </button>
 
-  <!-- Botones de cada grupo muscular -->
-  <button *ngFor="let g of gruposMusculares"
-          class="btn btn-outline-secondary btn-sm me-2 mb-2"
-          [class.active]="grupoSeleccionadoId === g.id"
-          (click)="filtrarPorGrupo(g.id)">
-    {{ g.nombre }}
-  </button>
-</div>
+          <!-- Botones de cada grupo muscular -->
+          <button *ngFor="let g of gruposMusculares"
+                  class="btn btn-outline-secondary btn-sm me-2 mb-2"
+                  [class.active]="grupoSeleccionadoId === g.id"
+                  (click)="filtrarPorGrupo(g.id)">
+            {{ g.nombre }}
+          </button>
+        </div>
 
 
         <!-- Listado de ejercicios filtrados -->
@@ -215,12 +215,22 @@
           <div *ngFor="let e of ejerciciosFiltrados"
                class="ejercicio-item"
                (click)="agregarEjercicio(e)">
-            <div>
+
+            <!-- IMAGEN DEL EJERCICIO -->
+            <img *ngIf="e.urlImagen"
+                 [src]="e.urlImagen"
+                 alt="{{ e.nombre }}"
+                 class="ej-img-thumb">
+
+            <!-- TEXTO -->
+            <div class="ej-texto">
               <h6>{{ e.nombre }}</h6>
               <small>{{ e.nombreGrupoMuscular }}</small>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
 
