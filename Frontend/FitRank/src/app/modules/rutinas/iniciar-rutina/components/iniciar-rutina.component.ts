@@ -263,12 +263,65 @@ cargarRutinas(): void {
     this.sesionSeleccionada = s;
     this.ejercicioSeleccionado = null;
 
+    // Limpiamos actividades del día si queremos reiniciar
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
     // NUEVO
      // Inicializar completados hoy si no existe
     this.sesionSeleccionada.ejerciciosAsignados.forEach((e: EjercicioAsignadoDTO) => {
       if (e.completadoHoy === undefined) e.completadoHoy = false;
     });
+
+      // 🔥 NUEVO: Si ya terminó todos los ejercicios al entrar
+  const todosCompletados = this.sesionSeleccionada.ejerciciosAsignados.every(
+    (x: any) => x.completadoHoy === true
+  );
+
+  if (todosCompletados) {
+    this.finalizarSesionAutomaticamente();
   }
+  }
+
+  private finalizarSesionAutomaticamente(): void {
+
+  Swal.fire({
+    title: "🏁 ¡Sesión completada!",
+    text: "Ya realizaste todos los ejercicios por hoy 💪",
+    imageUrl: "assets/img/logo/logo-negro-lila.svg",
+    imageWidth: 90,
+    imageHeight: 90,
+    confirmButtonColor: "#8c52ff",
+    confirmButtonText: "Ver puntaje"
+  }).then(() => {
+    // Limpiamos actividades del día
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
+    const puntajeTotal = this.calcularPuntajeTotal();
+
+    const navState: any = {
+      puntaje: puntajeTotal,
+      rutinaId: this.rutinaSeleccionada?.id,
+      sesionId: this.sesionSeleccionada?.id,
+      entrenamientoId: this.entrenamientoActivo?.id
+    };
+
+    this.router.navigate(['/rutina/calcular-puntaje'], { state: navState });
+  });
+}
+
+private calcularPuntajeTotal(): number {
+  return this.actividadesRealizadas
+    .filter(a =>
+      this.sesionSeleccionada?.ejerciciosAsignados.some((e: any) =>
+        e.series.some((s: any) => s.id === a.serieId)
+      )
+    )
+    .reduce((acc, a) => acc + (a.punto || 0), 0);
+}
+
+
 
   seleccionarEjercicio(e: EjercicioAsignadoDTO): void {
     this.ejercicioSeleccionado = e;
@@ -425,6 +478,8 @@ private finalizarEjercicio(): void {
   if (this.sesionSeleccionada?.id) navState.sesionId = this.sesionSeleccionada.id;
   else if (this.sesionSeleccionada?.numeroDeSesion) navState.sesionId = this.sesionSeleccionada.numeroDeSesion;
 
+  navState.sinEjercicios = todosCompletados;
+
   if (todosCompletados) {
     Swal.fire({
       title: "🏁 ¡Sesión completada por hoy!",
@@ -481,6 +536,9 @@ private finalizarEjercicio(): void {
   }
 
   volverARutinas(): void {
+    // Limpiamos el progreso del día
+    //localStorage.removeItem(`actividades_${this.socioId}`);
+
     this.rutinaSeleccionada = null;
     this.sesionSeleccionada = null;
     this.ejercicioSeleccionado = null;
@@ -499,6 +557,11 @@ private finalizarEjercicio(): void {
 
   finalizarEntrenamiento(): void {
     console.log('🏁 Entrenamiento finalizado:', this.entrenamientoActivo);
+
+    // Limpiar actividades
+    this.actividadesRealizadas = [];
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
     this.entrenamientoActivo = null;
     this.rutinaSeleccionada = null;
     this.sesionSeleccionada = null;
@@ -525,7 +588,9 @@ private finalizarEjercicio(): void {
       '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'
     );
     if (confirmar) {
+      this.actividadesRealizadas = [];
       localStorage.removeItem(`actividades_${this.socioId}`);
+      
       this.router.navigate(['/rutina/mis-rutinas']);
     }
   }
@@ -549,7 +614,4 @@ private finalizarEjercicio(): void {
     this.sidebarOpen = !this.sidebarOpen;
     document.body.classList.toggle('sb-open', this.sidebarOpen);
   }
-
-
-
 }

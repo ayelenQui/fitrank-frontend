@@ -51,6 +51,13 @@ export class CalcularPuntajeComponent implements OnInit {
   // Recuperamos state original que nos dio iniciar-rutina
   const navState: any = history.state || {};
 
+    if (navState.sinEjercicios) {
+    localStorage.removeItem(`actividades_${this.socioId}`);
+
+    this.router.navigate(['/rutina']);
+    return;
+  }
+
   const rutinaId = navState.rutinaId ?? this.rutinaId;
   const sesionId = navState.sesionId;
   const entrenamientoId = navState.entrenamientoId;
