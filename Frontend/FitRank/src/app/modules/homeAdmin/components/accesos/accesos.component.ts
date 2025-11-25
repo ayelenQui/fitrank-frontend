@@ -72,24 +72,19 @@ export class AccesosComponent implements OnInit {
   // 📌 CAPTURA DEL QR — MÁXIMA COMPATIBILIDAD PRODUCCIÓN
   // ======================================================
   onScan(result: any) {
-    console.log("📸 Resultado crudo del QR:", result);
+    console.log("📸 QR detectado:", result);
 
-    // Manejo universal de formatos (texto, objeto, value, text)
-    const qrData =
-      result?.text ??
-      result?.value ??
+    const qrText =
+      result?.text ||
+      result?.value ||
       (typeof result === 'string' ? result : null);
 
-    if (!qrData) {
-      console.warn("⚠️ QR vacío o no reconocido");
-      return;
-    }
-
-    this.resultado = qrData;
-    this.validarQR(qrData);
+    if (!qrText) return;
 
     this.scanner.stop();
+    this.validarQR(qrText);
   }
+
 
   validarQR(qrData: string) {
     this.loading = true;
@@ -145,36 +140,59 @@ export class AccesosComponent implements OnInit {
 
   startScanner() {
     if (!this.selectedDevice) {
-      console.warn("No se encontró cámara, iniciando por defecto");
+      console.warn("⚠️ No hay cámara seleccionada, usando default");
       this.scanner.start();
       return;
     }
 
-    this.scanner.start(this.selectedDevice);
+    console.log("▶️ Iniciando scanner con:", this.selectedDevice);
+    this.scanner.start(this.selectedDevice.deviceId);
   }
+
 
 
   stopScanner() {
     this.scanner.stop();
   }
 
+  
   ngAfterViewInit() {
-    this.scanner?.devices?.subscribe((devices: any[]) => {
-      if (!devices || devices.length === 0) return;
-
-      let backCam = devices.find(d =>
-        d.label?.toLowerCase().includes('back') ||
-        d.label?.toLowerCase().includes('rear')
-      );
-
-      if (!backCam && devices.length > 1) {
-        backCam = devices[1]; // fallback
+    this.scanner.devices.subscribe((devices: any[]) => {
+      if (!devices || devices.length === 0) {
+        console.warn("⚠️ No se detectaron cámaras");
+        return;
       }
 
-      this.selectedDevice = backCam || devices[0];
+      console.log("📷 Cámaras detectadas:", devices);
 
-      console.log("📷 Cámara seleccionada:", this.selectedDevice);
+      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+      let backCamera = null;
+
+      // 🔥 DESKTOP: buscar por label
+      if (!isMobile) {
+        backCamera = devices.find(d =>
+          d.label?.toLowerCase().includes('back') ||
+          d.label?.toLowerCase().includes('rear')
+        );
+      }
+
+      // 🔥 MOBILE: NO HAY LABELS → usar la última cámara (la trasera)
+      if (isMobile) {
+        backCamera = devices[devices.length - 1];
+      }
+
+      this.selectedDevice = backCamera || devices[0];
+
+      console.log("🎯 Cámara seleccionada:", this.selectedDevice);
+
+      // Iniciar scanner usando SOLO lo que la librería permite
+      setTimeout(() => {
+        this.startScanner();
+      }, 300);
     });
   }
+
+
 
 }
