@@ -19,6 +19,7 @@ export class HeaderProfesorComponent implements OnInit {
   hayNotificacionesNuevas = false;
   mostrarPopup = false;
   notificaciones: any[] = [];
+  menuAbierto = false;
   constructor(private authService: AuthService, private router: Router, private signalRNoti: SignalRNotificacionesService) { }
 
   ngOnInit(): void {
@@ -68,4 +69,10 @@ export class HeaderProfesorComponent implements OnInit {
     this.mostrarPopup = !this.mostrarPopup;
     
   }
+
+
+  toggleMobileMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
 }
