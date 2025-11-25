@@ -638,3 +638,71 @@
     font-size: 0.9rem;
     padding: 10px;
   }
+/* 🚨 Cartel FitRank estilo formulario-fitrank */
+.alerta-fitrank {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(123, 63, 228, 0.35);
+  border-radius: 14px;
+  padding: 1.2rem;
+  margin-top: 1rem;
+  text-align: center;
+  color: #eaeaea;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  animation: alertaGlow 2s ease-in-out infinite;
+}
+
+  /* Texto principal */
+  .alerta-fitrank .alerta-texto {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  /* Flecha señalando al botón */
+  .alerta-fitrank .alerta-flecha {
+    font-size: 2rem;
+    margin: 5px 0;
+    color: #a886ff;
+    animation: flechaUpDown 1.3s infinite ease-in-out;
+  }
+
+  /* Subtexto */
+  .alerta-fitrank .alerta-sub {
+    font-size: 0.9rem;
+    color: #c6c6c6;
+  }
+
+/* ✨ Glow violeta FitRank */
+@keyframes alertaGlow {
+  0% {
+    box-shadow: 0 0 0px rgba(123, 63, 228, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 16px rgba(123, 63, 228, 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 0px rgba(123, 63, 228, 0.3);
+  }
+}
+
+/* Flecha animada */
+@keyframes flechaUpDown {
+  0% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+}

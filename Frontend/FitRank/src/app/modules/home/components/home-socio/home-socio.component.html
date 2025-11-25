@@ -99,8 +99,14 @@
           <div class="d-flex gap-2">
             <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button>
             <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
-            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
-            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
+            <div *ngIf="historialMedidas?.length === 0" class="alerta-fitrank mt-3">
+              <p class="alerta-texto">⚠️ Para participar del ranking debés cargar tus medidas corporales</p>
+              <div class="alerta-flecha">⬆</div>
+              <small class="alerta-sub">Hacé clic en “Medidas” para comenzar</small>
+            </div>
+
+
+
           </div>
         </div>
 
