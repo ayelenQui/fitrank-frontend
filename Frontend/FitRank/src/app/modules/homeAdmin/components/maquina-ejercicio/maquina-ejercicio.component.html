@@ -83,7 +83,7 @@
           </span>
 
           <span class="tag text-black" *ngIf="e.maquinaId">
-             Máquina {{ e.maquinaId }}
+            Máquina {{ e.maquinaId }}
           </span>
 
         </div>
@@ -95,6 +95,14 @@
                   allowfullscreen>
           </iframe>
         </div>
+        <!-- BOTÓN EDITAR -->
+        <div class="ej-actions mt-3">
+          <button class="btn-sm primary btn-secondary"
+                  (click)="editarEjercicio(e)">
+            ✏️ Editar
+          </button>
+        </div>
+
 
       </div>
 
