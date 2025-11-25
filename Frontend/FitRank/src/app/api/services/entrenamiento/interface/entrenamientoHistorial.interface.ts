@@ -5,6 +5,7 @@ export interface EntrenamientoHistorialDTO {
   duracion: string | null; // TimeSpan se recibe como string
   puntosTotales: number;
   nombreRutina: string;
+  nombreSocio : string;
   actividades: ActividadHistorialDTO[];
 }
 

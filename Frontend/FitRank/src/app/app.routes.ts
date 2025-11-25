@@ -29,6 +29,7 @@ import { HistorialEntrenamientos } from './modules/entrenamiento/historial-entre
 import { CrearBatallaComponent } from './modules/batalla/crear-batalla/components/crear-batalla.component';
 import { MisBatallasComponent } from './modules/batalla/mis-batallas/components/mis-batallas.component';
 import { DetalleBatallaComponent } from './modules/batalla/detalle-batalla/detalle-batalla.component';
+import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -62,6 +63,16 @@ export const appRoutes: Route[] = [
     { path: 'mis-batallas', component: MisBatallasComponent },
     { path: 'batallas/:id', component: DetalleBatallaComponent }
    ]
+  },
+
+  {
+    path: 'profesor',
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      //{path: 'alumnos', component : Alumnos}, //Jero: no se que vamos a mostrar aca en la vista lo dejo comentado
+      {path: 'progreso-alumnos', component : ProgresoAlumnos}
+    ]
   },
 
   {
