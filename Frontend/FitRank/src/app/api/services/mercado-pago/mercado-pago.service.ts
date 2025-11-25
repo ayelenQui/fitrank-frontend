@@ -17,10 +17,12 @@ export class MercadoPagoService {
 
   renovarCuota(socioId: number, email: string) {
     return this.http.post<any>(
-      `${this.apiUrl}/renovar-cuota`,     
-      { socioId, email }
+      `${this.apiUrl}/renovar-cuota`,
+      {
+        SocioId: socioId,
+        Email: email
+      }
     );
-
-
   }
+
 }
