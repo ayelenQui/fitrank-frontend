@@ -143,30 +143,49 @@ export class AccesosComponent implements OnInit, AfterViewInit {
   // 📌 DETECCIÓN DE CÁMARAS (Celular / Escritorio)
   // =======================================================
   ngAfterViewInit() {
+
+    // Pedir permisos explícitamente (soluciona móviles y Chrome)
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(() => console.log("📸 Permisos concedidos"))
+      .catch(err => console.error("❌ No hay permisos:", err));
+
     this.scanner.devices.subscribe(devices => {
       this.dispositivos = devices;
 
-      if (!devices || devices.length === 0) return;
+      if (!devices || devices.length === 0) {
+        console.error("❌ No se encontraron cámaras");
+        return;
+      }
 
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
       if (isMobile) {
-        // Buscar cámara trasera
+        // Buscar cámara trasera por etiqueta
         const rear = devices.find(d =>
           d.label.toLowerCase().includes("back") ||
           d.label.toLowerCase().includes("rear") ||
           d.label.toLowerCase().includes("environment")
         );
 
-        this.selectedDevice = rear ?? devices[0];   // fallback
-        console.log("📱 Modo CELULAR -> cámara trasera seleccionada:", this.selectedDevice);
+        this.selectedDevice = rear ?? devices[0];
+        console.log("📱 Móvil - Cámara trasera seleccionada:", this.selectedDevice);
 
       } else {
-        // Escritorio → usamos la primera cámara
+        // PC → Primera cámara
         this.selectedDevice = devices[0];
-        console.log("🖥️ Modo ESCRITORIO -> cámara por defecto:", this.selectedDevice);
+        console.log("🖥️ PC - Cámara seleccionada:", this.selectedDevice);
       }
+
+      // 🚀 INICIAR AUTOMÁTICAMENTE LUEGO DE DETECTAR DISPOSITIVO
+      setTimeout(() => {
+        if (this.selectedDevice) {
+          console.log("🎥 Iniciando scanner con:", this.selectedDevice);
+          this.startScanner();
+        }
+      }, 300);
+
     });
   }
+
 
 }
