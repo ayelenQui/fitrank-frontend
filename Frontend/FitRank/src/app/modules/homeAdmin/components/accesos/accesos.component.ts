@@ -37,7 +37,6 @@ export class AccesosComponent implements OnInit, AfterViewInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
-
   constructor(
     private asistenciaService: AsistenciaService,
     private authService: AuthService,
@@ -64,10 +63,16 @@ export class AccesosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.scanner.devices.subscribe((devices) => {
+    this.scanner.devices.subscribe((devices: ScannerQRCodeDevice[]) => {
+      console.log("Dispositivos detectados:", devices);
       this.dispositivos = devices;
 
-      if (devices.length === 0) return;
+      if (devices.length === 0) {
+        console.error("No se encontraron cámaras. Verifica permisos y HTTPS.");
+        this.mensaje = "No se pudo acceder a la cámara. Asegúrate de estar en HTTPS y otorgar permisos.";
+        this.exito = false;
+        return;
+      }
 
       // Seleccionar cámara trasera SIEMPRE en mobile
       const rear = devices.find(d =>
@@ -80,25 +85,44 @@ export class AccesosComponent implements OnInit, AfterViewInit {
 
       // IMPORTANTE: iniciar scanner SOLO luego de seleccionar cámara
       setTimeout(() => {
-        this.scanner.start();
-      }, 700); // ← retraso mayor para móviles
+        try {
+          this.scanner.start();  // SIN .then() ni .catch()
+          console.log("Escáner iniciado.");
+        } catch (err: any) {
+          console.error("Error al iniciar escáner:", err);
+          this.mensaje = "Error al iniciar la cámara: " + err.message;
+          this.exito = false;
+        }
+      }, 1000);
     });
-  }
 
+    // REMOVIDO: this.scanner.scanError.subscribe(...) - no existe en esta versión
+  }
 
   // EVENTO DE LECTURA REAL
   onScan(result: any) {
+    console.log("Resultado crudo del escaneo:", result);
     const qrText =
       result?.text ||
       result?.value ||
       (typeof result === 'string' ? result : null);
 
-    if (!qrText) return;
+    if (!qrText) {
+      console.warn("QR detectado pero sin texto válido.");
+      return;
+    }
 
     console.log("QR detectado:", qrText);
 
     this.scanner.stop();
     this.validarQR(qrText);
+  }
+
+  // Método opcional para fallos (maneja errores manualmente si es necesario)
+  onScanFail(err: any) {
+    console.error("Fallo en escaneo:", err);
+    this.mensaje = "Error al escanear: " + err.message;
+    this.exito = false;
   }
 
   onDeviceChange() {
@@ -109,9 +133,6 @@ export class AccesosComponent implements OnInit, AfterViewInit {
       this.scanner.start();
     }, 200);
   }
-
-
-
 
   validarQR(qrData: string) {
     this.loading = true;
@@ -130,7 +151,7 @@ export class AccesosComponent implements OnInit, AfterViewInit {
         setTimeout(() => this.scanner.start(), 1200);
       },
 
-      error: (err) => {
+      error: (err: any) => {
         this.mensaje = err.error?.mensaje || 'Error al validar QR';
         this.exito = false;
         this.loading = false;
@@ -147,7 +168,7 @@ export class AccesosComponent implements OnInit, AfterViewInit {
     this.loading = true;
 
     this.asistenciaService.getDetalleUsuarioAsistencia(usuarioId).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (res.exito) {
           this.socio = res.socio;
           this.asistencias = res.asistencias;
@@ -155,7 +176,7 @@ export class AccesosComponent implements OnInit, AfterViewInit {
         this.loading = false;
       },
 
-      error: () => {
+      error: (err: any) => {
         this.mensaje = 'Error recuperando datos del socio';
         this.loading = false;
       }

@@ -16,30 +16,32 @@
         <p class="subtitulo">Escaneá el código del socio para validar el ingreso.</p>
       </div>
 
+      <!-- MENSAJE SI NO HAY CÁMARAS -->
+      <div *ngIf="dispositivos.length === 0" class="alert alert-warning mb-3">
+        No se detectaron cámaras. Verifica permisos y HTTPS.
+      </div>
+
       <!-- SELECTOR DE CÁMARAS (SOLO ESCRITORIO) -->
       <div class="device-selector" *ngIf="dispositivos.length > 1">
         <label class="label-cam">Seleccionar cámara:</label>
 
         <select class="select-cam"
                 [(ngModel)]="selectedDeviceId"
-                (change)="scanner.start()">
+                (change)="onDeviceChange()">
           <option *ngFor="let cam of dispositivos" [value]="cam.deviceId">
             {{ cam.label }}
           </option>
         </select>
-
-
       </div>
 
       <!-- MARCO DEL SCANNER -->
       <div class="scanner-frame shadow-lg rounded-4 mx-auto">
         <ngx-scanner-qrcode #scanner
-                            class="rounded-4  scanner-cam"
+                            class="rounded-4 scanner-cam"
+                      
                             (scanSuccess)="onScan($event)">
+          <!-- QUITADO: (scanError)="onScanFail($event)" porque scanError no existe -->
         </ngx-scanner-qrcode>
-
-
-
       </div>
 
       <!-- BOTONES -->
@@ -51,7 +53,6 @@
         <button class="btn btn-outline-danger btn-secondary" (click)="scanner.stop()">
           <i class="bi bi-stop-fill"></i> Detener
         </button>
-
       </div>
 
       <!-- LOADING -->
