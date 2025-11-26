@@ -21,36 +21,34 @@
         No se detectaron cámaras. Verifica permisos y HTTPS.
       </div>
 
-      <!-- SELECTOR DE CÁMARAS (SOLO ESCRITORIO) -->
+      <!-- SELECTOR DE CÁMARAS -->
       <div class="device-selector" *ngIf="dispositivos.length > 1">
         <label class="label-cam">Seleccionar cámara:</label>
 
         <select class="select-cam"
                 [(ngModel)]="selectedDeviceId"
-                (change)="onDeviceChange()">
+                (change)="leerQR()">
           <option *ngFor="let cam of dispositivos" [value]="cam.deviceId">
             {{ cam.label }}
           </option>
         </select>
       </div>
 
-      <!-- MARCO DEL SCANNER -->
+      <!-- ============================
+           VIDEO DEL SCANNER ZXING
+      ============================ -->
       <div class="scanner-frame shadow-lg rounded-4 mx-auto">
-        <ngx-scanner-qrcode #scanner
-                            class="rounded-4 scanner-cam"
-                      
-                            (scanSuccess)="onScan($event)">
-          <!-- QUITADO: (scanError)="onScanFail($event)" porque scanError no existe -->
-        </ngx-scanner-qrcode>
+        <video #preview class="rounded-4 overflow-hidden scanner-cam" autoplay muted playsinline></video>
       </div>
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">
-        <button class="btn btn-fitrank btn-secondary" (click)="scanner.start()">
+        <button class="btn btn-fitrank btn-secondary" (click)="iniciarScanner()">
           <i class="bi bi-play-fill"></i> Iniciar
         </button>
 
-        <button class="btn btn-outline-danger btn-secondary" (click)="scanner.stop()">
+        <button class="btn btn-outline-danger btn-secondary"
+                (click)="controls?.stop()">
           <i class="bi bi-stop-fill"></i> Detener
         </button>
       </div>
@@ -137,13 +135,12 @@
 
   </div> <!-- FIN COLUMNA IZQUIERDA -->
   <!-- ============================
-       COLUMNA DERECHA
+       DERECHA
   ============================ -->
   <div class="col-lg-6 col-12 qr-right">
 
     <div class="ocupacion-wrapper">
 
-      <!-- OCUPACIÓN ACTUAL -->
       <div class="ocupacion-card text-black">
         <h3>
           <i class="bi bi-people-fill me-2"></i>
@@ -154,7 +151,6 @@
         <p class="sub">personas dentro del gimnasio</p>
       </div>
 
-      <!-- MOVIMIENTOS -->
       <div class="movimientos-card text-black">
         <h4 class="mb-3">
           <i class="bi bi-arrow-left-right me-2"></i>
@@ -183,7 +179,7 @@
 
       </div>
 
-    </div> <!-- FIN DERECHA -->
+    </div>
 
   </div> <!-- FIN COLUMNA DERECHA -->
 
