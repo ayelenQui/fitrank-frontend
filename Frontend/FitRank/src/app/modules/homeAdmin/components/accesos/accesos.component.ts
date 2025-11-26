@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
+import { NgxScannerQrcodeComponent, ScannerQRCodeDevice } from 'ngx-scanner-qrcode';
 import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
 import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
@@ -17,12 +17,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class AccesosComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('scanner', { static: false }) scanner!: NgxScannerQrcodeComponent;
+  @ViewChild('scanner') scanner!: NgxScannerQrcodeComponent;
 
-  personasDentro: number = 0;
-
-  dispositivos: any[] = [];
-  selectedDevice: any = null;
+  personasDentro = 0;
+  dispositivos: ScannerQRCodeDevice[] = [];
+  selectedDeviceId: string | null = null;
 
   socio: SocioDTO | null = null;
   asistencias: AsistenciaDetalleUsuarioDTO[] = [];
@@ -38,6 +37,7 @@ export class AccesosComponent implements OnInit, AfterViewInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
+
   constructor(
     private asistenciaService: AsistenciaService,
     private authService: AuthService,
@@ -46,7 +46,6 @@ export class AccesosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
@@ -64,9 +63,30 @@ export class AccesosComponent implements OnInit, AfterViewInit {
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
   }
 
-  // =======================================================
-  // 📌 LECTURA QR
-  // =======================================================
+  ngAfterViewInit() {
+    // Cargar cámaras desde la librería nueva
+    this.scanner.devices.subscribe((devices) => {
+      this.dispositivos = devices;
+
+      if (devices.length === 0) return;
+
+      // Elegir cámara trasera si existe
+      const rear = devices.find(d =>
+        /back|rear|environment/gi.test(d.label)
+      );
+
+      this.selectedDeviceId = rear?.deviceId ?? devices[0].deviceId;
+
+      console.log("🎥 Cámara seleccionada:", this.selectedDeviceId);
+
+      // Iniciar lector
+      setTimeout(() => {
+        this.scanner.start();
+      }, 300);
+    });
+  }
+
+  // EVENTO DE LECTURA REAL
   onScan(result: any) {
     const qrText =
       result?.text ||
@@ -75,9 +95,23 @@ export class AccesosComponent implements OnInit, AfterViewInit {
 
     if (!qrText) return;
 
+    console.log("QR detectado:", qrText);
+
     this.scanner.stop();
     this.validarQR(qrText);
   }
+
+  onDeviceChange() {
+    if (!this.selectedDeviceId) return;
+
+    this.scanner.stop();
+    setTimeout(() => {
+      this.scanner.start();
+    }, 200);
+  }
+
+
+
 
   validarQR(qrData: string) {
     this.loading = true;
@@ -91,22 +125,24 @@ export class AccesosComponent implements OnInit, AfterViewInit {
         if (res.usuarioId) {
           this.cargarDetalleComoAdmin(res.usuarioId);
         }
+
+        // volver a activar cámara después de validar
+        setTimeout(() => this.scanner.start(), 1200);
       },
+
       error: (err) => {
         this.mensaje = err.error?.mensaje || 'Error al validar QR';
         this.exito = false;
         this.loading = false;
+
+        setTimeout(() => this.scanner.start(), 1200);
       }
     });
   }
 
   cargarDetalleComoAdmin(usuarioId: number) {
     const token = this.authService.obtenerToken();
-
-    if (!token) {
-      this.mensaje = 'No hay sesión activa';
-      return;
-    }
+    if (!token) return;
 
     this.loading = true;
 
@@ -115,63 +151,14 @@ export class AccesosComponent implements OnInit, AfterViewInit {
         if (res.exito) {
           this.socio = res.socio;
           this.asistencias = res.asistencias;
-        } else {
-          this.mensaje = res.mensaje;
         }
         this.loading = false;
       },
+
       error: () => {
         this.mensaje = 'Error recuperando datos del socio';
         this.loading = false;
       }
     });
   }
-
-  startScanner() {
-    if (!this.selectedDevice) return;
-    this.scanner.playDevice(this.selectedDevice.deviceId);
-  }
-
-  stopScanner() {
-    this.scanner.stop();
-  }
-
-
-  // =======================================================
-  // 📌 DETECCIÓN DE CÁMARAS (Celular / Escritorio)
-  // =======================================================
-  ngAfterViewInit() {
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(() => console.log("📸 Permisos OK"))
-      .catch(err => console.error("❌ No hay permisos:", err));
-
-    this.scanner.start((devices: any[]) => {
-      this.dispositivos = devices;
-
-      if (!devices || devices.length === 0) {
-        console.error("❌ No se encontraron cámaras");
-        return;
-      }
-
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-      if (isMobile) {
-        const rear = devices.find(d =>
-          /back|rear|environment/gi.test(d.label)
-        );
-
-        this.selectedDevice = rear ?? devices[0];
-      } else {
-        this.selectedDevice = devices[0];
-      }
-
-      console.log("🎥 Cámara seleccionada:", this.selectedDevice);
-
-      // 👉 Acá arrancamos realmente la cámara
-      this.scanner.playDevice(this.selectedDevice?.deviceId);
-    });
-  }
-
-
 }

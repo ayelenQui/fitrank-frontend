@@ -4,21 +4,26 @@
   padding: 20px;
   gap: 20px;
 }
+
+/* FRAME DONDE VA EL SCANNER */
 .scanner-frame {
   width: 100%;
-  max-width: 480px; /* Más grande */
-  height: 380px; /* Más alto */
+  max-width: 480px;
+  height: auto; /* ← IMPORTANTÍSIMO */
+  aspect-ratio: 1 / 1; /* ← SÚPER IMPORTANTE */
   background: #000;
   position: relative;
 }
 
+/* NO PISAR EL VIDEO INTERNO: LO ROMPE */
+.scanner-cam,
 .scanner-cam video {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
+  object-fit: contain !important; /* ← CRÍTICO */
 }
 
-/* COLUMNA IZQUIERDA */
+/* COLUMNAS */
 .qr-left {
   padding-right: 20px;
   border-right: 2px solid #e7e7e7;
@@ -33,22 +38,8 @@
   }
 }
 
-/* COLUMNA DERECHA */
 .qr-right {
   padding-left: 20px;
-}
-
-/* ------------------------ */
-/*     SCANNER LADO IZQ    */
-/* ------------------------ */
-.scanner-frame {
-  max-width: 380px;
-}
-
-.scanner-cam {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
 }
 
 /* RESULTADO */
@@ -76,9 +67,7 @@
   object-fit: cover;
 }
 
-/* ------------------------ */
-/*     PANEL DERECHA       */
-/* ------------------------ */
+/* DERECHA */
 .ocupacion-wrapper {
   padding: 10px;
 }
@@ -124,6 +113,7 @@
   padding: 5px 12px;
   border-radius: 12px;
 }
+
 .text-titulo {
   text-align: center;
   color: black;
@@ -131,21 +121,12 @@
   font-size: 50px;
 }
 
-  .tipo.entrada {
-    background: #d7ffd6;
-    color: #0f8f0f;
-  }
+.tipo.entrada {
+  background: #d7ffd6;
+  color: #0f8f0f;
+}
 
-  .tipo.salida {
-    background: #ffe4e4;
-    color: #da1a1a;
-  }
-
-/* Modo escritorio */
-@media (min-width: 992px) {
-  .scanner-frame {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-  }
+.tipo.salida {
+  background: #ffe4e4;
+  color: #da1a1a;
 }

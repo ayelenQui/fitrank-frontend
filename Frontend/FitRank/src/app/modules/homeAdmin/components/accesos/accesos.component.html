@@ -21,12 +21,14 @@
         <label class="label-cam">Seleccionar cámara:</label>
 
         <select class="select-cam"
-                [(ngModel)]="selectedDevice"
-                (change)="startScanner()">
-          <option *ngFor="let cam of dispositivos" [ngValue]="cam">
+                [(ngModel)]="selectedDeviceId"
+                (change)="scanner.start()">
+          <option *ngFor="let cam of dispositivos" [value]="cam.deviceId">
             {{ cam.label }}
           </option>
         </select>
+
+
       </div>
 
       <!-- MARCO DEL SCANNER -->
@@ -36,17 +38,20 @@
                             (scanSuccess)="onScan($event)">
         </ngx-scanner-qrcode>
 
+
+
       </div>
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">
-        <button class="btn btn-fitrank btn-secondary" (click)="startScanner()">
+        <button class="btn btn-fitrank btn-secondary" (click)="scanner.start()">
           <i class="bi bi-play-fill"></i> Iniciar
         </button>
 
-        <button class="btn btn-outline-danger btn-secondary" (click)="stopScanner()">
+        <button class="btn btn-outline-danger btn-secondary" (click)="scanner.stop()">
           <i class="bi bi-stop-fill"></i> Detener
         </button>
+
       </div>
 
       <!-- LOADING -->
