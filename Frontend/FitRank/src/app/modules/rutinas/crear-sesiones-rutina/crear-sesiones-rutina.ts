@@ -59,22 +59,32 @@ export class CrearSesionesRutinaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      
-  const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
-  if (st.socioId) {
-    this.socioId = st.socioId;
-  }
-  if (st.solicitudId) {
-    this.solicitudId = st.solicitudId;
-  }
-  if (st.volverA) {
-    this.volverA = st.volverA;
-  }
 
+    // 1️⃣ Leemos el state si vino navegación con data
+    const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
+
+    if (st.socioId) {
+      this.socioId = st.socioId;          // socioId del socio al que se le arma la rutina
+    }
+
+    if (st.solicitudId) {
+      this.solicitudId = st.solicitudId;  // para el caso de solicitudes de profesor
+    }
+
+    if (st.volverA) {
+      this.volverA = st.volverA;          // hacia dónde volver al final (puede ser mis-rutinas o pantalla de profesor)
+    }
+
+    // 2️⃣ Ruta siempre trae el id de la rutina
     this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
-    const user = this.auth.obtenerUser();
-    this.socioId = user?.Id;
 
+    // 3️⃣ Si NO vino socioId por state, uso el usuario logueado
+    const user = this.auth.obtenerUser();
+    if (!this.socioId && user?.Id) {
+      this.socioId = user.Id;
+    }
+
+    // 4️⃣ INIT del form y datos (lo tuyo tal cual)
     this.form = this.fb.group({
       cantidadDias: [null, [Validators.required, Validators.min(1), Validators.max(7)]],
       sesiones: this.fb.array([])
@@ -88,12 +98,12 @@ export class CrearSesionesRutinaComponent implements OnInit {
       error: (err) => console.error('Error cargando ejercicios', err)
     });
 
-    // Traer grupos musculares
     this.grupoMuscularService.obtenerTodos().subscribe({
       next: grupos => this.gruposMusculares = grupos,
       error: err => console.error('Error cargando grupos musculares', err)
     });
   }
+
 
   get sesiones(): FormArray {
     return this.form.get('sesiones') as FormArray;

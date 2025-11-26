@@ -1,15 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
-import { AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProfesorService } from '@app/api/services/profesor/ProfesorService';
 import gsap from 'gsap';
 import { FilterRutinasPipe } from '@app/filter-rutinas-pipe';
 import Swal from 'sweetalert2';
+import { RutinaCompletaDTO } from '../../../../api/services/rutina/interfaces/rutina.interface.rest';
 
 @Component({
   selector: 'app-mis-rutinas',
@@ -49,55 +49,51 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     private profesorService: ProfesorService,
     private cdr: ChangeDetectorRef
   ) { }
-    ngAfterViewInit() {
+
+  ngAfterViewInit() {
     gsap.fromTo(
-    '.titulo',
-    { y: -30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
-  );
+      '.titulo',
+      { y: -30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
+    );
 
-  gsap.fromTo(
-    '.subtitulo',
-    { y: -15, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
-  );
+    gsap.fromTo(
+      '.subtitulo',
+      { y: -15, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
+    );
 
-  
-  gsap.fromTo(
-    '.card',
-    { y: 20, opacity: 0, scale: 0.95 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, delay: 0.4, ease: 'power3.out' }
-  );
+    gsap.fromTo(
+      '.card',
+      { y: 20, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, delay: 0.4, ease: 'power3.out' }
+    );
 
-  gsap.fromTo(
-    '.btn-empezar',
-    { scale: 0.85, opacity: 0 },
-    { scale: 1, opacity: 1, duration: 0.4, delay: 0.8, ease: 'power3.out' }
-  );
+    gsap.fromTo(
+      '.btn-empezar',
+      { scale: 0.85, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.4, delay: 0.8, ease: 'power3.out' }
+    );
 
-  const boton = document.querySelector('.btn-empezar');
+    const boton = document.querySelector('.btn-empezar');
     boton?.addEventListener('mouseenter', () => {
-    gsap.to(boton, { scale: 1.1, duration: 0.1, ease: 'power1.out' });
-  });
-  boton?.addEventListener('mouseleave', () => {
-    gsap.to(boton, { scale: 1, duration: 0.1, ease: 'power1.out' });
-  });
-
+      gsap.to(boton, { scale: 1.1, duration: 0.1, ease: 'power1.out' });
+    });
+    boton?.addEventListener('mouseleave', () => {
+      gsap.to(boton, { scale: 1, duration: 0.1, ease: 'power1.out' });
+    });
   }
-  
 
   ngOnInit(): void {
-  
+
     this.sesionesCompletadas = 3;
     this.totalSesiones = 5;
-
 
     this.proximasSesiones = [
       { dia: 'MIE', numero: 6, nombreRutina: 'Piernas y Glúteos', hora: '18:00 hs' },
       { dia: 'VIE', numero: 8, nombreRutina: 'Full Body', hora: '19:00 hs' },
       { dia: 'DOM', numero: 10, nombreRutina: 'Cardio HIIT', hora: '10:00 hs' },
     ];
-   
 
     const user = this.auth.obtenerUser();
     this.userId = user?.id ?? user?.Id;
@@ -109,51 +105,50 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       return;
     }
 
-  
     if (this.rol === 'socio') {
       this.cargarRutinas();
     } else if (this.rol === 'profesor') {
       this.cargarRutinasProfesor();
     }
   }
-  
 
+  // 🔥 IMPORTANTE: ahora usamos getRutinaCompletaPorSocio (como IniciarRutina)
   cargarRutinas(): void {
     this.loading = true;
 
-    this.rutinaService.getRutinasPorSocio(this.userId!).subscribe({
-      next: (data) => {
-        console.log('📦 Rutinas del socio logueado:', data);
-        
-        this.rutinas = (data || []).map(r => ({
+    this.rutinaService.getRutinaCompletaPorSocio(this.userId!).subscribe({
+      next: (data: RutinaCompletaDTO[]) => {
+        console.log('📦 Rutinas completas del socio:', data);
+
+        this.rutinas = (data || []).map((r: any) => ({
           ...r,
-          esFavorita: r.favorita,
-           tieneSesiones: r.tieneSesiones ?? false
+          // si el backend manda favorita / activa las respetamos, sino default
+          esFavorita: r.favorita ?? false,
+          activa: r.activa ?? true,
+          // 👇 clave: calculamos si tiene sesiones reales
+          tieneSesiones: Array.isArray(r.sesiones) && r.sesiones.length > 0
         }));
-        this.loading = false;
-        
 
         this.actualizarContadores();
+        this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('❌ Error cargando rutinas:', err);
+        console.error('❌ Error cargando rutinas completas:', err);
         this.error = 'No se pudieron cargar tus rutinas.';
         this.loading = false;
       }
-
-
     });
-
   }
+
   actualizarContadores(): void {
     this.totalRutinas = this.rutinas.length;
     this.rutinasActivas = this.rutinas.filter((r) => r.activa === true).length;
     this.rutinasInactivas = this.rutinas.filter((r) => r.activa === false).length;
   }
 
-
-
   iniciarRutina(rutina: any): void {
+    // chequeamos en el front con los datos que ya tenemos
     if (!rutina.tieneSesiones) {
       Swal.fire({
         icon: 'warning',
@@ -163,6 +158,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       });
       return;
     }
+
+    // navegamos igual que en IniciarRutina: pasando el id
     this.router.navigate(['/rutina/iniciar-rutina', rutina.id]);
   }
 
@@ -175,7 +172,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     this.rutinaService.eliminar(id).subscribe({
       next: () => {
         this.rutinas = this.rutinas.filter(r => r.id !== id);
-        this.actualizarContadores(); 
+        this.actualizarContadores();
       },
       error: (err) => console.error('Error al eliminar rutina:', err)
     });
@@ -200,79 +197,82 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   }
 
   toggleFavorita(rutina: any) {
-  rutina.esFavorita = !rutina.esFavorita;  // cambio visual inmediato
+    rutina.esFavorita = !rutina.esFavorita;  // cambio visual inmediato
 
-  this.rutinaService.cambiarFavorita(rutina.id, rutina.esFavorita).subscribe({
-    next: () => {
-      rutina.favorita = rutina.esFavorita; // sincronizar con backend
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.error("Error al cambiar favorito:", err);
-
-      // revertir si falla
-      rutina.esFavorita = !rutina.esFavorita;
-    }
-  });
-}
-
-
-
-toggleActiva(rutina: any) {
-
-  const titulo = rutina.activa
-    ? "¿Desactivar rutina?"
-    : "¿Activar rutina?";
-
-  const texto = rutina.activa
-    ? "¿Seguro que querés desactivar esta rutina?"
-    : "¿Querés volver a activarla?";
-
-  Swal.fire({
-    title: titulo,
-    text: texto,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: rutina.activa ? "Desactivar" : "Activar",
-    cancelButtonText: "Cancelar",
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6'
-  }).then((result) => {
-
-    if (!result.isConfirmed) return;
-
-    const nuevoEstado = !rutina.activa;
-
-    this.rutinaService.cambiarEstado(rutina.id, nuevoEstado).subscribe({
+    this.rutinaService.cambiarFavorita(rutina.id, rutina.esFavorita).subscribe({
       next: () => {
-
-        rutina.activa = nuevoEstado;
-        this.actualizarContadores();
-
-        Swal.fire({
-          icon: "success",
-          title: nuevoEstado ? "Rutina activada" : "Rutina desactivada",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        rutina.favorita = rutina.esFavorita; // sincronizar con backend
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error("Error al cambiar estado:", err);
-
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Hubo un problema al cambiar el estado.",
-          confirmButtonColor: '#d33'
-        });
+        console.error("Error al cambiar favorito:", err);
+        rutina.esFavorita = !rutina.esFavorita; // revertir si falla
       }
     });
+  }
 
-  });
-}
+  toggleActiva(rutina: any) {
 
+    const titulo = rutina.activa
+      ? "¿Desactivar rutina?"
+      : "¿Activar rutina?";
+
+    const texto = rutina.activa
+      ? "¿Seguro que querés desactivar esta rutina?"
+      : "¿Querés volver a activarla?";
+
+    Swal.fire({
+      title: titulo,
+      text: texto,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: rutina.activa ? "Desactivar" : "Activar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then((result) => {
+
+      if (!result.isConfirmed) return;
+
+      const nuevoEstado = !rutina.activa;
+
+      this.rutinaService.cambiarEstado(rutina.id, nuevoEstado).subscribe({
+        next: () => {
+
+          rutina.activa = nuevoEstado;
+          this.actualizarContadores();
+
+          Swal.fire({
+            icon: "success",
+            title: nuevoEstado ? "Rutina activada" : "Rutina desactivada",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+        error: (err) => {
+          console.error("Error al cambiar estado:", err);
+
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cambiar el estado.",
+            confirmButtonColor: '#d33'
+          });
+        }
+      });
+
+    });
+  }
 
   volverAtras(): void {
     this.location.back();
   }
+
+  irACrearSesiones(rutinaId: number): void {
+    this.router.navigate(
+      ['/rutina/crear-sesiones-rutina', rutinaId],
+      { state: { socioId: this.userId, volverA: '/rutina/mis-rutinas' } }
+    );
+  }
+
 }

@@ -101,58 +101,59 @@
             {{ r.fechaCreacion | date: 'shortDate' }}
           </p>
 
-          <!-- 🔹 Acciones -->
           <div class="d-flex justify-content-end gap-2">
-            <div class="card" *ngFor="let rutina of rutinas">
 
-              <!-- botón favorito -->
-              <button class="favorito-btn" (click)="toggleFavorita(rutina)">
-                <img *ngIf="rutina.esFavorita"
+            <!-- ⭐ Favorito -->
+            <div class="card">
+              <button class="favorito-btn" (click)="toggleFavorita(r)">
+                <img *ngIf="r.esFavorita"
                      src="../../../../../assets/img/icons/star-filled.svg"
-                     alt="Favorito"
                      class="icono-favorito" />
-
-                <img *ngIf="!rutina.esFavorita"
+                <img *ngIf="!r.esFavorita"
                      src="../../../../../assets/img/icons/star-outline.svg"
-                     alt="No favorito"
                      class="icono-favorito" />
               </button>
-
-              <!-- resto del contenido de la tarjeta -->
-
             </div>
 
-            <!-- 🔄 Activar / Desactivar rutina -->
+            <!-- ⭐ Activar / desactivar -->
             <button class="btn btn-light btn-sm"
                     (click)="toggleActiva(r)">
               <span class="material-symbols-outlined">
                 {{ r.activa ? 'visibility_off' : 'visibility' }}
               </span>
+
             </button>
-            <!-- ▶ Iniciar solo SOCIO -->
-            <!-- SI TIENE SESIONES → botón iniciar -->
-            <button *ngIf="rol === 'socio' && r.tieneSesiones"
+
+            <!-- ⭐ Iniciar rutina SOLO si tiene sesiones -->
+            <button *ngIf="rol === 'socio'"
                     class="btn btn-fitrank btn-sm fw-bold btn-secondary"
                     (click)="iniciarRutina(r)">
               <span class="material-symbols-outlined fs-6 align-middle me-1">play_arrow</span>
               Iniciar
             </button>
 
-            <!-- SI NO TIENE SESIONES → mensaje -->
-            <div *ngIf="rol === 'socio' && !r.tieneSesiones"
-                 class="alert-sin-sesiones small mt-2">
-              ⚠ Cargá tus sesiones para poder iniciar
-            </div>
 
           </div>
 
+          <!-- ⭐ Mensaje si NO tiene sesiones (FUERA del flex-row) -->
+          <!-- SI NO TIENE SESIONES → botón para ir a crear -->
+          <div *ngIf="rol === 'socio' && !r.tieneSesiones" class="mt-2 text-center">
+            <button class="btn btn-fitrank btn-sm fw-bold"
+                    (click)="irACrearSesiones(r.id)">
+              <span class="material-symbols-outlined fs-6 align-middle me-1">add_circle</span>
+              Crear sesiones
+            </button>
+          </div>
+
+
+
           <!-- 🔹 Íconos sociales (solo para socios) -->
           <!-- <div *ngIf="rol === 'socio'" class="d-flex justify-content-around align-items-center mt-3 border-top pt-2">
-            <button class="icon-btn"><span class="material-symbols-outlined">favorite</span></button>
-            <button class="icon-btn"><span class="material-symbols-outlined">bookmark</span></button>
-            <button class="icon-btn"><span class="material-symbols-outlined">chat_bubble</span></button>
-            <button class="icon-btn"><span class="material-symbols-outlined">share</span></button>
-          </div> -->
+    <button class="icon-btn"><span class="material-symbols-outlined">favorite</span></button>
+    <button class="icon-btn"><span class="material-symbols-outlined">bookmark</span></button>
+    <button class="icon-btn"><span class="material-symbols-outlined">chat_bubble</span></button>
+    <button class="icon-btn"><span class="material-symbols-outlined">share</span></button>
+  </div> -->
 
         </div>
       </div>

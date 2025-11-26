@@ -105,6 +105,37 @@ h1 {
  margin-bottom: 10px;
 }
 
+.btn-guardar-floating {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background-color: #7FFF00;
+  color: black;
+  font-weight: bold;
+  padding: 14px 30px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 25px rgba(140, 82, 255, 0.35);
+  z-index: 9999;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+  .btn-guardar-floating:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(140, 82, 255, 0.45);
+  }
+
+
+.btn-outline-primary {
+  color: black;
+  border-color: #7FFF00;
+  background-color: #7FFF00;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
 /* ====== PLAN CARD (Formulario) ====== */
 .plan-card {
  background: rgba(255, 255, 255, 0.08);
