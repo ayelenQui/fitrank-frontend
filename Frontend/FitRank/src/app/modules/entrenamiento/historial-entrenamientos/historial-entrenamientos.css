@@ -136,15 +136,6 @@
 .tabla-series tr:hover {
   background: rgba(123, 63, 228, 0.1);
 }
-
-/* Scroll en móviles */
-@media (max-width: 576px) {
-  .tabla-series th,
-  .tabla-series td {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.8rem;
-  }
-}
 /* ===== DISTRIBUCIÓN EN UNA SOLA FILA ===== */
 .info-header {
   display: flex;
@@ -170,4 +161,59 @@
 app-grafico-progreso {
   margin-top: 1.2rem;
   display: block;
+}
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+  .info-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-header p {
+    text-align: center;
+    width: 100%;
+  }
+
+  .btn-fitrank {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* Scroll en móviles */
+@media (max-width: 576px) {
+  .historial-container {
+    padding: 0.5rem;
+  }
+
+  .entrenamiento-card {
+    padding: 1rem;
+  }
+
+  .actividad-item {
+    padding: 0.5rem;
+  }
+
+  .tabla-series th,
+  .tabla-series td {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .btn-fitrank {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  canvas {
+    height: 200px !important; /* ajusta altura para móviles */
+  }
+}
+
+.actividad-img {
+  width: 40px;       /* tamaño de la imagen */
+  height: 40px;      /* tamaño de la imagen */
+  object-fit: cover; /* recorta la imagen si no es cuadrada */
+  border-radius: 4px; /* opcional, bordes redondeados */
+  margin-right: 10px; /* espacio entre imagen y texto */
+  vertical-align: middle; /* alinea la imagen con el texto */
 }

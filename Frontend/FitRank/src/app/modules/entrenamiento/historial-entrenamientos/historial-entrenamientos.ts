@@ -10,6 +10,7 @@ interface ActividadAgrupada {
   nombre: string;
   progresoHistorico: ProgresoEjercicioDTO[];
   actividades: any[]; // mantiene reps, peso, puntos por serie
+  urlImagen?: string;
 }
 
 @Component({

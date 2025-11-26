@@ -28,7 +28,14 @@
 
         <div class="actividad-info">
           <div class="actividad-data">
-            <h6>{{ ejercicio.nombre }}</h6>
+
+            
+            <h6>
+            <img *ngIf="ejercicio.urlImagen" [src]="ejercicio.urlImagen" class="actividad-img" alt="{{ ejercicio.nombre }}">
+            {{ ejercicio.nombre }}
+            </h6>
+
+            
 
             <!-- TABLA DE SERIES -->
             <div class="tabla-series-container">
