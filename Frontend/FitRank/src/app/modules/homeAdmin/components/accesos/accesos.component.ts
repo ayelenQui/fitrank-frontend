@@ -2,8 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { BrowserQRCodeReader } from '@zxing/browser';
-import { IScannerControls } from '@zxing/browser';
+import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
 
 import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
@@ -26,6 +25,8 @@ export class AccesosComponent implements OnInit {
 
   dispositivos: any[] = [];
   selectedDeviceId: string | null = null;
+
+  leyendo = false; // 🔥 PARA EVITAR LECTURAS DOBLES
 
   mensaje = '';
   exito: boolean | null = null;
@@ -77,15 +78,21 @@ export class AccesosComponent implements OnInit {
   async leerQR() {
     if (!this.selectedDeviceId) return;
 
+    // 🔥 detener instancia previa si existe
     if (this.controls) this.controls.stop();
+
+    this.leyendo = false; // 🔥 Reinicia la protección
 
     this.controls = await this.reader.decodeFromVideoDevice(
       this.selectedDeviceId,
       this.preview.nativeElement,
       (result, err) => {
-        if (result) {
+        if (result && !this.leyendo) {
+          this.leyendo = true; // 🔥 Marca que ya leyó
+
           const text = result.getText();
           console.log("✔ QR LEÍDO:", text);
+
           this.controls?.stop();
           this.validarQR(text);
         }
@@ -104,15 +111,27 @@ export class AccesosComponent implements OnInit {
 
         if (res.usuarioId) this.cargarDetalle(res.usuarioId);
 
-        setTimeout(() => this.leerQR(), 1200);
+        // 🔥 Reiniciar el scanner para leer otro QR
+        this.reanudarScanner();
       },
       error: () => {
         this.mensaje = 'Error validando QR';
         this.exito = false;
         this.loading = false;
-        setTimeout(() => this.leerQR(), 1200);
+
+        // 🔥 Reiniciar igual
+        this.reanudarScanner();
       }
     });
+  }
+
+  reanudarScanner() {
+    setTimeout(() => {
+      this.controls?.stop();
+
+      // 🔥 IMPORTANTE: pequeña pausa para evitar conflicto de cámara
+      setTimeout(() => this.leerQR(), 300);
+    }, 1200);
   }
 
   cargarDetalle(id: number) {
@@ -123,5 +142,5 @@ export class AccesosComponent implements OnInit {
       }
     });
   }
-
 }
+
