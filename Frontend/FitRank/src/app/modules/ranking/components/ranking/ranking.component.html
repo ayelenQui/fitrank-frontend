@@ -7,8 +7,44 @@
   <h2 class="titulo">
    Ranking Del Gimnasio
   </h2>
+  
+  <div class="filtros">
+    <div class="filtros-grupo">
+
+      <div class="sub-filtro">  
+        <label name="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" [(ngModel)]="cantidad" name="cantidad" (change)="cargarRanking()" min="1" />
+      </div>
+      
+      <div class="sub-filtro">
+        <!-- Select de grupos -->
+        <label name="grupo" >Grupo muscular:</label>
+        <select [(ngModel)]="grupoSeleccionado" name="grupo" (change)="filtrar()">
+          <option value="0">Todos</option>
+          <option *ngFor="let g of grupos" [value]="g.id">{{ g.nombre }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filtro por fechas -->
+    <div class="filtros-fecha">
+      <div class="sub-filtro">
+        
+        <label name="desde">Desde:</label>
+        <input type="date" [(ngModel)]="desde" name="desde">
+      </div>
+      <div class="sub-filtro">
+      <label name="hasta">Hasta:</label>
+      <input type="date" [(ngModel)]="hasta" name="hasta">
+      </div>
+      <button (click)="filtrar()">Filtrar por fechas</button>
+    </div>
+    <button (click)="resetFiltros()" class="btn-reset">Resetear Filtros</button>
+</div>
 
   <div class="ranking-list">
+    <p *ngIf="mensaje">{{ mensaje }}</p>
+
     <div
       *ngFor="let socio of ranking; let i = index"
       class="card-ranking"

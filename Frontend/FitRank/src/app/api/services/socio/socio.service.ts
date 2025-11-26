@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface Socio {
   id: number;
@@ -14,6 +16,10 @@ export interface Socio {
 
 @Injectable({ providedIn: 'root' })
 export class SocioService {
+    constructor(private http: HttpClient) { }
+
+  private apiUrl = `${environment.apiUrl}/Socio`;
+  
   private socios: Socio[] = [
     {
       id: 1,
@@ -50,8 +56,17 @@ export class SocioService {
   getSocios(): Observable<Socio[]> {
     return of(this.socios);
   }
+  obtenerSocios(): Observable<Socio[]> {
+    return this.http.get<Socio[]>(this.apiUrl);
+  }
 
   getSocioById(id: number): Observable<Socio | undefined> {
     return of(this.socios.find(s => s.id === id));
+  }
+
+  /** ✔ Cambiar participación en el ranking */
+  cambiarParticipacionRanking(socioId: number, participa: boolean): Observable<any> {
+    const body = { participaEnRanking: participa };
+    return this.http.put(`${this.apiUrl}/socio/${socioId}/participacion-ranking`, body);
   }
 }

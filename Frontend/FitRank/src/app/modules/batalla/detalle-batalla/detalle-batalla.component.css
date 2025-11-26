@@ -1,0 +1,126 @@
+/* ---------- REGLAS GLOBALES ÚTILES ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* evita que padding/border aumenten el ancho real */
+}
+
+/* evita overflow horizontal por elementos anchos */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---------- CONTENEDOR PRINCIPAL ---------- */
+.detalle-container {
+  width: 100%;
+  max-width: 640px;              /* límite razonable en desktop */
+  margin: 0 auto;
+  padding: 12px;                 /* espacio para mobiles */
+  color: white;
+}
+
+/* ---------- TARJETA ---------- */
+.card-detalle {
+  font-family: var(--font-secundaria);
+  background: #1c1c1c;
+  padding: clamp(12px, 3vw, 24px);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-bottom: 16px;
+  width: 100%;                   /* asegurar que no salga del contenedor */
+  overflow: hidden;              /* evita que su contenido sobresalga */
+  word-wrap: break-word;
+}
+
+/* ---------- GRAFICO ---------- */
+.grafico-container {
+  background-color: #1c1c1c;
+  padding: clamp(12px, 2.5vw, 20px);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  width: 100%;
+  margin: 12px 0;
+}
+
+
+/* IMPORTANT: forzar que el canvas sea responsive */
+.grafico-container canvas,
+.grafico-container canvas > * {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
+/* ---------- BOTÓN ---------- */
+/* ---------- BOTÓN FINALIZAR ---------- */
+.btn-finalizar {
+  font-family: var(--font-titulo);
+  padding: 0.5rem 2rem;
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 1.6rem);
+  border: none;
+  border-radius: 10px;
+  background: #d9534f;
+  color: white;
+  cursor: pointer;
+  display: block;
+  margin: 1.5rem auto 0 auto;
+
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-finalizar:hover {
+  transform: scale(1.06);
+}
+
+.puntosUsuario {
+  color: #e0d682;
+  font-weight: bold;
+}
+.puntosOponente {
+  color: #8B52FF;
+  font-weight: bold;
+}
+
+.resaltar {
+  font-weight: bold;
+  color: #8B52FF;
+  /* font-family: var(--font-titulo); */
+  font-size: 1.2rem;
+}
+
+.subtitulo{
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  /* font-weight: bold; */
+  text-align: center;
+  color: var(--color-texto);
+  margin-bottom: 12px;
+  font-family: var(--font-titulo);
+}
+
+/* ---------- TEXTO ---------- */
+.resaltar { font-size: clamp(1rem, 2.2vw, 1.3rem); }
+
+/* ---------- AJUSTES PARA PANTALLAS PEQUEÑAS ---------- */
+@media (max-width: 420px) {
+  .detalle-container { padding: 10px; }
+  .card-detalle { padding: 12px; border-radius: 10px; }
+  .grafico-container { padding: 10px; }
+  .btn-finalizar { padding: 0.45rem 1rem; font-size: 1rem; }
+}
+
+/* Si tenés algún grid/row con dos columnas en mobile, forzalas a columna */
+.row, .flex-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.row > * {
+  flex: 1 1 100%;
+  min-width: 0; /* importante para evitar overflow con flex items */
+}
+@media (min-width: 720px) {
+  /* ejemplo: dos columnas en desktop */
+  .row > * { flex: 1 1 48%; }
+}

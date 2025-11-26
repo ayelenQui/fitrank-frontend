@@ -8,6 +8,7 @@ import { GrupoMuscularDTO } from '../../../../api/services/grupoMuscular/grupoMu
 import { GrupoMuscularService } from '../../../../api/services/grupoMuscular/grupoMuscular.service';
 import { gsap } from 'gsap';
 import Swal from 'sweetalert2';
+import { AuthService } from '@app/api/services/activacion/AuthService.service';
 
 @Component({
   selector: 'app-ranking',
@@ -18,7 +19,11 @@ import Swal from 'sweetalert2';
 })
 export class RankingComponent implements OnInit {
   gruposMusculares: GrupoMuscularDTO[] = [];
-
+  
+  user = this.auth.obtenerUser()
+  gimnasioId = this.user.gimnasioId; 
+  grupoSeleccionado: number = 0;
+  cantidad: number = 20;
   tieneConfiguracion = false;
   configuracionActual: ConfiguracionGrupoMuscularDTO | null = null;
   tooltipActivo: string | null = null;
@@ -43,7 +48,8 @@ export class RankingComponent implements OnInit {
     private puntajeService: PuntajeService,
     private ngZone: NgZone,
     private configuracionGrupoMuscularService: ConfiguracionGrupoMuscularService,
-    private grupoMuscularService: GrupoMuscularService
+    private grupoMuscularService: GrupoMuscularService,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -200,7 +206,7 @@ export class RankingComponent implements OnInit {
 
 
   private cargarRanking(): void {
-    this.puntajeService.obtenerRanking().subscribe({
+    this.puntajeService.obtenerRanking(this.gimnasioId,this.cantidad).subscribe({
       next: (data) => {
         this.ranking = data ?? [];
         this.cargando = false;

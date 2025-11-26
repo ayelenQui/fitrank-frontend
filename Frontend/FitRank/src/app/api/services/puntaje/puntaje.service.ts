@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AgregarPuntajeDTO, ObtenerPuntajeDTO, ActualizarPuntajeDTO, EstadisticaCorporalSocioDTO, PuntajeTotalDTO, PuntajePorGrupoDTO } from './interface/puntaje.interface';
@@ -56,7 +56,46 @@ export class PuntajeService {
   }
 
   /** 🔹 Devuelve el ranking de todos los socios */
-  obtenerRanking(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/ranking`);
+   obtenerRanking(gimnasioId: number, cantidad: number): Observable<any> {
+    let params = new HttpParams()
+      .set('gimnasioId', gimnasioId)
+      .set('cantidad', cantidad);
+
+  return this.http.get(`${this.apiUrl}/ranking`, { params });
   }
+
+  obtenerRankingPorGrupo(grupoId: number, gimnasioId: number, cantidad: number): Observable<any> {
+    let params = new HttpParams()
+      .set('gimnasioId', gimnasioId)
+      .set('cantidad', cantidad);
+
+  return this.http.get(`${this.apiUrl}/ranking/filtrar`, { params });
+  }
+
+  obtenerRankingPorFecha(gimnasioId: number, desde: string, hasta: string, cantidad: number): Observable<any> {
+    let params = new HttpParams()
+      .set('gimnasioId', gimnasioId)
+      .set('desde', desde)
+      .set('hasta', hasta)
+      .set('cantidad', cantidad);
+
+  return this.http.get(`${this.apiUrl}/ranking/filtrar`, { params });
+  }
+
+  obtenerRankingFiltrado(
+    gimnasioId: number,
+    grupoId?: number,
+    desde?: string,
+    hasta?: string,
+    cantidad: number = 20
+  ) {
+    let params: any = { gimnasioId, cantidad };
+
+    if (grupoId && grupoId > 0) params.grupoId = grupoId;
+    if (desde) params.desde = desde;
+    if (hasta) params.hasta = hasta;
+
+  return this.http.get<any[]>(`${this.apiUrl}/ranking/filtrar`, { params });
+  }
+
 }

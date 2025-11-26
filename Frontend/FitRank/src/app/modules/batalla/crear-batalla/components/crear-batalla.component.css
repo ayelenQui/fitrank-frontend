@@ -1,0 +1,155 @@
+/* --------------------------- */
+/* -------- ORIGINALES ------- */
+/* --------------------------- */
+
+/* CONTENEDOR PRINCIPAL */
+.crear-batalla-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--color-fondo-tarjetas);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  color: var(--color-texto-principal);
+}
+
+/* TÍTULO */
+.titulo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffd700;
+}
+
+/* FORMULARIO */
+.form-batalla {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* LABEL + INPUT */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 1rem;
+}
+
+.form-group select,
+.form-group input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #222;
+  color: #fff;
+}
+
+/* BOTÓN */
+.btn-crear {
+  margin-top: 1rem;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 18px;
+  background: var(--color-acento);
+  color: var(--color-texto-principal);
+  font-family: var(--font-titulo);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  /* font-weight: bold; */
+    font-size: clamp(0.5rem, 1vw + 0.5rem, 2rem);
+
+  transition: 0.2s ease;
+}
+
+.btn-crear:hover {
+  /* background: var(--color-acento-secundario); */
+  scale: 1.1;
+}
+
+.alerta-exito {
+  background: #c8f7c5;
+  border-left: 5px solid #2ecc71;
+  color: #145a32;
+  padding: 12px 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-titulo);
+  opacity: 1; /* <<< ANTES era 0 */
+}
+
+
+
+/* --------------------------- */
+/* -------- RESPONSIVE ------- */
+/* --------------------------- */
+
+/* ----- Tablet (≤ 768px) ----- */
+@media (max-width: 768px) {
+
+  .crear-batalla-container {
+    max-width: 95%;
+    padding: 1.2rem;
+  }
+
+  .titulo {
+    font-size: 1.6rem;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+  }
+
+  .form-group select,
+  .form-group input {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .btn-crear {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+/* ----- Celulares (≤ 480px) ----- */
+@media (max-width: 480px) {
+
+  .crear-batalla-container {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .titulo {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-batalla {
+    gap: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group select,
+  .form-group input {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .btn-crear {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+}

@@ -66,14 +66,28 @@ solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO):
   }
   //para el socio
 
-  getFavoritas(socioId: number) {
-    return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
-  }
+  // getFavoritas(socioId: number) {
+  //   return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
+  // }
   //para el admin el global
   getFavoritasGimnasio(gimnasioId: number) {
     return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/gimnasio/${gimnasioId}`);
   }
 
 
+    /**  Marcar o desmarcar como favorita */
+  cambiarFavorita(rutinaId: number, favorita: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/rutina/${rutinaId}/favorita?favorita=${favorita}`, {});
+  }
+
+  /**  Cambiar estado (activa / inactiva) */
+  cambiarEstado(rutinaId: number, activa: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/rutina/${rutinaId}/estado?activa=${activa}`, {});
+  }
+
+  /**  Obtener favoritas del socio */
+  getFavoritas(socioId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
+  }
 
 }

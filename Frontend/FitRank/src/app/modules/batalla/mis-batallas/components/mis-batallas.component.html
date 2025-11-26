@@ -1,0 +1,109 @@
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
+
+<div class="batallas-container">
+
+  <h2 class="titulo">Mis Batallas</h2>
+
+  <div class="acciones-superior">
+    <button class="btn-crear" (click)="Crear()">
+      Crear Batalla
+    </button>
+  </div>
+
+
+  <!-- =============================== -->
+  <!--        BATALLAS PENDIENTES      -->
+  <!-- =============================== -->
+  <h2 class="subtitulo">Batallas Pendientes</h2>
+
+  <div class="tarjetas">
+    <div *ngIf="pendientes.length === 0" class="mensaje-vacio">
+      No tienes batallas pendientes.
+    </div>
+
+    <div *ngFor="let p of pendientes" class="tarjeta pendiente">
+      <!-- <h3>{{ p.oponente }}</h3> -->
+
+      <p><strong>Oponente:</strong> {{ p.oponente }}</p>
+      <p><strong>Fecha inicio:</strong> {{ p.fechaInicio | date:'shortDate' }}</p>
+      <p><strong>Fecha fin:</strong> {{ p.fechaFin | date:'shortDate' }}</p>
+  <!-- Si yo soy el desafiado -> puedo aceptar o rechazar -->
+
+        <div *ngIf="p.usuarioB === socioActualId" class="acciones-pendiente">
+            <button class="btn-aceptar" (click)="aceptar( p.batallaId)">Aceptar</button>
+            <button class="btn-rechazar" (click)="rechazar( p.batallaId)">Rechazar</button>
+        </div>
+        <!-- <div class="acciones-pendiente">
+            <button class="btn-aceptar" (click)="aceptar( p.batallaId)">Aceptar</button>
+            <button class=
+            "btn-rechazar" (click)="rechazar( p.batallaId)">Rechazar</button>
+        </div> -->
+        <!-- Si yo soy el creador -> sólo puedo cancelar (o ver que está pendiente) -->
+        <div *ngIf="p.usuarioA === socioActualId" class="acciones-pendiente">
+            <button class="btn-rechazar" (click)="rechazar( p.batallaId)">Cancelar</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!--        BATALLAS ACTIVAS         -->
+  <!-- =============================== -->
+  <h2 class="subtitulo">Batallas Activas</h2>
+
+  <div class="tarjetas">
+    <div *ngIf="activas.length === 0" class="mensaje-vacio">
+      No tienes batallas activas.
+    </div>
+
+    <div *ngFor="let a of activas" class="tarjeta activa">
+      <!-- <h3>{{ a.oponente }}</h3> -->
+
+      <p><strong>Oponente:</strong> {{ a.oponente }}</p>
+    <p><strong>Mis puntos:</strong> {{ a.usuarioEsA ? a.puntosA : a.puntosB }}</p>
+    <p><strong>Puntos del oponente:</strong> {{ a.usuarioEsA ? a.puntosB : a.puntosA }}</p>
+
+      <p>
+        <strong>Finaliza:</strong> {{ a.fechaFin | date:'shortDate' }}
+      </p>
+
+      <button (click)="verDetalle(a.batallaId, a.oponente)" class="btn-detalle">
+        Ver detalle
+        </button>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!--            HISTORIAL            -->
+  <!-- =============================== -->
+  <h2 class="subtitulo">Historial</h2>
+
+  <div class="tarjetas">
+    <div *ngIf="historial.length === 0" class="mensaje-vacio">
+      No tienes historial de batallas.
+    </div>
+
+    <div *ngFor="let h of historial" class="tarjeta historial">
+      <!-- <h3>{{ h.oponente }}</h3> -->
+      <div>
+
+        <p><strong>Oponente:</strong> {{ h.oponente }}</p>
+        <p><strong>Estado:</strong> {{ h.estado }}</p>
+        <p *ngIf="h.estado === 'Finalizada' || h.estado === 'Activa'">
+          <strong>Mis puntos:</strong> {{ h.usuarioEsA ? h.puntosA : h.puntosB }}
+        </p>
+        <p *ngIf="h.estado === 'Finalizada' || h.estado === 'Activa'">
+          <strong>Puntos del oponente:</strong> {{ h.usuarioEsA ? h.puntosB : h.puntosA }}
+        </p>
+        <p><strong>Inicio:</strong> {{ h.fechaInicio | date:'shortDate' }}</p>
+        <p><strong>Fin:</strong> {{ h.fechaFin | date:'shortDate' }}</p>
+      </div>
+
+      <button class="btn-detalle" (click)="verDetalle(h.batallaId, h.oponente)">
+        Ver Detalle
+      </button>
+    </div>
+  </div>
+
+</div>

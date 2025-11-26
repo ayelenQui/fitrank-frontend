@@ -39,14 +39,14 @@
           <span class="text-black stat-label">Inactivas</span>
         </button>
 
-        <button *ngIf="rol === 'socio'" class="stat-card valoracion btn-secondary">
+        <!-- <button *ngIf="rol === 'socio'" class="stat-card valoracion">
           <div class="stars">
             <span class="material-symbols-outlined">star</span>
             <span class="material-symbols-outlined">star</span>
             <span class="material-symbols-outlined">star</span>
           </div>
           <span class="stat-label text-black">Valorá tu rutina</span>
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -63,10 +63,18 @@
   <!-- 📋 LISTADO DE RUTINAS -->
   <!-- ============================== -->
   <div class="contenido-mis-rutinas">
+    <button class="btn btn-secondary mb-3 btn-desactivar"
+            (click)="mostrarInactivas = !mostrarInactivas">
+      {{ mostrarInactivas ? 'Ocultar desactivadas' : 'Ver desactivadas' }}
+    </button>
 
     <div *ngIf="!loading && rutinas.length > 0" class="row g-3 justify-content-left">
 
-      <div *ngFor="let r of rutinas" class="col-12 col-md-4 col-lg-3">
+
+
+
+      <div *ngFor="let r of rutinas
+      | filterRutinas: mostrarInactivas" class="col-12 col-md-4 col-lg-3">
         <div class="rutina-card bg-dark text-white p-3 rounded-4 position-relative">
 
           <!-- 🔹 Encabezado -->
@@ -95,15 +103,37 @@
 
           <!-- 🔹 Acciones -->
           <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-light btn-sm btn-secondary">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
+            <div class="card" *ngFor="let rutina of rutinas">
+  
+  <!-- botón favorito -->
+  <button class="favorito-btn" (click)="toggleFavorita(rutina)">
+    <img 
+      *ngIf="rutina.esFavorita"
+      src="../../../../../assets/img/icons/star-filled.svg"
+      alt="Favorito"
+      class="icono-favorito"
+    />
 
-            <button class="btn btn-light btn-sm btn-secondary" (click)="eliminarRutina(r.id)">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
+    <img 
+      *ngIf="!rutina.esFavorita"
+      src="../../../../../assets/img/icons/star-outline.svg"
+      alt="No favorito"
+      class="icono-favorito"
+    />
+  </button>
 
-            <!-- 🚫 Solo el SOCIO ve el botón Iniciar -->
+  <!-- resto del contenido de la tarjeta -->
+  
+</div>
+
+            <!-- 🔄 Activar / Desactivar rutina -->
+            <button class="btn btn-light btn-sm"
+                    (click)="toggleActiva(r)">
+              <span class="material-symbols-outlined">
+                {{ r.activa ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+             <!-- ▶ Iniciar solo SOCIO -->
             <button *ngIf="rol === 'socio'" class="btn btn-fitrank btn-sm fw-bold btn-secondary" (click)="iniciarRutina(r)">
               <span class="material-symbols-outlined fs-6 align-middle me-1">play_arrow</span>
               Iniciar
@@ -111,12 +141,12 @@
           </div>
 
           <!-- 🔹 Íconos sociales (solo para socios) -->
-          <div *ngIf="rol === 'socio'" class="d-flex justify-content-around align-items-center mt-3 border-top pt-2">
+          <!-- <div *ngIf="rol === 'socio'" class="d-flex justify-content-around align-items-center mt-3 border-top pt-2">
             <button class="icon-btn"><span class="material-symbols-outlined">favorite</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">bookmark</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">chat_bubble</span></button>
             <button class="icon-btn"><span class="material-symbols-outlined">share</span></button>
-          </div>
+          </div> -->
 
         </div>
       </div>

@@ -1,0 +1,49 @@
+<button type="button" class="btn-volver" (click)="volverAtras()">
+  Volver
+</button>
+<div *ngIf="cargando" class="loading">
+  Cargando batalla...
+</div>
+
+<h2 class="titulo">Detalle </h2>
+<div *ngIf="!cargando && batalla" class="detalle-container">
+
+
+  <div class="card-detalle">
+    <!-- <p><strong>ID:</strong> {{ batalla.batallaId }}</p> -->
+    <p>Batalla contra <span class="resaltar">{{ oponente }}</span></p>
+    <p><strong>Estado:</strong> {{ batalla.estado }}</p>
+    <!-- <p><strong>Fecha de inicio:</strong> {{ batalla.fechaInicio | date: 'short' }}</p> -->
+
+    <!-- Si la batalla tiene fecha de fin y si tiene estado activa -->
+
+    <p *ngIf="batalla.fechaFin && batalla.estado === 'Activa'">
+      <!-- <strong>Fecha de fin:</strong> {{ batalla.fechaFin | date: 'short' }} -->
+    <strong>Días restantes:</strong> {{ diasRestantes() }}
+    </p>
+    <p *ngIf="batalla.estado === 'Finalizada'">
+        <strong>Fecha de inicio:</strong> {{ batalla.fechaInicio | date: 'short' }}
+    </p>
+    <p *ngIf="batalla.estado === 'Finalizada'">
+      <strong>Fecha de finalización:</strong> {{ batalla.fechaFin | date: 'short' }}
+    </p>
+    <p><strong>Mis puntos: </strong> <span class="puntosUsuario">{{ batalla.usuarioEsA ? batalla.puntosGuardadosB : batalla.puntosGuardadosA }}</span></p>
+    <p><strong>Puntos del oponente: </strong> <span class="puntosOponente">{{ batalla.usuarioEsA ? batalla.puntosGuardadosA : batalla.puntosGuardadosB }}</span></p>
+  </div>
+
+  
+  
+  <div *ngIf="!cargando && (batalla.estado === 'Activa' || batalla.estado === 'Finalizada')" class="grafico-container">
+      <h3 class="subtitulo">Comparación de puntos</h3>
+      <canvas #graficoPuntosCanvas></canvas>
+    </div>
+    
+    <!-- ⚠ Solo si la batalla está activa -->
+    <button 
+      class="btn-finalizar"
+      *ngIf="batalla.estado === 'Activa'"
+      (click)="finalizarBatalla()">
+      Finalizar Batalla
+      </button>
+
+</div>
