@@ -17,7 +17,8 @@
       </div>
 
       <!-- SIN CÁMARAS -->
-      <div *ngIf="dispositivos.length === 0" class="alert alert-warning mb-3">
+      <div class="alert alert-warning mb-3" *ngIf="dispositivos.length === 0">
+
         No se detectaron cámaras. Verifica permisos y HTTPS.
       </div>
 
@@ -36,8 +37,13 @@
 
       <!-- SCANNER -->
       <div class="scanner-frame shadow-lg rounded-4 mx-auto">
-        <video #preview class="rounded-4 overflow-hidden scanner-cam"></video>
+        <video #preview
+               autoplay
+               playsinline
+               muted
+               class="rounded-4 overflow-hidden scanner-cam"></video>
       </div>
+
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">

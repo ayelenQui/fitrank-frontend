@@ -18,7 +18,7 @@ import { SignalRNotificacionesService } from '@app/api/services/notificacion/sig
 })
 export class AccesosComponent implements OnInit {
 
-  @ViewChild('preview', { static: false }) preview!: ElementRef<HTMLVideoElement>;
+  @ViewChild('preview') preview!: ElementRef<HTMLVideoElement>;
 
   reader = new BrowserQRCodeReader();
   controls: IScannerControls | null = null;
@@ -26,7 +26,7 @@ export class AccesosComponent implements OnInit {
   dispositivos: any[] = [];
   selectedDeviceId: string | null = null;
 
-  leyendo = false; // 🔥 PARA EVITAR LECTURAS DOBLES
+  leyendo = false;
 
   mensaje = '';
   exito: boolean | null = null;
@@ -59,18 +59,18 @@ export class AccesosComponent implements OnInit {
     this.mensaje = '';
     this.exito = null;
 
-    const devices = await BrowserQRCodeReader.listVideoInputDevices();
-    this.dispositivos = devices;
+    // Obtener cámaras
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    this.dispositivos = devices.filter(d => d.kind === 'videoinput');
 
-    if (devices.length === 0) {
+    if (this.dispositivos.length === 0) {
       this.mensaje = 'No hay cámaras disponibles.';
       this.exito = false;
       return;
     }
 
-    // Elegir cámara trasera si existe
-    const rear = devices.find(d => /back|rear|environment/gi.test(d.label));
-    this.selectedDeviceId = rear?.deviceId ?? devices[0].deviceId;
+    const rear = this.dispositivos.find(d => /back|rear|environment/gi.test(d.label));
+    this.selectedDeviceId = rear?.deviceId ?? this.dispositivos[0].deviceId;
 
     this.leerQR();
   }
@@ -78,21 +78,18 @@ export class AccesosComponent implements OnInit {
   async leerQR() {
     if (!this.selectedDeviceId) return;
 
-    // 🔥 detener instancia previa si existe
     if (this.controls) this.controls.stop();
 
-    this.leyendo = false; // 🔥 Reinicia la protección
+    this.leyendo = false;
 
     this.controls = await this.reader.decodeFromVideoDevice(
       this.selectedDeviceId,
       this.preview.nativeElement,
       (result, err) => {
         if (result && !this.leyendo) {
-          this.leyendo = true; // 🔥 Marca que ya leyó
-
+          this.leyendo = true;
           const text = result.getText();
-          console.log("✔ QR LEÍDO:", text);
-
+          console.log("QR leído:", text);
           this.controls?.stop();
           this.validarQR(text);
         }
@@ -111,15 +108,12 @@ export class AccesosComponent implements OnInit {
 
         if (res.usuarioId) this.cargarDetalle(res.usuarioId);
 
-        // 🔥 Reiniciar el scanner para leer otro QR
         this.reanudarScanner();
       },
       error: () => {
         this.mensaje = 'Error validando QR';
         this.exito = false;
         this.loading = false;
-
-        // 🔥 Reiniciar igual
         this.reanudarScanner();
       }
     });
@@ -128,8 +122,6 @@ export class AccesosComponent implements OnInit {
   reanudarScanner() {
     setTimeout(() => {
       this.controls?.stop();
-
-      // 🔥 IMPORTANTE: pequeña pausa para evitar conflicto de cámara
       setTimeout(() => this.leerQR(), 300);
     }, 1200);
   }
@@ -143,4 +135,3 @@ export class AccesosComponent implements OnInit {
     });
   }
 }
-
