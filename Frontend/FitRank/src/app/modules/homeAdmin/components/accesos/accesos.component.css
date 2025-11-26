@@ -3,27 +3,11 @@
   min-height: 100vh;
   padding: 20px;
   gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-/* FRAME DONDE VA EL SCANNER */
-.scanner-frame {
-  width: 100%;
-  max-width: 480px;
-  height: auto; /* ← IMPORTANTÍSIMO */
-  aspect-ratio: 1 / 1; /* ← SÚPER IMPORTANTE */
-  background: #000;
-  position: relative;
-}
-
-/* NO PISAR EL VIDEO INTERNO: LO ROMPE */
-.scanner-cam,
-.scanner-cam video {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important; /* ← CRÍTICO */
-}
-
-/* COLUMNAS */
+/* COLUMNA IZQUIERDA */
 .qr-left {
   padding-right: 20px;
   border-right: 2px solid #e7e7e7;
@@ -38,24 +22,78 @@
   }
 }
 
+/* COLUMNA DERECHA */
 .qr-right {
   padding-left: 20px;
 }
 
-/* RESULTADO */
+/* TITULO */
+.text-titulo {
+  text-align: center;
+  color: black;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 50px;
+}
+
+/* ============================
+   SCANNER FRAME
+============================= */
+.scanner-frame {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1; /* VIDEO CUADRADO */
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner-cam {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* LLENA EL FRAME */
+  transform: scale(1.02); /* elimina bordes negros */
+  border-radius: 16px;
+}
+
+/* SI EL VIDEO ES MUY ANGOSTO, SE AJUSTA */
+@media (max-width: 420px) {
+  .scanner-frame {
+    max-width: 100%;
+    aspect-ratio: 1/1;
+  }
+}
+
+/* SELECTOR DE CAMARAS */
+.device-selector {
+  margin-bottom: 15px;
+}
+
+.label-cam {
+  font-weight: bold;
+}
+
+.select-cam {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* RESULTADOS */
 .result-box {
   font-size: 18px;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
+  border-radius: 12px;
 }
 
 /* FOTO SOCIO */
 .foto-wrapper {
   width: 110px;
   height: 110px;
-  border-radius: 100%;
+  border-radius: 50%;
   overflow: hidden;
   margin: auto;
   border: 4px solid #8B52FF;
@@ -67,7 +105,7 @@
   object-fit: cover;
 }
 
-/* DERECHA */
+/* PANEL DERECHA */
 .ocupacion-wrapper {
   padding: 10px;
 }
@@ -114,19 +152,19 @@
   border-radius: 12px;
 }
 
-.text-titulo {
-  text-align: center;
-  color: black;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 50px;
-}
+  .tipo.entrada {
+    background: #d7ffd6;
+    color: #0f8f0f;
+  }
 
-.tipo.entrada {
-  background: #d7ffd6;
-  color: #0f8f0f;
-}
+  .tipo.salida {
+    background: #ffe4e4;
+    color: #da1a1a;
+  }
 
-.tipo.salida {
-  background: #ffe4e4;
-  color: #da1a1a;
+/* LOADING */
+.loading-text {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #8B52FF;
 }

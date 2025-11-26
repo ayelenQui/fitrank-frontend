@@ -1,6 +1,6 @@
 <div class="qr-container row">
 
-  <!-- ============================
+  <!-- ===========================
        COLUMNA IZQUIERDA
   ============================ -->
   <div class="col-lg-6 col-12 qr-left">
@@ -16,42 +16,44 @@
         <p class="subtitulo">Escaneá el código del socio para validar el ingreso.</p>
       </div>
 
-      <!-- SELECTOR DE CÁMARAS (SOLO ESCRITORIO) -->
+      <!-- SIN CÁMARAS -->
+      <div class="alert alert-warning mb-3" *ngIf="dispositivos.length === 0">
+
+        No se detectaron cámaras. Verifica permisos y HTTPS.
+      </div>
+
+      <!-- SELECTOR DE CÁMARAS -->
       <div class="device-selector" *ngIf="dispositivos.length > 1">
         <label class="label-cam">Seleccionar cámara:</label>
 
         <select class="select-cam"
                 [(ngModel)]="selectedDeviceId"
-                (change)="scanner.start()">
+                (change)="leerQR()">
           <option *ngFor="let cam of dispositivos" [value]="cam.deviceId">
             {{ cam.label }}
           </option>
         </select>
-
-
       </div>
 
-      <!-- MARCO DEL SCANNER -->
+      <!-- SCANNER -->
       <div class="scanner-frame shadow-lg rounded-4 mx-auto">
-        <ngx-scanner-qrcode #scanner
-                            class="rounded-4 overflow-hidden scanner-cam"
-                            (scanSuccess)="onScan($event)">
-        </ngx-scanner-qrcode>
-
-
-
+        <video #preview
+               autoplay
+               playsinline
+               muted
+               class="rounded-4 overflow-hidden scanner-cam"></video>
       </div>
+
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">
-        <button class="btn btn-fitrank btn-secondary" (click)="scanner.start()">
+        <button class="btn btn-fitrank" (click)="iniciarScanner()">
           <i class="bi bi-play-fill"></i> Iniciar
         </button>
 
-        <button class="btn btn-outline-danger btn-secondary" (click)="scanner.stop()">
+        <button class="btn btn-outline-danger" (click)="controls?.stop()">
           <i class="bi bi-stop-fill"></i> Detener
         </button>
-
       </div>
 
       <!-- LOADING -->
@@ -73,7 +75,7 @@
         </div>
       </div>
 
-      <!-- INFO SOCIO -->
+      <!-- DETALLE SOCIO -->
       <div *ngIf="exito && socio" class="card socio-card shadow-lg rounded-4 mx-auto mt-3">
 
         <div class="text-center mb-3">
@@ -93,26 +95,13 @@
         </div>
 
         <div class="detalle">
-          <p>
-            <i class="bi bi-person-vcard"></i>
-            <strong>Apellido:</strong> {{ socio.apellido }}
-          </p>
-
-          <p>
-            <i class="bi bi-gender-ambiguous"></i>
-            <strong>Sexo:</strong> {{ socio.sexo }}
-          </p>
-
+          <p><i class="bi bi-person-vcard"></i> <strong>Apellido:</strong> {{ socio.apellido }}</p>
+          <p><i class="bi bi-gender-ambiguous"></i> <strong>Sexo:</strong> {{ socio.sexo }}</p>
           <p>
             <i class="bi bi-calendar-check"></i>
-            <strong>Cuota paga hasta:</strong>
-            {{ socio.cuotaPagadaHasta | date:'dd/MM/yyyy' }}
+            <strong>Cuota paga hasta:</strong> {{ socio.cuotaPagadaHasta | date:'dd/MM/yyyy' }}
           </p>
-
-          <p>
-            <i class="bi bi-building"></i>
-            <strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}
-          </p>
+          <p><i class="bi bi-building"></i> <strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
         </div>
 
         <!-- ASISTENCIAS -->
@@ -132,38 +121,28 @@
 
       </div>
 
-    </div> <!-- FIN SCANNER WRAPPER -->
+    </div>
+  </div>
 
-  </div> <!-- FIN COLUMNA IZQUIERDA -->
-  <!-- ============================
+  <!-- ===========================
        COLUMNA DERECHA
   ============================ -->
   <div class="col-lg-6 col-12 qr-right">
 
     <div class="ocupacion-wrapper">
 
-      <!-- OCUPACIÓN ACTUAL -->
       <div class="ocupacion-card text-black">
-        <h3>
-          <i class="bi bi-people-fill me-2"></i>
-          Ocupación Actual
-        </h3>
-
+        <h3><i class="bi bi-people-fill me-2"></i> Ocupación Actual</h3>
         <div class="contador">{{ personasDentro }}</div>
         <p class="sub">personas dentro del gimnasio</p>
       </div>
 
-      <!-- MOVIMIENTOS -->
       <div class="movimientos-card text-black">
-        <h4 class="mb-3">
-          <i class="bi bi-arrow-left-right me-2"></i>
-          Movimientos Recientes
-        </h4>
+        <h4 class="mb-3"><i class="bi bi-arrow-left-right me-2"></i> Movimientos Recientes</h4>
 
         <div class="movimiento" *ngFor="let m of ocupacion">
 
-          <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'"
-               class="avatar">
+          <img [src]="m.foto || 'assets/img/perfil/user-sin-foto.png'" class="avatar">
 
           <div class="info">
             <div class="nombre">{{ m.nombre }}</div>
@@ -182,8 +161,8 @@
 
       </div>
 
-    </div> <!-- FIN DERECHA -->
+    </div>
 
-  </div> <!-- FIN COLUMNA DERECHA -->
+  </div>
 
-</div> <!-- FIN CONTAINER -->
+</div>

@@ -14,6 +14,7 @@ export class SidebarComponent {
 
   isSidebarOpen = false;
 
+  logoUrl: string | null = null;
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;

@@ -9,7 +9,7 @@
       <!-- HEADER -->
       <div class="dashboard-header d-flex justify-content-between align-items-center mb-3">
         <div>
-          <h2 class="text-titulo dashboard-title  text-black">PANEL GENERAL</h2>
+          <h2 class="text-titulo  fw-bold mb-4">PANEL GENERAL</h2>
           <p class="dashboard-sub text-black">Resumen del gimnasio</p>
         </div>
 
@@ -122,12 +122,10 @@
         </div>
 
         <div *ngIf="sociosRiesgoAlto?.length; else sinR">
-          <div *ngFor="let socio of sociosRiesgoAlto" class="list-item text-black">
+          <div *ngFor="let socio of sociosRiesgoAlto" class="list-item text-white bg-black">
             <div>
               <div class="item-title">{{ socio.nombre }} {{ socio.apellido }}</div>
-              <div class="item-sub">
-                Nivel: {{ socio.nivel }} — Cuota: {{ socio.cuotaPagadaHasta | date:'dd/MM' }}
-              </div>
+            
             </div>
             <span class="badge bg-danger">{{ calcularRiesgoTotal(socio) }}%</span>
           </div>

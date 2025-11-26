@@ -97,3 +97,18 @@
     padding: .65rem 1rem;
   }
 }
+.logo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 12px;
+  padding: 8px;
+  border: 2px solid #8B52FF;
+}
+
+.btn-cargar-logo {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 6px 12px;
+}
