@@ -192,3 +192,15 @@ app-grafico-progreso {
   margin-top: 1.2rem;
   display: block;
 }
+
+.sin-resultados {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

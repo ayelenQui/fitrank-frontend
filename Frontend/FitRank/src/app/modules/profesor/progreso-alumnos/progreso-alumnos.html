@@ -14,6 +14,11 @@
 </div>
 
 
+<div *ngIf="historial?.length === 0" class="sin-resultados">
+  <p>No se encontraron alumnos.</p>
+</div>
+
+
   <!-- LISTA DE SESIONES -->
   <div *ngFor="let item of historial; let i = index" class="entrenamiento-card">
 

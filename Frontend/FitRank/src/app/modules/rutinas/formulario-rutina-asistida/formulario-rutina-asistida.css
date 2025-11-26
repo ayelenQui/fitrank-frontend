@@ -75,6 +75,19 @@
   outline: none;
 }
 
+.form-select {
+  background-color: #222; /* fondo oscuro del select */
+  color: #fff; /* texto blanco */
+  border: 1px solid #555;
+}
+
+.form-select:focus {
+  background-color: #222;
+  color: #fff;
+  border-color: #8B52FF; /* tu color de acento si querés */
+  box-shadow: none;
+}
+
 /* CHECKBOXES */
 .formulario-fitrank .form-check-label {
   color: #ccc;
@@ -129,4 +142,9 @@
   .formulario-fitrank .btn-primary {
     font-size: 0.9rem;
   }
+}
+
+.formulario-fitrank select option {
+  background-color: #222 !important; /* fondo oscuro */
+  color: #fff !important; /* texto blanco */
 }
