@@ -8,7 +8,7 @@
 /* FRAME DONDE VA EL SCANNER */
 .scanner-frame {
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   height: auto; /* ← IMPORTANTÍSIMO */
   aspect-ratio: 1 / 1; /* ← SÚPER IMPORTANTE */
   background: #000;
@@ -17,10 +17,10 @@
 
 .scanner-cam video {
   width: 100% !important;
-  height: auto !important;
-  max-height: 100% !important;
-  object-fit: cover !important;
+  height: 100% !important;
+  object-fit: cover !important; /* ← CRÍTICO */
 }
+
 
 /* COLUMNAS */
 .qr-left {
