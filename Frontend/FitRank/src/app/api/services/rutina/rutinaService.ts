@@ -66,9 +66,9 @@ solicitarRutinaAsistida(socioId: number, data: CrearSolicitudRutinaProfesorDTO):
   }
   //para el socio
 
-  getFavoritas(socioId: number) {
-    return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
-  }
+  // getFavoritas(socioId: number) {
+  //   return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/${socioId}`);
+  // }
   //para el admin el global
   getFavoritasGimnasio(gimnasioId: number) {
     return this.http.get<any[]>(`${this.apiUrl}/rutina/favoritas/gimnasio/${gimnasioId}`);
