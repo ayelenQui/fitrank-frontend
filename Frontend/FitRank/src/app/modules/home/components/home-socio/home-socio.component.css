@@ -121,7 +121,7 @@
     padding: 8px 14px;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: .5px;
-    border-radius: 10px;
+    border-radius: 50px;
     font-size: 16px;
   }
 
@@ -640,15 +640,15 @@
   }
 /* 🚨 Cartel FitRank estilo formulario-fitrank */
 .alerta-fitrank {
-  background: rgba(255, 255, 255, 0.05);
+  background: black;
   border: 1px solid rgba(123, 63, 228, 0.35);
   border-radius: 14px;
   padding: 1.2rem;
   margin-top: 1rem;
   text-align: center;
-  color: #eaeaea;
+  color: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(4px);
+  
   animation: alertaGlow 2s ease-in-out infinite;
 }
 
@@ -664,7 +664,7 @@
   .alerta-fitrank .alerta-flecha {
     font-size: 2rem;
     margin: 5px 0;
-    color: #a886ff;
+    color: white;
     animation: flechaUpDown 1.3s infinite ease-in-out;
   }
 

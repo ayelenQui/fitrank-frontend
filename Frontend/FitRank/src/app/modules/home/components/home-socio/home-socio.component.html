@@ -80,8 +80,8 @@
 
       </div>
       <!-- ================================
-       🟣 MODAL QR DE PAGO – FITRANK
-  =================================== -->
+         🟣 MODAL QR DE PAGO – FITRANK
+    =================================== -->
       <div class="qr-overlay" *ngIf="mostrarQR" (click)="mostrarQR = false">
         <div class="qr-modal shadow-lg" (click)="$event.stopPropagation()">
 
@@ -95,7 +95,7 @@
                [src]="qrImage"
                class="qr-img mb-3">
 
-         
+
         </div>
       </div>
 
@@ -108,19 +108,19 @@
     <!-- ========================= -->
     <div class="col-lg-5 col-md-12">
 
-      <!-- PERFIL COMPLETO -->
+        <!-- PERFIL COMPLETO -->
       <div class="panel-perfil bg-white shadow rounded-4 p-4 mb-4 text-black">
-
+        <h3 class="fw-bold text-titulo m-0">Mi Perfil</h3><br />
         <!-- CABECERA -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h3 class="fw-bold text-fitrank m-0">Mi Perfil</h3>
-
+          
           <div class="d-flex gap-2">
-            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button>
-            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
+            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button><br />
+            <button class="btn btn-secondary alerta-flecha" (click)="toggleMedidas()">📏 Medidas</button>
             <div *ngIf="historialMedidas?.length === 0" class="alerta-fitrank mt-3">
               <p class="alerta-texto">⚠️ Para participar del ranking debés cargar tus medidas corporales</p>
-              <div class="alerta-flecha">⬆</div>
+              <div class="alerta-flecha">⬅</div>
+
               <small class="alerta-sub">Hacé clic en “Medidas” para comenzar</small>
             </div>
 
@@ -162,26 +162,7 @@
       </div>
 
 
-      <!-- ENTRENAMIENTO DEL DÍA -->
-      <div class="card overflow-hidden shadow-sm border-0 rounded-4 mb-4">
-        <div class="row g-0">
-          <div class="col-md-6" style="
-              background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80');
-              background-size:cover;background-position:center;min-height:230px;">
-          </div>
-
-          <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
-            <h4 class="fw-bold mb-2 text-fitrank">Entrenamiento del día</h4>
-            <p class="text-muted mb-3">Rutina actual: <strong>Full Body Power</strong></p>
-
-            <button class="btn btn-fitrank d-flex align-items-center gap-2 w-100"
-                    (click)="navegarA('/rutina/mis-rutinas')">
-              <span class="material-symbols-outlined">play_arrow</span>
-              Iniciar entrenamiento
-            </button>
-          </div>
-        </div>
-      </div>
+     
 
       <!-- ACCIONES RÁPIDAS -->
       <section class="mb-4">
@@ -205,93 +186,47 @@
     <!-- ========================= -->
     <!-- 🔵 COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
     <!-- ========================= -->
+    <!-- 🔵 COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
     <div class="col-lg-3 col-md-12">
-      <h4 class="fw-bold text-center mb-3"> Notificaciones</h4>
-      <!-- NOTIFICACIONES GLOBALES -->
       <div class="sidebar-noti bg-white shadow rounded-4 p-3 mb-4">
-        <h4 class="fw-bold text-center mb-3">Globales</h4>
 
-        <div class="list-group small">
-          <div class="list-group-item border-0 border-bottom bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">campaign</span>
-            <div>
-              <p class="fw-semibold mb-1">Nueva clase disponible</p>
-              <small class="text-muted">Yoga funcional se añadió esta semana.</small>
-            </div>
-          </div>
+        <h4 class="fw-bold text-center mb-3">Notificaciones</h4>
 
-          <div class="list-group-item border-0 border-bottom bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">event</span>
-            <div>
-              <p class="fw-semibold mb-1">Competencia mensual</p>
-              <small class="text-muted">Inscribite al desafío Strong Week.</small>
-            </div>
-          </div>
+        <!-- Si no hay notificaciones -->
+        <div *ngIf="notificaciones.length === 0" class="text-center text-muted mb-3">
+          No tenés notificaciones por ahora.
+        </div>
 
-          <div class="list-group-item border-0 bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">local_fire_department</span>
+        <!-- Si hay notificaciones -->
+        <div class="list-group small" *ngIf="notificaciones.length > 0">
+          <div class="list-group-item border-0 border-bottom bg-light d-flex pointer"
+               *ngFor="let n of notificaciones"
+               (click)="abrirNotificacion(n)">
+
+            <span class="material-symbols-outlined me-2 mt-1">
+              notifications
+            </span>
+
             <div>
-              <p class="fw-semibold mb-1">Nuevos récords!</p>
-              <small class="text-muted">Más de 10.000 entrenamientos este mes.</small>
+              <p class="fw-semibold mb-1">{{ n.titulo }}</p>
+              <small class="text-muted">{{ n.mensaje }}</small>
+              <br>
+              <small class="text-muted">{{ n.fechaEnvio | date:'dd/MM/yyyy HH:mm' }}</small>
             </div>
+
           </div>
         </div>
 
+        <!-- Siempre visible — incluso sin notificaciones -->
         <div class="text-center mt-3">
-          <button class="btn btn-secondary w-100" (click)="navegarA('/notificaciones-globales')">
-            Ver todas
-          </button>
-        </div>
-      </div>
-
-      <!-- NOTIFICACIONES PERSONALES -->
-      <div class="sidebar-noti bg-white shadow rounded-4 p-3">
-        <h4 class="fw-bold text-center mb-3">Personales</h4>
-
-        <div class="list-group small">
-          <div class="list-group-item border-0 border-bottom bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">celebration</span>
-            <div>
-              <p class="fw-semibold mb-1">¡Nuevo logro!</p>
-              <small class="text-muted">“Guerrero del Fin de Semana”.</small>
-            </div>
-          </div>
-
-          <div class="list-group-item border-0 border-bottom bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">calendar_month</span>
-            <div>
-              <p class="fw-semibold mb-1">Clase hoy</p>
-              <small class="text-muted">Spinning a las 18:00.</small>
-            </div>
-          </div>
-
-          <div class="list-group-item border-0 bg-light d-flex">
-            <span class="material-symbols-outlined me-2 mt-1">task_alt</span>
-            <div>
-              <p class="fw-semibold mb-1">Rutina actualizada</p>
-              <small class="text-muted">Se actualizó tu rutina de piernas.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-3">
-          <button class="btn btn-secondary w-100" (click)="navegarA('/notificaciones-personales')">
+          <button class="btn btn-secondary w-100" (click)="navegarNotificaciones()">
             Ver todas
           </button>
         </div>
 
-        <!-- Logout -->
-        <div class="text-center mt-4">
-          <button class="btn btn-outline-fitrank w-100 btn-secondary" (click)="logout()">
-            <span class="material-symbols-outlined me-2">logout</span>
-            Cerrar sesión
-          </button>
-        </div>
       </div>
-
     </div>
 
-  </div>
   </div>
 </div>
 
@@ -338,21 +273,19 @@
       </div>
 
       <!-- No puedo acceder al gimnasioId de los profesores en en login
-      <div class="col-12 col-md-4">
-        <button class="quick-action w-100  btn-secondary" (click)="navegarA('/reportes/mis-reportes')">
-          <span class="material-symbols-outlined me-2">assignment</span>
-          Mis reportes
-        </button>
-      </div>
-      -->
+  <div class="col-12 col-md-4">
+    <button class="quick-action w-100  btn-secondary" (click)="navegarA('/reportes/mis-reportes')">
+      <span class="material-symbols-outlined me-2">assignment</span>
+      Mis reportes
+    </button>
+  </div>
+  -->
 
-      <div class="col-12 col-md-4">
-        <button class="quick-action w-100" (click)="navegarA('/notificaciones-profesor')">
+      <button class="quick-action w-100 btn-secondary" (click)="navegarNotificaciones()">
+        <span class="material-symbols-outlined me-2">notifications_active</span>
+        Notificaciones
+      </button>
 
-          <span class="material-symbols-outlined me-2">notifications_active</span>
-          Notificaciones
-        </button>
-      </div>
     </div>
   </div>
   </div>

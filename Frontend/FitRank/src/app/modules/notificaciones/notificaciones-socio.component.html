@@ -1,0 +1,40 @@
+<div class="historial-container">
+
+  <!-- TÍTULO -->
+  <h2 class="titulo">Notificaciones</h2>
+
+  <!-- SI NO HAY NOTIFICACIONES -->
+  <div *ngIf="notificaciones.length === 0" class="text-center text-light">
+    <p>No tenés notificaciones por ahora 👌</p>
+  </div>
+
+  <!-- LISTA DE NOTIFICACIONES -->
+  <div *ngFor="let n of notificaciones" class="entrenamiento-card">
+
+    <!-- HEADER (titulo + fecha + estado)  -->
+    <div class="info-header">
+
+      <h6>{{ n.titulo }}</h6>
+
+      <p class="fecha">
+        {{ n.fechaEnvio | date:'dd/MM/yyyy HH:mm' }}
+      </p>
+
+      <p class="puntos"
+         [style.color]="n.leido ? '#ccc' : '#7b3fe4'">
+        ● {{ n.leido ? 'Leída' : 'No leída' }}
+      </p>
+    </div>
+
+    <!-- MENSAJE -->
+    <p class="text-light mb-2">{{ n.mensaje }}</p>
+
+    <!-- BOTÓN -->
+    <button class="btn-fitrank"
+            (click)="abrirNotificacion(n)">
+      Ver detalle
+    </button>
+
+  </div>
+
+</div>

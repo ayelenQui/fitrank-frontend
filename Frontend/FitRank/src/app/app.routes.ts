@@ -77,6 +77,20 @@ export const appRoutes: Route[] = [
   },
 
   {
+    path: 'notificaciones',
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '', loadComponent: () =>
+          import('./modules/notificaciones/notificaciones-socio.component')
+            .then(m => m.NotificacionesSocioComponent)
+      }
+    ]
+  },
+
+
+  {
     path: 'rutina',
     component: GeneralLayoutComponent,
     canActivate: [AuthGuard],

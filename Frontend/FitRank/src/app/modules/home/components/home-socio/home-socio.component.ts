@@ -41,8 +41,9 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   ultimaMedida: any = null;
 
   diasRestantesCuota: number | null = null;
+  notificaciones: NotificacionDTO[] = [];
 
- 
+
   ocupacion: Array<{
     nombre: string;
     foto: string | null;
@@ -187,7 +188,8 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     if (token) {
       this.notificacionService.getMisNotificaciones().subscribe({
         next: (res) => {
-          const lista = res.notificaciones || []; // Accedemos al array dentro del objeto
+          const lista = res.notificaciones || [];
+        
           const retencion = lista.find(n =>
             n.titulo.includes('FitRank') && !n.leido && n.activa
           );
@@ -410,6 +412,24 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       });
   }
 
+  navegarNoti(ruta: string) {
+    this.router.navigate([ruta]);
+  }
+  abrirNotificacion(n: NotificacionDTO) {
+    // 1️⃣ Marcar como leída
+    this.notificacionService.marcarComoLeida(n.id).subscribe({
+      next: () => {
+        n.leido = true; // refleja el estado sin recargar
+
+        // 2️⃣ Navegar a pantalla general de notificaciones
+        this.router.navigate(['/notificaciones']);
+      },
+      error: (err) => console.error("Error marcando como leída:", err)
+    });
+  }
+  navegarNotificaciones() {
+    this.router.navigate(['/notificaciones']);
+  }
 
 
 }
