@@ -1,184 +1,175 @@
-.contenedor {
-  padding: 20px;
-}
-
-.tarjetas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.tarjeta {
-  width: 260px;
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
+.batallas-container {
   background: #1c1c1c;
-  border-radius: 10px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  box-shadow: 2px 2px 6px #0001;
+  max-width: 950px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ============================
+   TÍTULO
+   ============================ */
+.batallas-container .titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
   color: #fff;
 }
 
-.tarjeta h3 {
-  margin: 0 0 10px 0;
+.batallas-container .titulo::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* ============================
+   SUBTÍTULOS
+   ============================ */
+.subtitulo {
+  font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+/* ============================
+   TARJETAS (glass) 
+   ============================ */
+.tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tarjeta {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.tarjeta:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
 }
 
 .pendiente { border-left: 5px solid #ff9800; }
 .activa { border-left: 5px solid #4caf50; }
+.historial { border-left: 5px solid #607d8b; }
 
-.historial {
-  border-left: 5px solid #607d8b;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+/* ============================
+   BOTONES
+   ============================ */
+.btn-volver,
+.btn-crear,
 .btn-detalle,
 .btn-aceptar,
 .btn-rechazar {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-family: var(--font-titulo);
-  font-size: clamp(0.5rem, 1vw + 0.5rem, 1.2rem);
-  transition: background-color 0.3s ease;
-  /* que el texto quede en el medio verticalmente */
+  border: none;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.btn-detalle:hover,
-.btn-aceptar:hover,
-.btn-rechazar:hover {
-  filter: brightness(0.9);
+
+.btn-volver {
+  background: #7b3fe4;
+  color: #fff;
+  margin-bottom: 1rem;
 }
 
-.btn-detalle {
-  background: var(--color-acento-secundario);
-  color: #fff;
-  margin-top: 10px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0;
+.btn-volver:hover {
+  background: #a586ff;
 }
 
 .btn-crear {
-  display: block;
-  padding: 0.3rem 3rem;
-  font-size: clamp(0.5rem, 1vw + 0.5rem, 2rem);
-  font-family: var(--font-titulo);
-  border: none;
-  border-radius: 10px;
-  background-color: #e0d682;
-  color: black;
-  /* transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease; */
-  transition: transform 0.3s ease;
+  background: #7b3fe4;
+  color: #fff;
+  margin-bottom: 1rem;
 }
 
 .btn-crear:hover {
-  transform: scale(1.1);
+  background: #a586ff;
 }
 
-.btn-aceptar { background: #4caf50; color: white; }
-.btn-rechazar { background: #f44336; color: white; }
+.btn-detalle {
+  background: #a586ff;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+
+.btn-detalle:hover {
+  background: #7b3fe4;
+}
+
+.btn-aceptar { background: #4caf50; color: #fff; }
+.btn-aceptar:hover { filter: brightness(0.9); }
+
+.btn-rechazar { background: #f44336; color: #fff; }
+.btn-rechazar:hover { filter: brightness(0.9); }
 
 .acciones-pendiente {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
+.acciones-superior {
+  display: flex;
+  justify-content: center; /* centra el contenido horizontalmente */
+  margin-bottom: 1.5rem;
+}
+
+/* ============================
+   MENSAJE VACÍO
+   ============================ */
 .mensaje-vacio {
   font-style: italic;
-  color: #777;
+  color: #aaa;
+  text-align: center;      /* centra el texto */
+  width: 100%;
+  margin-bottom: 2rem; 
 }
 
-.subtitulo {
-  font-size: clamp(1.5rem, 2vw + 1rem, 3rem);
-  font-weight: bold;
-  text-align: center;
-  color: var(--color-texto);
-  margin-bottom: 20px;
-  font-family: var(--font-titulo);
-}
-
-strong {
-  color: var(--color-acento);
-}
-
-/* ----------------------------------------- */
-/* ----------- ESTILOS RESPONSIVE ---------- */
-/* ----------------------------------------- */
-
-/* --- Tablet / pantallas medianas --- */
+/* ============================
+   RESPONSIVE
+   ============================ */
 @media (max-width: 768px) {
-  .tarjetas {
-    justify-content: center;
-  }
-
-  .tarjeta {
-    width: 80%;
-    max-width: 350px;
-  }
-
-  .acciones-pendiente {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn-aceptar,
-  .btn-rechazar {
-    width: 100%;
-  }
+  .tarjetas { justify-content: center; }
+  .tarjeta { flex: 1 1 80%; max-width: 350px; }
+  .acciones-pendiente { flex-direction: column; gap: 0.5rem; }
+  .btn-aceptar, .btn-rechazar, .btn-detalle { width: 100%; }
+  .btn-crear { width: 100%; }
 }
 
-/* --- Celulares chicos --- */
 @media (max-width: 480px) {
-
-  .contenedor {
-    padding: 10px;
-  }
-
-  .btn-crear {
-    padding: 0.1rem 2rem;
-    margin-bottom: 1rem;
-    font-size: clamp(0.5rem, 3.5vw + 0.5rem, 2rem);
-  }
-
-  .tarjetas {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .tarjeta {
-    width: 100%;
-    padding: 12px;
-  }
-
-  .tarjeta h3 {
-    font-size: 1.1rem;
-  }
-
-  .btn-detalle {
-    width: 100%;
-    margin-top: 15px;
-  }
-
-  .btn-crear {
-    width: 100%;
-    padding: 0.5rem 0;
-  }
-
-  .acciones-pendiente {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .btn-aceptar,
-  .btn-rechazar {
-    width: 100%;
-  }
+  .batallas-container { padding: 1rem; }
+  .tarjetas { flex-direction: column; gap: 0.5rem; }
+  .tarjeta { width: 100%; padding: 0.8rem; }
+  .subtitulo { font-size: 1.2rem; }
+  .btn-crear { padding: 0.5rem 0; font-size: 1rem; }
 }
