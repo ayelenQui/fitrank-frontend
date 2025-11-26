@@ -43,6 +43,11 @@
     <div class="sesiones-contenedor" #sesionesContainer>
       <div *ngFor="let s of rutinaSeleccionada?.sesiones" class="sesion-card" [style.background-image]="'url(' + (s.ejerciciosAsignados[0]?.ejercicio?.urlImagen || 'assets/img/sessions/default-bg.jpg') + ')'">
         <div class="overlay"></div>
+        <!-- IMAGEN PRINCIPAL DE LA SESIÓN -->
+        <img *ngIf="s.ejerciciosAsignados[0]?.ejercicio?.urlImagen"
+             [src]="s.ejerciciosAsignados[0].ejercicio.urlImagen"
+             class="sesion-img-preview" />
+
         <div class="sesion-header">
           <h3 class="titulo sesion-dia text-white-50">{{ s.nombre }}</h3>
           <button class="btn-ver btn-secondary" (click)="seleccionarSesion(s)">
@@ -56,15 +61,15 @@
         </div>
 
         <div class="sesion-detalle">
-            <!-- TÍTULOS -->
-        <div class="encabezados-lista">
-          <span class="ejercicio-titulo">Ejercicios</span>
-           <span class="tiempo-titulo">Tiempo por serie aprox</span>
-        </div>
+          <!-- TÍTULOS -->
+          <div class="encabezados-lista">
+            <span class="ejercicio-titulo">Ejercicios</span>
+            <span class="tiempo-titulo">Tiempo por serie aprox</span>
+          </div>
 
           <ul class="lista-ejercicios">
             <li *ngFor="let e of s.ejerciciosAsignados">
-             {{ e.ejercicio?.nombre }}
+              {{ e.ejercicio?.nombre }}
 
               <span class="duracion-ej">{{ e.ejercicio?.duracionEstimada || 0 }} min aprox.</span>
 
@@ -86,6 +91,9 @@
 
   <ng-container *ngFor="let e of sesionSeleccionada.ejerciciosAsignados">
     <div *ngIf="!e.completadoHoy" class="card border-0 rounded-4 shadow-sm p-3 mb-3 position-relative">
+      <img *ngIf="e.ejercicio?.urlImagen"
+           [src]="e.ejercicio.urlImagen"
+           class="img-ejercicio-tarjeta" />
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-bold mb-0">{{ e.ejercicio?.nombre }}</h5>
       </div>

@@ -141,18 +141,23 @@
 
 <div class="mb-3 mt-2">
   <label class="form-label">Ejercicios a excluir:</label>
-
   <div class="grid-ejercicios">
-    <div
-      *ngFor="let e of ejercicios"
-      class="card-ejercicio"
-      [class.seleccionado]="estaSeleccionado(e.nombre)"
-      (click)="toggleEjercicio(e.nombre)"
-    >
-  <!--<img [src]="e.urlVideo" alt="{{ e.nombre }}" class="img-ejercicio" />-->
+    <div *ngFor="let e of ejercicios"
+         class="card-ejercicio"
+         [class.seleccionado]="estaSeleccionado(e.nombre)"
+         (click)="toggleEjercicio(e.nombre)">
+
+      <!-- SI EL EJERCICIO TIENE IMAGEN -->
+      <img *ngIf="e.urlImagen"
+           [src]="e.urlImagen"
+           class="img-ejercicio"
+           alt="{{ e.nombre }}" />
+
+      <!-- NOMBRE -->
       <p class="nombre-ejercicio">{{ e.nombre }}</p>
     </div>
   </div>
+
 </div>
 
 

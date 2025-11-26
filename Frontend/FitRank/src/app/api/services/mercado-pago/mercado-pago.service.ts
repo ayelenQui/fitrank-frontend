@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class MercadoPagoService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/Mercadopago`;
+  private apiUrl = `${environment.apiUrl}/MercadoPago`;
 
   crearPreferencia(invitacionId: number, monto: number, email: string): Observable<{ url: string }> {
     return this.http.post<{ url: string }>(
@@ -17,10 +17,12 @@ export class MercadoPagoService {
 
   renovarCuota(socioId: number, email: string) {
     return this.http.post<any>(
-      environment.apiUrl + '/renovar-cuota',
-      { socioId, email }
+      `${this.apiUrl}/renovar-cuota`,
+      {
+        SocioId: socioId,
+        Email: email
+      }
     );
   }
-
 
 }

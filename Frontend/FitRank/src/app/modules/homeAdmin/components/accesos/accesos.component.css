@@ -4,6 +4,19 @@
   padding: 20px;
   gap: 20px;
 }
+.scanner-frame {
+  width: 100%;
+  max-width: 480px; /* Más grande */
+  height: 380px; /* Más alto */
+  background: #000;
+  position: relative;
+}
+
+.scanner-cam video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
 
 /* COLUMNA IZQUIERDA */
 .qr-left {
@@ -127,8 +140,12 @@
     background: #ffe4e4;
     color: #da1a1a;
   }
-.scanner-cam video {
-  width: 100% !important;
-  height: auto !important;
-  max-width: 450px !important;
+
+/* Modo escritorio */
+@media (min-width: 992px) {
+  .scanner-frame {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 }

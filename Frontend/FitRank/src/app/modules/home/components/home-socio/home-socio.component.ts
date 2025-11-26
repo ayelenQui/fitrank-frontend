@@ -53,6 +53,9 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   mostrarEditarPerfil = false;
   mostrarMedidas = false;
 
+  qrImage: string | null = null;
+  mostrarQR: boolean = false;
+
   formEditar = {
     nombre: '',
     apellido: '',
@@ -396,12 +399,18 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
   
   renovarCuota() {
-    this.pagosService.renovarCuota(this.user.id, this.user.email)
+    const email = this.user.email;
+
+    this.pagosService.renovarCuota(this.user.id, email)
       .subscribe({
-        next: (res) => window.location.href = res.linkPago,
+        next: (res) => {
+          this.qrImage = res.qrImage;   // trae el base64
+          this.mostrarQR = true;        // abre el modal
+        },
         error: (err) => console.error("MP error:", err)
       });
   }
+
 
 
 }

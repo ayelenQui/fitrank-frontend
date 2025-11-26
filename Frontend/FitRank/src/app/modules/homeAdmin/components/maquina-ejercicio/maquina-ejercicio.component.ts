@@ -8,7 +8,7 @@ import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscular.service'; 
-
+import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
 
 
 
@@ -40,6 +40,10 @@ export class MaquinaejercicioComponent implements OnInit {
   showMaquinaModal = false;
   showEjercicioModal = false;
 
+  
+  archivoSeleccionado: File | null = null;
+
+
   nuevaMaquina = {
     nombre: '',
     urlImagen: ''
@@ -59,8 +63,20 @@ export class MaquinaejercicioComponent implements OnInit {
     private ejercicioService: EjercicioService,
     private router: Router,
     public sanitizer: DomSanitizer,
-    private grupoMuscularService: GrupoMuscularService
-  ) { }
+    private grupoMuscularService: GrupoMuscularService,
+    private imagenApiService: ImagenApiService,
+
+
+
+
+  ) {
+
+    window.addEventListener('file-selected', (e: any) => {
+      this.archivoSeleccionado = e.detail;
+    });
+}
+
+
 
   ngOnInit(): void {
     this.cargarMaquinas();
@@ -267,33 +283,6 @@ export class MaquinaejercicioComponent implements OnInit {
         .swal2-textarea {
           height: 80px;
         }
-        .swal2-confirm {
-          background: linear-gradient(90deg, #9333ea, #7c3aed) !important;
-          color: white !important;
-          border-radius: 10px !important;
-          padding: 10px 25px !important;
-          font-size: 15px !important;
-          font-weight: 600 !important;
-        }
-        .swal2-cancel {
-          background: #f3f3f3 !important;
-          color: #555 !important;
-          border-radius: 10px !important;
-          padding: 10px 25px !important;
-          font-size: 15px !important;
-          font-weight: 500 !important;
-        }
-        .swal2-actions {
-          gap: 12px;
-          margin-top: 25px;
-        }
-        .lbl {
-          display:block;
-          text-align:left;
-          margin-top:12px;
-          font-weight:600;
-          color:#4b5563;
-        }
       </style>
 
       <input id="nombre" class="swal2-input" placeholder="Nombre">
@@ -301,7 +290,11 @@ export class MaquinaejercicioComponent implements OnInit {
       <textarea id="descripcion" class="swal2-textarea" placeholder="Descripción"></textarea>
 
       <input id="duracion" class="swal2-input" type="number" placeholder="Duración (seg)">
-      <input id="urlImg" class="swal2-input" placeholder="URL imagen">
+
+      <label class="lbl">Imagen</label>
+      <input id="fileImg" type="file" accept="image/*" class="swal2-input"
+             onchange="window.dispatchEvent(new CustomEvent('file-selected',{ detail: this.files[0] }))">
+
       <input id="urlVideo" class="swal2-input" placeholder="URL video">
 
       <label class="lbl">Máquina</label>
@@ -332,15 +325,16 @@ export class MaquinaejercicioComponent implements OnInit {
     `,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
+
       preConfirm: () => {
         const dur = (document.getElementById('duracion') as HTMLInputElement).value;
         const maq = (document.getElementById('maquinaId') as HTMLSelectElement).value;
 
         return {
           nombre: (document.getElementById('nombre') as HTMLInputElement).value,
-          descripcion: (document.getElementById('descripcion') as HTMLInputElement).value,
+          descripcion: (document.getElementById('descripcion') as HTMLTextAreaElement).value,
           duracionEstimada: dur ? Number(dur) : null,
-          urlImagen: (document.getElementById('urlImg') as HTMLInputElement).value,
+          urlImagen: '',   // se rellena luego si se sube archivo
           urlVideo: (document.getElementById('urlVideo') as HTMLInputElement).value,
           maquinaId: maq ? Number(maq) : null,
           grupoMuscularId: Number((document.getElementById('grupoId') as HTMLSelectElement).value),
@@ -352,12 +346,30 @@ export class MaquinaejercicioComponent implements OnInit {
       }
     }).then(result => {
       if (result.isConfirmed) {
-        this.ejercicioService.create(result.value).subscribe({
-          next: () => this.cargarEjercicios()
-        });
+
+        // SI SUBE IMAGEN
+        if (this.archivoSeleccionado) {
+          this.imagenApiService.subirImagen(this.archivoSeleccionado).subscribe({
+            next: (resp) => {
+
+              result.value.urlImagen = resp.url;
+
+              this.ejercicioService.create(result.value).subscribe({
+                next: () => this.cargarEjercicios()
+              });
+            }
+          });
+        }
+        else {
+          // SIN IMAGEN → SE GUARDA IGUAL
+          this.ejercicioService.create(result.value).subscribe({
+            next: () => this.cargarEjercicios()
+          });
+        }
       }
     });
   }
+
 
 
 
@@ -414,5 +426,84 @@ export class MaquinaejercicioComponent implements OnInit {
     // Ya es un embed o algo que no requiere parseo
     return url;
   }
+
+  editarEjercicio(ejercicio: EjercicioDTO) {
+
+    Swal.fire({
+      title: 'Editar ejercicio',
+      width: '650px',
+      background: 'black',
+      html: `
+      <input id="nombre" class="swal2-input" value="${ejercicio.nombre}">
+      <textarea id="descripcion" class="swal2-textarea">${ejercicio.descripcion}</textarea>
+
+      <input id="duracion" class="swal2-input" 
+             type="number"
+             value="${ejercicio.duracionEstimada}">
+
+      <label class="lbl">Imagen actual</label>
+      <img src="${ejercicio.urlImagen || ''}" 
+           style="width:120px;border-radius:8px;margin:10px auto;display:block">
+
+      <input id="fileImg" type="file" accept="image/*" class="swal2-input"
+             onchange="window.dispatchEvent(new CustomEvent('file-selected',{ detail: this.files[0] }))">
+
+      <input id="urlVideo" class="swal2-input"
+             value="${ejercicio.urlVideo || ''}"
+             placeholder="URL YouTube">
+    `,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar cambios',
+
+      preConfirm: async () => {
+        const fileInput = document.getElementById('fileImg') as HTMLInputElement;
+
+        let nuevaImagen = ejercicio.urlImagen;
+
+        // --- SI SUBE NUEVA IMAGEN ---
+        if (fileInput.files && fileInput.files.length > 0) {
+          const archivo = fileInput.files[0];
+
+          const resp = await this.imagenApiService.subirImagen(archivo).toPromise();
+
+          nuevaImagen = resp.url; // URL devuelta por Render o por tu backend
+        }
+
+        return {
+          id: ejercicio.id,
+          nombre: (document.getElementById('nombre') as HTMLInputElement).value,
+          descripcion: (document.getElementById('descripcion') as HTMLTextAreaElement).value,
+          duracionEstimada: Number((document.getElementById('duracion') as HTMLInputElement).value),
+          urlImagen: nuevaImagen,
+          urlVideo: (document.getElementById('urlVideo') as HTMLInputElement).value,
+          grupoMuscularId: ejercicio.grupoMuscularId,
+          maquinaId: ejercicio.maquinaId
+        };
+      }
+    }).then(result => {
+
+      if (result.isConfirmed) {
+
+        const dto = result.value;
+
+        this.ejercicioService.update(dto.id, dto).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Ejercicio actualizado',
+              timer: 1500,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false
+            });
+
+            this.cargarEjercicios();
+          }
+        });
+      }
+    });
+  }
+
+
 
 }

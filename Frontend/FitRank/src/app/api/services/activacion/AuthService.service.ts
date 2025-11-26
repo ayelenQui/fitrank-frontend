@@ -33,6 +33,7 @@ export class AuthService {
             Nombre: response.user.nombre,
             Apellidos: response.user.apellidos,
             Username: response.user.username,
+            Email: response.user.email,
             Rol: response.user.rol,
             CuotaPagadaHasta: response.user.cuotaPagadaHasta,
             GimnasioId: gimnasioId
@@ -98,6 +99,7 @@ isAdmin(): boolean {
       nombre: u.nombre ?? u.Nombre ?? null,
       apellidos: u.apellidos ?? u.Apellidos ?? null,
       username: u.username ?? u.Username ?? null,
+      email: u.email ?? u.Email ?? null,
       rol: (u.rol ?? u.Rol ?? '').toString(),
       cuotaPagadaHasta: u.cuotaPagadaHasta ?? u.CuotaPagadaHasta ?? null,
       

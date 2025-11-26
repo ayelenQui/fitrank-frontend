@@ -320,9 +320,7 @@ body {
 .btn-ver:hover { transform: scale(1.1); box-shadow: 0 0 28px rgba(123,63,228,.7); }
 
 
-/* ================================
-   EJERCICIOS (LISTA DETALLADA)
-================================== */
+
 .card.border-0 {
   background: #1f1f22; color:#fff;
   border: 1px solid #2b2b2b; border-radius: var(--radius);
@@ -331,7 +329,7 @@ body {
 .card.border-0:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-soft); }
 .card .btn-secondary { background:#3a3a3a; color:#999; border:0; }
 
-/* 🕒 ENTRENAMIENTO */ .entrenamiento-container { border: 1px solid #2b2b2b; border-radius: 20px; box-shadow: 0 0 25px rgba(157, 78, 221, 0.1); }
+ .entrenamiento-container { border: 1px solid #2b2b2b; border-radius: 20px; box-shadow: 0 0 25px rgba(157, 78, 221, 0.1); }
 .entrenamiento-container { background: radial-gradient(circle at 50% 20%, #1c1a22 0%, #0f0d13 100%); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(8px); box-shadow: 0 0 30px rgba(140, 90, 255, 0.2); animation: fadeIn 1s ease; }
 .entrenamiento-container h2 { font-size: 1.5rem; color: #fff; }
 .entrenamiento-container .btn-success { background: linear-gradient(135deg, #9d4edd, #6a0dad); border: none; transition: 0.3s; }
@@ -344,7 +342,7 @@ body {
   border-radius: 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,.4);
 }
 
-/* botones redondos de acción */
+
 .btn-play, .btn-stop {
   width: 80px; height: 80px; border-radius: 50%; border: 0;
   color:#fff; display:flex; align-items:center; justify-content:center;
@@ -357,14 +355,14 @@ body {
 .btn-play:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(160,102,255,.7); }
 .btn-stop { background: radial-gradient(circle at top left, #ff4b5c, #c02d3d); }
 
-/* efecto pulso */
+
 @keyframes pulsePlay {
   0% { box-shadow: 0 0 10px rgba(155,89,255,.3); transform: scale(1); }
   50% { box-shadow: 0 0 25px rgba(155,89,255,.7); transform: scale(1.06); }
   100% { box-shadow: 0 0 10px rgba(155,89,255,.3); transform: scale(1); }
 }
 
-/* inputs dark */
+
 .form-control.bg-transparent {
   background: #1a1a1d !important; color:#fff;
   border: 1px solid #333 !important; border-radius: 8px; transition:.3s;
@@ -377,9 +375,6 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin:0; }
 input[type="number"] { -moz-appearance: textfield; }
 
-/* ================================
-   RESPONSIVE
-================================== */
 @media (max-width: 992px) {
   .sesiones-contenedor { flex-direction: column; align-items: center; }
   .sesion-card { width: 95%; }
@@ -399,9 +394,7 @@ input[type="number"] { -moz-appearance: textfield; }
   .btn-ver { width: 45px; height: 45px; }
 }
 
-/* ==== PATCH: color, tipografías y layout header ==== */
 
-/* 1) Gradiente dark + glow violeta en la sesión */
 .sesion-card {
   background: linear-gradient(180deg, #1a1522 0%, #0c0a10 100%) !important;
   border: 1px solid rgba(157, 78, 221, 0.25) !important;
@@ -410,7 +403,7 @@ input[type="number"] { -moz-appearance: textfield; }
     0 0 24px rgba(157, 78, 221, .25) !important;
 }
 
-/* 2) Tipografías: títulos y labels con Bebas */
+
 .titulo,
 .sesion-dia,
 .sesion-info-box,
@@ -421,22 +414,22 @@ input[type="number"] { -moz-appearance: textfield; }
   letter-spacing: .5px;
 }
 
-/* 3) Que “Tiempo estimado” NO quede debajo del botón  */
+
 .sesion-header {
-  padding-right: 80px !important; /* deja espacio al botón play */
+  padding-right: 80px !important; 
 }
 .sesion-info-box {
   line-height: 1.05;
 }
 
-/* 4) Lista scrolleable sin chocar al botón (ya lo tenías) */
+
 .sesion-detalle {
   padding-right: 64px !important;
   max-height: clamp(120px, 45vh, 220px);
   overflow-y: auto;
 }
 
-/* 5) Botón play siempre arriba */
+
 .btn-ver {
   position: absolute;
   right: 1rem;
@@ -444,11 +437,374 @@ input[type="number"] { -moz-appearance: textfield; }
   z-index: 5 !important;
 }
 
-/* 6) Overlay visual pero no bloquea clics */
 .overlay { pointer-events: none; }
 
-/* 7) Mobile: un poco más de aire para el header */
 @media (max-width: 768px) {
   .sesion-header { padding-right: 88px !important; }
   .btn-ver { width: 50px; height: 50px; }
+}
+.sesion-img-preview {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border: 3px solid rgba(255,255,255,0.3);
+  z-index: 3;
+}
+
+
+
+@media (max-width: 480px) {
+
+
+  body {
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .main-content-with-sb {
+    padding: 0.8rem;
+    border-radius: 0;
+  }
+
+  .sesiones-container {
+    padding: 1rem;
+  }
+
+    .sesiones-container .titulo {
+      font-size: 1.8rem;
+    }
+
+
+  .sesion-card {
+    width: 100% !important;
+    min-height: 220px;
+    padding: 0.9rem 0.9rem 70px !important;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+  }
+
+
+  .sesion-img-preview {
+    width: 70px;
+    height: 70px;
+    top: 12px;
+    left: 12px;
+    border-width: 2px;
+  }
+
+
+  .sesion-header {
+    padding-right: 72px !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .sesion-dia {
+    font-size: 1.2rem !important;
+  }
+
+  .duracion-total {
+    font-size: 1rem !important;
+  }
+
+
+  .sesion-detalle {
+    max-height: 40vh !important;
+    padding-right: 58px !important;
+    font-size: 0.85rem;
+  }
+
+  .lista-ejercicios li {
+    font-size: 0.85rem;
+    padding: 5px 0;
+  }
+
+
+  .btn-ver {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 1.1rem;
+    right: 0.9rem;
+    bottom: 0.9rem;
+  }
+
+
+  :host ::ng-deep .overlay-cuenta {
+    padding: 0 !important;
+    height: 100dvh !important;
+  }
+
+  .overlay-cuenta .numero-cuenta {
+    font-size: 22vw !important;
+    line-height: 1;
+  }
+
+
+    .overlay-cuenta .numero-cuenta.go {
+      font-size: 24vw !important;
+    }
+
+ 
+  .btn-play, .btn-stop {
+    width: 70px;
+    height: 70px;
+  }
+
+
+  .img-ejercicio {
+    max-height: 160px;
+  }
+
+
+  .titulo {
+    font-size: 1.4rem !important;
+  }
+
+  .entrenamiento-container h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .sesion-card {
+    padding: 0.8rem 0.8rem 68px !important;
+  }
+
+  .sesion-img-preview {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sesion-detalle {
+    padding-right: 54px !important;
+  }
+
+  .btn-ver {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+
+/* WRAPPER GENERAL */
+.mobile-wrapper {
+  padding: 1rem;
+  color: #fff;
+}
+
+/* títulos */
+.titulo-mobile {
+  font-family: 'Bebas Neue';
+  font-size: 1.9rem;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* volver */
+.btn-volver-mobile,
+.btn-back-small {
+  background: transparent;
+  color: #9d4edd;
+  border: none;
+  font-family: 'Bebas Neue';
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+/* LISTA DE RUTINAS */
+.rutinas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-mobile {
+  background: #1c1a22;
+  border: 1px solid rgba(157, 78, 221, 0.25);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,.3);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-family: 'Bebas Neue';
+}
+
+.card-desc {
+  font-size: .9rem;
+  color: #aaa;
+}
+
+.btn-primary-mobile {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #9d4edd, #6a0dad);
+  color: white;
+  font-weight: bold;
+  border: none;
+  font-size: 1.05rem;
+  margin-top: .8rem;
+}
+
+/* SESIONES */
+.sesiones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sesion-item {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+  border-radius: 16px;
+  min-height: 210px;
+  overflow: hidden;
+}
+
+.sesion-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.2));
+  border-radius: inherit;
+}
+
+.sesion-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.sesion-nombre {
+  font-family: 'Bebas Neue';
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.sesion-duracion {
+  color: #c77dff;
+  font-size: .9rem;
+}
+
+.btn-play-floating {
+  background: linear-gradient(145deg, #7b3fe4, #a170ff);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: #fff;
+  z-index: 3;
+}
+
+.sesion-ej-list {
+  margin-top: 1.2rem;
+  position: relative;
+  z-index: 2;
+  list-style: none;
+  padding: 0;
+  color: #ddd;
+}
+
+  .sesion-ej-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: .9rem;
+    padding: 4px 0;
+  }
+
+/* EJERCICIOS */
+.ej-card {
+  background: #1c1a22;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(157,78,221,.2);
+  margin-bottom: 1rem;
+}
+
+.ej-img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: .5rem;
+}
+
+.ej-title {
+  font-family: 'Bebas Neue';
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.ej-desc {
+  font-size: .9rem;
+  color: #aaa;
+}
+
+/* TRAINING */
+.training-box {
+  padding: 1rem;
+  background: #1c1a22;
+  border-radius: 16px;
+  border: 1px solid rgba(157, 78, 221, .2);
+  box-shadow: 0 0 25px rgba(157, 78, 221, 0.15);
+}
+
+.training-img {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: .5rem;
+  margin-bottom: 1.3rem;
+}
+
+.serie-info-mobile {
+  text-align: center;
+  font-size: 1rem;
+  color: #c77dff;
+  margin-bottom: .7rem;
+}
+
+.timer-display {
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn-play-circle,
+.btn-stop-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 1.5rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: #fff;
+}
+
+.btn-play-circle {
+  background: radial-gradient(circle at top left, #a066ff, #7928ca);
+}
+
+.btn-stop-circle {
+  background: radial-gradient(circle at top left, #ff4b5c, #c02d3d);
+}
+
+/* Empty */
+.text-empty {
+  text-align: center;
+  color: #aaa;
+  margin-top: 1.5rem;
+  font-size: .95rem;
 }

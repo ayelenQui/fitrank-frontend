@@ -72,12 +72,31 @@
         <!-- BOTÓN RENOVAR -->
         <div class="text-center mt-3">
           <button class="btn btn-fitrank w-100"
-                 (click)="renovarCuota()">
+                  (click)="renovarCuota()">
             <span class="material-symbols-outlined me-2">autorenew</span>
-            Renovar cuota Con Descuento
+            Renovar cuota
           </button>
         </div>
 
+      </div>
+      <!-- ================================
+       🟣 MODAL QR DE PAGO – FITRANK
+  =================================== -->
+      <div class="qr-overlay" *ngIf="mostrarQR" (click)="mostrarQR = false">
+        <div class="qr-modal shadow-lg" (click)="$event.stopPropagation()">
+
+          <button class="close-btn" (click)="mostrarQR = false">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+
+          <h3 class="text-center mb-3 fw-bold">Escaneá para pagar tu cuota</h3>
+
+          <img *ngIf="qrImage"
+               [src]="qrImage"
+               class="qr-img mb-3">
+
+         
+        </div>
       </div>
 
     </div>
@@ -99,8 +118,14 @@
           <div class="d-flex gap-2">
             <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button>
             <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
-            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
-            <button class="btn btn-secondary" (click)="toggleMedidas()">📏 Medidas</button>
+            <div *ngIf="historialMedidas?.length === 0" class="alerta-fitrank mt-3">
+              <p class="alerta-texto">⚠️ Para participar del ranking debés cargar tus medidas corporales</p>
+              <div class="alerta-flecha">⬆</div>
+              <small class="alerta-sub">Hacé clic en “Medidas” para comenzar</small>
+            </div>
+
+
+
           </div>
         </div>
 
@@ -270,9 +295,9 @@
 </div>
 
 <!-- 🧑‍🏫 PANEL DEL PROFESOR -->
-<div *ngIf="esProfesor" class="container py-5 text-center">
+<div *ngIf="esProfesor" class="">
   <app-header-profesor [user]="user"></app-header-profesor><br />
-
+  <div class="container py-5 text-center"> 
   <h2 class="display-6 fw-bold text-dark">¡Profe, {{ user.nombre }}!</h2>
 
 
@@ -328,5 +353,6 @@
         </button>
       </div>
     </div>
+  </div>
   </div>
 </div>

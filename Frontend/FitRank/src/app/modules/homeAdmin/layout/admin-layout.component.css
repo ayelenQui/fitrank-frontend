@@ -160,3 +160,52 @@
   .toggle-dark:hover {
     background: rgba(0,0,0,0.25);
   }
+/* ===========================================================
+   📱 RESPONSIVE — CELULARES Y TABLETS (max 992px)
+   =========================================================== */
+@media (max-width: 992px) {
+
+  .layout-wrapper {
+    display: block !important;
+  }
+
+  /* Sidebar pasa a ocultarse automaticamente */
+  .layout-sidebar {
+    position: fixed;
+    width: 220px;
+    left: -220px; /* Oculta fuera de pantalla */
+    top: 0;
+    height: 100vh;
+    transition: left 0.3s ease;
+    z-index: 2000;
+    background: var(--color-principal, #000);
+  }
+
+    /* Sidebar visible cuando tenga clase .open */
+    .layout-sidebar.open {
+      left: 0;
+    }
+
+  /* HEADER siempre visible arriba */
+  .layout-header {
+    width: 100%;
+    padding: 1rem;
+    margin-left: 0 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 1500;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Empujar contenido hacia abajo por el header fijo */
+  .layout-main {
+    margin-left: 0 !important;
+    padding-top: 80px;
+  }
+
+  .layout-content {
+    padding: 1.2rem;
+  }
+}
