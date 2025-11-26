@@ -55,6 +55,14 @@
                  [formGroupName]="sesionActiva"
                  class="bloques-container btn-secondary">
 
+                 <div class="mb-3">
+                          <label for="nombreSesion">Nombre de la sesión</label>
+                          <input type="text"
+                                 id="nombreSesion"
+                                 class="form-control"
+                                 [formControl]="nombreSesionControl" />
+                  </div>
+
               <!-- LISTA DE EJERCICIOS -->
               <div formArrayName="ejercicios" class="ejercicios-dropzone">
                 <div *ngIf="getEjercicios(sesionActiva).length === 0"
@@ -92,14 +100,6 @@
 
 
                       <div>
-                        <div class="mb-3">
-                          <label for="nombreSesion">Nombre de la sesión</label>
-                          <input type="text"
-                                 id="nombreSesion"
-                                 class="form-control"
-                                 [formControl]="nombreSesionControl" />
-                        </div>
-
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
 
                         <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
