@@ -11,6 +11,15 @@
   padding: 4px;
   border-radius: 50%;
 }
+.alert-sin-sesiones {
+  background: rgba(255, 193, 7, 0.15);
+  border-left: 4px solid #ffc107;
+  color: #ffc107;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: block;
+}
 
 .btn-volver {
   background-color: #f5e085;

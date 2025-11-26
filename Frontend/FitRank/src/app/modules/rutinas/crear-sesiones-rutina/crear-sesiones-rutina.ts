@@ -249,12 +249,60 @@ export class CrearSesionesRutinaComponent implements OnInit {
     });
   }
 
+  private validarRutinaCompleta(): boolean {
+
+    // 1️⃣ Debe haber sesiones
+    if (this.sesiones.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: '⚠️ Rutina incompleta',
+        text: 'Generá los días de la rutina antes de guardar.',
+        confirmButtonColor: '#8c52ff'
+      });
+      return false;
+    }
+
+    // 2️⃣ Cada sesión debe tener ejercicios
+    for (let i = 0; i < this.sesiones.length; i++) {
+      const ejercicios = this.getEjercicios(i);
+      if (ejercicios.length === 0) {
+        Swal.fire({
+          icon: 'warning',
+          title: `⚠️ Falta el Día ${i + 1}`,
+          text: 'Cada día debe tener al menos 1 ejercicio.',
+          confirmButtonColor: '#8c52ff'
+        });
+        return false;
+      }
+
+      // 3️⃣ Cada ejercicio debe tener series
+      for (let j = 0; j < ejercicios.length; j++) {
+        const series = this.getSeries(i, j);
+        if (series.length === 0) {
+          Swal.fire({
+            icon: 'warning',
+            title: `⚠️ Ejercicio incompleto`,
+            text: `El ejercicio ${j + 1} del Día ${i + 1} no tiene series.`,
+            confirmButtonColor: '#8c52ff'
+          });
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+
+
+
   guardarTodo(): void {
+    if (!this.validarRutinaCompleta()) return;
     if (this.form.invalid || this.sesiones.length === 0) {
       Swal.fire({
         icon: 'warning',
         title: '⚠️ Atención',
-        text: 'Primero generá las sesiones antes de guardar.',
+        text: 'Primero guardá el dia / sesión  antes de guardar tu rutina.',
         confirmButtonColor: '#8c52ff'
       });
       return;

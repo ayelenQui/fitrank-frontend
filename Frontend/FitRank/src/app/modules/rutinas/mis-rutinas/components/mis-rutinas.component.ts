@@ -127,7 +127,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
         
         this.rutinas = (data || []).map(r => ({
           ...r,
-          esFavorita: r.favorita   // propiedad interna para manejar el icono
+          esFavorita: r.favorita,
+           tieneSesiones: r.tieneSesiones ?? false
         }));
         this.loading = false;
         
@@ -153,8 +154,13 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
 
 
   iniciarRutina(rutina: any): void {
-    if (!rutina.id) {
-      console.warn('⚠️ No se encontró el ID de la rutina:', rutina);
+    if (!rutina.tieneSesiones) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Faltan sesiones',
+        text: 'Esta rutina no tiene sesiones cargadas. Agregalas para poder empezar.',
+        confirmButtonColor: '#8B52FF'
+      });
       return;
     }
     this.router.navigate(['/rutina/iniciar-rutina', rutina.id]);

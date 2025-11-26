@@ -104,27 +104,23 @@
           <!-- 🔹 Acciones -->
           <div class="d-flex justify-content-end gap-2">
             <div class="card" *ngFor="let rutina of rutinas">
-  
-  <!-- botón favorito -->
-  <button class="favorito-btn" (click)="toggleFavorita(rutina)">
-    <img 
-      *ngIf="rutina.esFavorita"
-      src="../../../../../assets/img/icons/star-filled.svg"
-      alt="Favorito"
-      class="icono-favorito"
-    />
 
-    <img 
-      *ngIf="!rutina.esFavorita"
-      src="../../../../../assets/img/icons/star-outline.svg"
-      alt="No favorito"
-      class="icono-favorito"
-    />
-  </button>
+              <!-- botón favorito -->
+              <button class="favorito-btn" (click)="toggleFavorita(rutina)">
+                <img *ngIf="rutina.esFavorita"
+                     src="../../../../../assets/img/icons/star-filled.svg"
+                     alt="Favorito"
+                     class="icono-favorito" />
 
-  <!-- resto del contenido de la tarjeta -->
-  
-</div>
+                <img *ngIf="!rutina.esFavorita"
+                     src="../../../../../assets/img/icons/star-outline.svg"
+                     alt="No favorito"
+                     class="icono-favorito" />
+              </button>
+
+              <!-- resto del contenido de la tarjeta -->
+
+            </div>
 
             <!-- 🔄 Activar / Desactivar rutina -->
             <button class="btn btn-light btn-sm"
@@ -133,11 +129,21 @@
                 {{ r.activa ? 'visibility_off' : 'visibility' }}
               </span>
             </button>
-             <!-- ▶ Iniciar solo SOCIO -->
-            <button *ngIf="rol === 'socio'" class="btn btn-fitrank btn-sm fw-bold btn-secondary" (click)="iniciarRutina(r)">
+            <!-- ▶ Iniciar solo SOCIO -->
+            <!-- SI TIENE SESIONES → botón iniciar -->
+            <button *ngIf="rol === 'socio' && r.tieneSesiones"
+                    class="btn btn-fitrank btn-sm fw-bold btn-secondary"
+                    (click)="iniciarRutina(r)">
               <span class="material-symbols-outlined fs-6 align-middle me-1">play_arrow</span>
               Iniciar
             </button>
+
+            <!-- SI NO TIENE SESIONES → mensaje -->
+            <div *ngIf="rol === 'socio' && !r.tieneSesiones"
+                 class="alert-sin-sesiones small mt-2">
+              ⚠ Cargá tus sesiones para poder iniciar
+            </div>
+
           </div>
 
           <!-- 🔹 Íconos sociales (solo para socios) -->
