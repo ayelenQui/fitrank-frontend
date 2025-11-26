@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { AgregarReporte, Reporte } from '@app/api/services/reportes/interfaces/reportes.interface';
 import { ReportesService } from '@app/api/services/reportes/reportes.service';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +26,8 @@ export class MisReportes  implements OnInit {
   constructor(
     private fb: FormBuilder,
     private reportesService: ReportesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private location : Location
   ) {
 
 
@@ -117,6 +119,8 @@ export class MisReportes  implements OnInit {
   });
 }
 
-
+  volverAtras(): void {
+    this.location.back();
+  }
   
 }

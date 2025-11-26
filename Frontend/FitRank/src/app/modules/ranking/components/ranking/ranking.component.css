@@ -1,62 +1,230 @@
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
 .ranking-container {
-  max-width: 900px;
+  background: #1c1c1c;
+  max-width: 950px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: var(--color-fondo-tarjetas);
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-/* prioridad a esto */
-.titulo {
-  text-align: center;
-  /* font-size: 1.8rem; */
-  margin-bottom: 1.5rem;
-  color: #ffd700;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
+/* ============================
+   TÍTULO – mismo estilo que historial
+   ============================ */
+.ranking-container .titulo {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.ranking-container .titulo::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* ============================
+   FILTROS – estilo glass + violeta
+   ============================ */
+/* Contenedor general de filtros */
+.filtros {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Contenedor superior: filtros de cantidad, grupo y fechas */
+.filtros-superior {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Filtros de grupo y cantidad */
+.filtros-grupo {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Filtros de fecha + botón filtrar */
+.filtros-fecha {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Subfiltros (cada input/label) */
+.sub-filtro {
+  display: flex;
+  flex-direction: column; /* vertical para labels */
+  gap: 4px;
+  color: white;
+}
+
+.sub-filtro input,
+.sub-filtro select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+/* Opciones del select (para mayor compatibilidad) */
+.filtros select option {
+  color: #000; /* texto negro en opciones desplegadas */
+  background: #fff; /* fondo blanco para que contraste */
+}
+
+
+/* Botones */
+.btn-fitrank {
+  background: #7b3fe4;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-fitrank:hover {
+  background: #a586ff;
+}
+
+.btn-reset {
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.filtros-botones {
+  display: flex;
+  justify-content: space-between; /* filtrar a la izquierda, reset a la derecha */
+  align-items: center;            /* mismos niveles verticales */
+  margin-top: 1rem;               /* separación del resto de filtros */
+}
+
+.filtros-botones button {
+  height: 38px;        /* misma altura para ambos */
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-fitrank {
+  background: #7b3fe4;
+  color: #fff;
+  border: none;
+}
+
+.btn-fitrank:hover {
+  background: #a586ff;
+}
+
+.btn-reset {
+  background: #7b3fe4;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* hace el icono blanco */
+}
+
+
+/* ============================
+   LISTA DE RANKING – estilo tarjetas glass
+   ============================ */
 .ranking-list {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
 }
 
 .card-ranking {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--color-acento);
-  padding: 0.8rem 1rem;
-  border-radius: 12px;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .card-ranking:hover {
-  transform: translateY(-4px);
-  background: var(--color-acento-secundario);
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.12);
 }
 
+/* ============================
+   POSICIÓN Y DATOS
+   ============================ */
 .posicion {
-  font-size: 1.4rem;
-  width: 2rem;
+  font-size: 1.6rem;
+  width: 2.5rem;
   text-align: center;
+  color: #fff;
 }
 
 .datos {
   flex: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .nombre {
-  font-weight: 500;
+  font-weight: 600;
+  color: #fff;
 }
 
 .puntaje {
-  color: var(--color-texto-principal);
-  font-weight: bold;
+  font-weight: 700;
+  color: #a586ff;
 }
 
+/* ============================
+   MENSAJE DE CARGA
+   ============================ */
 .cargando {
   text-align: center;
   color: #ccc;
@@ -64,61 +232,41 @@
   margin-top: 3rem;
 }
 
-.filtros {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 12px;
-  margin-bottom: 20px;
-  /* align-items: center; */
-  /* flex-wrap: wrap; */
-}
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 576px) {
+  .datos {
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: right;
+  }
+    .filtros-superior {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-.filtros select,
-.filtros input,
-.filtros button {
- 
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-}
+  .filtros-grupo,
+  .filtros-fecha {
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch; /* inputs ocupan todo el ancho */
+  }
+    .filtros-botones {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: stretch;
+  }
 
-.filtros-grupo,
-.filtros-fecha {
-    padding: 6px 10px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: row;
-   align-items: center;
-  justify-content: end;
-  align-items: center;
-  gap: 10px;
-}
-#cantidad {
-  width: 60px;
-}
+  .btn-fitrank,
+  .btn-reset {
+    width: 100%;
+  }
 
-.sub-filtro {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-reset {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background: #ccc;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn-reset:hover {
-  background: #b3b3b3;
+  .btn-reset {
+    align-self: stretch;
+  }
+    .ranking-container {
+    margin: 2rem 1rem;
+  }
 }

@@ -1,155 +1,163 @@
-/* --------------------------- */
-/* -------- ORIGINALES ------- */
-/* --------------------------- */
-
-/* CONTENEDOR PRINCIPAL */
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
 .crear-batalla-container {
   max-width: 600px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  background: var(--color-fondo-tarjetas);
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  color: var(--color-texto-principal);
+  padding: 2rem;
+  background: #1c1c1c;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
 }
 
-/* TÍTULO */
-.titulo {
+.crear-batalla-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(123,63,228,0.3);
+}
+
+/* ============================
+   TÍTULO
+   ============================ */
+.crear-batalla-container .titulo {
+  font-size: 2rem;
+  font-weight: 800;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #ffd700;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 0.75rem;
 }
 
-/* FORMULARIO */
+.crear-batalla-container .titulo::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+.crear-batalla-container .subtitulo {
+  color: #a886ff;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* ============================
+   FORMULARIO
+   ============================ */
 .form-batalla {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
-/* LABEL + INPUT */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.5rem;
 }
 
 .form-group label {
-  font-size: 1rem;
+  font-weight: 600;
+  color: #cfcfcf;
+  font-size: 0.95rem;
 }
 
 .form-group select,
-.form-group input {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #222;
+.form-group input,
+.form-group textarea {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
   color: #fff;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-/* BOTÓN */
-.btn-crear {
-  margin-top: 1rem;
-  width: 60%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px 18px;
-  background: var(--color-acento);
-  color: var(--color-texto-principal);
-  font-family: var(--font-titulo);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  /* font-weight: bold; */
-    font-size: clamp(0.5rem, 1vw + 0.5rem, 2rem);
+.form-group select option {
+  color: #000;
+  background: #fff;
+}
 
-  transition: 0.2s ease;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #7b3fe4;
+  box-shadow: 0 0 0 0.15rem rgba(123,63,228,0.25);
+}
+
+/* ============================
+   BOTÓN CREAR
+   ============================ */
+.btn-crear {
+  background: linear-gradient(145deg, #7b3fe4, #9d6aff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn-crear:hover {
-  /* background: var(--color-acento-secundario); */
-  scale: 1.1;
+  background: linear-gradient(145deg, #9d6aff, #7b3fe4);
+  transform: scale(1.03);
 }
 
-.alerta-exito {
-  background: #c8f7c5;
-  border-left: 5px solid #2ecc71;
-  color: #145a32;
-  padding: 12px 16px;
-  margin: 10px 0;
-  border-radius: 8px;
+/* ============================
+   BOTÓN VOLVER
+   ============================ */
+.btn-volver {
+  background: none;
+  border: none;
+  color: #a886ff;
+  font-weight: 600;
   font-size: 1rem;
-  font-family: var(--font-titulo);
-  opacity: 1; /* <<< ANTES era 0 */
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
+.btn-volver:hover {
+  color: #fff;
+}
 
+/* ============================
+   MENSAJE DE ÉXITO
+   ============================ */
+.alerta-exito {
+  background: rgba(46,204,113,0.15);
+  border-left: 5px solid #2ecc71;
+  color: #c8f7c5;
+  padding: 12px 16px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+}
 
-/* --------------------------- */
-/* -------- RESPONSIVE ------- */
-/* --------------------------- */
-
-/* ----- Tablet (≤ 768px) ----- */
+/* ============================
+   RESPONSIVE
+   ============================ */
 @media (max-width: 768px) {
-
-  .crear-batalla-container {
-    max-width: 95%;
-    padding: 1.2rem;
-  }
-
-  .titulo {
-    font-size: 1.6rem;
-  }
-
-  .form-group label {
-    font-size: 0.95rem;
-  }
-
-  .form-group select,
-  .form-group input {
-    padding: 10px;
-    font-size: 1rem;
-  }
-
-  .btn-crear {
-    width: 100%;
-    padding: 12px;
-  }
+  .crear-batalla-container { padding: 1.5rem; }
+  .crear-batalla-container .titulo { font-size: 1.6rem; }
+  .btn-crear { font-size: 1rem; }
 }
 
-/* ----- Celulares (≤ 480px) ----- */
 @media (max-width: 480px) {
-
-  .crear-batalla-container {
-    margin: 1rem;
-    padding: 1rem;
-    border-radius: 15px;
-  }
-
-  .titulo {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-  }
-
-  .form-batalla {
-    gap: 1rem;
-  }
-
-  .form-group label {
-    font-size: 0.9rem;
-  }
-
-  .form-group select,
-  .form-group input {
-    padding: 10px;
-    font-size: 0.95rem;
-  }
-
-  .btn-crear {
-    width: 100%;
-    padding: 14px;
-    font-size: 1rem;
-    border-radius: 10px;
-  }
+  .crear-batalla-container { padding: 1rem; border-radius: 15px; }
+  .crear-batalla-container .titulo { font-size: 1.4rem; margin-bottom: 1rem; }
 }
