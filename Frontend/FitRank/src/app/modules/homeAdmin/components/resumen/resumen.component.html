@@ -122,12 +122,10 @@
         </div>
 
         <div *ngIf="sociosRiesgoAlto?.length; else sinR">
-          <div *ngFor="let socio of sociosRiesgoAlto" class="list-item text-black">
+          <div *ngFor="let socio of sociosRiesgoAlto" class="list-item text-white bg-black">
             <div>
               <div class="item-title">{{ socio.nombre }} {{ socio.apellido }}</div>
-              <div class="item-sub">
-                Nivel: {{ socio.nivel }} — Cuota: {{ socio.cuotaPagadaHasta | date:'dd/MM' }}
-              </div>
+            
             </div>
             <span class="badge bg-danger">{{ calcularRiesgoTotal(socio) }}%</span>
           </div>

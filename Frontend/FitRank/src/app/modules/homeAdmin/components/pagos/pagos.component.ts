@@ -75,7 +75,8 @@ export class PagosComponent implements OnInit {
         this.ingresoMpago = ingresos
           .filter(x =>
             x.metodoPago.toLowerCase() === "mercado pago" ||
-            x.metodoPago.toLowerCase() === "mp"
+            x.metodoPago.toLowerCase() === "mp" ||
+ x.metodoPago.toLowerCase() === "mercadoPago"
           )
           .reduce((sum, x) => sum + x.monto, 0);
 

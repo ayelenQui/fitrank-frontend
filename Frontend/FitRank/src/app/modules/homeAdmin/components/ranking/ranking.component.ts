@@ -55,6 +55,7 @@ export class RankingComponent implements OnInit {
   ngOnInit(): void {
     this.verificarConfiguracion();
     this.cargarGruposMusculares();
+    this.cargarRanking();
   }
   scrollToForm() {
     const form = document.getElementById('form-config');
