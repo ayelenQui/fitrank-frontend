@@ -64,13 +64,12 @@ export class AccesosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Cargar cámaras desde la librería nueva
     this.scanner.devices.subscribe((devices) => {
       this.dispositivos = devices;
 
       if (devices.length === 0) return;
 
-      // Elegir cámara trasera si existe
+      // Seleccionar cámara trasera SIEMPRE en mobile
       const rear = devices.find(d =>
         /back|rear|environment/gi.test(d.label)
       );
@@ -79,12 +78,13 @@ export class AccesosComponent implements OnInit, AfterViewInit {
 
       console.log("🎥 Cámara seleccionada:", this.selectedDeviceId);
 
-      // Iniciar lector
+      // IMPORTANTE: iniciar scanner SOLO luego de seleccionar cámara
       setTimeout(() => {
         this.scanner.start();
-      }, 300);
+      }, 700); // ← retraso mayor para móviles
     });
   }
+
 
   // EVENTO DE LECTURA REAL
   onScan(result: any) {

@@ -15,12 +15,11 @@
   position: relative;
 }
 
-/* NO PISAR EL VIDEO INTERNO: LO ROMPE */
-.scanner-cam,
 .scanner-cam video {
   width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important; /* ← CRÍTICO */
+  height: auto !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
 }
 
 /* COLUMNAS */
