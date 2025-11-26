@@ -127,29 +127,26 @@ export class AccesosComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // =======================================================
-  // 📌 INICIO / STOP
-  // =======================================================
   startScanner() {
     if (!this.selectedDevice) return;
-    this.scanner.start(this.selectedDevice);
+    this.scanner.playDevice(this.selectedDevice.deviceId);
   }
 
   stopScanner() {
     this.scanner.stop();
   }
 
+
   // =======================================================
   // 📌 DETECCIÓN DE CÁMARAS (Celular / Escritorio)
   // =======================================================
   ngAfterViewInit() {
 
-    // Pedir permisos explícitamente (soluciona móviles y Chrome)
     navigator.mediaDevices.getUserMedia({ video: true })
-      .then(() => console.log("📸 Permisos concedidos"))
+      .then(() => console.log("📸 Permisos OK"))
       .catch(err => console.error("❌ No hay permisos:", err));
 
-    this.scanner.devices.subscribe(devices => {
+    this.scanner.start((devices: any[]) => {
       this.dispositivos = devices;
 
       if (!devices || devices.length === 0) {
@@ -160,30 +157,19 @@ export class AccesosComponent implements OnInit, AfterViewInit {
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
       if (isMobile) {
-        // Buscar cámara trasera por etiqueta
         const rear = devices.find(d =>
-          d.label.toLowerCase().includes("back") ||
-          d.label.toLowerCase().includes("rear") ||
-          d.label.toLowerCase().includes("environment")
+          /back|rear|environment/gi.test(d.label)
         );
 
         this.selectedDevice = rear ?? devices[0];
-        console.log("📱 Móvil - Cámara trasera seleccionada:", this.selectedDevice);
-
       } else {
-        // PC → Primera cámara
         this.selectedDevice = devices[0];
-        console.log("🖥️ PC - Cámara seleccionada:", this.selectedDevice);
       }
 
-      // 🚀 INICIAR AUTOMÁTICAMENTE LUEGO DE DETECTAR DISPOSITIVO
-      setTimeout(() => {
-        if (this.selectedDevice) {
-          console.log("🎥 Iniciando scanner con:", this.selectedDevice);
-          this.startScanner();
-        }
-      }, 300);
+      console.log("🎥 Cámara seleccionada:", this.selectedDevice);
 
+      // 👉 Acá arrancamos realmente la cámara
+      this.scanner.playDevice(this.selectedDevice?.deviceId);
     });
   }
 

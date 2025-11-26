@@ -119,30 +119,52 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
+
+    // ---------------------------
+    // 🔌 Conectar SignalR
+    // ---------------------------
     this.signalRNoti.iniciarConexion();
 
+    // 🔔 Notificaciones normales
     this.signalRNoti.notificacion$.subscribe(n => {
-        
-      // Podés además actualizar una lista local o un contador
-      Swal.fire({
-        icon: 'info',
-        title: '🔔 Nueva notificación',
-        text: `${n.titulo} - ${n.mensaje}`,
-        timer: 2500,
-        showConfirmButton: false
-      });
+      if (!n) return;
+
+      // Si es un evento normal (no pago)
+      if (!n.tipo || n.tipo !== 'pagoAcreditado') {
+        Swal.fire({
+          icon: 'info',
+          title: '🔔 Nueva notificación',
+          text: `${n.titulo} - ${n.mensaje}`,
+          timer: 2500,
+          showConfirmButton: false
+        });
+      }
     });
 
+    // ⭐ NUEVO — EVENTO DE PAGO ACREDITADO
+    this.signalRNoti.notificacion$.subscribe((evt) => {
+      if (!evt) return;
+
+      if (evt.tipo === 'pagoAcreditado') {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Pago acreditado! 🎉',
+          text: 'Tu cuota se activó correctamente.',
+          confirmButtonColor: '#8B52FF'
+        });
+
+        this.cargarDatosSocio(); // refresca la cuota automáticamente
+      }
+    });
+    // ⭐ FIN NUEVO
+
+
+    // 👥 Ocupación del gimnasio (ya lo tenías)
     this.signalRNoti.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
-      if (evento.tipo === "entrada") {
-        this.personasDentro++;
-      }
-      if (evento.tipo === "salida") {
-        this.personasDentro--;
-      }
+      if (evento.tipo === "entrada") this.personasDentro++;
+      if (evento.tipo === "salida") this.personasDentro--;
 
       this.ocupacion.unshift({
         nombre: evento.nombre,
@@ -152,43 +174,39 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       });
     });
 
-   
 
-
+    // 🔐 Validación de sesión
     this.user = this.authService.obtenerUser();
 
     if (!this.user) {
       this.router.navigate(['/login']);
       return;
     }
-    const rol = this.user.rol?.toLowerCase();
+
     if (this.authService.isAdmin()) {
       this.router.navigate(['/homeAdmin']);
       return;
     }
-    this.esProfesor = rol === 'profesor';
 
+    this.esProfesor = this.user.rol?.toLowerCase() === 'profesor';
+
+    // Si no es profe → cargar datos del socio
     if (!this.esProfesor) {
-     
-        this.cargarDatosSocio();
-      
+      this.cargarDatosSocio();
 
-      
       this.socioService.getSocioById(this.user.id).subscribe({
         next: (socio: SocioType) => {
           this.socio = socio;
-        },
-        error: (err) => {
-          console.error('Error al cargar socio:', err);
         }
       });
     }
-    // 🔹 Cargar notificaciones del socio
+
+    // 📨 Notificaciones de retención
     const token = this.authService.obtenerToken();
     if (token) {
       this.notificacionService.getMisNotificaciones().subscribe({
         next: (res) => {
-          const lista = res.notificaciones || []; // Accedemos al array dentro del objeto
+          const lista = res.notificaciones || [];
           const retencion = lista.find(n =>
             n.titulo.includes('FitRank') && !n.leido && n.activa
           );
@@ -197,11 +215,11 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
             this.notificacion = retencion;
             this.mostrarRetencion = true;
           }
-        },
-        error: (err) => console.error('Error al obtener notificaciones:', err)
+        }
       });
     }
   }
+
 
   responder(opcion: string) {
     let mensaje = '';

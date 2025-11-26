@@ -93,6 +93,13 @@ export class SignalRNotificacionesService {
       this.themeSubject.next(data);
     });
 
+    this.hubConnection.on('pagoAcreditado', (data) => {
+      console.log("💵 Pago acreditado recibido vía SignalR:", data);
+      this.notificacionSubject.next({
+        tipo: 'pagoAcreditado',
+        data
+      });
+    });
 
 
     // ==========================
