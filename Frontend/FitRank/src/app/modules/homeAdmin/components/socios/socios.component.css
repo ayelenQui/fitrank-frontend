@@ -165,6 +165,52 @@
   box-shadow: 0 0 10px rgba(122, 76, 255, 0.4);
 }
 
+.btn-detalle {
+  background: var(--color-secundario); /* violeta FitRank */
+  color: #fff; /* texto blanco */
+  border: none;
+  padding: 8px 18px;
+  border-radius: 12px; /* borde suave */
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35); /* sombra glow violeta */
+}
+
+  /* Ícono un poco más grande */
+  .btn-detalle i {
+    font-size: 1.1rem;
+  }
+
+  /* 😍 HOVER que sobresale */
+  .btn-detalle:hover {
+    background: #7b45e6; /* tono más fuerte */
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(139, 82, 255, 0.55);
+  }
+
+  /* Al presionar (click) */
+  .btn-detalle:active {
+    transform: scale(0.97);
+  }
+
+
+.btn-cerrar {
+  background: transparent;
+  border: none;
+  color: white; /* cruz blanca ✔ */
+  font-size: 1.6rem; /* tamaño grande y visible */
+  cursor: pointer;
+  padding: 0;
+}
+
+  .btn-cerrar:hover {
+    opacity: 0.8;
+  }
+
+
 /* ===============================
     DRAWER LATERAL
 ================================*/
@@ -204,6 +250,19 @@
   border: 1px solid #e6e6e6;
   transition: all .2s ease;
 }
+/* Estilo del botón cerrar */
+.drawer-close {
+  filter: invert(0); /* negro ✔ */
+  opacity: 1;
+  width: 1rem;
+  height: 1rem;
+}
+
+  /* Hover más visible */
+  .drawer-close:hover {
+    filter: invert(0) brightness(0.5);
+  }
+
 
   .input-group:hover {
     box-shadow: var(--fitrank-violet);

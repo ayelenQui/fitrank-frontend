@@ -30,8 +30,9 @@ export class ProfesorService {
 
   
   actualizarProfesor(id: number, dto: ActualizarProfesorDTO): Observable<ProfesorDTO> {
-    return this.http.put<ProfesorDTO>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<ProfesorDTO>(`${this.apiUrl}/actualizar/${id}`, dto);
   }
+
 
  
   eliminarProfesor(id: number): Observable<void> {

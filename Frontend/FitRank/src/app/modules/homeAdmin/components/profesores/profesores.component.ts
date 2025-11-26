@@ -96,6 +96,7 @@ export class ProfesoresComponent implements OnInit {
   }
 
   editarProfesor(profesor: ProfesorDTO): void {
+    this.vista = 'nuevo'; 
     this.profesorSeleccionado = profesor;
     this.mostrarFormulario = true;
     this.formProfesor.get('password')?.clearValidators();
@@ -134,7 +135,22 @@ export class ProfesoresComponent implements OnInit {
           this.cargarProfesores();
           this.cancelarFormulario();
         },
-        error: () => this.alerta('Error', 'No se pudo actualizar el profesor', 'error')
+        error: (err) => {
+          const msg = err.error?.mensaje;
+
+          if (msg === 'Ya existe un profesor con este email.') {
+            this.alerta('Email duplicado', 'Ya existe un usuario registrado con este email.', 'warning');
+            return;
+          }
+
+          if (msg === 'Ya existe un profesor con este DNI.') {
+            this.alerta('DNI duplicado', 'Ya existe un usuario registrado con este DNI.', 'warning');
+            return;
+          }
+
+          this.alerta('Error', 'No se pudo actualizar el profesor', 'error');
+        }
+
       });
     } else {
       const dtoAgregar: AgregarProfesorDTO = {
@@ -148,7 +164,22 @@ export class ProfesoresComponent implements OnInit {
           this.cargarProfesores();
           this.cancelarFormulario();
         },
-        error: () => this.alerta('Error', 'No se pudo agregar el profesor', 'error')
+        error: (err) => {
+          const msg = err.error?.mensaje;
+
+          if (msg === 'Ya existe un profesor con este email.') {
+            this.alerta('Email duplicado', 'Ya existe un usuario registrado con este email.', 'warning');
+            return;
+          }
+
+          if (msg === 'Ya existe un profesor con este DNI.') {
+            this.alerta('DNI duplicado', 'Ya existe un usuario registrado con este DNI.', 'warning');
+            return;
+          }
+
+          this.alerta('Error', 'No se pudo agregar el profesor', 'error');
+        }
+
       });
     }
   }

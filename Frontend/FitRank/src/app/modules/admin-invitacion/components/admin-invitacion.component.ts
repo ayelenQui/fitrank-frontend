@@ -9,7 +9,9 @@ import { gsap } from 'gsap';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { TypingService } from '../../../api/services/typingService';
 import { Location } from '@angular/common';
-import { environment } from '../../../../environments/environment'; 
+import { environment } from '../../../../environments/environment';
+import Swal from 'sweetalert2';
+
 
 interface InvitacionResponse {
   success: boolean;
@@ -77,6 +79,12 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
   generarInvitacion() {
     if (this.form.invalid) {
       this.error = 'Completa el formulario correctamente.';
+      // Opcional: avisar también con Swal si querés
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Revisá los datos antes de generar la invitación.'
+      });
       return;
     }
 
@@ -125,26 +133,98 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
           if (metodoPago === 'MercadoPago') {
 
             this.qrImage = response.qrImage || null;
-
-            
             this.linkPago = response.url || null;
 
-            console.log('LINK RECIBIDO:', this.linkPago);
-
             this.mensaje = 'Podés pagar escaneando el QR o usando el enlace.';
-            return;
+
+            // ✅ Swal de éxito
+            Swal.fire({
+              icon: 'success',
+              title: 'Invitación creada',
+              text: 'Mostrá el QR o compartí el link para que realicen el pago.',
+              timer: 2500,
+              showConfirmButton: false
+            });
+
+          } else {
+            this.mensaje = '✔ Invitación generada correctamente.';
+
+            // ✅ Swal para efectivo
+            Swal.fire({
+              icon: 'success',
+              title: 'Invitación creada',
+              text: 'Registrá el pago en efectivo en el gimnasio.',
+              timer: 2500,
+              showConfirmButton: false
+            });
           }
 
-
-          this.mensaje = '✔ Invitación generada correctamente.';
+          // ✅ Limpiar formulario y dejar valores por defecto
+          this.form.reset({
+            nombre: '',
+            apellidos: '',
+            dni: '',
+            telefono: '',
+            email: '',
+            metodoPago: 'efectivo',
+            periodo: 'mes',
+            monto: 10
+          });
+          this.form.markAsPristine();
+          this.form.markAsUntouched();
         },
         error: (err) => {
           this.loading = false;
-          console.error(err);
-          this.error = err.error?.mensaje || 'Error al generar la invitación.';
+
+          const backendMsg = err.error?.mensaje;
+          const socioId = err.error?.socioId;
+
+          // Email duplicado
+          if (backendMsg === "EMAIL_DUPLICADO") {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Email ya registrado',
+              text: 'Este email pertenece a un socio existente.',
+              confirmButtonColor: '#8B52FF'
+            }).then(() => {
+              if (socioId) {
+                this.router.navigate(['/homeAdmin/socios'], {
+                  queryParams: { socioId }
+                });
+              }
+            });
+            return;
+          }
+
+          // DNI duplicado
+          if (backendMsg === "DNI_DUPLICADO") {
+            Swal.fire({
+              icon: 'warning',
+              title: 'DNI ya registrado',
+              text: 'Este DNI pertenece a un socio existente.',
+              confirmButtonColor: '#8B52FF'
+            }).then(() => {
+              if (socioId) {
+                this.router.navigate(['/homeAdmin/socios'], {
+                  queryParams: { socioId }
+                });
+              }
+            });
+            return;
+          }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo generar la invitación.'
+          });
         }
+
+
       });
   }
+
+  
 
   volverAtras(): void {
     this.location.back();

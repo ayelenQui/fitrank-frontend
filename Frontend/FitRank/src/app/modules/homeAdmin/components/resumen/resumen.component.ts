@@ -2,12 +2,13 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocioService } from '@app/api/services/socio/socio.service';
 import { AsistenciaService } from '@app/api/services/asistencia/asistencia.service';
-import { Router } from '@angular/router';
+
 import { Solicitud } from '@app/api/services/profesor/interfaces/solicitud.interface';
 import { SolicitudService } from '@app/api/services/profesor/Solicitud.Service';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 import Chart from 'chart.js/auto';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
+import { Router } from '@angular/router';
 
 
 
@@ -319,5 +320,7 @@ export class ResumenComponent implements OnInit, AfterViewInit
     });
   }
 
-
+  irANotificaciones() {
+    this.router.navigate(['/homeAdmin/notificaciones']);
+  }
 }

@@ -7,7 +7,7 @@ import { Observable, map, startWith, combineLatest } from 'rxjs';
 import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
 import { AsistenciaService } from '../../../../api/services/asistencia/asistencia.service';
 import { SocioApiService } from '../../../../api/services/socio/socioApiService'; 
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-socios',
@@ -35,17 +35,31 @@ export class SociosComponent implements OnInit {
   constructor(
     private socioService: SocioApiService,
     private router: Router,
-    private asistenciaService: AsistenciaService
+    private asistenciaService: AsistenciaService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.socioService.getTodosLosSocios().subscribe(data => {
       this.socios = data;
       this.sociosFiltrados = data; // lista inicial
-      
-    });
+      this.route.queryParams.subscribe(params => {
+        const socioId = Number(params['socioId']);
+        if (socioId) {
+          this.verDetalle(socioId);
 
+          // opcional scroll
+          setTimeout(() => {
+            const el = document.getElementById('socio-' + socioId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      });
+    });
   }
+    
+
+  
 
   cargarSocios() {
     this.socioService.getTodosLosSocios().subscribe({
