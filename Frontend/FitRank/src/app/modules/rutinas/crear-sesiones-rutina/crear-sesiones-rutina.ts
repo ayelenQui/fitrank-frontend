@@ -312,7 +312,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: '⚠️ Atención',
-        text: 'Primero guardá el dia / sesión  antes de guardar tu rutina.',
+        text: 'Las series necesitan un peso y cantidad de repeticiones, y las sesiones deben ser guardadas antes de guardar la rutina',
         confirmButtonColor: '#8c52ff'
       });
       return;

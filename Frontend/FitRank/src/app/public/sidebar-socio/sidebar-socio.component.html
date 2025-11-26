@@ -19,3 +19,8 @@
     <li><a routerLink="/reportes/mis-reportes" routerLinkActive="active" (click)="closeSidebar()">Mis Reportes</a></li>
   </ul>
 </nav>
+
+<div class="sidebar-overlay d-md-none"
+     [class.active]="sidebarOpen"
+     (click)="closeSidebar()">
+</div>

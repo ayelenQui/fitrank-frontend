@@ -79,7 +79,7 @@
         <div class="ej-tags">
 
           <span class="tag text-black" *ngIf="e.duracionEstimada">
-            Duracion {{ e.duracionEstimada }}s
+            Duracion {{ e.duracionEstimada }}mins
           </span>
 
           <span class="tag text-black" *ngIf="e.maquinaId">
@@ -152,7 +152,7 @@
 
       <div class="form-inline">
         <div class="form-group">
-          <label>Duración (seg)</label>
+          <label>Duración (minutos)</label>
           <input type="number" [(ngModel)]="nuevoEjercicio.duracionEstimada">
         </div>
 
