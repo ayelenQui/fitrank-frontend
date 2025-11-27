@@ -26,7 +26,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   rol?: string;
   mostrarInactivas = false;
 
-  // 📈 Datos para la sección lateral (Progreso / Próximas sesiones)
+
   sesionesCompletadas: number = 0;
   totalSesiones: number = 0;
 
@@ -40,6 +40,9 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   totalRutinas: number = 0;
   rutinasActivas: number = 0;
   rutinasInactivas: number = 0;
+
+
+  mostrarTooltip: boolean = false;
 
   constructor(
     private rutinaService: RutinaService,
@@ -197,16 +200,20 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   }
 
   toggleFavorita(rutina: any) {
-    rutina.esFavorita = !rutina.esFavorita;  // cambio visual inmediato
+    if (!localStorage.getItem("tooltipFavoritaMostrado")) {
+      this.mostrarTooltip = true;
+      localStorage.setItem("tooltipFavoritaMostrado", "true");
+    }
+    rutina.esFavorita = !rutina.esFavorita;  
 
     this.rutinaService.cambiarFavorita(rutina.id, rutina.esFavorita).subscribe({
       next: () => {
-        rutina.favorita = rutina.esFavorita; // sincronizar con backend
+        rutina.favorita = rutina.esFavorita;
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("Error al cambiar favorito:", err);
-        rutina.esFavorita = !rutina.esFavorita; // revertir si falla
+        rutina.esFavorita = !rutina.esFavorita; 
       }
     });
   }
@@ -264,6 +271,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+
   volverAtras(): void {
     this.location.back();
   }
@@ -274,5 +283,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       { state: { socioId: this.userId, volverA: '/rutina/mis-rutinas' } }
     );
   }
+
+
 
 }

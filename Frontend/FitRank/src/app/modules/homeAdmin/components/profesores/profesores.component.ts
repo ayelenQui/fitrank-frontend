@@ -198,7 +198,7 @@ export class ProfesoresComponent implements OnInit {
       if (result.isConfirmed) {
         this.profesorService.eliminarProfesor(id).subscribe({
           next: () => {
-            this.alerta('Eliminado', 'Profesor eliminado correctamente 🗑️', 'success');
+            this.alerta('Eliminado', 'Profesor eliminado correctamente ', 'success');
             this.cargarProfesores();
           },
           error: () => this.alerta('Error', 'No se pudo eliminar el profesor', 'error')

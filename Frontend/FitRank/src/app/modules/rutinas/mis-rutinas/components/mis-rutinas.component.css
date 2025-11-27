@@ -1,4 +1,103 @@
 /* === 🎯 BASE GENERAL === */
+
+.tooltip-mensaje {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #8B52FF; /* violeta FitRank */
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  width: max-content;
+  max-width: 260px;
+  text-align: center;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+
+  /* Flechita */
+  .tooltip-mensaje::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #8B52FF transparent transparent transparent;
+  }
+
+  /* Botón cerrar */
+  .tooltip-mensaje .cerrar {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+.favorito-tooltip-icon {
+  background: transparent;
+  padding: 0;
+  display: inline-block;
+}
+
+  .favorito-tooltip-icon:hover .info-tooltip {
+    opacity: 1;
+  }
+.info-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.info-tooltip {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #8B52FF;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 50;
+}
+
+  .info-tooltip::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #8B52FF transparent;
+  }
+
+.ojo-tooltip-icon {
+  background: transparent;
+  padding: 0;
+  display: inline-block;
+}
+
+  .ojo-tooltip-icon:hover .info-tooltip {
+    opacity: 1;
+  }
+
+  /* Para que el icono quede centrado */
+  .ojo-tooltip-icon .material-symbols-outlined {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+
 .icon-btn {
   background: transparent;
   border: none;

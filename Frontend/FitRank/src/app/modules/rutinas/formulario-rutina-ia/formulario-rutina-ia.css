@@ -77,6 +77,117 @@
   border-color: #7b3fe4;
 }
 
+.dolor-tooltip-container {
+  position: relative;
+}
+
+
+.info-icon {
+  display: inline-block;
+  position: relative;
+  margin-left: 6px;
+  background: #8B52FF; /* violeta FitRank */
+  color: #fff;
+  border-radius: 50%;
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+  .info-icon i {
+    font-size: 0.85rem;
+    vertical-align: middle;
+  }
+
+/* Tooltip */
+.info-tooltip {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #8B52FF;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  width: max-content;
+  max-width: 220px;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 50;
+}
+
+  /* Flechita */
+  .info-tooltip::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #8B52FF transparent;
+  }
+
+/* Mostrar tooltip SOLO al pasar mouse por el ícono */
+.info-icon:hover .info-tooltip {
+  opacity: 1;
+}
+
+
+
+.info-icon i {
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+
+.info-icon {
+  margin-left: 6px;
+  background: #8B52FF;
+  color: white;
+  border-radius: 50%;
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.dolor-tooltip {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: #8B52FF;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: max-content;
+  max-width: 240px;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 20;
+}
+
+  /* Flechita */
+  .dolor-tooltip::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #8B52FF transparent;
+  }
+
+/* Mostrar tooltip */
+.dolor-tooltip-container:hover .dolor-tooltip {
+  opacity: 1;
+}
+
+
 /* Botón */
 .formulario-fitrank .btn-primary {
   background: linear-gradient(145deg, #7b3fe4, #9d6aff);
