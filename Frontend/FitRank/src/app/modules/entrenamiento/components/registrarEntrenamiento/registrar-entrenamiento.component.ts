@@ -66,7 +66,6 @@ export class RegistrarEntrenamientoComponent implements OnInit {
 
     this.ejercicioRealizadoService.registrarEjercicio(this.nuevoEjercicio).subscribe({
       next: (res) => {
-        console.log('Ejercicio registrado', res);
         this.cargarEjercicios();
         this.resetFormulario();
       },

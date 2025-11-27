@@ -89,7 +89,6 @@ export class AccesosComponent implements OnInit {
         if (result && !this.leyendo) {
           this.leyendo = true;
           const text = result.getText();
-          console.log("QR leído:", text);
           this.controls?.stop();
           this.validarQR(text);
         }

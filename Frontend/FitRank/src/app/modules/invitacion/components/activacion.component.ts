@@ -32,7 +32,6 @@ export class ActivacionComponent implements OnInit {
   
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
-      console.log('Token recibido:', this.token); 
       if (!this.token) {
         this.error = 'Token no encontrado. Verifica el enlace del email.';
         this.router.navigate(['/login']);

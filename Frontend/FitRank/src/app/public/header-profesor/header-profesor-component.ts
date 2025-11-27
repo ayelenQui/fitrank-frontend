@@ -25,8 +25,6 @@ export class HeaderProfesorComponent implements OnInit {
   ngOnInit(): void {
 
     this.signalRNoti.notificacion$.subscribe(n => {
-      console.log("HEADER recibió:", n);
-
       this.notificaciones.unshift(n);
 
     

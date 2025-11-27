@@ -45,7 +45,6 @@ export class RutinaService {
 
   getRutinaCompletaPorSocio(socioId: number): Observable<RutinaCompletaDTO[]> {
     const url = `${this.apiUrl}/socio/${socioId}/detalle`;
-    console.log('🌐 GET:', url);
     return this.http.get<RutinaCompletaDTO[]>(url);
   }
   

@@ -32,7 +32,6 @@ import gsap from 'gsap';
 export class App implements AfterViewInit {
  
   ngOnInit() {
-    console.log("🔥 AppComponent: Iniciando SignalR");
    
   }
 

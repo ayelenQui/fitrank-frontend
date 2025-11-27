@@ -102,10 +102,7 @@ volverA?: string;
   }
 
   crearRutina(): void {
-    console.log("📤 Enviando rutina al backend:", this.rutinaForm.value);
-
     if (this.rutinaForm.invalid) {
-      console.warn("⚠️ Formulario inválido:", this.rutinaForm.value);
       this.rutinaForm.markAllAsTouched();
       return;
     }
@@ -114,7 +111,6 @@ volverA?: string;
 
     this.rutinaService.crearRutina(rutina).subscribe({
       next: (resp) => {
-        console.log("✅ Rutina creada:", resp);
                 this.router.navigate(['/rutina/crear-sesiones-rutina', resp.id], {
           state: {
             socioId: this.rutinaForm.value.socioId,
