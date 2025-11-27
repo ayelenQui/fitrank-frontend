@@ -31,7 +31,7 @@
     <label>Descripción</label>
     <textarea formControlName="descripcion" rows="5" placeholder="Describe el problema"></textarea>
 
-    <button type="submit" [disabled]="enviando">
+    <button type="submit" [disabled]="enviando" class="btn-secondary">
       {{ enviando ? 'Enviando...' : 'Enviar reporte' }}
     </button>
   </form>

@@ -70,7 +70,7 @@
 
         <!-- BOTÓN RENOVAR -->
         <div class="text-center mt-3">
-          <button class="btn btn-fitrank w-100"
+          <button class="btn btn-fitrank btn-secondary"
                   (click)="renovarCuota()">
             <span class="material-symbols-outlined me-2">autorenew</span>
             Renovar cuota
@@ -84,7 +84,7 @@
       <div class="qr-overlay" *ngIf="mostrarQR" (click)="mostrarQR = false">
         <div class="qr-modal shadow-lg" (click)="$event.stopPropagation()">
 
-          <button class="close-btn" (click)="mostrarQR = false">
+          <button class="close-btn btn-secondary" (click)="mostrarQR = false">
             <span class="material-symbols-outlined">close</span>
           </button>
 
@@ -218,7 +218,7 @@
 
         <!-- Siempre visible — incluso sin notificaciones -->
         <div class="text-center mt-3">
-          <button class="btn btn-secondary w-100" (click)="navegarNotificaciones()">
+          <button class="btn btn-secondary " (click)="navegarNotificaciones()">
             Ver todas
           </button>
         </div>
@@ -241,7 +241,7 @@
 
   <div class="row g-4 justify-content-center">
     <div class="col-12 col-md-4">
-      <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
+      <button class="quick-action  btn-secondary" (click)="navegarA('/rutina/mis-rutinas')">
         <span class="material-symbols-outlined me-2">list_alt</span>
         Ver mis rutinas creadas
       </button>
@@ -250,7 +250,7 @@
     <div class="col-12 col-md-4">
 
 
-      <button class="quick-action w-100  btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
+      <button class="quick-action   btn-secondary" (click)="navegarA('/profesor/progreso-alumnos')">
         <span class="material-symbols-outlined me-2">group</span>
         Ver progreso alumnos
       </button>

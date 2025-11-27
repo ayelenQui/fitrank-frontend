@@ -1,4 +1,4 @@
-<button type="button" class="btn-volver" (click)="volverAtras()">
+<button type="button" class="btn-volver btn-secondary" (click)="volverAtras()">
   Volver
 </button>
 
@@ -7,7 +7,7 @@
   <h2 class="titulo">Mis Batallas</h2>
 
   <div class="acciones-superior">
-    <button class="btn-crear" (click)="Crear()">
+    <button class="btn-crear btn-secondary" (click)="Crear()">
       Crear Batalla
     </button>
   </div>
@@ -32,8 +32,8 @@
   <!-- Si yo soy el desafiado -> puedo aceptar o rechazar -->
 
         <div *ngIf="p.usuarioB === socioActualId" class="acciones-pendiente">
-            <button class="btn-aceptar" (click)="aceptar( p.batallaId)">Aceptar</button>
-            <button class="btn-rechazar" (click)="rechazar( p.batallaId)">Rechazar</button>
+            <button class="btn-aceptar btn-secondary" (click)="aceptar( p.batallaId)">Aceptar</button>
+            <button class="btn-rechazar btn-secondary" (click)="rechazar( p.batallaId)">Rechazar</button>
         </div>
         <!-- <div class="acciones-pendiente">
             <button class="btn-aceptar" (click)="aceptar( p.batallaId)">Aceptar</button>
@@ -42,7 +42,7 @@
         </div> -->
         <!-- Si yo soy el creador -> sólo puedo cancelar (o ver que está pendiente) -->
         <div *ngIf="p.usuarioA === socioActualId" class="acciones-pendiente">
-            <button class="btn-rechazar" (click)="rechazar( p.batallaId)">Cancelar</button>
+            <button class="btn-rechazar btn-secondary" (click)="rechazar( p.batallaId)">Cancelar</button>
         </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
         <strong>Finaliza:</strong> {{ a.fechaFin | date:'shortDate' }}
       </p>
 
-      <button (click)="verDetalle(a.batallaId, a.oponente)" class="btn-detalle">
+      <button (click)="verDetalle(a.batallaId, a.oponente)" class="btn-detalle btn-secondary">
         Ver detalle
         </button>
     </div>
@@ -100,7 +100,7 @@
         <p><strong>Fin:</strong> {{ h.fechaFin | date:'shortDate' }}</p>
       </div>
 
-      <button class="btn-detalle" (click)="verDetalle(h.batallaId, h.oponente)">
+      <button class="btn-detalle btn-secondary" (click)="verDetalle(h.batallaId, h.oponente)">
         Ver Detalle
       </button>
     </div>

@@ -1,4 +1,4 @@
-<button type="button" class="btn-volver" (click)="volverAtras()">
+<button type="button" class="btn-volver btn-secondary" (click)="volverAtras()">
   Volver
 </button>
 <div *ngIf="cargando" class="loading">
@@ -40,7 +40,7 @@
     
     <!-- ⚠ Solo si la batalla está activa -->
     <button 
-      class="btn-finalizar"
+      class="btn-finalizar btn-secondary"
       *ngIf="batalla.estado === 'Activa'"
       (click)="finalizarBatalla()">
       Finalizar Batalla
