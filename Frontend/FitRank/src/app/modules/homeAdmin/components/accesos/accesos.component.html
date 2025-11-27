@@ -80,9 +80,10 @@
 
         <div class="text-center mb-3">
           <div class="foto-wrapper">
-            <img [src]="socio.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+            <img [src]="socio.fotoDePerfil || socio.foto || 'assets/img/perfil/user-sin-foto.png'"
                  alt="foto socio"
                  class="foto-socio">
+
           </div>
 
           <h4 class="text-fitrank fw-bold mt-2">
@@ -124,9 +125,6 @@
     </div>
   </div>
 
-  <!-- ===========================
-       COLUMNA DERECHA
-  ============================ -->
   <div class="col-lg-6 col-12 qr-right">
 
     <div class="ocupacion-wrapper">
