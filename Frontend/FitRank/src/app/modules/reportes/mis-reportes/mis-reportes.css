@@ -6,6 +6,25 @@
   padding: 1.5rem;
   border-radius: 16px;
 }
+.explicacion-reportes {
+  
+  padding: 15px;
+ 
+  margin-bottom: 20px;
+ 
+}
+
+  .explicacion-reportes ul {
+    margin-top: 8px;
+    padding-left: 20px;
+  }
+
+  .explicacion-reportes li {
+    margin-bottom: 4px;
+    color: white;
+    font-size: 14px;
+  }
+
 
 /* Títulos */
 .reportes-container h2{
