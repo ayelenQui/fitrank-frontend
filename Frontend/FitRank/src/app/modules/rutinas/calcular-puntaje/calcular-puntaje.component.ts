@@ -83,8 +83,7 @@ export class CalcularPuntajeComponent implements OnInit {
     if (this.socioId) {
       this.puntajeService.obtenerPuntajeTotal(this.socioId).subscribe({
         next: (data) => {
-          this.puntajeTotalUsuario = Math.round(data); 
-          console.log('🏋️ Puntaje total del socio:', this.puntajeTotalUsuario);
+          this.puntajeTotalUsuario = Math.round(data);
         },
         error: (err) => console.error('❌ Error al obtener puntaje total:', err)
       });

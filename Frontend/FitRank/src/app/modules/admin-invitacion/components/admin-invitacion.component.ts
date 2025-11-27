@@ -128,8 +128,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
         next: (response) => {
           this.loading = false;
 
-          console.log('Respuesta backend:', response);
-
           if (metodoPago === 'MercadoPago') {
 
             this.qrImage = response.qrImage || null;

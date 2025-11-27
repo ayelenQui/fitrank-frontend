@@ -40,7 +40,6 @@ export class CrearBatallaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.socioService.obtenerSocios().subscribe({
     next: (data) => {
-      console.log("SOCIOS RECIBIDOS:", data);
       this.socios = data.filter(s => s.id !== this.socioActualId);
     },
     error: (err) => console.error("Error al cargar socios", err)
@@ -59,8 +58,6 @@ crear(): void {
 
   this.batallaService.crear(dto).subscribe({
     next: (res) => {
-      console.log("Batalla creada", res);
-
       // this.mensaje = "Batalla creada correctamente 🎉";
       Swal.fire({
         icon: 'success',

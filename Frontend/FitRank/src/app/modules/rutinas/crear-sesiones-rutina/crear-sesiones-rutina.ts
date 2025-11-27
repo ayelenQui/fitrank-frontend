@@ -321,8 +321,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
     const sesiones = this.form.value.sesiones;
     let sesionesGuardadas = 0;
 
-    console.log('📦 Rutina completa a guardar:', this.form.value);
-
     sesiones.forEach((s: any, index: number) => {
       const sesionDto = {
         nombre: s.nombre,
@@ -333,7 +331,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
       // 🔹 Crear sesión
       this.sesionService.crear(sesionDto).subscribe({
         next: (sesionRes) => {
-          console.log(`✅ Sesión ${index + 1} creada:`, sesionRes);
           const sesionId = sesionRes.id;
 
           // 🔹 Crear ejercicios de esa sesión
@@ -348,7 +345,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
               this.ejercicioAsignadoService.createEjercicioAsignado(ejDto).subscribe({
                 next: (ejRes) => {
-                  console.log(`   ✅ Ejercicio asignado creado:`, ejRes);
                   const ejercicioAsignadoId = ejRes.id;
 
                   // 🔹 Crear series del ejercicio
@@ -363,7 +359,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
                       };
 
                       this.serieService.crear(serieDto).subscribe({
-                        next: (serieRes) => console.log('      🔸 Serie creada:', serieRes),
+                        next: (serieRes) => {},
                         error: (err) => console.error('      ❌ Error al crear serie:', err)
                       });
                     });
@@ -380,7 +376,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
               // 🔹 Si hay solicitud asociada, marcala como completada
           if (this.solicitudId) {
             this.rutinaService.actualizarEstado(this.solicitudId).subscribe({
-            next: () => console.log('✅ Solicitud marcada como completada'),
+            next: () => {},
             error: (err) => console.error('❌ Error al actualizar solicitud:', err)
           });
         }

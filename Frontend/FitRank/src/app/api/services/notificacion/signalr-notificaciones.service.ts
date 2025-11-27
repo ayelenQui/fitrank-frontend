@@ -38,8 +38,6 @@ export class SignalRNotificacionesService {
       return;
     }
 
-    console.log("🔑 Token enviado al hub:", token.substring(0, 20) + "...");
-
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(environment.hubUrl, {
         accessTokenFactory: () => this.authService.obtenerToken() ?? ''
@@ -49,11 +47,9 @@ export class SignalRNotificacionesService {
 
 
     this.hubConnection.onreconnecting(error => {
-      console.warn("🟡 SignalR reconectando...", error);
     });
 
     this.hubConnection.onreconnected(connectionId => {
-      console.log("🟢 SignalR reconectado:", connectionId);
     });
 
     this.hubConnection.onclose(error => {
@@ -66,17 +62,14 @@ export class SignalRNotificacionesService {
     // ==========================
 
     this.hubConnection.on('NotificacionRecibida', (data) => {
-      console.log('🔔 [EVENTO] NotificacionRecibida:', data);
       this.notificacionSubject.next(data);
     });
 
     this.hubConnection.on('OcupacionActualizada', (data) => {
-      console.log("📊 [EVENTO] OcupacionActualizada:", data);
       this.ocupacionSource.next(data);
     });
 
     this.hubConnection.on('ThemeUpdated', (data) => {
-      console.log("🎨 [EVENTO] ThemeUpdated recibido:", data);
 
       // Guardar en localStorage para que lo aplique el interceptor
       localStorage.setItem('gym-theme', JSON.stringify(data));
@@ -94,7 +87,6 @@ export class SignalRNotificacionesService {
     });
 
     this.hubConnection.on('pagoAcreditado', (data) => {
-      console.log("💵 Pago acreditado recibido vía SignalR:", data);
       this.notificacionSubject.next({
         tipo: 'pagoAcreditado',
         data
@@ -110,7 +102,6 @@ export class SignalRNotificacionesService {
       .start()
       .then(() => {
         this.conectado = true;
-        console.log('%c🟢 SignalR CONECTADO OK', 'color: #00c853; font-size: 14px; font-weight: bold;');
       })
       .catch(err => {
         console.error('❌ Error al conectar con SignalR (NEGO FAIL / 401 / CORS / TOKEN)', err);

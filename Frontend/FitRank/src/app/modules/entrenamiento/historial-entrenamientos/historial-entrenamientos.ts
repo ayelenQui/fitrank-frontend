@@ -37,8 +37,6 @@ export class HistorialEntrenamientos implements OnInit {
 
     this.entrenamientoService.getHistorialDeSocio(this.socioId).subscribe({
       next: (data) => {
-        console.log("📌 Historial recibido del backend:", data);
-
         // Pre-procesar y agrupar actividades por ejercicio
         this.historial = data.map(sesion => ({
           ...sesion,

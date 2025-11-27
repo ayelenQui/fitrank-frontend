@@ -161,8 +161,6 @@ export class ConfigGimnasioComponent implements OnInit {
     this.gymService.actualizarPersonalizacion(dto).subscribe({
 
       next: () => {
-        console.log("✔ Configuración guardada");
-
         this.valoresOriginales = { ...this.gimnasio };
 
         this.aplicarTheme();
@@ -223,7 +221,6 @@ export class ConfigGimnasioComponent implements OnInit {
 
     this.gymService.actualizarPersonalizacion(dto).subscribe({
       next: () => {
-        console.log("🔄 Tema restablecido y enviado por SignalR");
         this.valoresOriginales = { ...this.gimnasio };
       },
       error: err => console.error("❌ Error al restablecer theme", err)

@@ -121,8 +121,6 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
 
     this.rutinaService.getRutinaCompletaPorSocio(this.userId!).subscribe({
       next: (data: RutinaCompletaDTO[]) => {
-        console.log('📦 Rutinas completas del socio:', data);
-
         this.rutinas = (data || []).map((r: any) => ({
           ...r,
           // si el backend manda favorita / activa las respetamos, sino default
@@ -186,7 +184,6 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
 
     this.profesorService.obtenerRutinasPorProfesor(this.userId!).subscribe({
       next: (data) => {
-        console.log('📘 Rutinas creadas por el profesor:', data);
         this.rutinas = data || [];
         this.actualizarContadores();
         this.loading = false;

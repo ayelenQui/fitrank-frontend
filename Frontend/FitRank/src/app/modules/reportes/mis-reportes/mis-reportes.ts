@@ -45,9 +45,6 @@ export class MisReportes  implements OnInit {
   this.usuarioId = user?.id ?? null;
   this.gimnasioId = user?.gimnasioId ?? null;
 
-  console.log("📌 Usuario ID:", this.usuarioId);
-  console.log("📌 Gimnasio ID:", this.gimnasioId);
-
     this.cargarReportesDelUsuario();
   }
 

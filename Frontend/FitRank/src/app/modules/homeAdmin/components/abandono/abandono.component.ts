@@ -54,7 +54,6 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
   
   cargarAsistencias(): void {
     const token = this.authService.obtenerToken();
-    console.log("TOKEN:", token);
 
     if (!token) {
       this.mensaje = '⚠️ No hay sesión activa.';

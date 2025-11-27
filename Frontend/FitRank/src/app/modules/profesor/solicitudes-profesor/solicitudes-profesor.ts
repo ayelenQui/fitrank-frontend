@@ -45,9 +45,6 @@ export class SolicitudesProfesor implements OnInit {
   tomarYCrearRutina(solicitud: Solicitud): void {
     this.solicitudesService.tomarSolicitud(solicitud.id).subscribe({
       next: () => {
-        console.log('✅ Solicitud tomada por el profesor');
-
-        
         solicitud.profesorId = this.obtenerIdProfesorActual();
 
         

@@ -142,7 +142,6 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
 
   if (guardado) {
     this.actividadesRealizadas = JSON.parse(guardado);
-    console.log("🔁 Actividades restauradas desde LocalStorage", this.actividadesRealizadas);
   }
 }
 
@@ -152,7 +151,6 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
       next: (data) => {
         this.gruposMuscularesConfig = data;
-        console.log('📦 Configuración de grupos musculares:', data);
       },
       error: (err) => console.error('❌ Error al cargar configuraciones', err)
     });
@@ -197,7 +195,6 @@ cargarRutinas(): void {
 
   this.rutinaService.getRutinaCompletaPorSocio(this.socioId).subscribe({
     next: (data) => {
-      console.log('📦 Rutinas cargadas:', data);
       this.rutinas = data || [];
       //NUEVO
     this.rutinas.forEach(r => {
@@ -213,7 +210,6 @@ cargarRutinas(): void {
       if (rutinaId) {
         this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId) ?? null;
         if (this.rutinaSeleccionada) {
-          console.log('✅ Rutina seleccionada:', this.rutinaSeleccionada);
         } else {
           console.warn('⚠️ No se encontró la rutina con id', rutinaId);
         }
@@ -225,14 +221,11 @@ cargarRutinas(): void {
         const foundSesion = this.rutinaSeleccionada.sesiones?.find((s: any) => s.id === restoreSesionId);
         if (foundSesion) {
           this.sesionSeleccionada = foundSesion;
-          // si la sesión tiene ejerciciosAsignados, dejamos el mismo flujo
-          console.log('🔁 Sesión restaurada desde state:', restoreSesionId);
         } else {
           // si no existe id (quizás usás numeroDeSesion en lugar de id)
           const foundByNumero = this.rutinaSeleccionada.sesiones?.find((s: any) => s.numeroDeSesion === restoreSesionId);
           if (foundByNumero) {
             this.sesionSeleccionada = foundByNumero;
-            console.log('🔁 Sesión restaurada por numeroDeSesion:', restoreSesionId);
           }
         }
       }
@@ -241,7 +234,6 @@ cargarRutinas(): void {
       if (restoreEntrenamientoId) {
         // colocamos un objeto con el id para marcar que existe entrenamientoActivo
         this.entrenamientoActivo = { id: restoreEntrenamientoId } as any;
-        console.log('🔁 Entrenamiento restaurado (id):', restoreEntrenamientoId);
       }
     },
     error: (err) => console.error('❌ Error al cargar rutinas', err),
@@ -345,7 +337,6 @@ private calcularPuntajeTotal(): number {
     this.entrenamientoService.crearEntrenamiento(dto).subscribe({
       next: (res) => {
         this.entrenamientoActivo = res;
-        console.log('🏋️ Entrenamiento iniciado:', res);
         this.iniciarSerie();
       },
       error: (err) => console.error('Error al crear entrenamiento', err),
@@ -378,11 +369,8 @@ private calcularPuntajeTotal(): number {
 
     const dto: RegistrarActividadDTO = this.crearDTOActividad();
 
-    console.log('📤 DTO de actividad a registrar:', dto);
-
     this.actividadService.registrar(dto).subscribe({
       next: (res) => {
-        console.log('✅ Actividad registrada:', res);
         this.reiniciarCronometro();
 
 
@@ -466,8 +454,6 @@ private finalizarEjercicio(): void {
         this.ejercicioSeleccionado?.series.some(s => s.id === a.serieId)
     )
     .reduce((acc, a) => acc + (a.punto || 0), 0);
-
-  console.log("📊 Puntaje total del ejercicio:", puntajeEjercicio);
 
   const navState: any = {
     puntaje: puntajeEjercicio,
@@ -556,8 +542,6 @@ private finalizarEjercicio(): void {
 
 
   finalizarEntrenamiento(): void {
-    console.log('🏁 Entrenamiento finalizado:', this.entrenamientoActivo);
-
     // Limpiar actividades
     this.actividadesRealizadas = [];
     localStorage.removeItem(`actividades_${this.socioId}`);

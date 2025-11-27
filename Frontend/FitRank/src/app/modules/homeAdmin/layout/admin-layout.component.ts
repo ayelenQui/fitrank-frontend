@@ -25,7 +25,6 @@ export class AdminLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("AdminLayout cargado.");
     this.signalR.iniciarConexion();
 
   
@@ -50,14 +49,10 @@ export class AdminLayoutComponent implements OnInit {
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
 
-    console.log("toggleDarkMode ejecutado →", this.isDarkMode);
-
     if (this.isDarkMode) {
       document.body.classList.add('dark');
-      console.log("Clase agregada:", document.body.classList);
     } else {
       document.body.classList.remove('dark');
-      console.log("Clase removida:", document.body.classList);
     }
   }
   logout(): void {

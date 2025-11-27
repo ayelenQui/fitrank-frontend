@@ -37,10 +37,8 @@ export class ProgresoAlumnos implements OnInit {
 
    ngOnInit(): void {
     const user = this.authService.obtenerUser();
-    console.log("👤 Usuario obtenido:", user);
 
     this.profesorId = user?.id ?? user?.Id;
-    console.log("📌 profesorId asignado:", this.profesorId);
 
     this.buscarHistorial();
   }
@@ -52,15 +50,11 @@ export class ProgresoAlumnos implements OnInit {
       .getHistorialAlumnosDelProfesor(this.profesorId, this.nombreFiltro)
       .subscribe({
         next: (data) => {
-
-          console.log("📦 Historial recibido del backend:", data);
-
           this.historial = data.map(sesion => ({
             ...sesion,
             ejerciciosAgrupados: this.agruparActividades(sesion.actividades)
           }));
 
-          console.log("📊 Historial final procesado:", this.historial);
           this.cargando = false;
         },
         error: (err) => {
