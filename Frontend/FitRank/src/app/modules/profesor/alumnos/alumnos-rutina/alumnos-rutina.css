@@ -1,0 +1,128 @@
+/* Contenedor principal */
+.historial-container {
+  background: #1c1c1c;
+  max-width: 950px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+/* Título */
+.historial-container .titulo {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.historial-container .titulo::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #7b3fe4, #a586ff);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* Buscador */
+.buscador {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.buscador input {
+  width: 300px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.buscador button {
+  background: #7b3fe4;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.buscador button:hover {
+  transform: translateY(-1px);
+}
+
+/* Card de cada alumno */
+.entrenamiento-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.entrenamiento-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Info principal dentro de la card */
+.info-principal {
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+.info-header p {
+  margin: 0;
+  text-align: center;
+}
+
+/* Mensaje cuando no hay resultados */
+.sin-resultados {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsivo */
+@media (max-width: 576px) {
+  .info-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .buscador {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buscador input {
+    width: 100%;
+  }
+
+  .buscador button {
+    width: 100%;
+  }
+}

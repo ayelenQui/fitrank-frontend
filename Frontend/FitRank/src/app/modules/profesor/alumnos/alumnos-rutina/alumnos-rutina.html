@@ -1,0 +1,34 @@
+<div class="historial-container">
+
+  <h2 class="titulo">Alumnos</h2>
+
+  <div class="buscador">
+    <input
+      type="text"
+      [(ngModel)]="nombreFiltro"
+      (input)="buscarHistorial()"
+      placeholder="Buscar por nombre del alumno..."
+    />
+    <button (click)="buscarHistorial()" class="btn-fitrank">Buscar</button>
+  </div>
+
+  <div *ngIf="historial.length === 0 && !cargando" class="sin-resultados">
+    <p>No se encontraron alumnos.</p>
+  </div>
+
+  <div *ngIf="cargando">
+    <p>Cargando información...</p>
+  </div>
+
+  <div *ngFor="let item of historial" class="entrenamiento-card">
+    <div class="info-principal">
+      <div class="info-header">
+        <p><strong>Alumno:</strong> {{ item.nombreSocio ?? 'Sin nombre' }}</p>
+        <p><strong>Rutina:</strong> {{ item.nombreRutina }}</p>
+        <p><strong>Sesión:</strong> {{ item.nombreSesion }}</p>
+        <p><strong>Fecha:</strong> {{ item.fecha | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

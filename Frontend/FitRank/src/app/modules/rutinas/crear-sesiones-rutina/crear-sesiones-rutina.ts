@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { SesionService } from '@app/api/services/sesion/sesion.service';
-import { EjercicioAsignadoService } from '@app/api/ejercicioAsignado/ejercisioAsignado.service';
+import { EjercicioAsignadoService } from '@app/api/services/ejercicioAsignado/ejercisioAsignado.service';
 import { SerieService } from '@app/api/services/serie/serie.service';
 import{ Location } from '@angular/common'; 
 import Swal from 'sweetalert2';

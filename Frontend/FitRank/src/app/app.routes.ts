@@ -31,6 +31,7 @@ import { MisBatallasComponent } from './modules/batalla/mis-batallas/components/
 import { DetalleBatallaComponent } from './modules/batalla/detalle-batalla/detalle-batalla.component';
 import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
 import { MisReportes } from './modules/reportes/mis-reportes/mis-reportes';
+import { AlumnosRutina } from './modules/profesor/alumnos/alumnos-rutina/alumnos-rutina';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -72,7 +73,8 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuard],
     children: [
       //{path: 'alumnos', component : Alumnos}, //Jero: no se que vamos a mostrar aca en la vista lo dejo comentado
-      {path: 'progreso-alumnos', component : ProgresoAlumnos}
+      {path: 'progreso-alumnos', component : ProgresoAlumnos},
+      {path: 'mis-alumnos', component : AlumnosRutina}
     ]
   },
 
