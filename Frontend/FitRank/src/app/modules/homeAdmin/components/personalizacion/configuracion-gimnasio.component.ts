@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GimnasioService } from '@app/api/services/gimnasio/gimnasio.service';
+import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service';
 
 @Component({
   selector: 'app-config-gimnasio',
@@ -36,7 +37,8 @@ export class ConfigGimnasioComponent implements OnInit {
   previewLogo: string | null = null;
   logoParaSubir: FormData | null = null;
 
-  constructor(private gymService: GimnasioService) { }
+  constructor(
+    private gymService: GimnasioService, public  imagenApiService   :ImagenApiService        ) { }
  
   ngOnInit() {
 
@@ -46,10 +48,10 @@ export class ConfigGimnasioComponent implements OnInit {
         this.gimnasio = gym;
         this.previewLogo = gym.logoUrl;
 
-        // Guardamos la versión original del server
+       
         this.valoresOriginales = { ...gym };
 
-        // Aplicamos el theme actual
+      
         this.aplicarTheme();
       },
 
@@ -87,7 +89,6 @@ export class ConfigGimnasioComponent implements OnInit {
     document.documentElement.style.setProperty('--color-principal', theme.colorPrincipal);
     document.documentElement.style.setProperty('--color-secundario', theme.colorSecundario);
 
-    // 🔥 CALCULAR LUMINOSIDAD DEL COLOR SECUNDARIO
     const textColor = this.calcularTexto(theme.colorSecundario);
     document.documentElement.style.setProperty('--texto-secundario', textColor);
 
@@ -103,7 +104,7 @@ export class ConfigGimnasioComponent implements OnInit {
     const g = parseInt(c.substr(2, 2), 16);
     const b = parseInt(c.substr(4, 2), 16);
 
-    // Luminancia percibida
+
     const luminancia = (0.299 * r + 0.587 * g + 0.114 * b);
 
     return luminancia > 150 ? '#000000' : '#FFFFFF';
@@ -122,7 +123,6 @@ export class ConfigGimnasioComponent implements OnInit {
     fd.append('file', file);
     this.logoParaSubir = fd;
   }
-
   guardar() {
 
     const dto = {
@@ -132,18 +132,27 @@ export class ConfigGimnasioComponent implements OnInit {
       LogoUrl: this.gimnasio.logoUrl
     };
 
-    // Si hay logo nuevo: subir primero
+    
     if (this.logoParaSubir) {
-      this.gymService.subirLogo(this.logoParaSubir).subscribe({
+
+      const file = this.logoParaSubir.get("file") as File;
+
+      
+      this.imagenApiService.subirImagen(file).subscribe({
 
         next: (res: any) => {
+
+       
           this.gimnasio.logoUrl = res.url;
           this.previewLogo = res.url;
+          dto.LogoUrl = res.url;
 
-          localStorage.setItem('logoUrl', res.url);
-          dto.LogoUrl = res.url;  // 🔥 importante
+         
+          let theme = JSON.parse(localStorage.getItem('gym-theme') || '{}');
+          theme.logoUrl = res.url;
+          localStorage.setItem('gym-theme', JSON.stringify(theme));
 
-          // Después actualizar personalización
+          
           this.actualizarPersonalizacionFinal(dto);
         },
 
@@ -151,7 +160,36 @@ export class ConfigGimnasioComponent implements OnInit {
       });
 
     } else {
-      // No hay logo → solo colores
+      
+      this.actualizarPersonalizacionFinal(dto);
+    }
+  
+
+
+    
+    if (this.logoParaSubir) {
+      this.gymService.subirLogo(this.logoParaSubir).subscribe({
+
+        next: (res: any) => {
+          this.gimnasio.logoUrl = res.url;
+          this.previewLogo = res.url;
+
+        
+          let theme = JSON.parse(localStorage.getItem('gym-theme') || '{}');
+          theme.logoUrl = res.url;
+          localStorage.setItem('gym-theme', JSON.stringify(theme));
+
+          dto.LogoUrl = res.url;  
+
+         
+          this.actualizarPersonalizacionFinal(dto);
+        },
+
+        error: err => console.error("❌ Error al subir logo", err)
+      });
+
+    } else {
+      
       this.actualizarPersonalizacionFinal(dto);
     }
   }
@@ -172,46 +210,44 @@ export class ConfigGimnasioComponent implements OnInit {
   getTextoColor(hex: string): string {
     if (!hex) return '#000';
 
-    // Quitar #
+   
     hex = hex.replace('#', '');
 
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
 
-    // Percepción luminosa
+   
     const luminancia = (0.299 * r + 0.587 * g + 0.114 * b);
 
-    // Si es muy oscuro → texto blanco
+   
     return luminancia < 140 ? '#fff' : '#000';
   }
 
   restablecer() {
 
-    // 🔥 1. Borrar theme guardado
     localStorage.removeItem('gym-theme');
 
-    // 🔥 2. Restaurar valores base de FitRank
     const defaultTheme = {
       colorPrincipal: '#000000',  // sidebar negro
       colorSecundario: '#8B52FF', // acciones violetas FitRank
       logoUrl: null
     };
 
-    // Guardar nuevamente el theme base (opcional pero prolijo)
+    
     localStorage.setItem('gym-theme', JSON.stringify(defaultTheme));
 
-    // 🔥 3. Aplicar al DOM INMEDIATAMENTE
+    
     document.documentElement.style.setProperty('--color-principal', defaultTheme.colorPrincipal);
     document.documentElement.style.setProperty('--color-secundario', defaultTheme.colorSecundario);
     document.documentElement.style.setProperty('--logo-gimnasio', 'none');
 
-    // 🔥 4. Actualizar los valores en pantalla
+    
     this.gimnasio.colorPrincipal = defaultTheme.colorPrincipal;
     this.gimnasio.colorSecundario = defaultTheme.colorSecundario;
     this.previewLogo = null;
 
-    // 🔥 5. Mandarlo al backend (actualiza DB y SignalR)
+    
     const dto = {
       Id: this.gimnasio.id ?? this.gimnasio.Id,
       ColorPrincipal: defaultTheme.colorPrincipal,

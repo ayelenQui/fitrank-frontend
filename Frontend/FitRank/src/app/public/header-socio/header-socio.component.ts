@@ -20,19 +20,33 @@ export class HeaderSocioComponent implements OnInit {
   hayNotificacionesNuevas = false;
   mostrarPopup = false;
   notificaciones: any[] = [];
+  logoUrl: string | null = null;
 
   constructor(private authService: AuthService, private router: Router, private signalRNoti : SignalRNotificacionesService  ) { }
 
   ngOnInit() {
+
+   
+    const themeStr = localStorage.getItem('gym-theme');
+    if (themeStr) {
+      const theme = JSON.parse(themeStr);
+      this.logoUrl = theme.logoUrl || null;
+    }
+
+   
+    this.signalRNoti.theme$.subscribe(theme => {
+      if (theme) {
+        this.logoUrl = theme.logoUrl || null;
+      }
+    });
+
     
     this.signalRNoti.notificacion$.subscribe(n => {
       this.notificaciones.unshift(n);
 
-     
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-      
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -46,6 +60,7 @@ export class HeaderSocioComponent implements OnInit {
       this.user = this.authService.obtenerUser();
     }
   }
+
 
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
