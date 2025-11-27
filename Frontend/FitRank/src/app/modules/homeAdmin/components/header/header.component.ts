@@ -40,6 +40,7 @@ export class HeaderComponent {
 
 
 
+
   logout(): void {
     this.authService.logout();
     window.location.href = '/login';
