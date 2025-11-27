@@ -35,37 +35,41 @@
 
   <!-- 🟣 CONTENIDO PRINCIPAL -->
   <div class="contenido" *ngIf="mostrarSesiones">
-    <!-- LISTADO DE SESIONES Y SERIES -->
-    <div class="main-panel">
-      <!-- Tabs -->
-      <div class="dias-tabs mb-4">
-        <button *ngFor="let sesion of sesiones.controls; let i = index"
-                (click)="seleccionarSesion(i)"
-                class="btn-secondary"
-                [ngClass]="{ active: sesionActiva === i }">
-          Día {{ i + 1 }}
-        </button>
-      </div>
+  <div class="main-panel">
+    <!-- TABS -->
+    <div class="dias-tabs mb-4">
+      <button *ngFor="let sesion of sesiones.controls; let i = index"
+              (click)="seleccionarSesion(i)"
+              class="btn-secondary"
+              [ngClass]="{ active: sesionActiva === i }">
+        Día {{ i + 1 }}
+      </button>
+    </div>
 
-      <!-- Contenido del día -->
-      <div class="dia-content">
-        <form [formGroup]="form" (ngSubmit)="guardarSesionActual()">
-          <div formArrayName="sesiones">
-            <div *ngIf="sesiones.at(sesionActiva)"
-                 [formGroupName]="sesionActiva"
+    <!-- CONTENIDO DE LOS DÍAS -->
+    <div class="dia-content">
+      <form [formGroup]="form" (ngSubmit)="guardarSesionActual()">
+        <div formArrayName="sesiones">
+
+          <!-- recorremos TODAS las sesiones, pero solo mostramos la activa -->
+          <ng-container *ngFor="let sesion of sesiones.controls; let i = index">
+            <div *ngIf="sesionActiva === i"
+                 [formGroupName]="i"
                  class="bloques-container btn-secondary">
 
-                 <div class="mb-3">
-                          <label for="nombreSesion">Nombre de la sesión</label>
-                          <input type="text"
-                                 id="nombreSesion"
-                                 class="form-control"
-                                 [formControl]="nombreSesionControl" />
-                  </div>
+              <!-- NOMBRE DE LA SESIÓN -->
+              <div class="mb-3">
+                <label for="nombreSesion">Nombre de la sesión</label>
+                <input type="text"
+                       id="nombreSesion"
+                       class="form-control"
+                       formControlName="nombre" />
+              </div>
 
               <!-- LISTA DE EJERCICIOS -->
               <div formArrayName="ejercicios" class="ejercicios-dropzone">
-                <div *ngIf="getEjercicios(sesionActiva).length === 0"
+
+                <div *ngIf="getEjercicios(i).length === 0"
                      class="alert alert-light text-center text-muted py-5 border rounded-3 shadow-sm">
                   <p class="mt-3 fw-bold text-uppercase text-secondary">
                     Tu día todavía está vacío
@@ -73,7 +77,7 @@
                   <p class="text-muted">Elegí ejercicios del panel derecho para empezar</p>
                 </div>
 
-                <div *ngFor="let ejercicio of getEjercicios(sesionActiva).controls; let j = index; trackBy: trackByIndex"
+                <div *ngFor="let ejercicio of getEjercicios(i).controls; let j = index; trackBy: trackByIndex"
                      [formGroupName]="j"
                      class="bloque btn-secondary">
 
@@ -82,7 +86,9 @@
                       <!-- MINI VIDEO YOUTUBE -->
                       <ng-container *ngIf="esYoutube(ejercicio.get('urlImagen')?.value); else imagenNormal">
                         <div class="video-mini">
-                          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(convertirAEmbed(ejercicio.get('urlImagen')?.value))"
+                          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(
+                                          convertirAEmbed(ejercicio.get('urlImagen')?.value)
+                                        )"
                                   frameborder="0"
                                   allowfullscreen>
                           </iframe>
@@ -95,14 +101,10 @@
                              class="bloque-img"
                              alt="Ejercicio">
                       </ng-template>
-                      >
-
-
 
                       <div>
                         <h5 class="mb-0">{{ ejercicio.get('nombre')?.value }}</h5>
-
-                        <small class="text-muted">Series: {{ getSeries(sesionActiva, j).length }}</small>
+                        <small class="text-muted">Series: {{ getSeries(i, j).length }}</small>
                         <small class="text-muted d-block">
                           ⏱ {{ ejercicio.get('duracionEstimada')?.value }} mins (estándar 4 series de 12 repeticiones)
                         </small>
@@ -111,15 +113,14 @@
 
                     <button type="button"
                             class="btn btn-sm btn-outline-danger btn-secondary"
-                            (click)="eliminarEjercicio(sesionActiva, j)">
+                            (click)="eliminarEjercicio(i, j)">
                       🗑
                     </button>
                   </div>
 
-
                   <!-- SERIES -->
                   <div class="bloque-body" formArrayName="series">
-                    <div *ngFor="let serie of getSeries(sesionActiva, j).controls; let k = index; trackBy: trackByIndex"
+                    <div *ngFor="let serie of getSeries(i, j).controls; let k = index; trackBy: trackByIndex"
                          [formGroupName]="k"
                          class="serie-row">
                       <div class="serie-input">
@@ -136,49 +137,52 @@
                       </div>
                       <button type="button"
                               class="btn btn-outline-danger btn-sm btn-secondary"
-                              (click)="eliminarSerie(sesionActiva, j, k)">
+                              (click)="eliminarSerie(i, j, k)">
                         Quitar
                       </button>
                     </div>
 
                     <button type="button"
                             class="btn btn-outline-primary btn-sm mt-2 btn-secondary"
-                            (click)="agregarSerie(sesionActiva, j)">
+                            (click)="agregarSerie(i, j)">
                       Agregar serie
                     </button>
                   </div>
-                </div>
-              </div>
 
-              <div class="text-end mt-4">
+                </div> <!-- fin ejercicio -->
+              </div> <!-- fin formArrayName ejercicios -->
+
+              <!--<div class="text-end mt-4">
                 <button type="submit" class="btn-outline-primary">
-                  Guardar Día {{ sesionActiva + 1 }}
+                  Guardar Día {{ i + 1 }}
                 </button>
                 <div class="text-end mt-3 fw-bold text-secondary">
                   Duración total del día:
-                  <span class="text-dark">{{ getDuracionTotalSesion(sesionActiva) }} min</span>
+                  <span class="text-dark">{{ getDuracionTotalSesion(i) }} min</span>
                 </div>
-              </div>
+              </div>-->
             </div>
-          </div>
-        </form>
-      </div>
+          </ng-container>
 
-      <!-- TOTAL -->
-      <div class="text-center mt-4">
-        <h5 class="fw-bold text-dark">
-          Duración total estimada de la rutina:
-          <span class="text-fitrank">{{ getDuracionTotalRutina() }} min</span>
-        </h5>
-      </div>
-
-      <!-- GUARDAR -->
-      <div class="text-center mt-5">
-        <button type="button" class="btn-guardar-floating " (click)="guardarTodo()">
-          Guardar Rutina
-        </button>
-      </div>
+        </div>
+      </form>
     </div>
+
+    <!-- TOTAL RUTINA -->
+    <div class="text-center mt-4">
+      <h5 class="fw-bold text-dark">
+        Duración total estimada de la rutina:
+        <span class="text-fitrank">{{ getDuracionTotalRutina() }} min</span>
+      </h5>
+    </div>
+
+    <!-- GUARDAR RUTINA -->
+    <div class="text-center mt-5">
+      <button type="button" class="btn-guardar-floating" (click)="guardarTodo()">
+        Guardar Rutina
+      </button>
+    </div>
+  </div>
 
     <!-- 🟣 SIDEBAR -->
     <div class="sidebar">
