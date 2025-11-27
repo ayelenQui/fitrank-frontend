@@ -1,9 +1,5 @@
 <div class="container mt-4">
-  <div class="perfil-foto-container">
-    <img [src]="socio?.fotoUrl || 'assets/img/user-sin-foto.png'"
-         alt="Foto del socio"
-         class="perfil-foto" />
-  </div>
+  
   <h2 class="text-titulo fw-bold mb-4">Solicitar Rutina Asistida por Profesor</h2>
 
   <form [formGroup]="solicitudForm" (ngSubmit)="enviar()" class="formulario-fitrank">
@@ -189,14 +185,14 @@
 
     <div class="mb-3">
       <label for="frecuenciaCardiacaReposo" class="form-label">
-        Frecuencia cardíaca en reposo
-        <span class="info-icon">
-          <i class="bi bi-info-circle"></i>
-          <span class="info-tooltip">
-            Tu pulso en reposo ayuda al profesor a evaluar tu condición física y nivel de estrés.
-          </span>
-        </span>
-      </label>
+  Frecuencia cardíaca en reposo
+  <span class="info-icon">
+    <i class="bi bi-info-circle"></i>
+    <span class="info-tooltip">
+      Tu pulso en reposo ayuda al profesor a evaluar tu condición física y nivel de estrés.
+    </span>
+  </span>
+</label>
 
       <input type="number" id="frecuenciaCardiacaReposo" class="form-control" formControlName="frecuenciaCardiacaReposo">
     </div>
