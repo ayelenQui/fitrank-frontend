@@ -1294,3 +1294,74 @@ input[type="number"] { -moz-appearance: textfield; }
   margin-left: auto;
   margin-right: auto;
 }
+/* 📱 FIX PARA MOVIL */
+@media (max-width: 576px) {
+
+  /* La grilla pasa a scroll horizontal */
+  .ejercicios-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 12px;
+  }
+
+  /* Cards más angostas y limpias */
+  .ejercicio-card {
+    min-width: 260px;
+    max-width: 260px;
+    flex: 0 0 auto;
+  }
+
+  /* Imagen más chica */
+  .img-ejercicio-tarjeta {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  /* Lista compacta y centrada */
+  .lista-series {
+    max-width: 120px !important;
+  }
+
+  /* Ajustar el botón */
+  .iniciar-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Título */
+  .titulo-sesion {
+    font-size: 1.3rem;
+  }
+
+  /* Centrar "Finalizar sesión por hoy" */
+  .finalizar-sesion-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px auto;
+  }
+}
+/* GRID DE SERIES (2 por fila) */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.serie-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid #eee;
+}
+@media (max-width: 480px) {
+  .series-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
