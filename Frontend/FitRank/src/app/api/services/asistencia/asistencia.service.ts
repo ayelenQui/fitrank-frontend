@@ -12,9 +12,25 @@ export class AsistenciaService {
 
   constructor(private http: HttpClient) { }
 
-  validarQR(qrData: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/validar-qr`, { qrData });
+
+  validarQR(qr: string): Observable<any> {
+    const payload = {
+      qrData: qr,
+      gimnasioId: null,
+      observaciones: null
+    };
+
+    return this.http.post<any>(
+      `${this.apiUrl}/validar-qr`,
+      JSON.stringify(payload),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
   }
+
 
   getDetalleUsuarioAsistencia(usuarioId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/detalle-usuarioAsistencia/${usuarioId}`);
