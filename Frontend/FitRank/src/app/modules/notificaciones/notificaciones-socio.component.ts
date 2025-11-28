@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificacionService } from '@app/api/services/notificacion/notificacion.service';
 import { NotificacionDTO } from '@app/api/services/notificacion/interface/notificacion.interface';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-notificaciones-socio',
@@ -29,22 +31,33 @@ export class NotificacionesSocioComponent implements OnInit {
     });
   }
 
-  // 👉 ESTE ES EL MÉTODO QUE FALTABA
+
   abrirNotificacion(n: NotificacionDTO) {
-    // 1. Marcar como leída
+   
     if (!n.leido) {
       this.notiService.marcarComoLeida(n.id).subscribe();
       n.leido = true;
     }
 
-    // 2. Mostrar el detalle en un modal
-    alert(`
-      ${n.titulo}
-      
-      ${n.mensaje}
-      
-      Fecha: ${new Date(n.fechaEnvio).toLocaleString()}
-    `);
+    
+    Swal.fire({
+      title: n.titulo,
+      html: `
+      <p style="font-size: 1.1rem; color:#444;">${n.mensaje}</p>
+      <p style="font-size: .9rem; margin-top: 1rem; color:#777;">
+        Fecha: ${new Date(n.fechaEnvio).toLocaleString()}
+      </p>
+    `,
+      icon: 'info',
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: '#8b52ff',
+      background: '#fff',
+      width: '90%',
+      customClass: {
+        popup: 'swal-fit-popup',
+        title: 'swal-fit-title'
+      }
+    });
   }
 }
 

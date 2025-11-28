@@ -808,3 +808,126 @@ input[type="number"] { -moz-appearance: textfield; }
   margin-top: 1.5rem;
   font-size: .95rem;
 }
+/* Contenedor general */
+.sesion-container {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Botón volver */
+.volver-btn {
+  font-size: 1.1rem;
+  padding-left: 0;
+}
+
+/* Tarjeta de ejercicio */
+.ejercicio-card {
+  border: 0;
+  border-radius: 1.2rem;
+  padding: 1rem;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Imagen */
+.img-ejercicio-tarjeta {
+  width: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+  max-height: 230px;
+}
+
+/* Contenido */
+.contenido-ejercicio {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.nombre-ejercicio {
+  font-size: 1.2rem;
+}
+
+.descripcion-ejercicio {
+  font-size: .95rem;
+  opacity: .75;
+}
+
+/* Series */
+.series-titulo {
+  font-size: 1rem;
+  margin-top: .5rem;
+}
+
+.lista-series {
+  font-size: .9rem;
+}
+
+.serie-item {
+  background-color: transparent;
+  padding-left: 0;
+}
+
+/* Botón iniciar */
+.iniciar-btn {
+  width: 100%;
+  margin-top: .5rem;
+  font-weight: bold;
+  border-radius: .8rem;
+  padding: .8rem;
+}
+
+/* Botón finalizar */
+.finalizar-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  padding: .9rem;
+  border-radius: .8rem;
+  background: var(--fitrank-secondary, #6c757d);
+  color: white;
+}
+
+/* ──────────────────────────────
+      📱 TABLET
+──────────────────────────────────*/
+@media (min-width: 600px) {
+  .ejercicio-card {
+    padding: 1.4rem;
+  }
+
+  .img-ejercicio-tarjeta {
+    max-height: 260px;
+  }
+}
+
+/* ──────────────────────────────
+      🖥 DESKTOP (vista horizontal)
+──────────────────────────────────*/
+@media (min-width: 900px) {
+  .ejercicio-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .img-ejercicio-tarjeta {
+    width: 240px;
+    height: 180px;
+    flex-shrink: 0;
+  }
+
+  .contenido-ejercicio {
+    flex: 1;
+  }
+
+  .iniciar-btn {
+    width: auto;
+    align-self: flex-start;
+    padding: .6rem 1.4rem;
+  }
+}

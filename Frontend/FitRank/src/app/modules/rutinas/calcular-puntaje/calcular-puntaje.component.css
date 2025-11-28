@@ -14,7 +14,7 @@
   align-items: center;
   text-align: center;
   padding: 2rem 3rem;
-  background: var(--color-fondo-tarjetas);
+  background: white;
   border-radius: 1.5rem;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
@@ -84,7 +84,7 @@
 }
 
 .btn-volver {
-  background-color: #f5e085;
+  background-color: #f0d769;
   border: none;
   border-radius: 8px;
   padding: 8px 18px;
@@ -97,3 +97,22 @@
     background-color: #f0d769;
     transform: translateY(-1px);
   }
+@media (max-width: 600px) {
+  :host {
+    display: block; 
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto; 
+    padding-top: 1rem;
+  }
+
+  .container-puntaje {
+    margin-bottom: 2rem; 
+  }
+
+  .btn-volver {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: block;
+  }
+}
