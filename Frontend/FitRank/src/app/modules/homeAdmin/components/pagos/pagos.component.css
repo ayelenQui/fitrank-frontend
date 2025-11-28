@@ -178,6 +178,7 @@
   text-align: center;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   transition: all .25s ease;
+  color: #000;
 }
 
   .ingreso-card-btn:hover {
@@ -187,7 +188,7 @@
   /* ICONO */
   .ingreso-card-btn .kpi-icon i {
     font-size: 28px;
-    color: #000;
+    color: #ffffff;
   }
 
   /* LABEL */
@@ -212,9 +213,6 @@
     .ingreso-card-btn.active .kpi-icon i {
       color: #fff !important;
     }
-/* ============================================
-   🔮 SWITCH FITRANK (Filtros)
-===============================================*/
 
 .fr-switch {
   display: inline-flex;
@@ -230,7 +228,7 @@
   padding: 8px 18px;
   border: none;
   background: rgba(0,0,0,0.03);
-  color: #000;
+  color: #ffffff;
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;

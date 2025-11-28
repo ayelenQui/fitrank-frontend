@@ -3,8 +3,6 @@ import { VisitanteHomeNavbar } from './components/visitante-home-navbar/visitant
 import { VisitanteHomeHero } from './components/visitante-home-hero/visitante-home-hero';
 import { VisitanteHomeInfosection } from './components/visitante-home-infosection/visitante-home-infosection';
 
-import { VisitanteHomeFooter } from './components/visitante-home-footer/visitante-home-footer';
-
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../api/services/activacion/AuthService.service';
@@ -15,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-visitante-home',
-  imports: [CommonModule, VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection, VisitanteHomeFooter],
+  imports: [CommonModule, VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection],
   templateUrl: './visitante-home.html',
   styleUrl: './visitante-home.css',
   standalone: true

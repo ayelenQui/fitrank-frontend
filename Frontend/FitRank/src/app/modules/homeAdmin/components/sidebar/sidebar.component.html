@@ -10,7 +10,7 @@
       <img class="sidebar-logo"
            [src]="logoUrl || 'assets/img/default-user.png'"
            alt="Logo del Gimnasio" />
-      <small>Administrador</small>
+      <small class="mixer">Administrador</small>
     </div>
 
 
@@ -21,7 +21,7 @@
          [routerLink]="it.route"
          routerLinkActive="active"
          class="nav-item">
-        {{ it.label }}
+        <div class="mixer">{{ it.label }}</div>
       </a>
     </nav>
   </div>

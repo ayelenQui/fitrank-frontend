@@ -1,6 +1,4 @@
-
 <div class="container  p-2 m-2">
-  <!-- 🔮 SWITCH FITRANK -->
   <h2 class="text-titulo  fw-bold mb-4">Ranking</h2>
   <div class="fr-switch mb-4">
     <button class="fr-switch-option btn-secondary"
@@ -11,7 +9,7 @@
 
     <button class="fr-switch-option btn-secondary"
             [class.active]="vista === 'config'"
-            (click)="vista = 'config'">
+            (click)="abrirPanel()">
       <i class="bi bi-gear icon-fr"></i> Configuración
     </button>
 
@@ -23,9 +21,6 @@
   </div>
 
 
-  <!-- ===========================================================
-        📌 1️⃣ ESTADO DEL RANKING
-  =========================================================== -->
   <div class="panel-guias-fr text-black" *ngIf="vista === 'estado'">
 
     <div class="tarjeta-fr estado-fr text-black">
@@ -150,9 +145,6 @@
   </ng-template>
 
 
-  <!-- ===========================================================
-        📌 4️⃣ SIDE PANEL (CONFIG + EDICIÓN)
-  =========================================================== -->
   <div class="overlay" *ngIf="panelAbierto" (click)="cerrarPanel()"></div>
 
   <div class="side-panel" [class.open]="panelAbierto">

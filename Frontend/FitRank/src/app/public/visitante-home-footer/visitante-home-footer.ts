@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './visitante-home-footer.css'
 })
 export class VisitanteHomeFooter {
-
+  anioActual: number = new Date().getFullYear();
+  versionFrontend: string = 'v1.0.0';
 }

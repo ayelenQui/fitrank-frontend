@@ -93,6 +93,7 @@ export class ProfesoresComponent implements OnInit {
   cancelarFormulario(): void {
     this.mostrarFormulario = false;
     this.profesorSeleccionado = null;
+    this.vista = 'listado';
   }
 
   editarProfesor(profesor: ProfesorDTO): void {

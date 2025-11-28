@@ -39,6 +39,10 @@
   gap: 12px;
 }
 
+.btn{
+  color: white !important;
+}
+
 .btn-outline {
   border: 2px solid #9c5bff;
   background: transparent;

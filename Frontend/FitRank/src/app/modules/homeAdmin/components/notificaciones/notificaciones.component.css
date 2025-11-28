@@ -38,12 +38,16 @@
   font-size: 14px;
   color: var(--fit-gray);
 }
+.btn{
+  color: white !important;
+}
 
 .btn-icon {
   border-radius: 14px !important;
   padding: 8px 16px;
   font-weight: 600;
   transition: .2s;
+  color: white !important;
 }
 
   .btn-icon:hover {
@@ -70,7 +74,7 @@
   border: none;
   background: rgba(255,255,255,0.08);
   
-  color: black;
+  color: rgb(255, 255, 255) !important;
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
@@ -107,7 +111,7 @@
 .panel-title {
   font-size: 18px;
   font-weight: 700;
-  color: var(--fit-black);
+  color: var(--fit-light);
 }
 
 /* ======================================================
