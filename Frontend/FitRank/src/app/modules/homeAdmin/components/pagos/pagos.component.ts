@@ -52,12 +52,15 @@ export class PagosComponent implements OnInit {
         const hoyStr = new Date().toISOString().split("T")[0];
         const hoy = new Date();
 
+       
         this.ingresoTotal = ingresos.reduce((sum, x) => sum + x.monto, 0);
 
+   
         this.ingresoHoy = ingresos
           .filter(x => x.fecha.split("T")[0] === hoyStr)
           .reduce((sum, x) => sum + x.monto, 0);
 
+       
         this.ingresoMes = ingresos
           .filter(x => {
             const f = new Date(x.fecha);
@@ -68,16 +71,17 @@ export class PagosComponent implements OnInit {
           })
           .reduce((sum, x) => sum + x.monto, 0);
 
+        
+        const normalizar = (m: string | null | undefined) =>
+          (m || "").toLowerCase().trim();
+
+        
         this.ingresoEfectivo = ingresos
-          .filter(x => x.metodoPago.toLowerCase() === "efectivo")
+          .filter(x => normalizar(x.metodoPago) === "efectivo")
           .reduce((sum, x) => sum + x.monto, 0);
 
         this.ingresoMpago = ingresos
-          .filter(x =>
-            x.metodoPago.toLowerCase() === "mercado pago" ||
-            x.metodoPago.toLowerCase() === "mp" ||
- x.metodoPago.toLowerCase() === "mercadoPago"
-          )
+          .filter(x => normalizar(x.metodoPago) !== "efectivo")
           .reduce((sum, x) => sum + x.monto, 0);
 
         const ingresosConMonto = ingresos
@@ -86,9 +90,10 @@ export class PagosComponent implements OnInit {
 
         this.cuotaActual = ingresosConMonto.length > 0 ? ingresosConMonto[0].monto : 0;
       }
-
     });
   }
+
+  
 
   obtenerNombreMes(mesIndex: number): string {
     const meses = [

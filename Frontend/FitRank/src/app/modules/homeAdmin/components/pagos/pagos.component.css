@@ -253,3 +253,69 @@
   font-size: 17px;
 }
 
+/* Contenedor general */
+.ingreso-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* FOTO + NOMBRE */
+.pago-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* FOTO */
+.pago-foto {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8B52FF;
+}
+
+/* NOMBRE + ID */
+.pago-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+/* MONTO + DETALLE */
+.info {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.monto {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.detalle {
+  color: #888;
+  font-size: 12px;
+}
+
+.obs {
+  font-size: 11px;
+  color: #555;
+  margin-top: 3px;
+}
+
+/* BADGES */
+.badge.confirmado i {
+  color: #28a745 !important;
+  font-size: 18px;
+}
+
+.badge.pendiente i {
+  color: #dc3545 !important;
+  font-size: 18px;
+}
