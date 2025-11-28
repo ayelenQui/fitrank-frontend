@@ -14,13 +14,14 @@ import { PagosComponent } from './modules/homeAdmin/components/pagos/pagos.compo
 import { ConfigGimnasioComponent } from './modules/homeAdmin/components/personalizacion/configuracion-gimnasio.component';
 import { ReportesAdmin } from './modules/reportes/reportes-admin/reportes-admin';
 import { LogrosAdminComponent } from "./modules/homeAdmin/components/logro/logros-admin.component"; 
+import { AuthGuard } from './guards/auth.guards';
 
 
 export const homeAdminRoutes: Routes = [
 
   {
     path: '',
-    component: AdminLayoutComponent,
+    component: AdminLayoutComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'resumen', pathMatch: 'full' },
       { path: 'resumen', component: ResumenComponent },
@@ -35,29 +36,29 @@ export const homeAdminRoutes: Routes = [
         path: 'configuracion-gimnasio',
         component: ConfigGimnasioComponent
       },
-      { path: 'logros-admin', component: LogrosAdminComponent },
+      { path: 'logros-admin', component: LogrosAdminComponent, canActivate: [AuthGuard] },
      
-      { path: 'reportes-admin', component: ReportesAdmin },
+      { path: 'reportes-admin', component: ReportesAdmin, canActivate: [AuthGuard] },
       {
-        path: 'socios/:id',
+        path: 'socios/:id', canActivate: [AuthGuard],
         loadComponent: () => import('./../app/modules/homeAdmin/components/socios/socios-detalle/socio-detalle.component').then(m => m.SocioDetalleComponent)
       },
       {
-        path: 'maquina-ejercicio',
+        path: 'maquina-ejercicio', canActivate: [AuthGuard],
         loadComponent: () =>
           import('./../app/modules/homeAdmin/components/maquina-ejercicio/maquina-ejercicio.component')
             .then(m => m.MaquinaejercicioComponent)
       },
 
       {
-        path: 'maquina/:id',
+        path: 'maquina/:id', canActivate: [AuthGuard],
         loadComponent: () =>
           import('@app/modules/maquina/maquina-detalle.component')
             .then(m => m.MaquinaDetalleComponent)
       },
 
       {
-        path: 'logros-gimnasio',
+        path: 'logros-gimnasio', canActivate: [AuthGuard],
         loadComponent: () =>
           import('./modules/homeAdmin/components/logro/logros-admin.component')
             .then(m => m.LogrosAdminComponent)
