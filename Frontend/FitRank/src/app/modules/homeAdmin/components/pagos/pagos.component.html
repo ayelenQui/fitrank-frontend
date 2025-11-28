@@ -88,10 +88,11 @@
 
           <!-- FOTO + NOMBRE DEL SOCIO -->
           <div class="pago-user">
-            <img [src]="ing.usuario?.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+            <img [src]="ing.usuario?.fotoDePerfil || 'assets/img/perfil/user-sin-foto.png'"
                  class="pago-foto" />
 
             <div class="pago-info">
+              <p>Pago registrado del Socio </p>
               <strong>{{ ing.usuario?.nombre }} {{ ing.usuario?.apellido }}</strong>
              
             </div>
@@ -99,8 +100,20 @@
 
           <!-- MONTO + DETALLE -->
           <div class="info">
+            <p>Monto de Ingreso</p>
             <p class="monto">$ {{ ing.monto }}</p>
+            <p class="dato">
+              <i class="bi bi-envelope"></i>
+              {{ ing.usuario?.email || 'Sin email' }}
+            </p>
+
+            <p class="dato">
+              <i class="bi bi-phone"></i>
+              {{ ing.usuario?.telefono || 'Sin teléfono' }}
+            </p>
+
             <small class="detalle">
+              <p> Valido Ingreso Hasta </p>
               <i class="bi bi-clock"></i> {{ ing.fecha | date:'dd/MM HH:mm' }}
               • <i class="bi bi-credit-card"></i> {{ ing.metodoPago }}
             </small>
