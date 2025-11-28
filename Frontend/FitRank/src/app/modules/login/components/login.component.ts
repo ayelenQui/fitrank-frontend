@@ -12,6 +12,7 @@ import { TypingService } from '../../../api/services/typingService';
   templateUrl: './login.component.html',
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
