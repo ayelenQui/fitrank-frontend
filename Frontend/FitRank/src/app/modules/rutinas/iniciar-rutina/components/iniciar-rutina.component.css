@@ -28,20 +28,51 @@ body {
   background: var(--bg-1);
 }
 
+.encabezados-lista,
+.lista-ejercicios li {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  align-items: center;
+  gap: 1rem;
+}
+
 .encabezados-lista {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 5px;
-  margin-bottom: 5px;
-  font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Más espacio para el primer título */
+  /* background-color: #4a6fa5; */
+  /* padding: 10px; */
   color: white;
+  font-weight: bold;
+}
+.encabezados-lista div:last-child {
+  text-align: end; /* Tu pedido */
+}
+
+.lista-ejercicios {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ejercicio-titulo{
+  width: 50%;
 }
 
 .lista-ejercicios li {
-  display: flex;
-  justify-content: space-between;
+  padding: .3rem 0;
 }
 
+.nombre-ej {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Para que la duración quede alineada a la derecha si querés */
+.duracion-ej {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+}
 
 /* ================================
    OVERLAY CUENTA REGRESIVA (FULLSCREEN MOBILE)
@@ -277,21 +308,37 @@ body {
 
 /* header arriba de todo */
 .sesion-header {
-  position: relative; z-index: 2;
-  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 0 !important;
+  position: relative; 
+  z-index: 2;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  gap: 1rem;
   border-bottom: 1px solid rgba(255,255,255,.15);
-  padding-bottom: .4rem; margin-bottom: .2rem;
   font-family: var(--font-title);
 }
+.sesion-header-textos{
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  flex: 1;
+}
 .sesion-dia { font-size: 1.4rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
-.sesion-info-box { text-align: right; color:white }
+.sesion-info-box { 
+  text-align: right; 
+  color:white;
+}
+.sesion-info-box p{
+  text-align: center;
+}
 .duracion-total { color: #c77dff; font-weight: 600; }
 
 /* lista en flujo normal, scrolleable y sin tapar el botón */
 .sesion-detalle {
   position: relative; z-index: 1;
   max-height: clamp(120px, 45vh, 220px);
-  overflow-y: auto; padding-right: 64px;  /* deja espacio al botón */
+  /* overflow-y: auto; padding-right: 64px;  deja espacio al botón */
   font-family: var(--font-title);
 }
 .lista-ejercicios { list-style: none; margin: 0; padding:0; }
@@ -309,13 +356,20 @@ body {
 
 /* botón play SIEMPRE por encima y clickeable */
 .btn-ver {
-  position: absolute; right: 1rem; bottom: 1rem;
-  z-index: 3; width: 44px; height: 44px;
-  border: 0; border-radius: 50%;
+  /* z-index: 3;  */
+  width: 44px; 
+  height: 44px;
+  border: 0; 
+  border-radius: 50%;
   background: linear-gradient(145deg, #7b3fe4, #a170ff);
-  color:#fff; display:flex; align-items:center; justify-content:center;
+  color:#fff; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
   box-shadow: 0 0 18px rgba(123,63,228,.5);
-  font-size: 1.3rem; transition: .25s;
+  font-size: 1.3rem; 
+  transition: .25s;
+  position: static !important;
 }
 .btn-ver:hover { transform: scale(1.1); box-shadow: 0 0 28px rgba(123,63,228,.7); }
 
@@ -416,7 +470,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 
 .sesion-header {
-  padding-right: 80px !important; 
+  padding-right: 0px !important; 
 }
 .sesion-info-box {
   line-height: 1.05;
@@ -424,7 +478,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 
 .sesion-detalle {
-  padding-right: 64px !important;
+  /* padding-right: 64px !important; */
   max-height: clamp(120px, 45vh, 220px);
   overflow-y: auto;
 }
@@ -448,11 +502,12 @@ input[type="number"] { -moz-appearance: textfield; }
   height: 90px;
   object-fit: cover;
   border-radius: 12px;
-  position: absolute;
-  top: 15px;
-  left: 15px;
+  position: relative;
+  /* position: absolute; */
+  /* top: 15px; */
+  /* left: 15px; */
   border: 3px solid rgba(255,255,255,0.3);
-  z-index: 3;
+  /* z-index: 3; */
 }
 
 
@@ -499,7 +554,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 
   .sesion-header {
-    padding-right: 72px !important;
+    padding-right: 0px !important;
     margin-bottom: 0.5rem;
   }
 
@@ -514,7 +569,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
   .sesion-detalle {
     max-height: 40vh !important;
-    padding-right: 58px !important;
+    /* padding-right: 58px !important; */
     font-size: 0.85rem;
   }
 
@@ -581,7 +636,7 @@ input[type="number"] { -moz-appearance: textfield; }
   }
 
   .sesion-detalle {
-    padding-right: 54px !important;
+    /* padding-right: 54px !important; */
   }
 
   .btn-ver {
