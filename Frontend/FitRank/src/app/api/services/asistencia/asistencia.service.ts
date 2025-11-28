@@ -12,9 +12,17 @@ export class AsistenciaService {
 
   constructor(private http: HttpClient) { }
 
-  validarQR(qrData: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/validar-qr`, { qrData });
+
+  validarQR(qr: string): Observable<any> {
+    console.log("🟣 ENVIANDO VALIDAR QR", qr);
+    return this.http.post<any>(`${this.apiUrl}/validar-qr`, {
+      QrData: qr,             
+      GimnasioId: null,
+      Observaciones: null
+    });
   }
+
+
 
   getDetalleUsuarioAsistencia(usuarioId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/detalle-usuarioAsistencia/${usuarioId}`);
@@ -29,8 +37,9 @@ export class AsistenciaService {
   }
   getOcupacionActual() {
     return this.http.get<{ personasDentro: number }>(
-      `${this.apiUrl}/Asistencia/ocupacion-actual`
+      `${this.apiUrl}/ocupacion-actual`
     );
   }
+
 
 }
