@@ -125,7 +125,8 @@ export class ResumenComponent implements OnInit, AfterViewInit
 
     
         this.pins.push({
-          id: evento.id,              
+          id: evento.usuarioId,
+              
           nombre: evento.nombre,
           foto: evento.foto,
           top: Math.random() * 65 + 15,
@@ -141,7 +142,8 @@ export class ResumenComponent implements OnInit, AfterViewInit
           this.personasDentro--;
         }
 
-        this.pins = this.pins.filter(p => p.id !== evento.id);
+        this.pins = this.pins.filter(p => p.id !== evento.usuarioId);
+
       }
 
       
