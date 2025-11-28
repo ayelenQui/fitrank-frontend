@@ -5,12 +5,13 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { AuthService } from '../../../api/services/activacion/AuthService.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { finalize } from 'rxjs/operators';  
+import { VisitanteHomeFooter } from '@app/public/visitante-home-footer/visitante-home-footer';
+import { VisitanteHomeNavbar } from '@app/public/visitante-home-navbar/visitante-home-navbar';
 
 @Component({
   selector: 'app-activacion',
   templateUrl: './activacion.component.html',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, VisitanteHomeFooter, VisitanteHomeNavbar],
   standalone: true,
 })
 export class ActivacionComponent implements OnInit {

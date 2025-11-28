@@ -72,7 +72,7 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email]],
       metodoPago: ['efectivo', Validators.required],
       periodo: ['mes', Validators.required],
-      monto: [10, [Validators.required, Validators.min(1)]],
+      monto: [30000, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -166,7 +166,7 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
             email: '',
             metodoPago: 'efectivo',
             periodo: 'mes',
-            monto: 10
+            monto: 30000
           });
           this.form.markAsPristine();
           this.form.markAsUntouched();

@@ -50,7 +50,7 @@
     <!-- BOTONES -->
     <div class="btn-row mt-4">
       <button class="btn-restablecer btn-secondary" (click)="restablecer()">Restablecer a FitRank</button>
-      <button class="btn-guardar" (click)="guardar()">Guardar Cambios</button>
+      <button class="btn-guardar btn-secondary" (click)="guardar()">Guardar Cambios</button>
     </div>
 
   </div>
@@ -64,13 +64,13 @@
 
     <!-- Modo de preview -->
     <div class="preview-modes">
-      <button class="mode-btn"
+      <button class="mode-btn btn-secondary"
               [class.active]="modoPreview === 'desktop'"
               (click)="modoPreview = 'desktop'">
         <i class="bi bi-laptop"></i> Laptop
       </button>
 
-      <button class="mode-btn"
+      <button class="mode-btn btn-secondary"
               [class.active]="modoPreview === 'mobile'"
               (click)="modoPreview = 'mobile'">
         <i class="bi bi-phone"></i> Celular

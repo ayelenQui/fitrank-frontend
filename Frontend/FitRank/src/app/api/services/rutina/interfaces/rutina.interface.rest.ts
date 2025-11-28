@@ -22,6 +22,7 @@ export interface RutinaCompletaDTO {
   id: number;
   nombre: string;
   descripcion: string;
+  fechaCreacion: Date;
   activa: boolean;
   sesiones: SesionDTO[];
 }

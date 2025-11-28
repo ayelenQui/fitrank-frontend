@@ -1,4 +1,6 @@
-<div class="container mt-5 text-black" style="max-width: 500px; margin: auto;">
+<app-visitante-home-navbar></app-visitante-home-navbar>
+<div class="container text-black" style="max-width: 500px; margin: 180px auto 180px">
+
   <h2>Activar Cuenta</h2>
 
   <!-- Estado de error -->
@@ -20,7 +22,7 @@
         (ngSubmit)="activarCuenta()"
         autocomplete="off">
 
-    <p class="text-info">{{ mensaje }}</p>
+    <p>{{ mensaje }}</p>
 
     <div class="mb-3">
       <label for="nuevaPassword" class="form-label">Nueva Contraseña (mín. 8 caracteres)</label>
@@ -54,3 +56,5 @@
     </button>
   </form>
 </div>
+
+<app-visitante-home-footer></app-visitante-home-footer>
