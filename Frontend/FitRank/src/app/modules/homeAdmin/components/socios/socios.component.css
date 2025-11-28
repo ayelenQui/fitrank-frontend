@@ -184,7 +184,7 @@
     font-size: 1.1rem;
   }
 
-  /* 😍 HOVER que sobresale */
+  /*  HOVER que sobresale */
   .btn-detalle:hover {
     background: #7b45e6; /* tono más fuerte */
     transform: translateY(-2px) scale(1.03);

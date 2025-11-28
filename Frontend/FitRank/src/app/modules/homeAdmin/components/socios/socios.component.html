@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
 
-  <!-- 🔝 Header -->
+  <!--  Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-titulo fw-bold  d-flex align-items-center gap-2">
       Gestion de Socios
@@ -11,7 +11,7 @@
       Nuevo socio
     </button>
   </div>
-  <!-- 🔽 FILTROS (estilo pill moderno) -->
+  <!-- FILTROS (estilo pill moderno) -->
   <div class="filtros-switch mb-3">
 
     <button class="filtro-pill btn-secondary "
@@ -39,7 +39,7 @@
     </button>
 
   </div>
-  <!-- 🔍 BUSCADOR -->
+  <!-- BUSCADOR -->
   <div class="input-group mb-3">
     <span class="input-group-text"><i class="bi bi-search"></i></span>
     <input type="text"
@@ -51,7 +51,7 @@
 
 
   <!-- ================================
-       📋 LISTADO DE SOCIOS
+       LISTADO DE SOCIOS
   ================================ -->
   <div class="panel-fitrank">
 
@@ -150,7 +150,7 @@
 
 
 
-  <!-- 🟣 DRAWER DETALLE DEL SOCIO -->
+  <!--  DRAWER DETALLE DEL SOCIO -->
   <div *ngIf="socioSeleccionado" class="drawer-overlay " (click)="cerrarDrawer()"></div>
 
   <div class="drawer shadow-lg bg-black text-white" *ngIf="socioSeleccionado">
