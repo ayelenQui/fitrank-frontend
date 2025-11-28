@@ -576,6 +576,13 @@
     margin-bottom: 12px;
   }
 
+/* .row > div {
+  display: flex;
+}
+  .kpi-box{
+    flex: 1;
+  } */
+
   /* Paneles ocupan toda la pantalla */
   .panel-box {
     padding: 16px;
