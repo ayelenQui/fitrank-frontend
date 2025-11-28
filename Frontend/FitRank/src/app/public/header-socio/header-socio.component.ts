@@ -61,18 +61,8 @@ export class HeaderSocioComponent implements OnInit {
 
     if (!this.user) {
       this.user = this.authService.obtenerUser();
-    }
-
-  this.socioservice.getSocioById(this.user.id).subscribe({
-    next: (socio) => {
-      this.socio = { socio }; // socio.fotoUrl viene directo acá
-    },
-    error: (err) => console.error("Error cargando socio:", err)
-  });
-
-
       this.cargarDtosSocios();
-    
+    }
   }
 
 
@@ -119,8 +109,8 @@ export class HeaderSocioComponent implements OnInit {
 
   cargarDtosSocios() {
     this.socioservice.obtenerPerfilCompleto(this.user.id).subscribe({
-      next: (dtos) => {
-        this.socio = { socio: dtos };  
+      next: (perfil) => {
+        this.socio = perfil;  
       },
       error: (err) => {
         console.error('Error al obtener los DTOs del socio:', err);
