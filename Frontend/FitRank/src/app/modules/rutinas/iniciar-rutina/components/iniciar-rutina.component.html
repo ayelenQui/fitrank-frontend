@@ -94,24 +94,31 @@
 
     <ng-container *ngFor="let e of sesionSeleccionada.ejerciciosAsignados">
       <div *ngIf="!e.completadoHoy" class="card ejercicio-card border-0 rounded-4 shadow-sm p-3 mb-3 position-relative">
-        <img *ngIf="e.ejercicio?.urlImagen"
-             [src]="e.ejercicio.urlImagen"
-             class="img-ejercicio-tarjeta" />
-        <div class="ejercicio-header d-flex justify-content-between align-items-center">
-          <h5 class="fw-bold mb-0">{{ e.ejercicio?.nombre }}</h5>
+        <div class="card ejercicio-card">
+
+          <img *ngIf="e.ejercicio?.urlImagen"
+               [src]="e.ejercicio.urlImagen"
+               class="img-ejercicio-tarjeta" />
+
+          <div class="ejercicio-info">
+            <h5 class="ejercicio-nombre">{{ e.ejercicio?.nombre }}</h5>
+
+            <p class="ejercicio-desc">{{ e.ejercicio?.descripcion }}</p>
+
+            <ul class="list-group lista-series">
+              <li *ngFor="let serie of e.series" class="list-group-item">
+                {{ e.ejercicio?.nombre }}: {{ e.series?.length }} x {{ serie?.repeticiones }} reps
+              </li>
+            </ul>
+
+            <button class="btn btn-success iniciar-btn btn-secondary"
+                    (click)="seleccionarEjercicio(e)">
+              Iniciar ejercicio
+            </button>
+          </div>
+
         </div>
-        <p class="descripcion-ejercicio small text-50 mb-2">{{ e.ejercicio?.descripcion }}</p>
 
-        <h6 class="serie-titulo mt-3 text-dark">Series:</h6>
-        <ul class="list-group list-group-flush text-dark lista-series">
-          <li *ngFor="let serie of e.series" class="list-group-item text-dark">
-            {{ e.ejercicio?.nombre }}: <span>{{ e.series?.length }} x {{ serie?.repeticiones }} reps</span>
-          </li>
-        </ul>
-
-        <button class="btn mt-3 fw-bold py-2 btn-success" (click)="seleccionarEjercicio(e)">
-          Iniciar ejercicio
-        </button>
       </div>
     </ng-container>
 

@@ -986,3 +986,83 @@ input[type="number"] { -moz-appearance: textfield; }
     padding: .6rem 1.4rem;
   }
 }
+/* Contenedor principal centrado */
+.ejercicio-card {
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  background: #fff !important; /* 🔥 saca el fondo negro */
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Imagen */
+.img-ejercicio-tarjeta {
+  width: 260px;
+  height: 170px;
+  border-radius: 0.8rem;
+  object-fit: cover;
+}
+
+/* Contenido a la derecha */
+.ejercicio-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* Títulos */
+.ejercicio-nombre {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Descripción */
+.ejercicio-desc {
+  font-size: 1rem;
+  opacity: .7;
+}
+
+/* Lista de series */
+.lista-series {
+  margin-top: .5rem;
+  border: 0 !important;
+}
+
+  .lista-series .list-group-item {
+    border: 0 !important;
+    padding-left: 0 !important;
+  }
+
+/* Botón iniciar */
+.iniciar-btn {
+  margin-top: 1rem;
+  font-weight: 700;
+  width: auto;
+  padding: .6rem 1.4rem;
+  align-self: flex-start;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+  .ejercicio-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .img-ejercicio-tarjeta {
+    width: 100%;
+    height: auto;
+  }
+
+  .iniciar-btn {
+    width: 100%;
+  }
+}
