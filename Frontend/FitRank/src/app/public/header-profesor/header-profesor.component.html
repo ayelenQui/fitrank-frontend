@@ -4,7 +4,11 @@
     <button class="btn-menu btn-secondary" (click)="toggleMobileMenu()">
       <i class="bi bi-list"></i>
     </button>
-    <img src="assets/img/logo/logo-negro-lila.svg" class="logo" alt="FitRank" (click)="irAlHome()" />
+    <img [src]="logoUrl || 'assets/img/logo/logo-negro-lila.svg'"
+         class="logo"
+         alt="Logo Gimnasio"
+         (click)="irAlHome()" />
+
   </div>
 
   <!-- Acciones derecha -->

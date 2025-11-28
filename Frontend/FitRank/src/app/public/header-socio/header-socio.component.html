@@ -4,10 +4,11 @@
 
 
   <div class="header__logo">
-    <img src="assets/img/logo/logo-negro-lila.svg"
+    <img [src]="logoUrl || 'assets/img/logo/logo-negro-lila.svg'"
          alt="FitRank Logo"
          class="header__imagologo"
          (click)="irAlHome()" />
+
   </div>
 
 

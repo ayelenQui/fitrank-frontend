@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { SocioApiService } from '@app/api/services/socio/socioApiService'; 
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
@@ -24,13 +24,16 @@ export class FormularioRutinaIa implements OnInit{
   usuarioId!: number;
   ejercicios: EjercicioDTO[] = [];
   nivel: 'Principiante' | 'Intermedio' | 'Avanzado' | null = null;
+  socio: any = null;
+  textoObjetivo: string = '';
 
   constructor(
     private fb: FormBuilder,
     private rutinaService: RutinaService,
     private router: Router,
     private authService: AuthService,
-    private ejercicioService: EjercicioService
+    private ejercicioService: EjercicioService,
+    private socioService: SocioApiService
   ) {}
 
   ngOnInit(): void {
@@ -80,13 +83,58 @@ export class FormularioRutinaIa implements OnInit{
         ejerciciosExcluidos: this.fb.array([]),
       })
     });
+    this.cargarDatosSocio();
   }
+
+  cargarDatosSocio() {
+
+    const user = this.authService.obtenerUser();
+    if (!user) return;
+
+    this.socioService.getSocioById(user.id).subscribe({
+      next: socio => {
+
+        
+        this.rutinaForm.patchValue({
+         
+          pesoKg: socio.peso ?? null,
+          alturaCm: socio.altura ?? null
+        });
+      },
+      error: err => console.error("Error cargando socio:", err)
+    });
+  }
+ 
 
 
 estaSeleccionado(nombre: string): boolean {
   const formArray = this.rutinaForm.get('preferencias.ejerciciosExcluidos') as FormArray;
   return formArray.value.includes(nombre);
 }
+  mostrarInfoObjetivo() {
+    const objetivo = this.rutinaForm.get('objetivo')?.value;
+
+    switch (objetivo) {
+      case 'Hipertrofia':
+        this.textoObjetivo = 'Hipertrofia: ganar masa muscular, aumentar volumen y mejorar la estética muscular.';
+        break;
+
+      case 'PerdidaDePeso':
+        this.textoObjetivo = 'Pérdida de peso: reducir grasa corporal con rutinas mixtas de pesas y cardio.';
+        break;
+
+      case 'Fuerza':
+        this.textoObjetivo = 'Fuerza: aumentar la capacidad de levantar más peso y mejorar la potencia muscular.';
+        break;
+
+      case 'Resistencia':
+        this.textoObjetivo = 'Resistencia: mejorar la capacidad aeróbica y mantener esfuerzo durante más tiempo.';
+        break;
+
+      default:
+        this.textoObjetivo = '';
+    }
+  }
 
 
 toggleEjercicio(nombre: string): void {

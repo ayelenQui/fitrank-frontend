@@ -5,7 +5,7 @@ import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import Swal from 'sweetalert2';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
-
+import { SocioApiService } from '@app/api/services/socio/socioApiService';
 @Component({
   selector: 'app-header-socio',
   templateUrl: './header-socio.component.html',
@@ -20,19 +20,36 @@ export class HeaderSocioComponent implements OnInit {
   hayNotificacionesNuevas = false;
   mostrarPopup = false;
   notificaciones: any[] = [];
+  logoUrl: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router, private signalRNoti : SignalRNotificacionesService  ) { }
+  socio: any = null;
+
+
+  constructor(private authService: AuthService, private router: Router, private signalRNoti: SignalRNotificacionesService, private socioservice: SocioApiService) { }
 
   ngOnInit() {
-    
+
+
+    const themeStr = localStorage.getItem('gym-theme');
+    if (themeStr) {
+      const theme = JSON.parse(themeStr);
+      this.logoUrl = theme.logoUrl || null;
+    }
+
+
+    this.signalRNoti.theme$.subscribe(theme => {
+      if (theme) {
+        this.logoUrl = theme.logoUrl || null;
+      }
+    });
+
+
     this.signalRNoti.notificacion$.subscribe(n => {
       this.notificaciones.unshift(n);
 
-     
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-      
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -44,8 +61,10 @@ export class HeaderSocioComponent implements OnInit {
 
     if (!this.user) {
       this.user = this.authService.obtenerUser();
+      this.cargarDtosSocios();
     }
   }
+
 
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
@@ -84,8 +103,19 @@ export class HeaderSocioComponent implements OnInit {
   abrirNotificaciones() {
     this.hayNotificacionesNuevas = false;
     this.notificacionesNuevas = 0;
-    this.mostrarPopup = !this.mostrarPopup; 
-   
+    this.mostrarPopup = !this.mostrarPopup;
+
   }
 
+  cargarDtosSocios() {
+    this.socioservice.obtenerPerfilCompleto(this.user.id).subscribe({
+      next: (dtos) => {
+        this.socio = dtos;  
+      },
+      error: (err) => {
+        console.error('Error al obtener los DTOs del socio:', err);
+      }
+    });
+
+  }
 }

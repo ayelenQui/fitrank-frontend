@@ -15,7 +15,7 @@
       <!--<p><strong>duracion:</strong> {{item.duracion}}</p>-->
       </div>
 
-      <button class="btn-fitrank" (click)="toggleExpand(i)">
+      <button class="btn-fitrank btn-secondary" (click)="toggleExpand(i)">
         {{ expandedIndex === i ? 'Ocultar detalles' : 'Ver detalles' }}
       </button>
     </div>
@@ -63,7 +63,7 @@
         </div>
 
         <!-- BOTON PARA VER EL GRAFICO -->
-        <button class="btn-fitrank btn-light" (click)="toggleGrafico(ejercicio.nombre)">
+        <button class="btn-fitrank btn-secondary" (click)="toggleGrafico(ejercicio.nombre)">
           {{ mostrarGrafico(ejercicio.nombre) ? 'Ocultar gráfico' : 'Ver gráfico de mejoras' }}
         </button>
 

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
+import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,18 +11,40 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
+  constructor(
+    private router: Router,
+    private signalR: SignalRNotificacionesService
+  ) { }
 
   isSidebarOpen = false;
-
   logoUrl: string | null = null;
+
+  ngOnInit() {
+    /** 1️⃣ Cargar logo almacenado */
+    const themeStr = localStorage.getItem('gym-theme');
+    if (themeStr) {
+      const theme = JSON.parse(themeStr);
+      this.logoUrl = theme.logoUrl || null;
+    }
+
+    /** 2️⃣ Escuchar cambios en tiempo real con SignalR */
+    this.signalR.theme$.subscribe(theme => {
+      if (theme?.logoUrl !== undefined) {
+        this.logoUrl = theme.logoUrl || null;
+      }
+    });
+  }
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
- 
+  irAConfiguracion() {
+    this.router.navigate(['/homeAdmin/config-gimnasio']);
+  }
+
   items = [
     { label: 'Dashboard', route: 'resumen' },
     { label: 'Socios', route: 'socios' },
@@ -36,4 +60,3 @@ export class SidebarComponent {
     { label: 'Reportes', route: 'reportes-admin' }
   ];
 }
-

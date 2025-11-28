@@ -9,15 +9,27 @@
 }
 
 
+/* LOGO */
+
 .header__logo {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
-
+  height: 55px; /* alto del header */
 }
-/* LOGO */
+
 .header__imagologo {
-  width: 50px;   /* <-- ajustá el tamaño que prefieras */
-  height: auto;
+  height: 100%;
+  max-height: 45px; /* controla altura del logo */
+  width: auto; /* mantiene proporción */
+  object-fit: contain; /* NO corta el logo */
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header__imagologo {
+    max-height: 38px; /* reduce para mobile */
+  }
 }
 
 .header__imagologo:hover {

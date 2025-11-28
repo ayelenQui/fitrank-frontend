@@ -103,7 +103,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       delay: 0.5
     });
 
-    // Animaciones al hacer scroll
+  
     gsap.utils.toArray('.tarjeta').forEach((tarjeta: any) => {
       gsap.from(tarjeta, {
         scrollTrigger: {
@@ -119,12 +119,18 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
+   
+    this.user = this.authService.obtenerUser();
+
+    if (!this.user) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.signalRNoti.iniciarConexion();
 
     this.signalRNoti.notificacion$.subscribe(n => {
         
-      // Podés además actualizar una lista local o un contador
+      
       Swal.fire({
         icon: 'info',
         title: '🔔 Nueva notificación',
@@ -183,7 +189,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
         }
       });
     }
-    // 🔹 Cargar notificaciones del socio
+   
     const token = this.authService.obtenerToken();
     if (token) {
       this.notificacionService.getMisNotificaciones().subscribe({
@@ -209,13 +215,13 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
 
     switch (opcion) {
       case 'cambiar-rutina':
-        mensaje = '💪 Un profesor te ayudará a ajustar tu rutina.';
+        mensaje = 'Un profesor te ayudará a ajustar tu rutina.';
         break;
       case 'estoy-bien':
-        mensaje = '😎 Nos alegra saber que todo va bien.';
+        mensaje = 'Nos alegra saber que todo va bien.';
         break;
       case 'contactar-profesor':
-        mensaje = '📞 Un entrenador se pondrá en contacto con vos pronto.';
+        mensaje = 'Un entrenador se pondrá en contacto con vos pronto.';
         break;
     }
 
@@ -226,7 +232,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       confirmButtonColor: '#8c52ff'
     });
 
-    // 🔹 Marcar la notificación como leída
+  
     const token = this.authService.obtenerToken();
     if (token && this.notificacion) {
       this.notificacionService.marcarComoLeida( this.notificacion.id).subscribe();
@@ -245,7 +251,6 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     const hoy = new Date();
     const vencimiento = new Date(this.socio.cuotaPagadaHasta);
 
-    // Normalizo las horas para evitar errores por horas del día
     hoy.setHours(0, 0, 0, 0);
     vencimiento.setHours(0, 0, 0, 0);
 
@@ -284,7 +289,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     if (this.fotoArchivo) {
       this.imagenApiService.subirImagen(this.fotoArchivo).subscribe({
         next: (res) => {
-          // Guardamos la URL que devolvió Cloudflare R2
+         
           this.formEditar.fotoUrl = res.url;
 
           this.actualizarPerfil();
@@ -345,12 +350,12 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
   }
   cargarDatosSocio() {
 
-    // 1️⃣ Obtener los datos del socio
+    
     this.socioService.getSocioById(this.user.id).subscribe({
       next: (socio) => {
         this.socio = socio;
         this.calcularDiasRestantes();
-        // Rellenar el formulario de edición
+    
         this.formEditar = {
           nombre: socio.nombre,
           apellido: socio.apellido,
@@ -360,12 +365,11 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
           peso: socio.peso
         };
 
-        // 2️⃣ Obtener historial de medidas
+  
         this.medidaService.obtenerHistorial(this.socio.id).subscribe({
           next: (historial) => {
             this.historialMedidas = historial || [];
 
-            // 3️⃣ Obtener última medida
             if (this.historialMedidas.length > 0) {
               this.ultimaMedida = this.historialMedidas[0];
             } else {
@@ -416,12 +420,12 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.router.navigate([ruta]);
   }
   abrirNotificacion(n: NotificacionDTO) {
-    // 1️⃣ Marcar como leída
+    
     this.notificacionService.marcarComoLeida(n.id).subscribe({
       next: () => {
-        n.leido = true; // refleja el estado sin recargar
+        n.leido = true; 
 
-        // 2️⃣ Navegar a pantalla general de notificaciones
+       
         this.router.navigate(['/notificaciones']);
       },
       error: (err) => console.error("Error marcando como leída:", err)

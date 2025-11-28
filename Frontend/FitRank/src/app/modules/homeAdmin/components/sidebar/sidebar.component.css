@@ -17,6 +17,29 @@
   box-shadow: 4px 0 25px rgba(0,0,0,.3);
   transition: transform .3s ease-in-out;
 }
+.pointer {
+  cursor: pointer;
+}
+
+.sidebar-header:hover h1 {
+  color: #8B52FF; /* toque FitRank violeta */
+  transition: 0.2s ease;
+}
+
+.sidebar-logo-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 5px;
+  filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.3));
+}
 
 /* ===========================
    ITEMS

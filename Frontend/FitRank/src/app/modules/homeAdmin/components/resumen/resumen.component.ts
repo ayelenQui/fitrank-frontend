@@ -9,7 +9,7 @@ import { SignalRNotificacionesService } from '@app/api/services/notificacion/sig
 import Chart from 'chart.js/auto';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { Router } from '@angular/router';
-
+import { SocioApiService } from '@app/api/services/socio/socioApiService'; 
 
 
 @Component({
@@ -28,7 +28,8 @@ export class ResumenComponent implements OnInit, AfterViewInit
     private solicitudService: SolicitudService, 
     public router: Router,
     private signalR: SignalRNotificacionesService,
-    private rutinaService: RutinaService
+    private rutinaService: RutinaService,
+    private socioApiService: SocioApiService
   ) { }
   graficoActivo: string = 'asistencias';
 
@@ -108,6 +109,9 @@ export class ResumenComponent implements OnInit, AfterViewInit
       }
     });
   }
+
+
+
   escucharOcupacion() {
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
@@ -116,9 +120,9 @@ export class ResumenComponent implements OnInit, AfterViewInit
 
         this.personasDentro++;
 
-        // crear pin con su foto real
+    
         this.pins.push({
-          id: evento.id,               // id del socio
+          id: evento.id,              
           nombre: evento.nombre,
           foto: evento.foto,
           top: Math.random() * 65 + 15,

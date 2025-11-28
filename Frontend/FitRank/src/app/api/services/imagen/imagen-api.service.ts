@@ -14,7 +14,7 @@ export class ImagenApiService {
 
   subirImagen(archivo: File): Observable<any> {
     const formData = new FormData();
-    formData.append("Archivo", archivo); // 👈 NOMBRE EXACTO DEL DTO
+    formData.append("Archivo", archivo); 
 
     return this.http.post(`${this.apiUrl}/subir`, formData);
   }

@@ -70,3 +70,19 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 50px;
 }
+.sidebar-header {
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.sidebar-logo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 8px auto;
+  background-image: var(--logo-gimnasio);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  cursor: pointer;
+}

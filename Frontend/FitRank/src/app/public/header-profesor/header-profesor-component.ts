@@ -20,30 +20,47 @@ export class HeaderProfesorComponent implements OnInit {
   mostrarPopup = false;
   notificaciones: any[] = [];
   menuAbierto = false;
+
+  logoUrl: string | null = null;
+
   constructor(private authService: AuthService, private router: Router, private signalRNoti: SignalRNotificacionesService) { }
 
   ngOnInit(): void {
 
+
+    const themeStr = localStorage.getItem('gym-theme');
+    if (themeStr) {
+      const theme = JSON.parse(themeStr);
+      this.logoUrl = theme.logoUrl || null;
+    }
+
+   
+    this.signalRNoti.theme$.subscribe(theme => {
+      if (theme) {
+        this.logoUrl = theme.logoUrl || null;
+      }
+    });
+
+ 
     this.signalRNoti.notificacion$.subscribe(n => {
       this.notificaciones.unshift(n);
-
-    
       this.notificacionesNuevas++;
       this.hayNotificacionesNuevas = true;
 
-   
       Swal.fire({
         icon: 'info',
-        title: '🔔 Nueva notificación',
+        title: ' Nueva notificación',
         text: `${n.titulo} - ${n.mensaje}`,
         timer: 2500,
         showConfirmButton: false
       });
     });
+
     if (!this.user) {
       this.user = this.authService.obtenerUser();
     }
   }
+
 
   toggleSidebar(): void {
     this.menuToggle.emit();

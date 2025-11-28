@@ -16,6 +16,14 @@
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(123, 63, 228, 0.3);
 }
+.info-tooltip-box {
+  background: #8B52FF;
+  color: white;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
 
 /* TÍTULO */
 .formulario-fitrank h2 {
@@ -37,6 +45,37 @@
   margin: 10px auto 0;
   border-radius: 3px;
 }
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  font-size: 16px;
+  color: #8B52FF;
+  cursor: pointer;
+  position: relative;
+}
+
+.info-tooltip {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  background: #8B52FF;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  width: 240px;
+  display: none;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.info-icon:hover .info-tooltip {
+  display: block;
+}
+
 
 /* SUBTÍTULOS */
 .formulario-fitrank h5 {

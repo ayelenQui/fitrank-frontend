@@ -2,6 +2,27 @@
   <h2>Mis Reportes</h2>
 
   <h4>Crear reporte nuevo</h4>
+  <div class="explicacion-reportes">
+    <p>
+      En esta sección podés <strong>enviar reportes o comentarios</strong> al gimnasio.<br />
+      Estos reportes ayudan al dueño o administrador a mejorar la experiencia del gym,<br />
+      resolver problemas y estar al tanto de lo que pasa en las instalaciones.
+    </p>
+
+    <p>
+      Podés usarla para informar:
+    </p>
+
+    <ul>
+      <li>Problemas con máquinas o equipamiento</li>
+      <li>Limpieza o mantenimiento</li>
+      <li>Problemas con la app o tu cuenta</li>
+      <li>Sugerencias para mejorar el gimnasio</li>
+      <li>Inconvenientes en vestuarios o áreas comunes</li>
+    </ul>
+
+ 
+  </div>
 
   <form [formGroup]="crearForm" (ngSubmit)="crearReporte()">
     <label>Título</label>
@@ -10,7 +31,7 @@
     <label>Descripción</label>
     <textarea formControlName="descripcion" rows="5" placeholder="Describe el problema"></textarea>
 
-    <button type="submit" [disabled]="enviando">
+    <button type="submit" [disabled]="enviando" class="btn-secondary">
       {{ enviando ? 'Enviando...' : 'Enviar reporte' }}
     </button>
   </form>
@@ -22,14 +43,14 @@
   </div>
 
   <ul class="reportes-list" *ngIf="reportesUsuario.length > 0">
-  <li *ngFor="let rep of reportesUsuario">
-    <strong>{{ rep.titulo }}</strong>
-    <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
-      Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
-    </small>
-    <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
-  </li>
-</ul>
+    <li *ngFor="let rep of reportesUsuario">
+      <strong>{{ rep.titulo }}</strong>
+      <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
+        Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
+      </small>
+      <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
+    </li>
+  </ul>
 
 
   <hr />

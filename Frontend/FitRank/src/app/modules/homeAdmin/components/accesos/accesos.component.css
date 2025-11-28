@@ -1,102 +1,99 @@
-/* CONTENEDOR PRINCIPAL */
+/* ============================
+   CONTENEDOR GENERAL
+============================= */
 .qr-container {
-  min-height: 100vh;
   padding: 20px;
-  gap: 20px;
   display: flex;
-  flex-wrap: wrap;
+  gap: 25px;
 }
 
-/* COLUMNA IZQUIERDA */
-.qr-left {
-  padding-right: 20px;
-  border-right: 2px solid #e7e7e7;
-}
-
-@media (max-width: 992px) {
-  .qr-left {
-    border-right: none;
-    border-bottom: 2px solid #e7e7e7;
-    padding-right: 0;
-    padding-bottom: 20px;
-  }
-}
-
-/* COLUMNA DERECHA */
-.qr-right {
-  padding-left: 20px;
-}
-
-/* TITULO */
-.text-titulo {
-  text-align: center;
-  color: black;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 50px;
+.qr-left, .qr-right {
+  padding: 20px;
 }
 
 /* ============================
-   SCANNER FRAME
+   TITULOS Y TEXTOS
+============================= */
+.text-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #8c52ff;
+  letter-spacing: 1px;
+}
+
+.subtitulo {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* ============================
+   SCANNER CAM
 ============================= */
 .scanner-frame {
   width: 100%;
-  max-width: 480px;
-  aspect-ratio: 1 / 1; /* VIDEO CUADRADO */
+  max-width: 420px;
+  height: 320px;
   background: #000;
-  position: relative;
+  border-radius: 18px;
   overflow: hidden;
+  position: relative;
 }
 
 .scanner-cam {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important; /* LLENA EL FRAME */
-  transform: scale(1.02); /* elimina bordes negros */
-  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* SI EL VIDEO ES MUY ANGOSTO, SE AJUSTA */
-@media (max-width: 420px) {
-  .scanner-frame {
-    max-width: 100%;
-    aspect-ratio: 1/1;
-  }
-}
-
-/* SELECTOR DE CAMARAS */
+/* ============================
+   SELECTOR DE CÁMARA
+============================= */
 .device-selector {
   margin-bottom: 15px;
 }
 
 .label-cam {
-  font-weight: bold;
+  font-weight: 600;
+  color: #444;
 }
 
 .select-cam {
   width: 100%;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ccc;
+  background: white;
+  font-size: 0.95rem;
 }
 
-/* RESULTADOS */
+/* ============================
+   RESULTADOS DEL QR
+============================= */
 .result-box {
-  font-size: 18px;
-  padding: 16px;
+  font-size: 1.1rem;
+  padding: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 12px;
 }
 
-/* FOTO SOCIO */
+/* ============================
+   CARD SOCIO
+============================= */
+.socio-card {
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
 .foto-wrapper {
   width: 110px;
   height: 110px;
+  margin: auto;
   border-radius: 50%;
   overflow: hidden;
-  margin: auto;
-  border: 4px solid #8B52FF;
+  border: 3px solid #8c52ff;
 }
 
 .foto-socio {
@@ -105,66 +102,142 @@
   object-fit: cover;
 }
 
-/* PANEL DERECHA */
+.detalle p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+/* ============================
+   OCUPACIÓN
+============================= */
 .ocupacion-wrapper {
-  padding: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid #e3d5ff;
 }
 
 .ocupacion-card {
-  background: #f5f5f5;
-  border-radius: 16px;
-  padding: 25px;
   text-align: center;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  margin-bottom: 25px;
 }
 
-  .ocupacion-card .contador {
-    font-size: 56px;
-    font-weight: bold;
-    color: #8B52FF;
-  }
+.contador {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #8c52ff;
+}
 
+.sub {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ============================
+   MOVIMIENTOS
+============================= */
 .movimientos-card {
-  background: #fff;
-  border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #eee;
+  max-height: 480px;
+  overflow-y: auto;
 }
 
 .movimiento {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background: #f7f4ff;
+  border-left: 4px solid #8c52ff;
+  transition: 0.2s;
 }
 
-  .movimiento .avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
+  .movimiento:hover {
+    background: #ede3ff;
   }
 
+.avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.nombre {
+  font-weight: 600;
+  color: #222;
+}
+
+.fecha {
+  font-size: 0.85rem;
+  color: #666;
+}
+
 .tipo {
-  font-weight: bold;
-  padding: 5px 12px;
-  border-radius: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
 }
 
   .tipo.entrada {
-    background: #d7ffd6;
-    color: #0f8f0f;
+    background: #d9ffd9;
+    color: #0f8b0f;
   }
 
   .tipo.salida {
-    background: #ffe4e4;
-    color: #da1a1a;
+    background: #ffe2e2;
+    color: #b80000;
   }
 
-/* LOADING */
-.loading-text {
-  margin-top: 8px;
-  font-size: 16px;
-  color: #8B52FF;
+/* ============================
+   RESPONSIVE
+============================= */
+
+@media (max-width: 992px) {
+  .qr-container {
+    flex-direction: column;
+  }
+
+  .scanner-frame {
+    max-width: 100%;
+    height: 260px;
+  }
+
+  .movimientos-card {
+    max-height: 380px;
+  }
+
+  .contador {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .scanner-frame {
+    height: 220px;
+  }
+
+  .contador {
+    font-size: 2.5rem;
+  }
+
+  .movimiento {
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+  }
 }
