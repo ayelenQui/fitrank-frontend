@@ -42,15 +42,25 @@
     <p>No tienes reportes enviados aún.</p>
   </div>
 
-  <ul class="reportes-list" *ngIf="reportesUsuario.length > 0">
-    <li *ngFor="let rep of reportesUsuario">
+<ul class="reportes-list" *ngIf="reportesUsuario.length > 0">
+  <li *ngFor="let rep of reportesUsuario" (click)="toggleDescripcion(rep.id)" class="reporte-item">
+    
+    <div class="reporte-header">
       <strong>{{ rep.titulo }}</strong>
       <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
         Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
       </small>
       <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
-    </li>
-  </ul>
+    </div>
+
+    <div class="reporte-descripcion" *ngIf="reporteAbiertoId === rep.id">
+      <p>
+        <strong>Descripción:</strong>
+        {{ rep.descripcion }}
+      </p>
+    </div>
+  </li>
+</ul>
 
 
   <hr />

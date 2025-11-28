@@ -18,6 +18,8 @@ export class ReportesAdmin implements OnInit {
   gimnasioId!: number;
   filtroSeleccionado: 'todos' | 'activos' | 'inactivos' = 'todos';
 
+  reporteAbiertoId: number | null = null;
+
   constructor(
     private reportesService: ReportesService,
     private authService: AuthService
@@ -90,5 +92,15 @@ export class ReportesAdmin implements OnInit {
         });
       }
     });
+  }
+
+  toggleDescripcion(reporteId: number): void {
+    if (this.reporteAbiertoId === reporteId) {
+      // Si ya está abierto, ciérralo (establece a null)
+      this.reporteAbiertoId = null;
+    } else {
+      // Si está cerrado o es otro reporte, ábrelo (establece el ID)
+      this.reporteAbiertoId = reporteId;
+    }
   }
 }
