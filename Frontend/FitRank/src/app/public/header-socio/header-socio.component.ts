@@ -109,8 +109,8 @@ export class HeaderSocioComponent implements OnInit {
 
   cargarDtosSocios() {
     this.socioservice.obtenerPerfilCompleto(this.user.id).subscribe({
-      next: (perfil) => {
-        this.socio = perfil;  
+      next: (dtos) => {
+        this.socio = dtos;  
       },
       error: (err) => {
         console.error('Error al obtener los DTOs del socio:', err);
