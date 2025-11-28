@@ -10,7 +10,7 @@ import { SignalRNotificacionesService } from '@app/api/services/notificacion/sig
 import Chart from 'chart.js/auto';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { SocioApiService } from '@app/api/services/socio/socioApiService'; 
 
 
 @Component({
@@ -30,7 +30,8 @@ export class ResumenComponent implements OnInit, AfterViewInit
     public router: Router,
     private signalR: SignalRNotificacionesService,
     private rutinaService: RutinaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private socioApiService: SocioApiService
   ) { }
   graficoActivo: string = 'asistencias';
 
@@ -128,7 +129,13 @@ verSocio(id: number) {
       }
     });
   }
+
+
+
   escucharOcupacion() {
+    this.asistenciaService.getOcupacionActual().subscribe(res => {
+      this.personasDentro = res.personasDentro;
+    });
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
@@ -136,9 +143,10 @@ verSocio(id: number) {
 
         this.personasDentro++;
 
-        // crear pin con su foto real
+    
         this.pins.push({
-          id: evento.id,               // id del socio
+          id: evento.usuarioId,
+              
           nombre: evento.nombre,
           foto: evento.foto,
           top: Math.random() * 65 + 15,
@@ -148,10 +156,14 @@ verSocio(id: number) {
       }
 
       if (evento.tipo === "salida") {
-        this.personasDentro--;
 
-       
-        this.pins = this.pins.filter(p => p.id !== evento.id);
+   
+        if (this.personasDentro > 0) {
+          this.personasDentro--;
+        }
+
+        this.pins = this.pins.filter(p => p.id !== evento.usuarioId);
+
       }
 
       

@@ -1,13 +1,11 @@
 <div class="qr-container row">
 
-  <!-- ===========================
-       COLUMNA IZQUIERDA
-  ============================ -->
+
   <div class="col-lg-6 col-12 qr-left">
 
     <div class="scanner-wrapper">
 
-      <!-- HEADER -->
+
       <div class="text-center mb-4">
         <h2 class="text-titulo fw-bold mb-4">
           <i class="bi bi-qr-code-scan me-2 text-black"></i>
@@ -16,13 +14,11 @@
         <p class="subtitulo">Escaneá el código del socio para validar el ingreso.</p>
       </div>
 
-      <!-- SIN CÁMARAS -->
       <div class="alert alert-warning mb-3" *ngIf="dispositivos.length === 0">
 
         No se detectaron cámaras. Verifica permisos y HTTPS.
       </div>
 
-      <!-- SELECTOR DE CÁMARAS -->
       <div class="device-selector" *ngIf="dispositivos.length > 1">
         <label class="label-cam">Seleccionar cámara:</label>
 
@@ -35,7 +31,7 @@
         </select>
       </div>
 
-      <!-- SCANNER -->
+
       <div class="scanner-frame shadow-lg rounded-4 mx-auto">
         <video #preview
                autoplay
@@ -45,7 +41,6 @@
       </div>
 
 
-      <!-- BOTONES -->
       <div class="d-flex justify-content-center gap-3 mt-4">
         <button class="btn btn-fitrank" (click)="iniciarScanner()">
           <i class="bi bi-play-fill"></i> Iniciar
@@ -56,7 +51,7 @@
         </button>
       </div>
 
-      <!-- LOADING -->
+
       <div *ngIf="loading" class="mt-4 text-center">
         <div class="spinner-border text-fitrank" role="status"></div>
         <p class="loading-text">
@@ -64,7 +59,6 @@
         </p>
       </div>
 
-      <!-- RESULTADO -->
       <div *ngIf="!loading && mensaje" class="resultado-wrapper">
         <div [ngClass]="exito ? 'alert alert-success result-box'
                               : 'alert alert-danger result-box'">
@@ -75,14 +69,14 @@
         </div>
       </div>
 
-      <!-- DETALLE SOCIO -->
       <div *ngIf="exito && socio" class="card socio-card shadow-lg rounded-4 mx-auto mt-3">
 
         <div class="text-center mb-3">
           <div class="foto-wrapper">
-            <img [src]="socio.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+            <img [src]="socio.fotoDePerfil || socio.foto || 'assets/img/perfil/user-sin-foto.png'"
                  alt="foto socio"
                  class="foto-socio">
+
           </div>
 
           <h4 class="text-fitrank fw-bold mt-2">
@@ -104,7 +98,7 @@
           <p><i class="bi bi-building"></i> <strong>Gimnasio:</strong> {{ socio.gimnasioNombre }}</p>
         </div>
 
-        <!-- ASISTENCIAS -->
+
         <div class="mt-3">
           <h5 class="text-fitrank">
             <i class="bi bi-clock-history"></i> Últimas asistencias
@@ -124,9 +118,6 @@
     </div>
   </div>
 
-  <!-- ===========================
-       COLUMNA DERECHA
-  ============================ -->
   <div class="col-lg-6 col-12 qr-right">
 
     <div class="ocupacion-wrapper">

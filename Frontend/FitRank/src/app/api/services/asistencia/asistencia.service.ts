@@ -12,9 +12,17 @@ export class AsistenciaService {
 
   constructor(private http: HttpClient) { }
 
-  validarQR(qrData: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/validar-qr`, { qrData });
+
+  validarQR(qr: string): Observable<any> {
+   
+    return this.http.post<any>(`${this.apiUrl}/validar-qr`, {
+      QrData: qr,             
+      GimnasioId: null,
+      Observaciones: null
+    });
   }
+
+
 
   getDetalleUsuarioAsistencia(usuarioId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/detalle-usuarioAsistencia/${usuarioId}`);
@@ -27,4 +35,11 @@ export class AsistenciaService {
   getSociosInactivos(dias: number = 5): Observable<SocioInactivoDTO[]> {
     return this.http.get<SocioInactivoDTO[]>(`${this.apiUrl}/socios-inactivos/${dias}`);
   }
+  getOcupacionActual() {
+    return this.http.get<{ personasDentro: number }>(
+      `${this.apiUrl}/ocupacion-actual`
+    );
+  }
+
+
 }

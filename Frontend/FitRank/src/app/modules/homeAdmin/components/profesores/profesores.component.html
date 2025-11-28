@@ -1,10 +1,8 @@
 <div class="container  p-2 m-2">
 
-  <!-- 🟪 Título -->
   <h2 class="text-titulo  fw-bold mb-4">Gestión de Profesores</h2>
 
-  <!-- 🔮 SWITCH FITRANK -->
-  <<div class="fr-switch mb-4">
+  <div class="fr-switch mb-4">
 
     <button class="fr-switch-option btn-secondary"
             [class.active]="vista === 'estadisticas'"
@@ -33,15 +31,12 @@
   </div>
 
 
-  <!-- ==============================
-       📊 ESTADÍSTICAS
-  =============================== -->
+
    <div *ngIf="vista === 'estadisticas'" class="panel-fitrank mt-4 mb-4">
-     <h3 class="text-black fw-bold mb-4">Estadísticas de Profesores</h3>
+     <h3 class="text-black fw-bold m-4">Estadísticas de Profesores</h3>
 
      <div class="row g-3">
 
-       <!-- 🟣 Más solicitado -->
        <div class="col-md-3 col-6">
          <div class="card-stat-fitrank text-black">
            <h6>Más solicitado</h6>
@@ -55,7 +50,6 @@
        </div>
 
 
-       <!-- 🟡 Más pendientes -->
        <div class="col-md-3 col-6">
          <div class="card-stat-fitrank text-black">
            <h6>Más pendientes</h6>
@@ -68,7 +62,6 @@
          </div>
        </div>
 
-       <!-- 🟢 Más cumplidor -->
        <div class="col-md-3 col-6">
          <div class="card-stat-fitrank text-black">
            <h6>Más cumplidor</h6>
@@ -82,7 +75,6 @@
        </div>
 
 
-       <!-- 💜 Mejor valorado -->
        <div class="col-md-3 col-6">
          <div class="card-stat-fitrank">
            <h6>Mejor valorado</h6>
@@ -108,9 +100,7 @@
       Nuevo Profesor
     </button>
   </div>
-  <!-- ==============================
-       ➕ NUEVO PROFESOR / EDITAR
-  =============================== -->
+
   <div *ngIf="vista === 'nuevo'" class="card-form-fitrank p-4 mb-4">
     <h4 class="text-formu mb-3 ">
       {{ profesorSeleccionado ? '✏️ Editar Profesor' : ' Agregar Profesor' }}
@@ -186,12 +176,9 @@
     </form>
   </div>
 
-  <!-- ==============================
-       📋 LISTADO
-  =============================== -->
-  <<div *ngIf="vista === 'listado'">
+  <div *ngIf="vista === 'listado'">
 
-    <!-- 🟪 PANEL ESTILO FITRANK -->
+
     <div class="panel-fitrank">
 
       <!-- HEADER NEGRO -->
@@ -235,12 +222,12 @@
                   <td>
                     <div class="d-flex gap-2 flex-wrap">
 
-                      <button class="btn-tag-info btn-secondary" (click)="verRutinas(profesor)">
+                      <button class="btn-tag-light" (click)="verRutinas(profesor)">
                         <i class="bi bi-list-check action-icon"></i>
                         Rutinas
                       </button>
 
-                      <button class="btn-tag-light btn-secondary" (click)="editarProfesor(profesor)">
+                      <button class="btn-tag-light" (click)="editarProfesor(profesor)">
                         <i class="bi bi-pencil action-icon"></i>
                         Editar
                       </button>
@@ -259,7 +246,7 @@
                     <div class="rutinas-box p-3 rounded-3">
 
                       <h5 class="fw-bold text-black mb-3">
-                        Rutinas asignadas a {{ profesor.nombre }}
+                        Rutinas asignadas por {{ profesor.nombre }}
                       </h5>
 
                       <div *ngIf="!profesor.rutinas?.length" class="text-muted">

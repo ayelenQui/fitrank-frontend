@@ -28,13 +28,13 @@ export class SignalRNotificacionesService {
   iniciarConexion() {
 
     if (this.conectado) {
-      console.warn("⚠️ SignalR ya estaba conectado, se ignora iniciarConexion()");
+      console.warn(" SignalR ya estaba conectado, se ignora iniciarConexion()");
       return;
     }
 
     const token = this.authService.obtenerToken();
     if (!token) {
-      console.error("❌ NO HAY TOKEN, NO SE PUEDE CONECTAR A SIGNALR");
+      console.error(" NO HAY TOKEN, NO SE PUEDE CONECTAR A SIGNALR");
       return;
     }
 
@@ -53,13 +53,11 @@ export class SignalRNotificacionesService {
     });
 
     this.hubConnection.onclose(error => {
-      console.error("🔴 SignalR desconectado", error);
+      console.error(" SignalR desconectado", error);
       this.conectado = false;
     });
 
-    // ==========================
-    // 🎯 Eventos recibiendo datos
-    // ==========================
+
 
     this.hubConnection.on('NotificacionRecibida', (data) => {
       this.notificacionSubject.next(data);
@@ -71,10 +69,10 @@ export class SignalRNotificacionesService {
 
     this.hubConnection.on('ThemeUpdated', (data) => {
 
-      // Guardar en localStorage para que lo aplique el interceptor
+      
       localStorage.setItem('gym-theme', JSON.stringify(data));
 
-      // Aplicar al DOM instantáneamente
+      
       document.documentElement.style.setProperty('--color-principal', data.colorPrincipal);
       document.documentElement.style.setProperty('--color-secundario', data.colorSecundario);
 
@@ -82,7 +80,7 @@ export class SignalRNotificacionesService {
         document.documentElement.style.setProperty('--logo-gimnasio', `url('${data.logoUrl}')`);
       }
 
-      // Emitir para otros componentes si quieren reaccionar
+
       this.themeSubject.next(data);
     });
 
@@ -94,9 +92,6 @@ export class SignalRNotificacionesService {
     });
 
 
-    // ==========================
-    // 🚀 Iniciar conexión
-    // ==========================
 
     this.hubConnection
       .start()
@@ -104,7 +99,7 @@ export class SignalRNotificacionesService {
         this.conectado = true;
       })
       .catch(err => {
-        console.error('❌ Error al conectar con SignalR (NEGO FAIL / 401 / CORS / TOKEN)', err);
+        console.error(' Error al conectar con SignalR (NEGO FAIL / 401 / CORS / TOKEN)', err);
       });
   }
 }

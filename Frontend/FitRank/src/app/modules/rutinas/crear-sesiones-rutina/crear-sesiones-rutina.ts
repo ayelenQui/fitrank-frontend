@@ -402,12 +402,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
     this.location.back();
   }
 
-  get nombreSesionControl(): FormControl {
-    const control = this.sesiones.at(this.sesionActiva)?.get('nombre');
-    if (!control) throw new Error('El control "nombre" no existe');
-    return control as FormControl;
-  }
-
 filtrarPorGrupo(grupoId: number): void {
   this.grupoSeleccionadoId = grupoId;
 

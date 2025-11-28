@@ -39,15 +39,15 @@ export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'visitante-home', component: VisitanteHome },
   { path: 'home/home-socio', component: HomeSocioComponent, canActivate: [AuthGuard] },
-  { path: 'homeAdmin', children: homeAdminRoutes },
+  { path: 'homeAdmin', canActivate: [AuthGuard],children: homeAdminRoutes },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
    { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'activar-cuenta', component: ActivacionComponent },// Rutas rutinas
-  { path: 'rutina/editar/:id', component: CrearRutinaComponent },
+  { path: 'activar-cuenta', component: ActivacionComponent },// si dejamos sin loguear 
+  { path: 'rutina/editar/:id', component: CrearRutinaComponent, canActivate: [AuthGuard] },
   { path: 'torneo/lista-torneo', component: ListaTorneosComponent, canActivate: [AuthGuard] },
   { path: 'torneo/ver-torneo/:id', component: RankingTorneoComponent, canActivate: [AuthGuard] },
 
-  { path: 'acceso', component: AccesoGimnasioComponent },
+  { path: 'acceso', component: AccesoGimnasioComponent, canActivate: [AuthGuard] },
 
   {
   path: 'solicitudes-profesor',
@@ -114,28 +114,28 @@ export const appRoutes: Route[] = [
 
 
   {
-    path: 'logros',
+    path: 'logros', canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/logros/logros.routes').then(r => r.logrosRoutes)
   },
   {
-    path: 'gimnasios/:gimnasioId/logros',
+    path: 'gimnasios/:gimnasioId/logros', canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/gimnasios/logros/gim-logros.routes').then(r => r.gimnasioLogrosRoutes)
   },
   {
-    path: 'socios/:socioId/gimnasios/:gimnasioId/logros',
+    path: 'socios/:socioId/gimnasios/:gimnasioId/logros', canActivate: [AuthGuard],
     component: GeneralLayoutComponent,
     loadChildren: () =>
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },
-  { path: 'pago-exitoso', component: PagoExitosoComponent },
+  { path: 'pago-exitoso', component: PagoExitosoComponent, },//dejamos sin loguear respuesta de mp 
   { path: 'pago-fallido', component: PagoFallidoComponent },
   { path: 'pago-pendiente', component: PagoPendienteComponent },
 
   
   {
-    path: 'maquina/:id',
+    path: 'maquina/:id', canActivate: [AuthGuard],
     loadComponent: () =>
       import('./modules/maquina/maquina-detalle.component')
         .then(m => m.MaquinaDetalleComponent)

@@ -91,11 +91,12 @@
 =========================================== */
 .kpi-box,
 .kpi-box-riesgo {
-  background: #ffffff;
-  padding: 18px;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: 0.2s;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(10px);
 }
 
   .kpi-box:hover,
@@ -107,6 +108,7 @@
 .kpi-label {
   font-size: 14px;
   color: #666;
+
 }
 
 .kpi-value {
@@ -125,6 +127,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /*  BOTÓN OUTLINE – estilo FitRank */
@@ -188,7 +196,7 @@
    PANEL BOXES
 =========================================== */
 .panel-box {
-  background: #ffffff;
+  background: #D8BFD8;
   padding: 20px;
   border-radius: 18px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
@@ -304,7 +312,11 @@
 =========================================== */
 .small-calendar-box {
   padding: 20px;
-  border-radius:1px;
+
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  margin-bottom: 20px;
+  transition: 0.2s ease;
 }
 
 .calendar-nav button {
@@ -442,6 +454,12 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .activity-name {
@@ -573,7 +591,21 @@
   /* KPI BOX — columnas en una sola columna */
   .kpi-box,
   .kpi-box-riesgo {
-    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.06); 
+    border-radius: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px); /* efecto vidrio */
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .whatsapp-glass {
+    background: rgba(255, 255, 255, 0.06); /* capa translúcida */
+    border-radius: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px); /* efecto vidrio */
+    -webkit-backdrop-filter: blur(10px);
   }
 
 /* .row > div {

@@ -1,6 +1,12 @@
 /* ===========================
    SIDEBAR DESKTOP
 =========================== */
+    :root {
+      --color-principal: #000;
+      --color-secundario: #8B52FF;
+      --logo-gimnasio: none;
+    }
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -58,13 +64,18 @@
 
   .nav-item:hover,
   .nav-item.active {
-    background: #8b52ff;
+    background: var(--color-secundario);
     transform: translateX(5px);
   }
 
 .sidebar-footer {
   font-size: .85rem;
   opacity: .9;
+}
+
+.mixer{
+  mix-blend-mode: difference;
+  color: white;
 }
 
 /* ===========================
