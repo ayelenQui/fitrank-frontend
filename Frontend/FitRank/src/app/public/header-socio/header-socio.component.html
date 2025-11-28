@@ -28,7 +28,7 @@
       </span>
     </div>
 
-    <img [src]="user?.fotoPerfil ? user.fotoPerfil : 'assets/img/perfil/user-sin-foto.png'"
+    <img [src]="user?.fotoUrl ||'assets/img/perfil/user-sin-foto.png'"
          alt="Perfil"
          class="header__imagen" />
 
