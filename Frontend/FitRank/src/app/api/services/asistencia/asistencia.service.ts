@@ -14,6 +14,7 @@ export class AsistenciaService {
 
 
   validarQR(qr: string): Observable<any> {
+    console.log("🟣 ENVIANDO VALIDAR QR", qr);
     return this.http.post<any>(`${this.apiUrl}/validar-qr`, {
       QrData: qr,             
       GimnasioId: null,
