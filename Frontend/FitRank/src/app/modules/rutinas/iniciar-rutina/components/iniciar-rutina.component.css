@@ -1299,8 +1299,9 @@ input[type="number"] { -moz-appearance: textfield; }
 
   /* La grilla pasa a scroll horizontal */
   .ejercicios-grid {
-    display: flex;
+    display: inline-flex;
     overflow-x: auto;
+    padding: 1rem 1.8rem 1.5rem 1rem;
     gap: 1rem;
     padding-bottom: 12px;
   }
@@ -1309,7 +1310,8 @@ input[type="number"] { -moz-appearance: textfield; }
   .ejercicio-card {
     min-width: 260px;
     max-width: 260px;
-    flex: 0 0 auto;
+  
+    flex: 0 0 85%;
   }
 
   /* Imagen más chica */
@@ -1342,14 +1344,7 @@ input[type="number"] { -moz-appearance: textfield; }
     margin: 20px auto;
   }
 }
-/* GRID DE SERIES (2 por fila) */
-.series-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  margin-top: 10px;
-  width: 100%;
-}
+
 
 .serie-box {
   background: #ffffff;
@@ -1363,5 +1358,111 @@ input[type="number"] { -moz-appearance: textfield; }
 @media (max-width: 480px) {
   .series-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* 📱 SOLO MÓVIL: SCROLL HORIZONTAL REAL */
+@media (max-width: 768px) {
+
+  /* CONTENEDOR */
+  .ejercicios-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;     /* 👈 Nada de grid */
+    overflow-x: auto !important;      /* 👈 scroll real */
+    overflow-y: hidden !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ocultar scrollbar */
+  .ejercicios-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* CADA CARD */
+  .ejercicio-card {
+    flex: 0 0 80% !important;          /* 👈 ocupa 80% del ancho */
+    max-width: 80% !important;
+    min-width: 80% !important;
+    scroll-snap-align: center;         /* 👈 se centra al soltar */
+    background: black;
+    border-radius: 1.2rem;
+    padding: 1rem;
+  }
+
+  /* IMAGEN */
+  .img-ejercicio-tarjeta {
+    width: 100% !important;
+    height: 150px !important;
+    object-fit: cover !important;
+    border-radius: 1rem;
+  }
+
+  /* LISTA DE SERIES */
+  .lista-series {
+    margin: 0.5rem auto !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 120px !important;
+    text-align: center;
+  }
+
+  .serie-item {
+    background: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: black;
+    border: 1px solid #eee;
+    font-size: 0.85rem;
+  }
+
+  /* BOTÓN */
+  .iniciar-btn {
+    width: 100% !important;
+    margin-top: 10px;
+  }
+}
+/* 📱 MÓVIL + TABLET: 2 columnas SIEMPRE, SIN SCROLL */
+@media (max-width: 768px) {
+
+  .ejercicios-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    overflow: visible !important; /* 👈 sin scroll */
+    padding: 0 1rem !important;
+  }
+
+  .ejercicio-card {
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    margin: 0 auto;
+    padding: 1rem !important;
+    border-radius: 1.2rem;
+    background: black;
+  }
+
+  .img-ejercicio-tarjeta {
+    width: 100% !important;
+    height: 150px !important;
+    object-fit: cover !important;
+    border-radius: 1rem;
+  }
+
+  .lista-series {
+    max-width: 140px;
+    margin: 0.5rem auto 0 auto;
+    text-align: center;
+  }
+}
+
+/* 📱 PANTALLAS MUY CHICAS → 1 columna */
+@media (max-width: 480px) {
+  .ejercicios-grid {
+    grid-template-columns: 1fr !important;
   }
 }
