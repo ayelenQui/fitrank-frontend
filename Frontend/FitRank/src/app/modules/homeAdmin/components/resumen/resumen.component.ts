@@ -113,6 +113,9 @@ export class ResumenComponent implements OnInit, AfterViewInit
 
 
   escucharOcupacion() {
+    this.asistenciaService.getOcupacionActual().subscribe(res => {
+      this.personasDentro = res.personasDentro;
+    });
     this.signalR.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
@@ -132,9 +135,12 @@ export class ResumenComponent implements OnInit, AfterViewInit
       }
 
       if (evento.tipo === "salida") {
-        this.personasDentro--;
 
-       
+   
+        if (this.personasDentro > 0) {
+          this.personasDentro--;
+        }
+
         this.pins = this.pins.filter(p => p.id !== evento.id);
       }
 

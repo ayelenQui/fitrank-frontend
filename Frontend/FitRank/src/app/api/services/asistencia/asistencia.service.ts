@@ -27,4 +27,10 @@ export class AsistenciaService {
   getSociosInactivos(dias: number = 5): Observable<SocioInactivoDTO[]> {
     return this.http.get<SocioInactivoDTO[]>(`${this.apiUrl}/socios-inactivos/${dias}`);
   }
+  getOcupacionActual() {
+    return this.http.get<{ personasDentro: number }>(
+      `${this.apiUrl}/Asistencia/ocupacion-actual`
+    );
+  }
+
 }

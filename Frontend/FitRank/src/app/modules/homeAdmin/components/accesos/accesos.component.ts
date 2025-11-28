@@ -47,10 +47,23 @@ export class AccesosComponent implements OnInit {
 
   ngOnInit(): void {
     this.typingService.startTypingEffect('Control de Acceso QR ', 'typingText', 70);
-
+    this.asistenciaService.getOcupacionActual().subscribe(res => {
+      this.personasDentro = res.personasDentro;
+    });
     this.signalR.ocupacion$.subscribe(ev => {
       if (!ev) return;
-      this.personasDentro += ev.tipo === "entrada" ? 1 : -1;
+
+      if (ev.tipo === "entrada") {
+        this.personasDentro++;
+      }
+
+      if (ev.tipo === "salida") {
+        // no bajar de 0
+        if (this.personasDentro > 0) {
+          this.personasDentro--;
+        }
+      }
+
       this.ocupacion.unshift(ev);
     });
   }

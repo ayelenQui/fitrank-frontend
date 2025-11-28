@@ -18,7 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
 import { FooterComponent } from '@app/modules/footer/components/footer.component';
 import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
-import { MercadoPagoService } from '@app/api/services/mercado-pago/mercado-pago.service'; 
+import { MercadoPagoService } from '@app/api/services/mercado-pago/mercado-pago.service';
+import { AsistenciaService } from '@app/api/services/asistencia/asistencia.service'; 
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,7 +85,8 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     private signalRNoti: SignalRNotificacionesService,
     private medidaService: MedidaCorporalService,
     private imagenApiService: ImagenApiService,
-    private pagosService: MercadoPagoService
+    private pagosService: MercadoPagoService,
+    private asistenciaService: AsistenciaService
   ) { }
 
   ngAfterViewInit() {
@@ -126,6 +128,10 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/login']);
       return;
     }
+
+    this.asistenciaService.getOcupacionActual().subscribe(res => {
+      this.personasDentro = res.personasDentro;
+    });
     this.signalRNoti.iniciarConexion();
 
     this.signalRNoti.notificacion$.subscribe(n => {
