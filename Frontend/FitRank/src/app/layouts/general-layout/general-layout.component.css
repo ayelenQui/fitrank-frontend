@@ -56,7 +56,7 @@ app-sidebar-profesor {
 
 /* Footer “detrás” del sidebar */
 app-footer {
-  background: #0f0d13;
+  background: black;
   color: #fff;
   text-align: center;
   padding: 25px 40px;
@@ -64,7 +64,7 @@ app-footer {
   font-family: 'Work Sans', sans-serif;
   box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.25);
   position: relative;
-  z-index: 100;
+  z-index: 3000;
 }
 
   /* El truco: pseudo-elemento para tapar el espacio debajo del sidebar */
@@ -75,7 +75,7 @@ app-footer {
     left: 0;
     width: 250px;
     height: 100%;
-    background: #12121a; /* mismo color del sidebar */
+    background: black; /* mismo color del sidebar */
     z-index: -1;
   }
 

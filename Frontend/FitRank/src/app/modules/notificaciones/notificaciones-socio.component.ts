@@ -45,7 +45,7 @@ export class NotificacionesSocioComponent implements OnInit {
       html: `
       <p style="font-size: 1.1rem; color:#444;">${n.mensaje}</p>
       <p style="font-size: .9rem; margin-top: 1rem; color:#777;">
-        Fecha: ${new Date(n.fechaEnvio).toLocaleString()}
+      
       </p>
     `,
       icon: 'info',

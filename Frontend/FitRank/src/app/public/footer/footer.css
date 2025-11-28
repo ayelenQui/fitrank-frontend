@@ -1,3 +1,4 @@
+
 .fitrank-footer {
   background: white;
 }
@@ -27,7 +28,24 @@
 .text-fitrank {
   color: #8c52ff;
 }
-
+.footer-flex {
+  display: flex;
+  justify-content: space-evenly; /* separa por igual */
+  align-items: end;
+}
+.imagenes-footer{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-around;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  .footer-flex {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
 @media (max-width: 767px) {
   .fitrank-footer {
     text-align: left;

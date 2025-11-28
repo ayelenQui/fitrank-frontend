@@ -16,7 +16,7 @@
   <div class="row g-4">
 
     <!-- ========================= -->
-    <!-- 🟡 COLUMNA IZQUIERDA -->
+    <!--  COLUMNA IZQUIERDA -->
     <!-- ========================= -->
     <div class="col-lg-4 col-md-12">
 
@@ -77,7 +77,7 @@
 
       </div>
       <!-- ================================
-           🟣 MODAL QR DE PAGO – FITRANK
+           MODAL QR DE PAGO – FITRANK
       =================================== -->
       <div class="qr-overlay" *ngIf="mostrarQR" (click)="mostrarQR = false">
         <div class="qr-modal shadow-lg" (click)="$event.stopPropagation()">
@@ -101,7 +101,7 @@
 
 
     <!-- ========================= -->
-    <!-- 🟣 COLUMNA CENTRAL -->
+    <!-- COLUMNA CENTRAL -->
     <!-- ========================= -->
     <div class="col-lg-5 col-md-12">
 
@@ -112,10 +112,10 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
 
           <div class="d-flex gap-2">
-            <button class="btn btn-fitrank" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button><br />
-            <button class="btn btn-secondary alerta-flecha" (click)="toggleMedidas()">📏 Medidas</button>
+            <button class="btn btn-secondary" (click)="toggleEditarPerfil()"><i class="bi bi-pencil"></i> Editar Perfil</button><br />
+            <button class="btn btn-secondary alerta-flecha bi bi-rulers" (click)="toggleMedidas()"> Medidas</button>
             <div *ngIf="historialMedidas?.length === 0" class="alerta-fitrank mt-3">
-              <p class="alerta-texto">⚠️ Para participar del ranking debés cargar tus medidas corporales</p>
+              <p class="alerta-texto bi bi-exclamation-triangle-fill"> Para participar del ranking debés cargar tus medidas corporales</p>
               <div class="alerta-flecha">⬅</div>
 
               <small class="alerta-sub">Hacé clic en “Medidas” para comenzar</small>
@@ -146,7 +146,57 @@
 
         <!-- EDITAR PERFIL -->
         <div *ngIf="mostrarEditarPerfil" class="editar-perfil-card mt-4 p-4">
-          <h4 class="fw-bold mb-4 titulo-seccion"> <i class="bi bi-pencil-square me-2"></i> Editar Perfil </h4> <div class="row g-4"> <!-- FOTO --> <div class="col-md-6"> <label>Foto de Perfil</label> <input type="file" class="form-control" accept="image/*" (change)="onSeleccionarFoto($event)"> </div> <!-- CAMPOS --> <div class="col-md-8"> <div class="row g-3"> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-person me-1"></i> Nombre </label> <input class="form-control" [(ngModel)]="formEditar.nombre"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-person me-1"></i> Apellido </label> <input class="form-control" [(ngModel)]="formEditar.apellido"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-gender-ambiguous me-1"></i> Sexo </label> <select class="form-control" [(ngModel)]="formEditar.sexo"> <option value="">Seleccionar</option> <option value="F">Femenino</option> <option value="M">Masculino</option> <option value="X">Otro</option> </select> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-rulers me-1"></i> Altura (cm) </label> <input type="number" class="form-control" [(ngModel)]="formEditar.altura"> </div> <div class="col-md-6"> <label class="form-label"> <i class="bi bi-activity me-1"></i> Peso (kg) </label> <input type="number" class="form-control" [(ngModel)]="formEditar.peso"> </div> </div> </div> </div> <!-- BOTÓN GUARDAR --> <div class="text-end mt-4"> <button class="btn-guardar" (click)="guardarPerfil()"> <i class="bi bi-save me-2"></i> Guardar </button> </div>
+          <h4 class="fw-bold mb-4 titulo-seccion"> <i class="bi bi-pencil-square me-2"></i> Editar Perfil </h4> 
+          <div class="row g-4"> <!-- FOTO --> 
+            <div class="col-md-6"> 
+              <label>Foto de Perfil</label> 
+              <input type="file" class="form-control" accept="image/*" (change)="onSeleccionarFoto($event)"> </div> 
+              <!-- CAMPOS --> 
+               <div class="col-md-8"> 
+                <div class="row g-3"> 
+                  <div class="col-md-6"> 
+                    <label class="form-label"> 
+                      <i class="bi bi-person me-1">
+
+                      </i> Nombre 
+                    </label> 
+                      <input class="form-control" [(ngModel)]="formEditar.nombre"> </div> 
+                      <div class="col-md-6"> 
+                        <label class="form-label"> 
+                          <i class="bi bi-person me-1"></i> Apellido 
+                        </label> <input class="form-control" [(ngModel)]="formEditar.apellido"> </div> 
+                        <div class="col-md-6"> 
+                          <label class="form-label"> 
+                            <i class="bi bi-gender-ambiguous me-1"></i> Sexo 
+                          </label> 
+                          <select class="form-control" [(ngModel)]="formEditar.sexo"> 
+                            <option value="">Seleccionar</option> 
+                            <option value="F">Femenino</option> 
+                            <option value="M">Masculino</option> 
+                            <option value="X">Otro</option> 
+                          </select> 
+                        </div> 
+                        <div class="col-md-6"> 
+                          <label class="form-label"> 
+                            <i class="bi bi-rulers me-1"></i> Altura (cm) 
+                          </label> 
+                          <input type="number" class="form-control" [(ngModel)]="formEditar.altura"> 
+                        </div> 
+                        <div class="col-md-6"> 
+                          <label class="form-label"> 
+                            <i class="bi bi-activity me-1"></i> Peso (kg) </label> 
+                            <input type="number" class="form-control" [(ngModel)]="formEditar.peso"> 
+                          </div> 
+                        </div> 
+                      </div> 
+                    </div> 
+                    <button (click)="onToggleRankingManual()" class="btn btn-agregar-ranking mt-4">
+                      {{ socio?.participaEnRanking ? 'Quitar del ranking' : 'Añadir al ranking' }}
+                    </button>
+                    <!-- BOTÓN GUARDAR --> 
+                    <div class="text-end mt-4"> 
+                      <button class="btn-guardar" (click)="guardarPerfil()"> <i class="bi bi-save me-2"></i> Guardar </button> 
+                    </div>
 
         </div>
 
@@ -168,8 +218,8 @@
 
       <!-- TARJETA RETENCIÓN -->
       <div *ngIf="mostrarRetencion" class="card-retencion text-center mb-4">
-        <h5 class="text-fitrank fw-bold mb-3">💪 ¡Te extrañamos en FitRank!</h5> <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p> <div class="d-flex flex-column gap-2 mt-3"> <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')"> 🔄 Cambiar rutina </button> <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')"> ✅ Estoy bien </button> <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')"> Que me contacte un profesor </button> </div>
-      </div> <!-- 🔹 Tarjeta de retención (solo visible si hay notificación) --> <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
+        <h5 class="text-fitrank fw-bold mb-3"> ¡Te extrañamos en FitRank!</h5> <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p> <div class="d-flex flex-column gap-2 mt-3"> <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')"> 🔄 Cambiar rutina </button> <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')"> ✅ Estoy bien </button> <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')"> Que me contacte un profesor </button> </div>
+      </div> <!--  Tarjeta de retención (solo visible si hay notificación) --> <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
 
 
 
@@ -181,9 +231,9 @@
 
 
     <!-- ========================= -->
-    <!-- 🔵 COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
+    <!--  COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
     <!-- ========================= -->
-    <!-- 🔵 COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
+    <!--  COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
     <div class="col-lg-3 col-md-12">
       <div class="sidebar-noti bg-white shadow rounded-4 p-3 mb-4">
 
@@ -227,7 +277,7 @@
   </div>
 </div>
 
-<!-- 🧑‍🏫 PANEL DEL PROFESOR -->
+<!--  PANEL DEL PROFESOR -->
 <div *ngIf="esProfesor" class="">
   <app-header-profesor [user]="user"></app-header-profesor><br />
   <div class="container py-5 text-center"> 
@@ -235,7 +285,7 @@
 
 
 
-  <p class="text-muted mb-5">Gestioná tus rutinas, alumnos y notificaciones 👇</p>
+  <p class="text-muted mb-5">Gestioná tus rutinas, alumnos y notificaciones</p>
 
   <div class="row g-4 justify-content-center">
     <div class="col-12 col-md-4">
