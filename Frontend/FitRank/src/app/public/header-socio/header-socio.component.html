@@ -29,7 +29,7 @@
       </span>
     </div>
 
-    <img [src]="socio?.socio?.fotoUrl ||'assets/img/perfil/user-sin-foto.png'"
+    <img [src]="user?.fotoUrl || socio?.socio?.fotoUrl ||'assets/img/perfil/user-sin-foto.png'"
          alt="Perfil"
          class="header__imagen" />
 
