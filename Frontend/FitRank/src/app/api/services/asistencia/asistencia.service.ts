@@ -14,22 +14,13 @@ export class AsistenciaService {
 
 
   validarQR(qr: string): Observable<any> {
-    const payload = {
-      qrData: qr,
-      gimnasioId: null,
-      observaciones: null
-    };
-
-    return this.http.post<any>(
-      `${this.apiUrl}/validar-qr`,
-      JSON.stringify(payload),
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    return this.http.post<any>(`${this.apiUrl}/validar-qr`, {
+      QrData: qr,             
+      GimnasioId: null,
+      Observaciones: null
+    });
   }
+
 
 
   getDetalleUsuarioAsistencia(usuarioId: number): Observable<any> {
