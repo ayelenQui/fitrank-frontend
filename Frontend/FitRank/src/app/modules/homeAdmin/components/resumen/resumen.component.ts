@@ -2,13 +2,14 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocioService } from '@app/api/services/socio/socio.service';
 import { AsistenciaService } from '@app/api/services/asistencia/asistencia.service';
+import { AsistenciaDetalleUsuarioDTO, SocioDTO } from '../../../../api/services/asistencia/interface/asistencia.interface';
 
 import { Solicitud } from '@app/api/services/profesor/interfaces/solicitud.interface';
 import { SolicitudService } from '@app/api/services/profesor/Solicitud.Service';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
 import Chart from 'chart.js/auto';
 import { RutinaService } from '@app/api/services/rutina/rutinaService';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SocioApiService } from '@app/api/services/socio/socioApiService'; 
 
 
@@ -29,6 +30,7 @@ export class ResumenComponent implements OnInit, AfterViewInit
     public router: Router,
     private signalR: SignalRNotificacionesService,
     private rutinaService: RutinaService,
+    private route: ActivatedRoute,
     private socioApiService: SocioApiService
   ) { }
   graficoActivo: string = 'asistencias';
@@ -58,6 +60,7 @@ export class ResumenComponent implements OnInit, AfterViewInit
 
   rutinasFavoritasGimnasio: any[] = [];
 
+  socioSeleccionado: SocioDTO | null = null;
 
 
 
@@ -86,6 +89,18 @@ export class ResumenComponent implements OnInit, AfterViewInit
     this.cargarSolicitudesPendientes();
     this.escucharOcupacion();
     this.cargarFavoritasGimnasio(); 
+    this.route.queryParams.subscribe(params => {
+        const socioId = Number(params['socioId']);
+        if (socioId) {
+          this.verDetalle(socioId);
+
+          // opcional scroll
+          setTimeout(() => {
+            const el = document.getElementById('socio-' + socioId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      });
   }
 
   ngAfterViewInit(): void {
@@ -95,8 +110,13 @@ export class ResumenComponent implements OnInit, AfterViewInit
   }
 
   
+verDetalle(id: number) {
+    this.socioSeleccionado = this.socios.find(s => s.id === id) || null;
+  }
 
-
+verSocio(id: number) {
+  this.router.navigate(['/homeAdmin/socios'], { queryParams: { socioId: id } });
+}
   cargarSocios() {
     this.socioService.getSocios().subscribe({
       next: res => {

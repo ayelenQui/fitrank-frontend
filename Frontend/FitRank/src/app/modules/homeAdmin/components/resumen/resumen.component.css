@@ -135,7 +135,7 @@
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* 🔵 BOTÓN OUTLINE – estilo FitRank */
+/*  BOTÓN OUTLINE – estilo FitRank */
 .btn-outline {
   padding: 10px 18px;
   border-radius: 12px;
@@ -157,7 +157,7 @@
     transform: translateY(-1px);
   }
 
-/* 🟣 BOTÓN PRIMARY – violeta FitRank */
+/*  BOTÓN PRIMARY – violeta FitRank */
 .btn-primary {
   padding: 10px 18px;
   border-radius: 12px;
@@ -608,6 +608,13 @@
     -webkit-backdrop-filter: blur(10px);
   }
 
+/* .row > div {
+  display: flex;
+}
+  .kpi-box{
+    flex: 1;
+  } */
+
   /* Paneles ocupan toda la pantalla */
   .panel-box {
     padding: 16px;
@@ -713,4 +720,80 @@
   .activity-map {
     height: 200px;
   }
+}
+/* ===============================
+    DRAWER LATERAL
+================================*/
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 20;
+  animation: fadeIn 0.3s;
+}
+
+/* ================================
+   DRAWER — glass, suave, sombra
+================================*/
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100%;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-left: 1px solid rgba(255,255,255,0.4);
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  box-shadow: -10px 0 25px rgba(0, 0, 0, 0.18);
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.46, 0.45, 1.0) forwards;
+  overflow-y: auto;
+  z-index: 101;
+}
+
+  /* Scroll estético */
+  .drawer::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .drawer::-webkit-scrollbar-thumb {
+    background: var(--fitrank-violet);
+    border-radius: 10px;
+  }
+
+  /* ================================
+   OVERLAY — suave + blur
+================================*/
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.35s ease forwards;
+  z-index: 100;
+}
+
+
+.btn-detalle {
+  background: var(--color-secundario); /* violeta FitRank */
+  color: #fff; /* texto blanco */
+  border: none;
+  padding: 8px 18px;
+  border-radius: 12px; /* borde suave */
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35); /* sombra glow violeta */
+}
+
+.inasistencia-conteiner{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
 }

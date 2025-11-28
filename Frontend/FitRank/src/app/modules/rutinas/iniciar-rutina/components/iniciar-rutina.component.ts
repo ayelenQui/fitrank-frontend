@@ -26,7 +26,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, FormsModule, HeaderSocioComponent, SidebarSocioComponent],
   templateUrl: './iniciar-rutina.component.html',
-  styleUrls: ['./iniciar-rutina.component.css'],
+  styleUrls: ['./iniciar-rutina.component.css', '../../../css-socio/socio-common.css'],
 
 })
 export class IniciarRutinaComponent implements OnInit, AfterViewInit {

@@ -40,7 +40,7 @@
   =============================== -->
       <div class="row g-3 mb-4">
 
-        <!-- ⭐ SOCIOS TOTALES + CRECIMIENTO -->
+        <!-- SOCIOS TOTALES + CRECIMIENTO -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Socios totales</div>
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <!-- ⭐ SOCIOS HOY -->
+        <!-- SOCIOS HOY -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Socios hoy</div>
@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        <!-- ⭐ PRÓXIMOS A VENCER -->
+        <!-- PRÓXIMOS A VENCER -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Próximos a vencer</div>
@@ -77,10 +77,10 @@
           </div>
         </div>
 
-        <!-- ⭐ RIESGO ALTO -->
+        <!-- RIESGO ALTO -->
         <div class="col-md-3 col-6">
           <div class="kpi-box kpi-box-riesgo">
-            <div class="kpi-label">Riesgo alto</div>
+            <div class="kpi-label text-black">Riesgo alto</div>
             <div class="kpi-value text-danger">{{ stats.sociosRiesgoAlto }}</div>
           </div>
         </div>
@@ -91,9 +91,9 @@
        MINI-GRÁFICOS CON SWITCH
   =========================== -->
       <!-- SWITCH DE RUTINAS FAVORITAS DEL GIMNASIO -->
-      <div class="switch-group mb-3 mt-4">
+      <!-- <div class="switch-group mb-3 mt-4">
         <button class="switch-btn btn-secondary active">
-          💜 Rutinas favoritas del gimnasio
+          Rutinas favoritas del gimnasio
         </button>
       </div>
 
@@ -104,8 +104,8 @@
       <div *ngFor="let r of rutinasFavoritasGimnasio" class="rutina-card">
         <h4>{{ r.nombre }}</h4>
         <p>{{ r.descripcion }}</p>
-        <small class="favoritos">✨ Elegida por {{ r.cantidadFavoritos }} socios</small>
-      </div>
+        <small class="favoritos"> Elegida por {{ r.cantidadFavoritos }} socios</small>
+      </div> -->
 
 
     
@@ -127,12 +127,23 @@
               <div class="item-title">{{ socio.nombre }} {{ socio.apellido }}</div>
             
             </div>
-            <span class="badge bg-danger">{{ calcularRiesgoTotal(socio) }}%</span>
+            <div class="inasistencia-conteiner">
+
+              <span class="badge bg-danger">{{ calcularRiesgoTotal(socio) }}%</span>
+              <div class="acciones-socios">
+                <button class="btn-detalle d-flex align-items-center gap-1 btn-secondary" 
+                          (click)="verSocio(socio.id)">
+                    <i class="bi bi-eye"></i>
+                    Ver socio
+                  </button>
+              </div>
+
+            </div>
           </div>
         </div>
 
         <ng-template #sinR>
-          <p class="empty-text">No hay socios en riesgo 🔥</p>
+          <p class="empty-text">No hay socios en riesgo</p>
         </ng-template>
       </div>
 
@@ -163,7 +174,7 @@
         </div>
 
         <ng-template #sinSol>
-          <p class="empty-text">No hay solicitudes pendientes 🎉</p>
+          <p class="empty-text">No hay solicitudes pendientes</p>
         </ng-template>
       </div>
 
