@@ -15,7 +15,8 @@ export interface Socio {
   altura: number;
   peso: number;
   nivel: string;
-  puntaje: number;                   
+  puntaje: number; 
+  participaEnRanking: boolean;                  
 }
 
 export interface SocioDTO {

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import { SocioApiService } from "../../../../api/services/socio/socioApiService"
+import { SocioService } from "../../../../api/services/socio/socio.service"
 import { Socio as SocioType } from "../../../../api/services/socio/interfaces/socio.interface"
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { CommonModule } from '@angular/common';
@@ -85,6 +86,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     private router: Router,
     private notificacionService: NotificacionService,
     private socioService: SocioApiService,
+    private SocioRankingService: SocioService,
     private signalRNoti: SignalRNotificacionesService,
     private medidaService: MedidaCorporalService,
     private imagenApiService: ImagenApiService,
@@ -344,6 +346,23 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
       });
   }
 
+onToggleRankingManual() {
+  this.user = this.authService.obtenerUser();
+  if (!this.socio) return;
+
+  const nuevoValor = !this.socio!.participaEnRanking;
+
+  this.SocioRankingService
+    .cambiarParticipacionRanking(this.user.id, nuevoValor)
+    .subscribe({
+      next: () => {
+        if (this.socio) {
+          this.socio.participaEnRanking = nuevoValor;
+        }
+      },
+      error: (err) => console.error(err)
+    });
+}
 
 
 
