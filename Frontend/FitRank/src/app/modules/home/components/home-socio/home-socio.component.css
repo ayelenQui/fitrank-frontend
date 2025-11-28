@@ -422,6 +422,17 @@
     box-shadow: 0 0 6px rgba(139, 82, 255, 0.35);
   }
 
+  .btn-agregar-ranking{
+    border-radius: 10px;
+  border: 1px solid #bfbfbf;
+      background-color: white;
+
+  }
+  .btn-agregar-ranking:click {
+    border-color: #8B52FF;
+    box-shadow: 0 0 6px rgba(139, 82, 255, 0.35);
+  }
+
 .btn-guardar {
   background: #8B52FF;
   color: white;

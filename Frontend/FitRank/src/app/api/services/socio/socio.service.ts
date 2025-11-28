@@ -64,7 +64,6 @@ export class SocioService {
     return of(this.socios.find(s => s.id === id));
   }
 
-  /** ✔ Cambiar participación en el ranking */
   cambiarParticipacionRanking(socioId: number, participa: boolean): Observable<any> {
     const body = { participaEnRanking: participa };
     return this.http.put(`${this.apiUrl}/socio/${socioId}/participacion-ranking`, body);
