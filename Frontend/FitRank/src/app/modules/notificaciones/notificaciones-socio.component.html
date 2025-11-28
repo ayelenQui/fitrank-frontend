@@ -1,17 +1,16 @@
 <div class="historial-container">
 
-  <!-- TÍTULO -->
+  
   <h2 class="titulo">Notificaciones</h2>
 
-  <!-- SI NO HAY NOTIFICACIONES -->
   <div *ngIf="notificaciones.length === 0" class="text-center text-light">
-    <p>No tenés notificaciones por ahora 👌</p>
+    <p>No tenés notificaciones por ahora </p>
   </div>
 
-  <!-- LISTA DE NOTIFICACIONES -->
+
   <div *ngFor="let n of notificaciones" class="entrenamiento-card">
 
-    <!-- HEADER (titulo + fecha + estado)  -->
+  
     <div class="info-header">
 
       <h6>{{ n.titulo }}</h6>
@@ -26,10 +25,10 @@
       </p>
     </div>
 
-    <!-- MENSAJE -->
+
     <p class="text-light mb-2">{{ n.mensaje }}</p>
 
-    <!-- BOTÓN -->
+
     <button class="btn-fitrank"
             (click)="abrirNotificacion(n)">
       Ver detalle
