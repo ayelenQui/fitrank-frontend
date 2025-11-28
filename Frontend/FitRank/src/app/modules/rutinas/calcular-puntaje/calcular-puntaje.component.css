@@ -83,7 +83,8 @@
   font-family: var(--font-titulo);
 }
 
-.btn-volver {
+.btn-volver-rutina {
+  font-family: var(--font-titulo);
   background-color: var(--color-secundario);
   border: none;
   border-radius: 8px;
@@ -91,11 +92,13 @@
   font-weight: 600;
   margin: 0 !important;
   transition: all 0.3s ease;
+    font-size: clamp(0.5rem, .5vw + 1rem, 2rem);
+
 }
 
-  .btn-volver:hover {
+  .btn-volver-rutina:hover {
     background-color: var(--color-secundario);
-    transform: translateY(-1px);
+    scale: 1.1;
   }
 @media (max-width: 600px) {
   :host {
@@ -108,6 +111,8 @@
 
   .container-puntaje {
     margin-bottom: 2rem; 
+      box-shadow: none;
+
   }
 
   .btn-volver {
