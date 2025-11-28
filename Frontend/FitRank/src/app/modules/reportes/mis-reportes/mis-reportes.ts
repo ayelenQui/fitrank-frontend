@@ -23,6 +23,8 @@ export class MisReportes  implements OnInit {
   usuarioId!: number;
   gimnasioId!: number;
 
+  reporteAbiertoId: number | null = null;
+
   constructor(
     private fb: FormBuilder,
     private reportesService: ReportesService,
@@ -115,6 +117,16 @@ export class MisReportes  implements OnInit {
     }
   });
 }
+
+toggleDescripcion(reporteId: number): void {
+    if (this.reporteAbiertoId === reporteId) {
+      // Si ya está abierto, ciérralo (establece a null)
+      this.reporteAbiertoId = null;
+    } else {
+      // Si está cerrado o es otro reporte, ábrelo (establece el ID)
+      this.reporteAbiertoId = reporteId;
+    }
+  }
 
   volverAtras(): void {
     this.location.back();

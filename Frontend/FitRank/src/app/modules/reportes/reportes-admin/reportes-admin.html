@@ -1,29 +1,45 @@
 <div class="reportes-container">
-  <h2>Reportes del Gimnasio</h2>
+ <h2>Reportes del Gimnasio</h2>
 
-  <!-- Botones de filtro -->
-  <div class="filtros">
-    <button (click)="cargarReportesPorEstado('todos')" [class.active]="filtroSeleccionado === 'todos'">Todos</button>
-    <button (click)="cargarReportesPorEstado('activos')" [class.active]="filtroSeleccionado === 'activos'">Activos</button>
-    <button (click)="cargarReportesPorEstado('inactivos')" [class.active]="filtroSeleccionado === 'inactivos'">Inactivos</button>
-  </div>
+ <div class="filtros">
+ <button (click)="cargarReportesPorEstado('todos')" [class.active]="filtroSeleccionado === 'todos'">Todos</button>
+<button (click)="cargarReportesPorEstado('activos')" [class.active]="filtroSeleccionado === 'activos'">Activos</button>
+ <button (click)="cargarReportesPorEstado('inactivos')" [class.active]="filtroSeleccionado === 'inactivos'">Inactivos</button>
+ </div>
 
-  <div *ngIf="cargando">Cargando reportes...</div>
+ <div *ngIf="cargando">Cargando reportes...</div>
 
-  <div *ngIf="!cargando && reportesGimnasio.length === 0">
-    <p>No hay reportes en el gimnasio.</p>
-  </div>
+ <div *ngIf="!cargando && reportesGimnasio.length === 0">
+ <p>No hay reportes en el gimnasio.</p>
+ </div>
 
-  <ul *ngIf="reportesGimnasio.length > 0" class="reportes-list">
-    <li *ngFor="let rep of reportesGimnasio">
-      <strong>{{ rep.titulo }}</strong>
-      <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
-        Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
-      </small>
-      <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
-      <button *ngIf="rep.activo" (click)="cambiarEstado(rep)">Marcar como resuelto</button>
-    </li>
-  </ul>
+ <ul *ngIf="reportesGimnasio.length > 0" class="reportes-list">
+ <li *ngFor="let rep of reportesGimnasio" (click)="toggleDescripcion(rep.id)" class="reporte-item">
 
-  <hr />
+<div class="reporte-main-info">
+ <strong>{{ rep.titulo }}</strong>
+ <small [ngClass]="rep.activo ? 'estado-en-proceso' : 'estado-resuelto'">
+ Estado: {{ rep.activo ? 'En proceso' : 'Resuelto' }}
+ </small>
+ <small>Fecha: {{ rep.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</small>
+ </div>
+
+ <button 
+ *ngIf="rep.activo" 
+ (click)="$event.stopPropagation(); cambiarEstado(rep)"
+class="btn-resolver"
+ >
+ Marcar como resuelto
+ </button>
+ 
+ <div class="reporte-descripcion" *ngIf="reporteAbiertoId === rep.id">
+  <p>
+ <strong>Descripción:</strong>
+ {{ rep.descripcion }}
+ </p>
+ </div>
+ </li>
+</ul>
+
+<hr />
 </div>
