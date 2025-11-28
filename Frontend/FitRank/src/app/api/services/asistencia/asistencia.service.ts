@@ -29,8 +29,9 @@ export class AsistenciaService {
   }
   getOcupacionActual() {
     return this.http.get<{ personasDentro: number }>(
-      `${this.apiUrl}/Asistencia/ocupacion-actual`
+      `${this.apiUrl}/ocupacion-actual`
     );
   }
+
 
 }

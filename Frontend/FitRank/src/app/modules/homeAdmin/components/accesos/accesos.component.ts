@@ -61,7 +61,7 @@ export class AccesosComponent implements OnInit {
         // no bajar de 0
         if (this.personasDentro > 0) {
           this.personasDentro--;
-        }
+        } 
       }
 
       this.ocupacion.unshift(ev);
