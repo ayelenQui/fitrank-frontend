@@ -10,6 +10,9 @@ import gsap from 'gsap';
 import { FilterRutinasPipe } from '@app/filter-rutinas-pipe';
 import Swal from 'sweetalert2';
 import { RutinaCompletaDTO } from '../../../../api/services/rutina/interfaces/rutina.interface.rest';
+import { SocioApiService } from '@app/api/services/socio/socioApiService';
+
+
 
 @Component({
   selector: 'app-mis-rutinas',
@@ -26,6 +29,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   rol?: string;
   mostrarInactivas = false;
 
+  socio: any = null;
 
   sesionesCompletadas: number = 0;
   totalSesiones: number = 0;
@@ -41,6 +45,7 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   rutinasActivas: number = 0;
   rutinasInactivas: number = 0;
 
+  fotoSocio: string = '';
 
   mostrarTooltip: boolean = false;
 
@@ -50,7 +55,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     private router: Router,
     private location: Location,
     private profesorService: ProfesorService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private socioApi: SocioApiService
   ) { }
 
   ngAfterViewInit() {
@@ -89,18 +95,20 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.sesionesCompletadas = 3;
-    this.totalSesiones = 5;
-
-    this.proximasSesiones = [
-      { dia: 'MIE', numero: 6, nombreRutina: 'Piernas y Glúteos', hora: '18:00 hs' },
-      { dia: 'VIE', numero: 8, nombreRutina: 'Full Body', hora: '19:00 hs' },
-      { dia: 'DOM', numero: 10, nombreRutina: 'Cardio HIIT', hora: '10:00 hs' },
-    ];
-
+ 
     const user = this.auth.obtenerUser();
     this.userId = user?.id ?? user?.Id;
     this.rol = user?.rol?.toLowerCase();
+    if (this.userId) {
+      this.socioApi.obtenerPerfilCompleto(this.userId).subscribe({
+        next: (perfil) => {
+          this.fotoSocio = perfil?.fotoUrl ?? '';
+          console.log("FOTO PERFIL:", this.fotoSocio);
+        },
+        error: (err) => console.error("Error cargando foto socio:", err)
+      });
+    }
+
 
     if (!this.userId || !this.rol) {
       this.error = 'No se pudo obtener la sesión. Iniciá sesión nuevamente.';

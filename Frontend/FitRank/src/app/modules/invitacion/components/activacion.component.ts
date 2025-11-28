@@ -92,6 +92,7 @@ export class ActivacionComponent implements OnInit {
       next: (response) => {
         this.mensaje = '✅ Cuenta activada con éxito. Iniciando sesión...';
         const email = response.email || (response as any).Email;
+        localStorage.clear();
 
        
         setTimeout(() => {

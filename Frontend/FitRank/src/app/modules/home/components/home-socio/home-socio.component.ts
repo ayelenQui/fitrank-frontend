@@ -52,6 +52,9 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     tipo: 'entrada' | 'salida';
   }> = [];
 
+
+  pins: any[] = [];
+
   mostrarEditarPerfil = false;
   mostrarMedidas = false;
 
@@ -149,19 +152,34 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.signalRNoti.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
+      this.mostrarCartelitoOcupacion(evento);
       if (evento.tipo === "entrada") {
+
         this.personasDentro++;
+
+
+        this.pins.push({
+          id: evento.usuarioId,
+
+          nombre: evento.nombre,
+          foto: evento.foto,
+          top: Math.random() * 65 + 15,
+          left: Math.random() * 65 + 15,
+          hora: new Date(evento.fecha)
+        });
       }
       if (evento.tipo === "salida") {
         this.personasDentro--;
       }
 
       this.ocupacion.unshift({
+
         nombre: evento.nombre,
         foto: evento.foto,
         fecha: new Date(evento.fecha),
         tipo: evento.tipo
       });
+      this.pins = this.pins.filter(p => p.id !== evento.usuarioId);
     });
 
    
@@ -441,5 +459,33 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/notificaciones']);
   }
 
+  mostrarCartelitoOcupacion(ev: any) {
+    const hora = new Date(ev.fecha).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const color = ev.tipo === 'entrada' ? '#0B5ED7' : '#DC3545';
+
+    Swal.fire({
+      html: `
+      <div style="display:flex;align-items:center;gap:15px;">
+        <img src="${ev.foto ?? 'assets/img/perfil/user-sin-foto.png'}"
+             style="width:75px;height:75px;border-radius:50%;object-fit:cover;border:3px solid ${color};">
+
+        <div style="text-align:left">
+          <h3 style="margin:0">${ev.nombre}</h3>
+          <p style="margin:0;font-size:14px;color:#444;">
+            ${ev.tipo === 'entrada' ? ' Entró' : ' Salió'} — ${hora}
+          </p>
+        </div>
+      </div>
+    `,
+      background: '#fff',
+      showConfirmButton: false,
+      timer: 2000,
+      width: 350
+    });
+  }
 
 }

@@ -8,6 +8,7 @@ import { AsistenciaService } from '../../../../api/services/asistencia/asistenci
 import { AuthService } from '../../../../api/services/activacion/AuthService.service';
 import { TypingService } from "@app/api/services/typingService";
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accesos',
@@ -120,6 +121,7 @@ export class AccesosComponent implements OnInit {
         this.loading = false;
 
         if (res.usuarioId) this.cargarDetalle(res.usuarioId);
+        this.mostrarSmartFire(res);
 
         this.reanudarScanner();
       },
@@ -147,4 +149,35 @@ export class AccesosComponent implements OnInit {
       }
     });
   }
+
+  mostrarSmartFire(data: any) {
+    const estado = data.valido ? data.tipo.toUpperCase() : 'ERROR';
+    const color = data.tipo === 'entrada' ? '#0B5ED7' : '#DC3545'; 
+
+    const hora = new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    Swal.fire({
+      title: `${data.socio?.nombre} ${data.socio?.apellido}`,
+
+      text: data.tipo === 'entrada'
+        ? `Ingresó al gimnasio — ${hora}`
+        : `Salió del gimnasio — ${hora}`,
+      imageUrl: data.socio?.foto || 'assets/img/perfil/user-sin-foto.png',
+      imageWidth: 120,
+      imageHeight: 120,
+      imageAlt: 'Foto socio',
+      background: '#fff',
+      color: '#000',
+      confirmButtonColor: color,
+      timer: 2000,
+      showConfirmButton: false,
+      customClass: {
+        popup: 'animated fadeInDown faster'
+      }
+    });
+  }
+
 }
