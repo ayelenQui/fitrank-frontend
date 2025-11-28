@@ -73,7 +73,7 @@
 /* Colores de puntajes */
 .puntaje-ejercicio {
   color: var(--color-acento-secundario);
-  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.4);
     font-family: var(--font-titulo);
 }
 
@@ -84,16 +84,16 @@
 }
 
 .btn-volver {
-  background-color: #f5e085;
+  background-color: var(--color-secundario);
   border: none;
   border-radius: 8px;
   padding: 8px 18px;
   font-weight: 600;
-  margin: 20px;
+  margin: 0 !important;
   transition: all 0.3s ease;
 }
 
   .btn-volver:hover {
-    background-color: #f0d769;
+    background-color: var(--color-secundario);
     transform: translateY(-1px);
   }

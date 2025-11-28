@@ -8,9 +8,10 @@
   font-family: var(--font-titulo);
   border: none;
   border-radius: 10px;
-  background-color: var(--color-acento);
+  background-color: var(--color-secundario);
   color: black;
   transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
+  font-weight: medium;
 }
 
 .btn-volver:hover {
@@ -29,7 +30,7 @@
   border-radius: 10px;
   background-color: #e0d682;
   color: black;
-  transition: transform 0.3s ease, scale 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-principal:hover {

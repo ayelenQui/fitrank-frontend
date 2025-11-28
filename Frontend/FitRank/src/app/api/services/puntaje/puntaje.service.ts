@@ -12,7 +12,7 @@ export class PuntajeService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Métodos CRUD base (por si los usás en otras partes)
+  //  Métodos CRUD base (por si los usás en otras partes)
   getAll(): Observable<ObtenerPuntajeDTO[]> {
     return this.http.get<ObtenerPuntajeDTO[]>(this.apiUrl);
   }
@@ -33,29 +33,31 @@ export class PuntajeService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // 🧠 NUEVOS métodos para los casos de uso del controlador
+  //  NUEVOS métodos para los casos de uso del controlador
 
-  /** 🔹 Devuelve estadísticas corporales del socio */
+  /** Devuelve estadísticas corporales del socio */
   obtenerEstadisticaCorporal(socioId: number): Observable<EstadisticaCorporalSocioDTO> {
     return this.http.get<EstadisticaCorporalSocioDTO>(`${this.apiUrl}/${socioId}/estadisticas`);
   }
 
-  /** 🔹 Devuelve puntaje total y por grupo muscular */
-  obtenerPuntajeTotal(socioId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${socioId}/puntaje-total`);
-  }
+  /**  Devuelve puntaje total y por grupo muscular */
+  obtenerPuntajeTotal(socioId: number): Observable<{ puntajeTotal: number }> {
+    return this.http.get<{ puntajeTotal: number }>(
+    `${this.apiUrl}/${socioId}/puntaje-total`
+  );
+}
 
-  /** 🔹 Devuelve el puntaje combinado (total + por grupo) */
+  /**  Devuelve el puntaje combinado (total + por grupo) */
   obtenerPuntajeCombinado(socioId: number): Observable<PuntajeTotalDTO> {
     return this.http.get<PuntajeTotalDTO>(`${this.apiUrl}/${socioId}/puntaje-combinado`);
   }
 
-  /** 🔹 Devuelve puntaje solo por grupo muscular */
+  /**  Devuelve puntaje solo por grupo muscular */
   obtenerPuntajePorGrupo(socioId: number): Observable<PuntajePorGrupoDTO[]> {
     return this.http.get<PuntajePorGrupoDTO[]>(`${this.apiUrl}/${socioId}/puntaje-por-grupo`);
   }
 
-  /** 🔹 Devuelve el ranking de todos los socios */
+  /**  Devuelve el ranking de todos los socios */
    obtenerRanking(gimnasioId: number, cantidad: number): Observable<any> {
     let params = new HttpParams()
       .set('gimnasioId', gimnasioId)
