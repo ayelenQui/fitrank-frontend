@@ -81,7 +81,7 @@ export class RankingComponent implements OnInit {
       next: (data) => {
         this.gruposMusculares = data;
 
-        // 👉 Si NO hay selección, asignar el primer grupo muscular
+        // Si NO hay selección, asignar el primer grupo muscular
         if (this.configuracion.GrupoMuscularId === 0 && data.length > 0) {
           this.configuracion.GrupoMuscularId = data[0].id;
         }
@@ -90,7 +90,7 @@ export class RankingComponent implements OnInit {
         this.verificarConfiguracion();
       },
       error: (err) => {
-        console.error("❌ Error al cargar grupos musculares", err);
+        console.error(" Error al cargar grupos musculares", err);
       }
     });
   }
@@ -100,7 +100,7 @@ export class RankingComponent implements OnInit {
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
       next: (configs) => {
 
-        // 👉 Si hay al menos una configuración, el ranking SIEMPRE está activo
+        //  Si hay al menos una configuración, el ranking SIEMPRE está activo
         this.tieneConfiguracion = configs && configs.length > 0;
 
         if (!this.tieneConfiguracion) {
@@ -108,7 +108,7 @@ export class RankingComponent implements OnInit {
           return;
         }
 
-        // 👉 Buscar config del grupo seleccionado
+        //  Buscar config del grupo seleccionado
         const encontrada = configs.find(c =>
           c.GrupoMuscularId === this.configuracion.GrupoMuscularId
         );
@@ -125,14 +125,14 @@ export class RankingComponent implements OnInit {
 
           this.cargarRanking();
         } else {
-          // 👉 No hay configuración para este grupo muscular
+          //  No hay configuración para este grupo muscular
           // pero igual el ranking SIGUE ACTIVO
           this.configuracionActual = null;
         }
 
       },
       error: () => {
-        console.error("❌ Error al obtener configuraciones");
+        console.error(" Error al obtener configuraciones");
         this.tieneConfiguracion = false;
         this.configuracionActual = null;
       }
@@ -152,7 +152,7 @@ export class RankingComponent implements OnInit {
 
   actualizarConfiguracion() {
 
-    // 👉 Buscar configuración del grupo muscular actual
+    //  Buscar configuración del grupo muscular actual
     this.configuracionGrupoMuscularService.obtenerTodas().subscribe({
       next: (configs) => {
 
@@ -161,7 +161,7 @@ export class RankingComponent implements OnInit {
         );
 
         // ======================================================
-        // 1️⃣ SI EXISTE → ACTUALIZAR
+        //  SI EXISTE → ACTUALIZAR
         // ======================================================
         if (existente) {
           this.configuracionGrupoMuscularService.actualizarConfiguracion(existente.Id, {
@@ -186,7 +186,7 @@ export class RankingComponent implements OnInit {
         }
 
         // ======================================================
-        // 2️⃣ SI NO EXISTE → AGREGAR CONFIG PARA ESE GRUPO
+        //  SI NO EXISTE → AGREGAR CONFIG PARA ESE GRUPO
         // ======================================================
         this.configuracionGrupoMuscularService.agregar(this.configuracion).subscribe({
           next: () => {
@@ -255,8 +255,17 @@ export class RankingComponent implements OnInit {
     const mr = this.configuracion.MultiplicadorRepeticiones || 1;
     const fp = this.configuracion.FactorProgresion || 1;
 
+    const pesoProm = 70;
+    const alturaProm = 175;
+
+    const factorUsuario =
+    ((pesoProm / 70) * 0.5) +
+    ((alturaProm / 175) * 0.5);
+
+    const puntosBase =
+    (reps * fp * mr) + (peso * mp);
     // Fórmula de ejemplo (la misma que tu ranking usa)
-    this.simResultado = (peso * mp) + (reps * mr) * fp;
+    this.simResultado = puntosBase * factorUsuario;
 
     // Para evitar números locos
     if (this.simResultado < 0) this.simResultado = 0;

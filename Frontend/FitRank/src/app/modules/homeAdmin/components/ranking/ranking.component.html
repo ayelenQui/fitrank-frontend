@@ -177,6 +177,7 @@
         <input type="number"
                [(ngModel)]="configuracion.MultiplicadorPeso"
                class="input-fit-fr"
+               (input)="calcularSimulacion()"
                (focus)="mostrarTooltip('peso')"
                (blur)="ocultarTooltip()">
 
@@ -192,6 +193,7 @@
         <input type="number"
                [(ngModel)]="configuracion.MultiplicadorRepeticiones"
                class="input-fit-fr"
+               (input)="calcularSimulacion()"
                (focus)="mostrarTooltip('reps')"
                (blur)="ocultarTooltip()">
 
@@ -207,6 +209,7 @@
         <input type="number"
                [(ngModel)]="configuracion.FactorProgresion"
                class="input-fit-fr"
+               (input)="calcularSimulacion()"
                (focus)="mostrarTooltip('progresion')"
                (blur)="ocultarTooltip()">
 
@@ -215,7 +218,7 @@
         </div>
       </div>
       <!-- =======================================================
-            🔢 SIMULADOR DE PUNTAJE
+            SIMULADOR DE PUNTAJE
       ======================================================= -->
       <div class="simulador-fr mt-4">
 
@@ -249,10 +252,10 @@
           </p>
 
           <!-- Barra de progreso -->
-          <div class="barra-simulador mt-2">
+          <!-- <div class="barra-simulador mt-2">
             <div class="barra-simulador-fill"
                  [style.width.%]="simResultado * 2"></div>
-          </div>
+          </div> -->
         </div>
 
       </div>
