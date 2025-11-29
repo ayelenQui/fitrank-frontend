@@ -9,8 +9,8 @@ import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.i
 import { DomSanitizer } from '@angular/platform-browser';
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscular.service'; 
 import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service';
-import { Fancybox } from '@fancyapps/ui';
-import { YoutubeThumbnailService } from '@app/api/services/youtube/youtube-thumbnail.service'; 
+import { YoutubeThumbnailService } from '@app/api/services/youtube/youtube-thumbnail.service';
+import { Fancybox } from '@fancyapps/ui'; 
 
 
 
@@ -85,16 +85,28 @@ export class MaquinaejercicioComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initFancybox();
+    // Esperar a que el DOM esté completamente renderizado
+    setTimeout(() => {
+      this.initFancybox();
+    }, 200);
   }
 
   initFancybox(): void {
-    // Destruir instancias previas para evitar duplicados
+    // Destruir instancias previas
     Fancybox.unbind('[data-fancybox]');
     Fancybox.close();
+  }
+
+  abrirVideo(url: string, event: Event): void {
+    event.preventDefault();
+    const embedUrl = this.youtubeService.getEmbedUrl(url);
     
-    // Inicializar Fancybox para videos
-    Fancybox.bind('[data-fancybox]', {});
+    Fancybox.show([
+      {
+        src: embedUrl,
+        type: 'iframe'
+      }
+    ]);
   }
 
   cambiarTab(tab: 'maquinas' | 'ejercicios') {
@@ -128,7 +140,7 @@ export class MaquinaejercicioComponent implements OnInit, AfterViewInit {
         this.ejercicios = res;
         this.loadingEjercicios = false;
         // Reinicializar Fancybox después de cargar los ejercicios
-        setTimeout(() => this.initFancybox(), 100);
+        setTimeout(() => this.initFancybox(), 300);
       },
       error: () => this.loadingEjercicios = false
     });

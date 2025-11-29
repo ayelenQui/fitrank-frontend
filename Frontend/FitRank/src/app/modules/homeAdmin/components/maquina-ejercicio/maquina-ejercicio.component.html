@@ -90,9 +90,8 @@
 
         <!-- VIDEO -->
         <div class="ej-video-container" *ngIf="e.urlVideo">
-          <a [attr.data-fancybox]="'video-' + e.id"
-             [attr.data-src]="embedVideo(e.urlVideo)"
-             data-type="iframe"
+          <a href="javascript:void(0)"
+             (click)="abrirVideo(e.urlVideo, $event)"
              class="video-thumbnail">
             <img [src]="getThumbnail(e.urlVideo)" 
                  alt="Video thumbnail" 
