@@ -20,6 +20,9 @@ export class SignalRNotificacionesService {
   private themeSubject = new BehaviorSubject<any>(null);
   theme$ = this.themeSubject.asObservable();
 
+  private pagoAcreditadoSubject = new Subject<any>();
+  pagoAcreditado$ = this.pagoAcreditadoSubject.asObservable();
+
 
   private conectado = false;
 
@@ -85,10 +88,7 @@ export class SignalRNotificacionesService {
     });
 
     this.hubConnection.on('pagoAcreditado', (data) => {
-      this.notificacionSubject.next({
-        tipo: 'pagoAcreditado',
-        data
-      });
+      this.pagoAcreditadoSubject.next(data);
     });
 
 

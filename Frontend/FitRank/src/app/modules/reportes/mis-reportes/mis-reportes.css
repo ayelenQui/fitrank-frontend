@@ -97,15 +97,11 @@
   font-family: "Poppins", sans-serif;
 }
 
-.reportes-container form input::placeholder,
-.reportes-container form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
 
 /* Botón */
 .reportes-container form button {
   background: #7b3fe4;
-  color: #fff;
+  color: #fff !important;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 0.5rem;
@@ -177,4 +173,36 @@
 
 .reportes-container p {
   color: #fff;
+}
+
+.reportes-list .reporte-item {
+  cursor: pointer;
+}
+
+.reportes-list .reporte-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.reporte-descripcion {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border-left: 4px solid #7b3fe4; 
+  overflow: hidden; 
+  transition: max-height 0.3s ease-out; 
+}
+
+.reporte-descripcion p {
+  color: #f5f5f5; 
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  white-space: pre-wrap; 
+}
+
+.reporte-header small {
+    display: inline-block; 
+    margin-left: 10px;
 }
