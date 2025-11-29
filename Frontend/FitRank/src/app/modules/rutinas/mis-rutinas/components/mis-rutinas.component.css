@@ -1,4 +1,4 @@
-/* === 🎯 BASE GENERAL === */
+/* ===  BASE GENERAL === */
 
 .tooltip-mensaje {
   position: absolute;
@@ -40,9 +40,13 @@
     font-size: 1.2rem;
   }
 .favorito-tooltip-icon {
-  background: transparent;
+  background: none !important;
   padding: 0;
   display: inline-block;
+}
+.card{
+  background: none;
+  border: none;
 }
 
   .favorito-tooltip-icon:hover .info-tooltip {
@@ -204,7 +208,7 @@
 }
 
 
-/* === 🎨 ÍCONOS EDITAR / ELIMINAR — ESTILO FITRANK === */
+/* ===  ÍCONOS EDITAR / ELIMINAR — ESTILO FITRANK === */
 .icono-accion {
   background-color: #2b2b2b; /* gris oscuro del fondo */
   border: none;
@@ -263,10 +267,13 @@
   background: #fff;
   overflow: hidden;
 }
+.hero-subtitle{
+  font-family: var(--font-secundaria);
+}
 
 
 
-/* 🔹 Contenedor general sin scroll */
+/*  Contenedor general sin scroll */
 .seccion-principal {
   display: flex;
   flex-direction: column;
@@ -274,7 +281,7 @@
   overflow: hidden; /* evita scroll */
 }
 
-/* 🔹 Hero arriba (40%) */
+/*  Hero arriba (40%) */
 .hero-fitrank {
   flex: 0 0 40%; /* ocupa el 40% del alto */
   display: flex;
@@ -286,7 +293,7 @@
   overflow: hidden;
 }
 
-/* 🔹 Imagen del hero */
+/*  Imagen del hero */
 .hero-image {
   flex: 1;
   display: flex;
@@ -320,7 +327,7 @@
   animation-delay: 0.5s;
 }
 
-/* 🔹 Cards abajo (60%) */
+/*  Cards abajo (60%) */
 .layout-mis-rutinas {
   flex: 1; /* ocupa el espacio restante (60%) */
   background: #121212;
@@ -333,7 +340,7 @@
   padding: 1rem;
 }
 
-/* 🔹 Cards */
+/*  Cards */
 .rutina-gem {
   font-family: 'Bebas Neue', sans-serif;
   border-radius: 1rem;
@@ -410,12 +417,12 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  
+  font-family: var(--font-secundaria);
 }
 
   .btn-desactivar:hover {
     background-color: #666;
-    transform: translateY(-1px);
+    scale: 1.1;
 }
 
 /* ⭐ Botón de valoración */
@@ -454,8 +461,8 @@
 
 
 .icono-favorito {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   transition: transform 0.2s ease;
   transform: scale(1.1);
   border-radius: 5px;
@@ -467,7 +474,7 @@
 
 
 
-/* 📱 Responsive para móvil */
+/*  Responsive para móvil */
 @media (max-width: 576px) {
   .stats-container {
     gap: 0.75rem;
@@ -487,7 +494,7 @@
   }
 }
 
-/* 🔹 Animaciones */
+/*  Animaciones */
 @keyframes fadeInScale {
   from {
     opacity: 0;
@@ -662,7 +669,7 @@
   background-color: #fff9e6;
 }
 
-/* ❌ Eliminado el gem-celeste pastel feo */
+/*  Eliminado el gem-celeste pastel feo */
 .gem-celeste {
   background-color: #ffffff; /* reemplazado por blanco */
 }
@@ -680,7 +687,7 @@
   }
 
 /* =========================================================
-   💜 MOCKUP FLOTANTE (Celular 3D a la derecha)
+    MOCKUP FLOTANTE (Celular 3D a la derecha)
    ========================================================= */
 .layout-mis-rutinas .contenido-principal,
 .layout-mis-rutinas .row,
@@ -712,7 +719,7 @@
   mix-blend-mode: multiply;
 }
 
-/* ✨ Animaciones */
+/*  Animaciones */
 @keyframes fadeInFloat {
   from {
     opacity: 0;
@@ -736,10 +743,10 @@
 }
 
 /* =========================================================
-   📱 RESPONSIVE MEDIA QUERIES
+    RESPONSIVE MEDIA QUERIES
    ========================================================= */
 
-/* 🧩 Desktop mediano */
+/*  Desktop mediano */
 @media (max-width: 1400px) {
   .layout-mis-rutinas .contenido-principal,
   .layout-mis-rutinas .row,
@@ -752,7 +759,7 @@
   }
 }
 
-/* 🧩 Tablet grande */
+/*  Tablet grande */
 @media (max-width: 1200px) {
   .layout-mis-rutinas .contenido-principal,
   .layout-mis-rutinas .row,
@@ -771,7 +778,7 @@
   }
 }
 
-/* 📲 Tablet / Celulares grandes */
+/*  Tablet / Celulares grandes */
 @media (max-width: 992px) {
   .layout-mis-rutinas .contenido-principal,
   .layout-mis-rutinas .row,
@@ -811,7 +818,7 @@
   }
 }
 
-/* 📱 Celulares medianos */
+/*  Celulares medianos */
 @media (max-width: 768px) {
   .titulo {
     font-size: 1.8rem;
@@ -836,7 +843,7 @@
   }
 }
 
-/* 📱 Celulares pequeños */
+/*  Celulares pequeños */
 @media (max-width: 576px) {
   .titulo {
     font-size: 1.5rem;
