@@ -15,13 +15,13 @@
    TÍTULO – mismo estilo que historial
    ============================ */
 .ranking-container .titulo {
-  font-family: "Poppins", sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  color: #fff;
+  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+        font-weight: bold;
+        text-align: center;
+        color: var(--color-texto);
+        margin-bottom: 20px;
+        font-family: var(--font-titulo);
+      color: white;
 }
 
 .ranking-container .titulo::after {
@@ -220,6 +220,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .puntaje {
   font-weight: 700;
   color: #a586ff;
+}
+
+.mi-usuario {
+  background: #ffe9a8 !important;
+  border: 2px solid #f7c600 !important;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+  border-radius: 10px;
+}
+
+
+.mi-usuario .nombre {
+  font-weight: bold;
+  color: #d48b00;
 }
 
 /* ============================
