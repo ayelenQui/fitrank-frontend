@@ -6,6 +6,13 @@
   display: flex;
   gap: 25px;
 }
+.qr-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
 
 .qr-left, .qr-right {
   padding: 20px;
