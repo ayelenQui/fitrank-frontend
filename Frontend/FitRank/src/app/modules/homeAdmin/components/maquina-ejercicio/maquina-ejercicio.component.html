@@ -89,11 +89,23 @@
         </div>
 
         <!-- VIDEO -->
-        <div class="ej-video" *ngIf="e.urlVideo">
-          <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(embedVideo(e.urlVideo))"
-                  frameborder="0"
-                  allowfullscreen>
-          </iframe>
+        <div class="ej-video-container" *ngIf="e.urlVideo">
+          <a [attr.data-fancybox]="'video-' + e.id"
+             [attr.data-src]="embedVideo(e.urlVideo)"
+             data-type="iframe"
+             class="video-thumbnail">
+            <img [src]="getThumbnail(e.urlVideo)" 
+                 alt="Video thumbnail" 
+                 class="thumbnail-image"
+                 (error)="$event.target.style.display='none'">
+            <div class="play-button">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="40" fill="rgba(147, 51, 234, 0.9)"/>
+                <path d="M32 25L55 40L32 55V25Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="video-overlay"></div>
+          </a>
         </div>
         <!-- BOTÓN EDITAR -->
         <div class="ej-actions mt-3">

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,7 +8,9 @@ import { EjercicioService } from '@app/api/services/ejercicio/ejercicioService';
 import { EjercicioDTO } from '@app/api/services/ejercicio/interfaces/ejercicio.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscular.service'; 
-import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service'; 
+import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service';
+import { Fancybox } from '@fancyapps/ui';
+import { YoutubeThumbnailService } from '@app/api/services/youtube/youtube-thumbnail.service'; 
 
 
 
@@ -18,13 +20,12 @@ import { ImagenApiService } from '@app/api/services/imagen/imagen-api.service';
   imports: [
     NgIf,
     NgFor,
-    NgClass,
     FormsModule
   ],
   templateUrl: './maquina-ejercicio.component.html',
   styleUrls: ['./maquina-ejercicio.component.css']
 })
-export class MaquinaejercicioComponent implements OnInit {
+export class MaquinaejercicioComponent implements OnInit, AfterViewInit {
 
   gruposMusculares: any[] = [];
 
@@ -65,10 +66,7 @@ export class MaquinaejercicioComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private grupoMuscularService: GrupoMuscularService,
     private imagenApiService: ImagenApiService,
-
-
-
-
+    public youtubeService: YoutubeThumbnailService
   ) {
 
     window.addEventListener('file-selected', (e: any) => {
@@ -84,6 +82,19 @@ export class MaquinaejercicioComponent implements OnInit {
     this.grupoMuscularService.obtenerTodos().subscribe(res => {
       this.gruposMusculares = res;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.initFancybox();
+  }
+
+  initFancybox(): void {
+    // Destruir instancias previas para evitar duplicados
+    Fancybox.unbind('[data-fancybox]');
+    Fancybox.close();
+    
+    // Inicializar Fancybox para videos
+    Fancybox.bind('[data-fancybox]', {});
   }
 
   cambiarTab(tab: 'maquinas' | 'ejercicios') {
@@ -116,6 +127,8 @@ export class MaquinaejercicioComponent implements OnInit {
       next: res => {
         this.ejercicios = res;
         this.loadingEjercicios = false;
+        // Reinicializar Fancybox después de cargar los ejercicios
+        setTimeout(() => this.initFancybox(), 100);
       },
       error: () => this.loadingEjercicios = false
     });
@@ -403,28 +416,11 @@ export class MaquinaejercicioComponent implements OnInit {
     });
   }
   embedVideo(url: string) {
-    if (!url) return '';
+    return this.youtubeService.getEmbedUrl(url);
+  }
 
-    // Si es formato normal de YouTube
-    if (url.includes('watch?v=')) {
-      const id = url.split('v=')[1];
-      return `https://www.youtube.com/embed/${id}`;
-    }
-
-    // Short links
-    if (url.includes('youtu.be')) {
-      const id = url.split('youtu.be/')[1];
-      return `https://www.youtube.com/embed/${id}`;
-    }
-
-    // Shorts
-    if (url.includes('/shorts/')) {
-      const id = url.split('/shorts/')[1];
-      return `https://www.youtube.com/embed/${id}`;
-    }
-
-    // Ya es un embed o algo que no requiere parseo
-    return url;
+  getThumbnail(url: string): string {
+    return this.youtubeService.getThumbnailUrl(url, 'maxresdefault');
   }
 
   editarEjercicio(ejercicio: EjercicioDTO) {
