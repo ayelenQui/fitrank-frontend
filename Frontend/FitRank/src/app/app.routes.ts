@@ -32,6 +32,9 @@ import { DetalleBatallaComponent } from './modules/batalla/detalle-batalla/detal
 import { ProgresoAlumnos } from './modules/profesor/progreso-alumnos/progreso-alumnos';
 import { MisReportes } from './modules/reportes/mis-reportes/mis-reportes';
 import { AlumnosRutina } from './modules/profesor/alumnos/alumnos-rutina/alumnos-rutina';
+import path from 'path';
+import { Component } from '@angular/core';
+import { MisLogrosComponent } from './modules/socios/mis-logros/pages/mis-logros-component/mis-logros-component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/visitante-home', pathMatch: 'full' },
@@ -87,6 +90,17 @@ export const appRoutes: Route[] = [
         path: '', loadComponent: () =>
           import('./modules/notificaciones/notificaciones-socio.component')
             .then(m => m.NotificacionesSocioComponent)
+      }
+    ]
+  },
+
+  {
+    path: 'logro',
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'mis-logros', component: MisLogrosComponent
       }
     ]
   },
