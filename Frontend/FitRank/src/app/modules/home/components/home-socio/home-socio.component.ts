@@ -249,8 +249,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     
       this.cargarDatosSocio();
       this.mostrarQR = false;
-      this.qrImage = null;
-      this.linkDePago = null; 
+     
  
     });
 
