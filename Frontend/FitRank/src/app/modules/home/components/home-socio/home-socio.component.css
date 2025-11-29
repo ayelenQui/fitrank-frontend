@@ -5,7 +5,13 @@
 }
 
 .fondo {
-  background-color: #FFFFFF !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido {
+  flex: 1;
 }
 
 
@@ -480,7 +486,7 @@
 /* 🔥 Acciones rápidas protagonistas */
 .quick-action {
   background: #8B52FF;
-  color: #fff;
+  color: white !important;
   border: none;
   border-radius: 14px;
   padding: 14px 18px;
