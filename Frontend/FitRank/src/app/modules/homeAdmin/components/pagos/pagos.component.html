@@ -88,10 +88,11 @@
 
           <!-- FOTO + NOMBRE DEL SOCIO -->
           <div class="pago-user">
-            <img [src]="ing.usuario?.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
+            <img [src]="ing.usuario?.fotoDePerfil || 'assets/img/perfil/user-sin-foto.png'"
                  class="pago-foto" />
 
             <div class="pago-info">
+              <p>Ingreso del Socio </p>
               <strong>{{ ing.usuario?.nombre }} {{ ing.usuario?.apellido }}</strong>
              
             </div>
@@ -99,8 +100,20 @@
 
           <!-- MONTO + DETALLE -->
           <div class="info">
+            <p>Monto de Ingreso</p>
             <p class="monto">$ {{ ing.monto }}</p>
+            <p class="dato">
+              <i class="bi bi-envelope"></i>
+              {{ ing.usuario?.email || 'Sin email' }}
+            </p>
+
+            <p class="dato">
+              <i class="bi bi-phone"></i>
+              {{ ing.usuario?.telefono || 'Sin teléfono' }}
+            </p>
+
             <small class="detalle">
+              <p> Valido Ingreso Hasta </p>
               <i class="bi bi-clock"></i> {{ ing.fecha | date:'dd/MM HH:mm' }}
               • <i class="bi bi-credit-card"></i> {{ ing.metodoPago }}
             </small>
@@ -126,27 +139,41 @@
 
       <!-- Métodos de pago -->
       <div class="panel-card h-100">
+        div class="panel-card h-100">
         <h5 class="panel-title mb-3">
-          <i class="bi bi-credit-card-2-front"></i> Métodos de pago
+
+          <span class="panel-pill-fitrank">● Actualizado</span>
         </h5>
 
-        <div class="metodos-listv text-black">
+        <div *ngFor="let ing of ingresos | slice:0:6" class="ingreso-item text-black">
 
-          <div class="m-pago">
-            <div class="left">
-              <i class="bi bi-phone-fill mp-icon text-black"></i>
-              <span>Mercado Pago</span>
-            </div>
-            <span class="monto mp-color">$ {{ ingresoMpago | number:'1.0-0' }}</span>
+          <!-- FOTO + NOMBRE DEL SOCIO -->
+          
+
+          <!-- MONTO + DETALLE -->
+          <div class="info">
+            
+
+            <p class="dato">
+              <i class="bi bi-phone"></i>
+              {{ ing.usuario?.telefono || 'Sin teléfono' }}
+            </p>
+
+            <small class="detalle">
+              <p> Valido Ingreso Hasta </p>
+              <i class="bi bi-clock"></i> {{ ing.fecha | date:'dd/MM HH:mm' }}
+              • <i class="bi bi-credit-card"></i> {{ ing.metodoPago }}
+            </small>
+            <div *ngIf="ing.observaciones" class="obs">{{ ing.observaciones }}</div>
           </div>
 
-          <div class="m-pago">
-            <div class="left">
-              <i class="bi bi-cash-stack ef-icon text-black"></i>
-              <span>Efectivo</span>
-            </div>
-            <span class="monto ef-color">$ {{ ingresoEfectivo | number:'1.0-0' }}</span>
-          </div>
+          <!-- ESTADO -->
+          <span class="badge confirmado" *ngIf="ing.confirmado">
+            <i class="bi bi-check-circle-fill"></i>
+          </span>
+          <span class="badge pendiente" *ngIf="!ing.confirmado">
+            <i class="bi bi-x-circle-fill"></i>
+          </span>
 
         </div>
       </div>
