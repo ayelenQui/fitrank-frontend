@@ -86,7 +86,6 @@ toggleExpand(i: number) {
     return this.graficosMostrados.has(nombreEjercicio);
   }
 
-  // ⬇️ MISMO agruparActividades QUE TENÍAS ANTES
   private agruparActividades(actividades: any[]): ActividadAgrupada[] {
     const map = new Map<
       string,
@@ -123,7 +122,6 @@ toggleExpand(i: number) {
           timestamp: base + offsetMs
         };
   
-        // evitar duplicados exactos
         const exists = entry.progresoHistorico.some(x =>
           x.fecha === p.fecha &&
           x.peso === p.peso &&

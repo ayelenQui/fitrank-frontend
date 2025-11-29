@@ -7,7 +7,6 @@
 
   <form [formGroup]="rutinaForm" (ngSubmit)="enviar()" class="formulario-fitrank">
 
-    <!-- Datos personales -->
     <h5>Datos personales</h5>
     <div class="row mb-3">
       <div class="col-md-4 mb-3">
@@ -40,7 +39,6 @@
           <option value="Resistencia">Resistencia</option>
         </select>
 
-        <!-- Tooltip descriptivo debajo -->
         <div *ngIf="textoObjetivo" class="objetivo-info info-tooltip-box">
           {{ textoObjetivo }}
         </div>
@@ -48,8 +46,6 @@
       </div>
     </div>
 
-
-    <!-- Sesiones y tiempo -->
     <div class="row mb-3">
       <div class="col-md-6 mb-3">
         <label for="sesionesPorSemana" class="form-label">Sesiones/Días por semana</label>
@@ -97,7 +93,6 @@
 
     <hr>
 
-    <!-- Screening -->
     <h5>Evaluación de salud</h5>
     <div formGroupName="screening" class="mb-3">
       <div class="grid-check">
@@ -137,10 +132,6 @@
           <input class="form-check-input" type="checkbox" formControlName="sincope" id="sincope">
           <label class="form-check-label" for="sincope">Síncope</label>
         </div>
-        <!-- <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="embarazo" id="embarazo">
-          <label class="form-check-label" for="embarazo">Embarazo</label>
-        </div>-->
       </div>
 
       <div class="row mt-2">
@@ -160,7 +151,6 @@
                  class="form-control"
                  formControlName="dolorEscala0a10">
 
-          <!-- Tooltip explicativo -->
           <div class="dolor-tooltip">
             Indicá tu nivel de dolor:
             <br>0 = sin dolor
@@ -173,7 +163,6 @@
 
     <hr>
 
-    <!-- Preferencias -->
     <h5>Preferencias</h5>
     <div formGroupName="preferencias" class="mb-3">
       <div class="grid-check">
@@ -201,13 +190,11 @@
              [class.seleccionado]="estaSeleccionado(e.nombre)"
              (click)="toggleEjercicio(e.nombre)">
 
-          <!-- SI EL EJERCICIO TIENE IMAGEN -->
           <img *ngIf="e.urlImagen"
                [src]="e.urlImagen"
                class="img-ejercicio"
                alt="{{ e.nombre }}" />
 
-          <!-- NOMBRE -->
           <p class="nombre-ejercicio">{{ e.nombre }}</p>
         </div>
       </div>

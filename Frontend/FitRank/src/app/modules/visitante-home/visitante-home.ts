@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-visitante-home',
-  imports: [CommonModule, VisitanteHomeNavbar, VisitanteHomeHero, VisitanteHomeInfosection],
+  imports: [CommonModule, VisitanteHomeNavbar, VisitanteHomeHero],
   templateUrl: './visitante-home.html',
   styleUrl: './visitante-home.css',
   standalone: true

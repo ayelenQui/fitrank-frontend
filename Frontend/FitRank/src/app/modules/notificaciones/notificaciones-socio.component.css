@@ -1,4 +1,3 @@
-/* Contenedor */
 .historial-container {
   background: black;
   max-width: 950px;
@@ -7,7 +6,6 @@
   border-radius: 16px;
 }
 
-/* Título */
 .titulo {
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
@@ -39,7 +37,6 @@
     border-radius: 3px;
   }
 
-/* Card notificación */
 .entrenamiento-card {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -54,7 +51,6 @@
     transform: translateY(-3px);
   }
 
-/* HEADER de noti */
 .info-header {
   display: flex;
   justify-content: space-between;
@@ -72,7 +68,6 @@
     padding: 0 5px;
   }
 
-/* Botón */
 .btn-fitrank {
   background: #7b3fe4;
   color: #fff;
@@ -90,7 +85,6 @@
     transform: scale(1.03);
   }
 
-/* Móviles */
 @media (max-width: 768px) {
   .info-header {
     flex-direction: column;

@@ -39,7 +39,6 @@ constructor(private entrenamientoService: EntrenamientoService,
     this.entrenamientoService.getHistorialAlumnosDelProfesor(this.profesorId)
       .subscribe({
         next: (historiales: EntrenamientoHistorialDTO[]) => {
-          // Filtrar solo el último registro por socio + rutina
           const mapa: { [key: string]: EntrenamientoHistorialDTO } = {};
           historiales.forEach(h => {
             const key = `${h.nombreSocio}-${h.nombreRutina}`;

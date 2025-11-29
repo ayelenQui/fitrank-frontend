@@ -1,6 +1,3 @@
-/* ===============================
-    PALETA FITRANK
-================================*/
 :root {
   --fitrank-violet: #7a4cff;
   --fitrank-violet-dark: #6939e6;
@@ -15,7 +12,6 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 50px;
 }
-/* PANEL GENERAL */
 .panel-fitrank {
   background: #ffffff;
   border-radius: 24px;
@@ -23,7 +19,6 @@
   box-shadow: 0 4px 18px rgba(0,0,0,0.12);
 }
 
-/* HEADER NEGRO */
 .panel-header-fitrank {
   background: #000;
   color: #fff;
@@ -45,7 +40,6 @@
   opacity: 0.7;
 }
 
-/* PILL */
 .panel-pill-fitrank {
   background: #b2ff59;
   color: #000;
@@ -55,12 +49,10 @@
   font-size: 13px;
 }
 
-/* CUERPO */
 .panel-body-fitrank {
   padding: 24px;
 }
 
-/* TABLA */
 .table-wrapper-fitrank {
   border-radius: 16px;
   overflow: hidden;
@@ -86,16 +78,11 @@
     background: #f4ecff;
   }
 
-  /* Íconos negros */
   .panel-header-fitrank i,
   .table-wrapper-fitrank th i {
     color: #000 !important;
   }
 
-
-/* ===============================
-    BOTONES
-================================*/
 .btn-violet {
   background: var(--fitrank-violet);
   color: #fff;
@@ -124,9 +111,6 @@
     color: white;
   }
 
-/* ===============================
-    TABLA
-================================*/
 .table-hover tbody tr:hover {
   background: #faf8ff;
   transition: 0.15s ease;
@@ -153,9 +137,6 @@
     border-radius: 8px;
   }
 
-/* ===============================
-    BADGES
-================================*/
 .bg-violet {
   background: var(--fitrank-violet) !important;
   color: #fff !important;
@@ -166,32 +147,29 @@
 }
 
 .btn-detalle {
-  background: var(--color-secundario); /* violeta FitRank */
-  color: #fff; /* texto blanco */
+  background: var(--color-secundario);
+  color: #fff; 
   border: none;
   padding: 8px 18px;
-  border-radius: 12px; /* borde suave */
+  border-radius: 12px; 
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: all 0.25s ease-in-out;
-  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35); /* sombra glow violeta */
+  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35); 
 }
 
-  /* Ícono un poco más grande */
   .btn-detalle i {
     font-size: 1.1rem;
   }
 
-  /*  HOVER que sobresale */
   .btn-detalle:hover {
-    background: #7b45e6; /* tono más fuerte */
+    background: #7b45e6; 
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 6px 18px rgba(139, 82, 255, 0.55);
   }
 
-  /* Al presionar (click) */
   .btn-detalle:active {
     transform: scale(0.97);
   }
@@ -200,8 +178,8 @@
 .btn-cerrar {
   background: transparent;
   border: none;
-  color: white; /* cruz blanca ✔ */
-  font-size: 1.6rem; /* tamaño grande y visible */
+  color: white;
+  font-size: 1.6rem; 
   cursor: pointer;
   padding: 0;
 }
@@ -211,9 +189,6 @@
   }
 
 
-/* ===============================
-    DRAWER LATERAL
-================================*/
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -222,10 +197,7 @@
   z-index: 20;
   animation: fadeIn 0.3s;
 }
-/* ================================
-   CONTENEDOR DEL SWITCH
-================================ */
-/* 🔽 CONTENEDOR DE LOS FILTROS */
+
 .filtros-switch {
   display: flex;
   background: rgba(255,255,255,0.08);
@@ -236,9 +208,7 @@
   gap: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-/* =====================================
-   🔍 BUSCADOR MODERNO FITRANK
-=====================================*/
+
 .input-group {
   background: #A9A9A9;
   border-radius: 14px;
@@ -250,15 +220,14 @@
   border: 1px solid #e6e6e6;
   transition: all .2s ease;
 }
-/* Estilo del botón cerrar */
+
 .drawer-close {
-  filter: invert(0); /* negro ✔ */
+  filter: invert(0);
   opacity: 1;
   width: 1rem;
   height: 1rem;
 }
 
-  /* Hover más visible */
   .drawer-close:hover {
     filter: invert(0) brightness(0.5);
   }
@@ -274,14 +243,13 @@
     box-shadow: var(--fitrank-violet);
   }
 
-/* Ícono negro moderno */
 .input-group-icon {
   color: #000;
   font-size: 18px;
   opacity: .75;
 }
 
-/* Input */
+
 .input-group-input {
   border: none;
   outline: none;
@@ -295,7 +263,7 @@
     color: black;
   }
 
-/* 🔽 BOTÓN PILL */
+
 .filtro-pill {
   padding: 10px 18px;
   border: none;
@@ -316,13 +284,11 @@
     font-size: 18px; 
 }
 
-  /* Hover */
   .filtro-pill:hover {
     background: rgba(255,255,255,0.15);
     color: black;
   }
 
-  /* 🔥 ACTIVO — estilo FitRank violeta */
   .filtro-pill.active {
     background: linear-gradient(135deg, #7B3FE4, #9A63FF);
     color: #fff !important;
@@ -331,7 +297,6 @@
   }
 
 
-  /* Hover suave */
   .filtro-pill:hover {
     background: rgba(255,255,255,0.7);
   }
@@ -385,9 +350,6 @@
   }
 }
 
-/* ===============================
-    IMÁGENES
-================================*/
 .rounded-circle {
   border: 3px solid var(--fitrank-gray);
 }
@@ -396,33 +358,24 @@
   border: 2px solid #eee;
 }
 
-/* ===============================
-    FILTROS — VISUAL
-================================*/
 .btn-danger i,
 .btn-secondary i,
 .btn-outline-violet i {
   font-size: 1.1rem;
 }
 
-/* ===============================
-    ENCABEZADOS
-================================*/
+
 h2 i {
   font-size: 1.6rem;
 }
 
-/* ===============================
-    TARJETAS Y SECCIONES
-================================*/
+
 .card {
   border-radius: 14px;
   box-shadow: var(--fitrank-shadow);
   border: none;
 }
-/* ================================
-   OVERLAY — suave + blur
-================================*/
+
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -432,9 +385,7 @@ h2 i {
   z-index: 100;
 }
 
-/* ================================
-   DRAWER — glass, suave, sombra
-================================*/
+
 .drawer {
   position: fixed;
   top: 0;
@@ -453,7 +404,7 @@ h2 i {
   z-index: 101;
 }
 
-  /* Scroll estético */
+
   .drawer::-webkit-scrollbar {
     width: 8px;
   }
@@ -463,9 +414,7 @@ h2 i {
     border-radius: 10px;
   }
 
-/* ================================
-   HEADER
-================================*/
+
 .drawer-header {
   display: flex;
   justify-content: space-between;
@@ -489,9 +438,6 @@ h2 i {
       background: rgba(0,0,0,0.2);
     }
 
-/* ================================
-   ANIMACIONES
-================================*/
 @keyframes slideIn {
   from {
     transform: translateX(100%);

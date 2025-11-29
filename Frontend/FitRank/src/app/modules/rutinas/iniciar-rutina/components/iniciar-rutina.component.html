@@ -4,7 +4,6 @@
 
 
 <div class="container py-4 main-content-with-sb">
-  <!--  Listado de Rutinas -->
   <div *ngIf="!rutinaSeleccionada && !sesionSeleccionada && !ejercicioSeleccionado">
     <h1 class="titulo fw-bold text-center mb-4">Tus Rutinas</h1>
 
@@ -24,10 +23,9 @@
     </div>
   </div>
 
-  <!-- Listado de Sesiones -->
 
   <div *ngIf="rutinaSeleccionada && !sesionSeleccionada && !ejercicioSeleccionado" class="sesiones-container">
-    <h2 class="titulo text-center">{{ rutinaSeleccionada?.nombre }}</h2>
+    <h2 class="titulo text-center">{{ rutinaSeleccionada.nombre }}</h2>
 
     <br><br>
 
@@ -38,7 +36,6 @@
     <div class="sesiones-contenedor" #sesionesContainer>
       <div *ngFor="let s of rutinaSeleccionada?.sesiones" class="sesion-card" [style.background-image]="'url(' + (s.ejerciciosAsignados[0]?.ejercicio?.urlImagen || 'assets/img/sessions/default-bg.jpg') + ')'">
         <div class="overlay"></div>
-        <!-- IMAGEN PRINCIPAL DE LA SESIÓN -->
 
         <div class="sesion-header">
           <img *ngIf="s.ejerciciosAsignados[0]?.ejercicio?.urlImagen"
@@ -60,7 +57,6 @@
         </div>
 
         <div class="sesion-detalle">
-          <!-- TÍTULOS -->
           <div class="encabezados-lista">
             <div>Ejercicios</div>
             <div>Tiempo por serie</div>
@@ -68,9 +64,9 @@
 
           <ul class="lista-ejercicios">
             <li *ngFor="let e of s.ejerciciosAsignados">
-              <span class="nombre-ej">{{ e.ejercicio?.nombre }}</span>
+              <span class="nombre-ej">{{ e.ejercicio.nombre }}</span>
               <span class="duracion-ej">
-                {{ e.ejercicio?.duracionEstimada || 0 }} min aprox.
+                {{ e.ejercicio.duracionEstimada || 0 }} min aprox.
               </span>
             </li>
           </ul>
@@ -84,9 +80,7 @@
   </div>
 
 
-  <!-- 🔹 3️⃣ Listado de Ejercicios -->
   <div class="ejercicios-grid ">
-    <!-- Mostrar solo si hay sesión -->
     <div *ngIf="sesionSeleccionada && !ejercicioSeleccionado">
 
       <button class="btn btn-link mb-3 btn-secondary" (click)="sesionSeleccionada = null">
@@ -97,13 +91,10 @@
         {{ sesionSeleccionada.nombre }}
       </h4>
 
-      <!-- ⭐⭐⭐ GRILLA ⭐⭐⭐ -->
       <div class="ejercicios-grid">
 
-        <!-- ng-container VA AQUÍ -->
         <ng-container *ngFor="let e of sesionSeleccionada.ejerciciosAsignados" class="bg-dark">
 
-          <!-- Cada card DIRECTA dentro de la grilla -->
           <div *ngIf="!e.completadoHoy" class="ejercicio-card">
 
             <img *ngIf="e.ejercicio?.urlImagen"
@@ -148,7 +139,6 @@
   </div>
 
 
-    <!-- Ejercicio en curso -->
     <div *ngIf="ejercicioSeleccionado">
       <button class="btn btn-link text-white mb-3 btn-secondary" (click)="ejercicioSeleccionado = null">← Volver a ejercicios</button>
 
@@ -161,7 +151,7 @@
 
         </div>
         <div *ngIf="!mostrarRegistro" class="text-center mt-5">
-          <h2 class="fw-bold">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h2>
+          <h2 class="fw-bold">{{ ejercicioSeleccionado.ejercicio.nombre }}</h2>
 
           <div class="ejercicio-visual mb-4">
             <img *ngIf="ejercicioSeleccionado?.ejercicio?.urlImagen"
@@ -201,21 +191,16 @@
 
           <h1 class="display-3 fw-bold mt-4">{{ tiempoFormateado }}</h1>
           <p class="text-uppercase text-white-50">Tiempo de la serie</p>
-          <!-- 🔹 Botón Play -->
           <button *ngIf="!entrenando && !mostrandoCuentaRegresiva" class="btn-play idle " (click)="mostrarCuenta()">
             <span class="material-symbols-outlined fs-1">play_arrow</span>
           </button>
-
-          <!-- Overlay de cuenta regresiva -->
           <div *ngIf="mostrandoCuentaRegresiva" class="overlay-cuenta">
             <h1 class="numero-cuenta animate">{{ cuenta }}</h1>
           </div>
 
           <div class="mt-5 d-flex flex-column gap-3">
 
-
-            <!-- Botón de Finalizar -->
-            <button *ngIf="entrenando" class="btn-stop " (click)="finalizarSerie()">
+           <button *ngIf="entrenando" class="btn-stop " (click)="finalizarSerie()">
               <span class="material-symbols-outlined fs-1">stop</span>
             </button>
           </div>
@@ -224,7 +209,7 @@
         <div *ngIf="mostrarRegistro" class="mt-5">
           <button class="btn btn-link text-white mb-3 btn-secondary" (click)="mostrarRegistro = false">← Volver al cronómetro</button>
 
-          <h4 class="text-center mb-4 text-white">{{ ejercicioSeleccionado?.ejercicio?.nombre }}</h4>
+          <h4 class="text-center mb-4 text-white">{{ ejercicioSeleccionado.ejercicio.nombre }}</h4>
 
           <div class="mb-3">
             <label class="form-label text-white-50">Repeticiones realizadas</label>

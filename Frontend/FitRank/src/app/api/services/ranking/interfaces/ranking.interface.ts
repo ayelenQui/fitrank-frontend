@@ -16,12 +16,12 @@ export interface MostrarRankingDTOGrupo {
 
 }
 export enum GrupoMuscularFrontend {
-  Pecho = 0,    // pecho
+  Pecho = 0,
   Espalda = 1,
   Piernas = 2,
   Hombros = 3,
   Brazos = 4,
-  Abdomen = 5,  // Abdomen
-  Gluteo = 6,   // gluteo
+  Abdomen = 5,
+  Gluteo = 6,
   Cardio = 7
 }

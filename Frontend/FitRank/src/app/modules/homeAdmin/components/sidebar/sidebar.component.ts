@@ -22,14 +22,12 @@ export class SidebarComponent implements OnInit {
   logoUrl: string | null = null;
 
   ngOnInit() {
-    /** 1️⃣ Cargar logo almacenado */
     const themeStr = localStorage.getItem('gym-theme');
     if (themeStr) {
       const theme = JSON.parse(themeStr);
       this.logoUrl = theme.logoUrl || null;
     }
 
-    /** 2️⃣ Escuchar cambios en tiempo real con SignalR */
     this.signalR.theme$.subscribe(theme => {
       if (theme?.logoUrl !== undefined) {
         this.logoUrl = theme.logoUrl || null;

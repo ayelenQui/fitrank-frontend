@@ -18,12 +18,11 @@ export interface LogroSocio {
 })
 export class LogrosSocioService {
 
-  private baseUrl = `${environment.apiUrl}/socios`; // api/LogroSocio
+  private baseUrl = `${environment.apiUrl}/socios`;
 
   constructor(private http: HttpClient) {}
 
   obtenerLogrosObtenidos(socioId: number, gimnasioId: number): Observable<LogroSocio[]> {
-    // GET api/LogroSocio?socioId=1&gimnasioId=2
     return this.http.get<LogroSocio[]>(
       `${this.baseUrl}/${socioId}/gimnasios/${gimnasioId}/logrossocio`
     );

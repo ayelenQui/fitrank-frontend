@@ -1,7 +1,7 @@
 export interface SesionRealizadaDeEjerciciosDTO {
   id: number;
   fecha: string;
-  duracion: string; // formato hh:mm:ss
+  duracion: string;
   numeroDeSesion: number;
 }
 

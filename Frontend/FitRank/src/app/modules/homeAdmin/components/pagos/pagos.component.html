@@ -1,19 +1,16 @@
 <div class="panel-fitrank">
 
-  <!-- HEADER NEGRO -->
   <div class="panel-header-fitrank">
     <div>
       <h3 class="text-titulo fw-bold mb-4">Ingresos</h3>
       <p class="panel-subtitle-fitrank fw-bold">Resumen financiero del gimnasio</p>
     </div>
-    <!-- Cuota Actual -->
     <div class="panel-pill-fitrank ">
       <h4 class="mb-1 fw-bold mb-4">Cuota mensual</h4>
       <h2 class="text-titulo fw-bold mb-4">$30.000</h2>
     </div>
   </div>
 
-  <!-- CUERPO -->
   <div class="panel-body-fitrank">
 
     <div class="fr-switch mb-4">
@@ -41,7 +38,6 @@
 
     </div>
 
-    <!-- KPIs con switch FitRank -->
     <div class="ingresos-kpis">
 
       <button class="ingreso-card-btn btn-secondary"
@@ -74,10 +70,7 @@
     </div>
 
 
-    <!-- GRID 2 COLUMNAS -->
     <div class="ingresos-grid-2">
-
-      <!-- Últimos ingresos -->
       <div class="panel-card h-100">
         <h5 class="panel-title mb-3">
 
@@ -86,7 +79,6 @@
 
         <div *ngFor="let ing of ingresos | slice:0:6" class="ingreso-item text-black">
 
-          <!-- FOTO + NOMBRE DEL SOCIO -->
           <div class="pago-user">
             <img [src]="ing.usuario?.fotoDePerfil || 'assets/img/perfil/user-sin-foto.png'"
                  class="pago-foto" />
@@ -98,7 +90,6 @@
             </div>
           </div>
 
-          <!-- MONTO + DETALLE -->
           <div class="info">
             <p>Monto de Ingreso</p>
             <p class="monto">$ {{ ing.monto }}</p>
@@ -120,7 +111,6 @@
             <div *ngIf="ing.observaciones" class="obs">{{ ing.observaciones }}</div>
           </div>
 
-          <!-- ESTADO -->
           <span class="badge confirmado" *ngIf="ing.confirmado">
             <i class="bi bi-check-circle-fill"></i>
           </span>
@@ -137,7 +127,6 @@
         </div>
       </div>
 
-      <!-- Métodos de pago -->
       <div class="panel-card h-100">
         div class="panel-card h-100">
         <h5 class="panel-title mb-3">
@@ -147,10 +136,6 @@
 
         <div *ngFor="let ing of ingresos | slice:0:6" class="ingreso-item text-black">
 
-          <!-- FOTO + NOMBRE DEL SOCIO -->
-          
-
-          <!-- MONTO + DETALLE -->
           <div class="info">
             
 
@@ -167,7 +152,6 @@
             <div *ngIf="ing.observaciones" class="obs">{{ ing.observaciones }}</div>
           </div>
 
-          <!-- ESTADO -->
           <span class="badge confirmado" *ngIf="ing.confirmado">
             <i class="bi bi-check-circle-fill"></i>
           </span>

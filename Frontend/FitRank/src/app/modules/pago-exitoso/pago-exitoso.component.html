@@ -4,13 +4,11 @@
 
     <h2 class="titulo">¡Pago exitoso! 💜</h2>
     
-    <!-- MENSAJE PARA SOCIO -->
     <p *ngIf="!esAdmin" class="subtitulo">
       Gracias por tu pago.<br />
       Revisá tu correo para acceder a tu pase FitRank.
     </p>
 
-    <!-- MENSAJE PARA ADMIN -->
     <div *ngIf="esAdmin" class="admin-detalles">
       <p class="subtitulo">
         ✔ Pago acreditado correctamente.<br />

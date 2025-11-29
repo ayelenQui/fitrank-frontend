@@ -2,7 +2,7 @@ export interface Reporte {
   id: number;
   titulo: string;
   descripcion: string;
-  fechaCreacion: string;   // ISO string desde el backend
+  fechaCreacion: string;
   activo: boolean;
   usuarioId: number;
   gimnasioId: number;

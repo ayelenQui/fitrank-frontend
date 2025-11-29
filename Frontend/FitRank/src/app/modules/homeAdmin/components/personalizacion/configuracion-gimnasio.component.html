@@ -1,14 +1,10 @@
 <div class="config-layout">
 
-  <!-- ==========================================================
-       COLUMNA IZQUIERDA — CONFIGURACIÓN
-  =========================================================== -->
   <div class="config-left">
 
     <h2 class="text-titulo fw-bold mb-4"> Personalización del Gimnasio</h2>
     <p class="sub  fw-bold">Elegí colores, logo y mirá cómo queda tu aplicación en vivo.</p>
 
-    <!-- LOGO -->
     <div class="card-config bg-dark">
       <h4 class="section-title text-white">Logo del Gimnasio</h4>
 
@@ -22,7 +18,6 @@
              (change)="onLogoSeleccionado($event)">
     </div>
 
-    <!-- COLORES -->
     <div class="card-config text-white bg-dark">
       <h4 class="section-title">Colores del Tema</h4>
 
@@ -47,7 +42,6 @@
       </div>
     </div>
 
-    <!-- BOTONES -->
     <div class="btn-row mt-4">
       <button class="btn-restablecer btn-secondary" (click)="restablecer()">Restablecer a FitRank</button>
       <button class="btn-guardar btn-secondary" (click)="guardar()">Guardar Cambios</button>
@@ -55,14 +49,10 @@
 
   </div>
 
-  <!-- ==========================================================
-       COLUMNA DERECHA — PREVIEW LIVE
-  =========================================================== -->
   <div class="config-right">
 
     <h3 class="preview-title">Vista previa en vivo</h3>
 
-    <!-- Modo de preview -->
     <div class="preview-modes">
       <button class="mode-btn btn-secondary"
               [class.active]="modoPreview === 'desktop'"
@@ -77,7 +67,6 @@
       </button>
     </div>
 
-    <!-- IFRAME -->
     <iframe #previewIframe
             class="preview-frame"
             [class.mobile]="modoPreview === 'mobile'"

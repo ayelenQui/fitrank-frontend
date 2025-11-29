@@ -10,27 +10,22 @@ export class EjercicioService {
 
   constructor(private http: HttpClient) { }
 
-  // Traer todos los ejercicios
   getAll(): Observable<EjercicioDTO[]> {
     return this.http.get<EjercicioDTO[]>(this.baseUrl);
   }
 
-  // Traer un ejercicio por ID
   getById(id: number): Observable<EjercicioDTO> {
     return this.http.get<EjercicioDTO>(`${this.baseUrl}/${id}`);
   }
 
-  // Crear nuevo ejercicio
   create(ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
     return this.http.post<EjercicioDTO>(this.baseUrl, ejercicio);
   }
 
-  // Actualizar un ejercicio existente
   update(id: number, ejercicio: AgregarEjercicioDTO): Observable<EjercicioDTO> {
     return this.http.put<EjercicioDTO>(`${this.baseUrl}/${id}`, ejercicio);
   }
 
-  // EjercicioService
   getByGrupoMuscular(grupoId: number): Observable<EjercicioDTO[]> {
     return this.http.get<EjercicioDTO[]>(`${this.baseUrl}/grupo/${grupoId}`);
   }

@@ -1,6 +1,3 @@
-/* ============================
-   CONTENEDOR PRINCIPAL
-   ============================ */
 .ranking-container {
   background: #1c1c1c;
   max-width: 950px;
@@ -11,9 +8,6 @@
   color: white;
 }
 
-/* ============================
-   TÍTULO – mismo estilo que historial
-   ============================ */
 .ranking-container .titulo {
   font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
         font-weight: bold;
@@ -34,10 +28,6 @@
   border-radius: 3px;
 }
 
-/* ============================
-   FILTROS – estilo glass + violeta
-   ============================ */
-/* Contenedor general de filtros */
 .filtros {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,7 +39,6 @@
   gap: 1rem;
 }
 
-/* Contenedor superior: filtros de cantidad, grupo y fechas */
 .filtros-superior {
   display: flex;
   justify-content: space-between;
@@ -57,7 +46,6 @@
   gap: 1rem;
 }
 
-/* Filtros de grupo y cantidad */
 .filtros-grupo {
   display: flex;
   gap: 1rem;
@@ -65,7 +53,6 @@
   align-items: center;
 }
 
-/* Filtros de fecha + botón filtrar */
 .filtros-fecha {
   display: flex;
   gap: 0.8rem;
@@ -73,10 +60,9 @@
   flex-wrap: wrap;
 }
 
-/* Subfiltros (cada input/label) */
 .sub-filtro {
   display: flex;
-  flex-direction: column; /* vertical para labels */
+  flex-direction: column;
   gap: 4px;
   color: white;
 }
@@ -91,14 +77,12 @@
   outline: none;
 }
 
-/* Opciones del select (para mayor compatibilidad) */
 .filtros select option {
-  color: #000; /* texto negro en opciones desplegadas */
-  background: #fff; /* fondo blanco para que contraste */
+  color: #000;
+  background: #fff;
 }
 
 
-/* Botones */
 .btn-fitrank {
   background: #7b3fe4;
   color: #fff;
@@ -131,13 +115,13 @@
 }
 .filtros-botones {
   display: flex;
-  justify-content: space-between; /* filtrar a la izquierda, reset a la derecha */
-  align-items: center;            /* mismos niveles verticales */
-  margin-top: 1rem;               /* separación del resto de filtros */
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;        
 }
 
 .filtros-botones button {
-  height: 38px;        /* misma altura para ambos */
+  height: 38px;
   padding: 0 1rem;
   font-size: 0.9rem;
   border-radius: 8px;
@@ -166,13 +150,9 @@
   background: rgba(255, 255, 255, 0.2);
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* hace el icono blanco */
+  filter: invert(1);
 }
 
-
-/* ============================
-   LISTA DE RANKING – estilo tarjetas glass
-   ============================ */
 .ranking-list {
   display: flex;
   flex-direction: column;
@@ -195,9 +175,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* ============================
-   POSICIÓN Y DATOS
-   ============================ */
 .posicion {
   font-size: 1.6rem;
   width: 2.5rem;
@@ -235,9 +212,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #d48b00;
 }
 
-/* ============================
-   MENSAJE DE CARGA
-   ============================ */
 .cargando {
   text-align: center;
   color: #ccc;
@@ -245,9 +219,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 3rem;
 }
 
-/* ============================
-   RESPONSIVE
-   ============================ */
 @media (max-width: 576px) {
   .datos {
     flex-direction: column;
@@ -263,7 +234,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .filtros-fecha {
     flex-direction: column;
     gap: 0.6rem;
-    align-items: stretch; /* inputs ocupan todo el ancho */
+    align-items: stretch;
   }
     .filtros-botones {
     flex-direction: column;

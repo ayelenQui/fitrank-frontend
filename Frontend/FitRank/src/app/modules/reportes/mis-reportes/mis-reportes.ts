@@ -101,7 +101,6 @@ export class MisReportes  implements OnInit {
           popup: 'animate__animated animate__fadeOutUp'
         }
       }).then(() => {
-        // Recargar historial cuando cierre el modal
         this.cargarReportesDelUsuario();
       });
     },
@@ -120,10 +119,8 @@ export class MisReportes  implements OnInit {
 
 toggleDescripcion(reporteId: number): void {
     if (this.reporteAbiertoId === reporteId) {
-      // Si ya está abierto, ciérralo (establece a null)
       this.reporteAbiertoId = null;
     } else {
-      // Si está cerrado o es otro reporte, ábrelo (establece el ID)
       this.reporteAbiertoId = reporteId;
     }
   }

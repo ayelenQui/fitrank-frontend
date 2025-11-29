@@ -1,11 +1,9 @@
 <div class="maquina-container" *ngIf="!loading && maquina">
 
-  <!-- HEADER / VIDEO -->
   <div class="header">
 
     <h2 class="titulo">{{ maquina.nombre }}</h2>
 
-    <!-- VIDEO DE LA MÁQUINA -->
     <div class="video-wrapper" *ngIf="maquina.urlImagen">
       <iframe 
         width="100%"
@@ -19,7 +17,6 @@
 
   </div>
 
-  <!-- EJERCICIOS ASOCIADOS -->
   <h3 class="subtitulo">Ejercicios para esta máquina</h3>
 
   <div class="ejercicios-list" *ngIf="maquina.ejercicios?.length; else sinEj">
@@ -40,7 +37,6 @@
           💪 <strong>{{ e.grupoMuscular }}</strong>
         </p>
 
-        <!-- VIDEO DEL EJERCICIO -->
         <div *ngIf="e.urlVideo" class="video-ejercicio">
           <iframe
             [src]="sanitizer.bypassSecurityTrustResourceUrl(embedVideo(e.urlVideo))"
@@ -52,7 +48,6 @@
     </div>
   </div>
 
-  <!-- SIN EJERCICIOS -->
   <ng-template #sinEj>
     <p class="no-ejercicios">
       No hay ejercicios cargados para esta máquina.
@@ -61,7 +56,6 @@
 
 </div>
 
-<!-- LOADING -->
 <div class="loading" *ngIf="loading">
   Cargando información...
 </div>

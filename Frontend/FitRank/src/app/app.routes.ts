@@ -45,7 +45,7 @@ export const appRoutes: Route[] = [
   { path: 'homeAdmin', canActivate: [AuthGuard],children: homeAdminRoutes },
   // { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
    { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'activar-cuenta', component: ActivacionComponent },// si dejamos sin loguear 
+  { path: 'activar-cuenta', component: ActivacionComponent },
   { path: 'rutina/editar/:id', component: CrearRutinaComponent, canActivate: [AuthGuard] },
   { path: 'torneo/lista-torneo', component: ListaTorneosComponent, canActivate: [AuthGuard] },
   { path: 'torneo/ver-torneo/:id', component: RankingTorneoComponent, canActivate: [AuthGuard] },
@@ -151,7 +151,7 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('./modules/socios/mis-logros/mis-logros.routes').then(r => r.misLogrosRoutes)
   },
-  { path: 'pago-exitoso', component: PagoExitosoComponent, },//dejamos sin loguear respuesta de mp 
+  { path: 'pago-exitoso', component: PagoExitosoComponent, },
   { path: 'pago-fallido', component: PagoFallidoComponent },
   { path: 'pago-pendiente', component: PagoPendienteComponent },
 

@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
 import Swal from 'sweetalert2';
 import { SignalRNotificacionesService } from '@app/api/services/notificacion/signalr-notificaciones.service';
-import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 import { SocioApiService } from '@app/api/services/socio/socioApiService';
 @Component({
   selector: 'app-header-socio',
   templateUrl: './header-socio.component.html',
   styleUrls: ['./header-socio.component.css'],
   standalone: true,
-  imports: [CommonModule, DatePipe, SidebarSocioComponent]
+  imports: [CommonModule, DatePipe]
 })
 export class HeaderSocioComponent implements OnInit {
   @Input() user: any = null;

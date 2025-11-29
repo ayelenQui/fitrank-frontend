@@ -1,8 +1,8 @@
 export interface EntrenamientoHistorialDTO {
   idEntrenamiento: number;
-  fecha: string; // en JSON llegará como string ISO
+  fecha: string;
   nombreSesion: string;
-  duracion: string | null; // TimeSpan se recibe como string
+  duracion: string | null;
   puntosTotales: number;
   nombreRutina: string;
   nombreSocio : string;

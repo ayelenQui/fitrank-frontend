@@ -27,7 +27,6 @@ export class PagosComponent implements OnInit {
   anioActual: number = new Date().getFullYear();
   mesActualNombre: string = '';
 
-  // ⭐ Nuevo → KPI seleccionado
   kpiSeleccionado: string = 'hoy';
 
   constructor(
@@ -39,7 +38,6 @@ export class PagosComponent implements OnInit {
     this.cargarIngresos();
   }
 
-  // ⭐ Nuevo → lo llamamos desde los botones
   seleccionarKPI(kpi: string): void {
     this.kpiSeleccionado = kpi;
   }

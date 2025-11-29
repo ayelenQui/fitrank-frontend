@@ -3,20 +3,17 @@
 
   <h2>Activar Cuenta</h2>
 
-  <!-- Estado de error -->
   <div *ngIf="error" class="alert alert-danger">
     {{ error }}
     <a routerLink="/login" class="btn btn-link">Ir al login</a>
   </div>
 
-  <!-- Loader siempre visible si está cargando -->
   <div *ngIf="loading" class="text-center mt-4">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Cargando...</span>
     </div>
   </div>
 
-  <!-- Formulario visible solo si el token fue validado -->
   <form *ngIf="!loading && tokenValido && !error"
         [formGroup]="form"
         (ngSubmit)="activarCuenta()"

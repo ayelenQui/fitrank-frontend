@@ -11,7 +11,6 @@
       <h3>{{ logro.nombre }}</h3>
       <p class="descripcion">{{ logro.descripcion }}</p>
       <div class="meta">
-        <!-- <span class="puntos">{{ logro.puntos }} pts</span> -->
         <span class="fecha" *ngIf="logro.fechaOtorgado">
           Obtenido: {{ logro.fechaOtorgado | date:'dd/MM/yyyy' }}
         </span>

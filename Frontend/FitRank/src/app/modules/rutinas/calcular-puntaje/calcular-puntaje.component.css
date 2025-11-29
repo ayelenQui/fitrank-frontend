@@ -1,4 +1,3 @@
-/* Fondo general */
 :host {
   display: flex;
   align-items: center;
@@ -7,7 +6,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Contenedor principal */
 .container-puntaje {
   display: flex;
   flex-direction: column;
@@ -21,7 +19,6 @@
   animation: fadeIn 0.8s ease-out;
 }
 
-/* Animación de entrada */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -33,7 +30,6 @@
   }
 }
 
-/* Título principal */
 .titulo {
   font-size: 2rem;
   font-weight: 700;
@@ -41,7 +37,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Tarjetas */
 .card {
   background: var(--color-acento);
   border-radius: 1rem;
@@ -57,7 +52,6 @@
   box-shadow: 0 8px 25px rgba(231, 243, 68, 0.3);
 }
 
-/* Textos dentro de tarjetas */
 .card h2 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
@@ -70,7 +64,6 @@
   font-weight: 800;
 }
 
-/* Colores de puntajes */
 .puntaje-ejercicio {
   color: var(--color-acento-secundario);
   text-shadow: 0 0 8px rgba(234, 179, 8, 0.4);

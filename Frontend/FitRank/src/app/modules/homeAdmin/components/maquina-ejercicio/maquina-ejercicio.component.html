@@ -1,6 +1,5 @@
 <div class="gestion-container">
 
-  <!-- HEADER -->
   <div class="gestion-header">
     <div>
       <h2 class="text-titulo fw-bold mb-4">Máquinas y ejercicios</h2>
@@ -14,7 +13,6 @@
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn btn-secondary"
             [class.active]="activeTab === 'maquinas'"
@@ -29,7 +27,6 @@
     </button>
   </div>
 
-  <!-- TAB MÁQUINAS -->
   <div *ngIf="activeTab === 'maquinas'">
     <div *ngIf="loadingMaquinas" class="loading">Cargando máquinas...</div>
 
@@ -45,7 +42,6 @@
         </iframe>
 
 
-        <!-- SI ES UNA IMAGEN NORMAL -->
         <img *ngIf="!(m.urlImagen.includes('youtube') || m.urlImagen.includes('youtu.be'))"
              [src]="m.urlImagen"
              class="maquina-img"
@@ -71,7 +67,6 @@
     <div class="card-ejercicio-pro" *ngFor="let e of ejercicios">
 
 
-      <!-- INFORMACIÓN -->
       <div class="ej-body-pro text-black">
         <h4 class="ej-title">{{ e.nombre }}</h4>
         <p class="ej-desc-pro">{{ e.descripcion }}</p>
@@ -88,14 +83,12 @@
 
         </div>
 
-        <!-- VIDEO -->
         <div class="ej-video" *ngIf="e.urlVideo">
           <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(embedVideo(e.urlVideo))"
                   frameborder="0"
                   allowfullscreen>
           </iframe>
         </div>
-        <!-- BOTÓN EDITAR -->
         <div class="ej-actions mt-3">
           <button class="btn-sm primary btn-secondary"
                   (click)="editarEjercicio(e)">
@@ -113,7 +106,6 @@
     </p>
   </div>
 
-  <!-- MODAL AGREGAR MÁQUINA -->
   <div class="modal-backdrop" *ngIf="showMaquinaModal">
     <div class="modal">
       <h3>Agregar máquina</h3>
@@ -135,7 +127,6 @@
     </div>
   </div>
 
-  <!-- MODAL AGREGAR EJERCICIO -->
   <div class="modal-backdrop btn-secondary" *ngIf="showEjercicioModal">
     <div class="modal">
       <h3>Agregar ejercicio</h3>

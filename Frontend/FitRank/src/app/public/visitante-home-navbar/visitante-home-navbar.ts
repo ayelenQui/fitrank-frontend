@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-visitante-home-navbar',
-  imports: [RouterLink],
   templateUrl: './visitante-home-navbar.html',
   styleUrl: './visitante-home-navbar.css'
 })

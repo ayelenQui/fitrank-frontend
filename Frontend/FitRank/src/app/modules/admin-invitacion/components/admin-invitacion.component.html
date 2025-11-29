@@ -42,7 +42,6 @@
 
       <div class="contenedorDatosPago row g-3">
 
-        <!-- CAMBIO 1: método de pago -->
         <div class="col-md-4 contenerdorLabelInput">
           <label>Método de pago</label>
           <select class="form-select" formControlName="metodoPago">
@@ -51,7 +50,6 @@
           </select>
         </div>
 
-        <!-- CAMBIO 2: corregido semana → año -->
         <div class="col-md-4 contenerdorLabelInput">
           <label>Periodo</label>
           <select class="form-select" formControlName="periodo">
@@ -82,14 +80,12 @@
     <div *ngIf="error" class="alert alert-danger mt-3 text-center">
       {{ error }}
     </div>
-    <!-- 🔵 LINK PARA PAGO ONLINE (si lo necesita más tarde) -->
     <div *ngIf="linkPago" class="text-center mt-4">
       <a [href]="linkPago" class="btn btn-violeta px-4 py-2">
         💻 Pagar online
       </a>
     </div>
 
-    <!-- 🟣 QR PARA PAGO PRESENCIAL -->
     <div *ngIf="qrImage" class="text-center mt-4">
       <p class="fw-bold mb-2">📱 Escaneá para pagar con Mercado Pago</p>
       <img [src]="qrImage" style="width:260px; border-radius:12px;" />

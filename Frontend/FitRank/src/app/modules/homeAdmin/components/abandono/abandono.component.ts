@@ -176,7 +176,6 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
     const ctx = document.getElementById('graficoEstado') as HTMLCanvasElement;
     if (!ctx) return;
 
-    // Datos base
     let activos = this.asistencias.length || 180;
     let inactivos = this.inactivos.length || 20;
 

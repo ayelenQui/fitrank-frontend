@@ -50,7 +50,6 @@ export class CalcularPuntajeComponent implements OnInit {
   }
 
  volverARutina(): void {
-  // Recuperamos state original que nos dio iniciar-rutina
   const navState: any = history.state || {};
 
     if (navState.sinEjercicios) {
@@ -64,16 +63,12 @@ export class CalcularPuntajeComponent implements OnInit {
   const sesionId = navState.sesionId;
   const entrenamientoId = navState.entrenamientoId;
 
-  // Navegamos explícitamente de vuelta a iniciar-rutina pasando la info para restaurar
   if (rutinaId) {
     const stateToReturn: any = {};
     if (sesionId) stateToReturn.sesionId = sesionId;
     if (entrenamientoId) stateToReturn.entrenamientoId = entrenamientoId;
-    // También podríamos reenviar puntaje si queremos, p.ej. stateToReturn.puntaje = this.puntajeEjercicio;
-
     this.router.navigate(['/rutina/iniciar-rutina', rutinaId], { state: stateToReturn });
   } else {
-    // fallback a la vista principal de rutinas
     this.router.navigate(['/rutina']);
   }
 }

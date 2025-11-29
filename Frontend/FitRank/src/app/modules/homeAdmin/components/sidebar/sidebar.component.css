@@ -1,6 +1,3 @@
-/* ===========================
-   SIDEBAR DESKTOP
-=========================== */
     :root {
       --color-principal: #000;
       --color-secundario: #8B52FF;
@@ -29,7 +26,7 @@
 }
 
 .sidebar-header:hover h1 {
-  color: #8B52FF; /* toque FitRank violeta */
+  color: #8B52FF; 
   transition: 0.2s ease;
 }
 
@@ -48,13 +45,12 @@
 }
 
 .sidebar > div:first-child::-webkit-scrollbar {
-  display: none; /* CHROME, EDGE, SAFARI */
+  display: none; 
 }
 
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  /* gap: 0.5rem; */
 }
 
 .sidebar-logo {
@@ -65,9 +61,6 @@
   filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.3));
 }
 
-/* ===========================
-   ITEMS
-=========================== */
 .nav-item {
   display: flex;
   align-items: center;
@@ -96,9 +89,7 @@
   color: white;
 }
 
-/* ===========================
-   BOTÓN HAMBURGUESA
-=========================== */
+
 .sidebar-toggle {
   position: fixed;
   top: 15px;
@@ -114,23 +105,19 @@
   display: none;
 }
 
-/* ===========================
-   MOBILE
-=========================== */
+
 @media (max-width: 768px) {
 
-  /* Oculto por defecto */
+
   .sidebar {
     transform: translateX(-100%);
     height: 100vh;
   }
 
-    /* Cuando se abre */
+
     .sidebar.open {
       transform: translateX(0);
     }
-
-  /* Mostrar botón hamburguesa */
   .sidebar-toggle {
     display: block;
   }

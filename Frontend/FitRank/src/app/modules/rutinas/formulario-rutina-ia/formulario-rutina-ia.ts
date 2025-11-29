@@ -201,7 +201,7 @@ this.enviando = true;
           confirmButtonText: 'Reintentar',
           footer: '<small>Si el problema persiste, contactá al administrador.</small>'
         });
-      }
-    });
-  }
+      }
+  });
+}
 }

@@ -1,4 +1,3 @@
-// 🔹 Representa una notificación individual
 export interface NotificacionDTO {
   id: number;
   titulo: string;
@@ -12,7 +11,6 @@ export interface NotificacionDTO {
   usuarioReceptor?: UsuarioSimpleDTO;
 }
 
-// 🔹 Usuario simplificado (para mostrar nombre o email en las notificaciones)
 export interface UsuarioSimpleDTO {
   id: number;
   nombre: string;
@@ -21,7 +19,6 @@ export interface UsuarioSimpleDTO {
   rol: string;
 }
 
-// 🔹 Respuesta al obtener notificaciones
 export interface NotificacionesRespuestaDTO {
   exito: boolean;
   mensaje?: string;
@@ -46,7 +43,7 @@ export interface EnviarMasivaDTO {
 
 export interface NotificacionIndividualDTO {
   usuarioEmisorId: number;
-  usuarioReceptorId: number | null; // porque tu formulario permite null
+  usuarioReceptorId: number | null;
   titulo: string;
   mensaje: string;
 }
@@ -60,7 +57,7 @@ export interface HistorialNoti {
   id: number;
   titulo: string;
   mensaje: string;
-  fechaCreacion: string;    // viene como string ISO
+  fechaCreacion: string;
   emisor: string;
   receptor: string;
 }

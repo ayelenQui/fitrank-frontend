@@ -240,7 +240,6 @@ export class ProfesoresComponent implements OnInit {
   }
 
   abrirWhatsApp(telefono: string, nombre: string): void {
-    // Limpia el número y lo pasa al formato internacional
     const numero = telefono.replace(/\D/g, '');
     const link = `https://wa.me/${numero}?text=Hola%20${encodeURIComponent(nombre)}%2C%20te%20habla%20el%20administrador%20de%20FitRank.%20😊`;
 

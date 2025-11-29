@@ -15,7 +15,6 @@ export interface Solicitud {
   minutosPorSesion: number;
   objetivo: string;
 
-  // Screening
   dolorLumbar: boolean;
   dolorRodilla: boolean;
   dolorHombro: boolean;

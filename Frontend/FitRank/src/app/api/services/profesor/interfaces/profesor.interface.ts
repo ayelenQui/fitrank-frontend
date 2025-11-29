@@ -40,7 +40,7 @@ export interface AgregarProfesorDTO {
   email: string;
   telefono?: string;
   sexo: string;
-  fechaNacimiento: string; // o Date si lo parseás
+  fechaNacimiento: string;
   matricula: string;
   sueldo: number;
   password: string;
@@ -52,7 +52,7 @@ export interface RutinaProfesorDTO {
   nombre: string;
   descripcion?: string;
   activa: boolean;
-  fechaCreacion: string; // ISO string desde .NET
+  fechaCreacion: string;
   socioNombre?: string;
   tipo?: string;
 }

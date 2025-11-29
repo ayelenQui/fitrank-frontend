@@ -19,10 +19,8 @@
 </div>
 
 
-  <!-- LISTA DE SESIONES -->
   <div *ngFor="let item of historial; let i = index" class="entrenamiento-card">
 
-    <!-- INFO PRINCIPAL -->
     <div class="info-principal">
       <div class="info-header">
         <p><strong>Alumno:</strong> {{ item.nombreSocio ?? 'Sin nombre' }}</p>
@@ -36,16 +34,13 @@
       </button>
     </div>
 
-    <!-- SECCIÓN EXPANDIBLE -->
     <div *ngIf="expandedIndex === i" class="detalles-card">
 
-      <!-- RECORREMOS EJERCICIOS -->
       <div *ngFor="let ejercicio of item.ejerciciosAgrupados" class="actividad-item">
 
         <div class="actividad-data">
           <h5>{{ ejercicio.nombre }}</h5>
 
-          <!-- TABLA DE SERIES -->
           <div class="tabla-series-container">
             <table class="tabla-series">
               <thead>
@@ -66,13 +61,11 @@
           </div>
         </div>
 
-        <!-- BOTÓN PARA MOSTRAR EL GRAFICO -->
         <button class="btn-fitrank btn-light"
                 (click)="toggleGrafico(ejercicio.nombre)">
           {{ mostrarGrafico(ejercicio.nombre) ? 'Ocultar gráfico' : 'Ver gráfico de mejoras' }}
         </button>
 
-        <!-- COMPONENTE GRÁFICO -->
         <app-grafico-progreso
             *ngIf="mostrarGrafico(ejercicio.nombre)"
             [progreso]="ejercicio.progresoHistorico">
@@ -85,7 +78,6 @@
   </div>
 </div>
 
-<!-- TEMPLATE DE CARGA -->
 <ng-template #cargandoTpl>
   <p>Cargando información...</p>
 </ng-template>

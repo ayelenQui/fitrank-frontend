@@ -13,13 +13,11 @@ export class EjercicioRealizadoService {
 
   constructor(private http: HttpClient) { }
 
-  // Traer ejercicios por usuario
   getEjerciciosPorUsuario(usuarioId: number): Observable<EjercicioRealizadoDTOSalida[]> {
     return this.http.get<EjercicioRealizadoDTOSalida[]>(`${this.apiUrl}/Usuario/${usuarioId}`);
   }
 
-  // Registrar nuevo ejercicio
-  registrarEjercicio(dto: EjercicioRealizadoDTOEntrada): Observable<EjercicioRealizadoDTOSalida> {
+   registrarEjercicio(dto: EjercicioRealizadoDTOEntrada): Observable<EjercicioRealizadoDTOSalida> {
     return this.http.post<EjercicioRealizadoDTOSalida>(`${this.apiUrl}/registrar`, dto);
   }
 }

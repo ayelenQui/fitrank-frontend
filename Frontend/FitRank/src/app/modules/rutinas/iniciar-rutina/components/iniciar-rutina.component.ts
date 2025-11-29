@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-iniciar-rutina',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderSocioComponent, SidebarSocioComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './iniciar-rutina.component.html',
   styleUrls: ['./iniciar-rutina.component.css', '../../../css-socio/socio-common.css'],
 
@@ -159,7 +159,7 @@ export class IniciarRutinaComponent implements OnInit, AfterViewInit {
   generarSemana(): void {
     const hoy = new Date();
     const primerDia = new Date(hoy);
-    primerDia.setDate(hoy.getDate() - hoy.getDay() + 1); // lunes
+    primerDia.setDate(hoy.getDate() - hoy.getDay() + 1);
 
     this.diasSemana = Array.from({ length: 7 }, (_, i) => {
       const fecha = new Date(primerDia);
@@ -188,7 +188,6 @@ cargarRutinas(): void {
   const idParam = this.route.snapshot.paramMap.get('id');
   const rutinaId = idParam ? Number(idParam) : null;
 
-  // Capturamos state entrante (pudo venir desde calcular-puntaje)
   const navState: any = history.state || {};
   const restoreSesionId = navState.sesionId;
   const restoreEntrenamientoId = navState.entrenamientoId;
@@ -196,7 +195,6 @@ cargarRutinas(): void {
   this.rutinaService.getRutinaCompletaPorSocio(this.socioId).subscribe({
     next: (data) => {
       this.rutinas = data || [];
-      //NUEVO
     this.rutinas.forEach(r => {
       r.sesiones?.forEach(s => {
         s.ejerciciosAsignados?.forEach(e => {
@@ -215,14 +213,11 @@ cargarRutinas(): void {
         }
       }
 
-      // Si el navigation state incluye sesionId -> restauramos sesionSeleccionada
       if (restoreSesionId && this.rutinaSeleccionada) {
-        // buscar la sesión dentro de la rutina
         const foundSesion = this.rutinaSeleccionada.sesiones?.find((s: any) => s.id === restoreSesionId);
         if (foundSesion) {
           this.sesionSeleccionada = foundSesion;
         } else {
-          // si no existe id (quizás usás numeroDeSesion en lugar de id)
           const foundByNumero = this.rutinaSeleccionada.sesiones?.find((s: any) => s.numeroDeSesion === restoreSesionId);
           if (foundByNumero) {
             this.sesionSeleccionada = foundByNumero;
@@ -230,9 +225,7 @@ cargarRutinas(): void {
         }
       }
 
-      // Restaurar entrenamiento activo de forma mínima (evita crear uno nuevo al volver)
       if (restoreEntrenamientoId) {
-        // colocamos un objeto con el id para marcar que existe entrenamientoActivo
         this.entrenamientoActivo = { id: restoreEntrenamientoId } as any;
       }
     },
@@ -255,17 +248,13 @@ cargarRutinas(): void {
     this.sesionSeleccionada = s;
     this.ejercicioSeleccionado = null;
 
-    // Limpiamos actividades del día si queremos reiniciar
     this.actividadesRealizadas = [];
     localStorage.removeItem(`actividades_${this.socioId}`);
 
-    // NUEVO
-     // Inicializar completados hoy si no existe
     this.sesionSeleccionada.ejerciciosAsignados.forEach((e: EjercicioAsignadoDTO) => {
       if (e.completadoHoy === undefined) e.completadoHoy = false;
     });
 
-      // 🔥 NUEVO: Si ya terminó todos los ejercicios al entrar
   const todosCompletados = this.sesionSeleccionada.ejerciciosAsignados.every(
     (x: any) => x.completadoHoy === true
   );
@@ -286,7 +275,6 @@ cargarRutinas(): void {
     confirmButtonColor: "#8c52ff",
     confirmButtonText: "Ver puntaje"
   }).then(() => {
-    // Limpiamos actividades del día
     this.actividadesRealizadas = [];
     localStorage.removeItem(`actividades_${this.socioId}`);
 
@@ -513,7 +501,6 @@ private finalizarEjercicio(): void {
     const minutos = Math.floor((this.tiempo % 3600) / 60);
     const segundos = this.tiempo % 60;
 
-    // Formato "hh:mm:ss"
     const hh = horas.toString().padStart(2, '0');
     const mm = minutos.toString().padStart(2, '0');
     const ss = segundos.toString().padStart(2, '0');
@@ -522,8 +509,6 @@ private finalizarEjercicio(): void {
   }
 
   volverARutinas(): void {
-    // Limpiamos el progreso del día
-    //localStorage.removeItem(`actividades_${this.socioId}`);
 
     this.rutinaSeleccionada = null;
     this.sesionSeleccionada = null;
@@ -542,7 +527,6 @@ private finalizarEjercicio(): void {
 
 
   finalizarEntrenamiento(): void {
-    // Limpiar actividades
     this.actividadesRealizadas = [];
     localStorage.removeItem(`actividades_${this.socioId}`);
 
@@ -581,7 +565,7 @@ finalizarSesionParcial(): void {
     showCancelButton: true,
     confirmButtonText: 'Sí, finalizar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#8b4bff',   // color FitRank
+    confirmButtonColor: '#8b4bff', 
     cancelButtonColor: '#6c757d',
     reverseButtons: true,
   }).then((result) => {
@@ -590,7 +574,6 @@ finalizarSesionParcial(): void {
       this.actividadesRealizadas = [];
       localStorage.removeItem(`actividades_${this.socioId}`);
 
-      // Redirige
       this.router.navigate(['/rutina/mis-rutinas']);
 
       Swal.fire({

@@ -15,22 +15,18 @@ export class EntrenamientoService {
     return this.http.post<EntrenamientoDTO>(this.apiUrl, dto);
   }
 
-  // 🔹 Obtener entrenamiento por ID
   getEntrenamientoById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  // 🔹 Actualizar entrenamiento
   actualizarEntrenamiento(id: number, dto: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
   }
 
-  // 🔹 Eliminar entrenamiento
   eliminarEntrenamiento(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // 🔹 Obtener historial de un socio (para el perfil)
   getHistorialDeSocio(socioId: number): Observable<any[]> {
     return this.http.get<EntrenamientoHistorialDTO[]>(`${this.apiUrl}/socio/${socioId}/historial`);
   }

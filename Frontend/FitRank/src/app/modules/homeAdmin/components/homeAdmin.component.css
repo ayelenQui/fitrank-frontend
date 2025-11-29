@@ -73,13 +73,11 @@
     border-bottom: 1px solid #2a2a2a;
   }
 
-    /* Estilo de sidebar comprimida */
     .sidebar-fixed app-sidebar {
       display: block;
       width: 100%;
     }
 
-  /* Header reducido */
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;

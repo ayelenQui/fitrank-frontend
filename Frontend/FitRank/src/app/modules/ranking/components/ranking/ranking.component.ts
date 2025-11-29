@@ -12,7 +12,7 @@ import { GrupoMuscularService } from '@app/api/services/grupoMuscular/grupoMuscu
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule, HeaderSocioComponent, SidebarSocioComponent,ReactiveFormsModule,FormsModule ],
+  imports: [CommonModule, ReactiveFormsModule,FormsModule ],
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.css', '../../../css-socio/socio-common.css']
 })
@@ -53,7 +53,6 @@ grupos: ObtenerGrupoMuscularDTO[] = [];
               } else {
                 this.mensaje = "";
               }
-        // Esperar a que el DOM se actualice y renderice el título
         setTimeout(() => {
           this.animarTitulo();
           this.animarRanking();
@@ -109,7 +108,7 @@ resetFiltros() {
   this.hasta = "";
   this.grupoSeleccionado = 0;
   this.mensaje = "";
-  this.cargarRanking(); // vuelve a pedir todo
+  this.cargarRanking();
 }
 
 

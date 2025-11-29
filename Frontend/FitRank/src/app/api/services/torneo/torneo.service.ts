@@ -23,22 +23,18 @@ export class TorneosService {
 
   constructor(private http: HttpClient) { }
 
-  // Crear torneo (solo nombre)
   crearTorneo(nombre: string): Observable<Torneo> {
     return this.http.post<Torneo>(`${this.baseUrl}`, { nombre });
   }
 
-  // Agregar participante a torneo existente
   agregarParticipante(torneoId: number, participante: Participante): Observable<Participante[]> {
     return this.http.post<Participante[]>(`${this.baseUrl}/${torneoId}/participantes`, participante);
   }
 
-  // Obtener ranking
   obtenerRanking(torneoId: number): Observable<Participante[]> {
     return this.http.get<Participante[]>(`${this.baseUrl}/${torneoId}/ranking`);
   }
 
-  // Listar todos los torneos (opcional)
   listarTorneos(): Observable<Torneo[]> {
     return this.http.get<Torneo[]>(this.baseUrl);
   }

@@ -231,7 +231,7 @@ export class MaquinaejercicioComponent implements OnInit {
           icon: 'success',
           background: '#0f0f0f',
           color: '#fff',
-          iconColor: '#00e676', // verde eléctrico tipo FitRank
+          iconColor: '#00e676',
           timer: 1800,
           toast: true,
           position: 'top-end',
@@ -334,7 +334,7 @@ export class MaquinaejercicioComponent implements OnInit {
           nombre: (document.getElementById('nombre') as HTMLInputElement).value,
           descripcion: (document.getElementById('descripcion') as HTMLTextAreaElement).value,
           duracionEstimada: dur ? Number(dur) : null,
-          urlImagen: '',   // se rellena luego si se sube archivo
+          urlImagen: '', 
           urlVideo: (document.getElementById('urlVideo') as HTMLInputElement).value,
           maquinaId: maq ? Number(maq) : null,
           grupoMuscularId: Number((document.getElementById('grupoId') as HTMLSelectElement).value),
@@ -347,7 +347,6 @@ export class MaquinaejercicioComponent implements OnInit {
     }).then(result => {
       if (result.isConfirmed) {
 
-        // SI SUBE IMAGEN
         if (this.archivoSeleccionado) {
           this.imagenApiService.subirImagen(this.archivoSeleccionado).subscribe({
             next: (resp) => {
@@ -361,7 +360,6 @@ export class MaquinaejercicioComponent implements OnInit {
           });
         }
         else {
-          // SIN IMAGEN → SE GUARDA IGUAL
           this.ejercicioService.create(result.value).subscribe({
             next: () => this.cargarEjercicios()
           });
@@ -405,25 +403,21 @@ export class MaquinaejercicioComponent implements OnInit {
   embedVideo(url: string) {
     if (!url) return '';
 
-    // Si es formato normal de YouTube
     if (url.includes('watch?v=')) {
       const id = url.split('v=')[1];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // Short links
     if (url.includes('youtu.be')) {
       const id = url.split('youtu.be/')[1];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // Shorts
     if (url.includes('/shorts/')) {
       const id = url.split('/shorts/')[1];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // Ya es un embed o algo que no requiere parseo
     return url;
   }
 
@@ -460,13 +454,12 @@ export class MaquinaejercicioComponent implements OnInit {
 
         let nuevaImagen = ejercicio.urlImagen;
 
-        // --- SI SUBE NUEVA IMAGEN ---
         if (fileInput.files && fileInput.files.length > 0) {
           const archivo = fileInput.files[0];
 
           const resp = await this.imagenApiService.subirImagen(archivo).toPromise();
 
-          nuevaImagen = resp.url; // URL devuelta por Render o por tu backend
+          nuevaImagen = resp.url;
         }
 
         return {

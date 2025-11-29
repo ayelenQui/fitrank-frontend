@@ -20,7 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-crear-sesiones-rutina',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, HeaderSocioComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './crear-sesiones-rutina.html',
   styleUrls: ['./crear-sesiones-rutina.css', '../../css-socio/socio-common.css']
 })
@@ -33,7 +33,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
   filtro: string = '';
 
   solicitudId?: number;
-  volverA = '/rutina/mis-rutinas'; // default
+  volverA = '/rutina/mis-rutinas';
 
   form!: FormGroup;
   mostrarSesiones = false;
@@ -60,31 +60,27 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // 1️⃣ Leemos el state si vino navegación con data
     const st = history.state as { socioId?: number, solicitudId?: number, volverA?: string } || {};
 
     if (st.socioId) {
-      this.socioId = st.socioId;          // socioId del socio al que se le arma la rutina
+      this.socioId = st.socioId; 
     }
 
     if (st.solicitudId) {
-      this.solicitudId = st.solicitudId;  // para el caso de solicitudes de profesor
+      this.solicitudId = st.solicitudId; 
     }
 
     if (st.volverA) {
-      this.volverA = st.volverA;          // hacia dónde volver al final (puede ser mis-rutinas o pantalla de profesor)
+      this.volverA = st.volverA; 
     }
 
-    // 2️⃣ Ruta siempre trae el id de la rutina
     this.rutinaId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // 3️⃣ Si NO vino socioId por state, uso el usuario logueado
     const user = this.auth.obtenerUser();
     if (!this.socioId && user?.Id) {
       this.socioId = user.Id;
     }
 
-    // 4️⃣ INIT del form y datos (lo tuyo tal cual)
     this.form = this.fb.group({
       cantidadDias: [null, [Validators.required, Validators.min(1), Validators.max(7)]],
       sesiones: this.fb.array([])
@@ -261,7 +257,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
 
   private validarRutinaCompleta(): boolean {
 
-    // 1️⃣ Debe haber sesiones
     if (this.sesiones.length === 0) {
       Swal.fire({
         icon: 'warning',
@@ -272,7 +267,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
       return false;
     }
 
-    // 2️⃣ Cada sesión debe tener ejercicios
     for (let i = 0; i < this.sesiones.length; i++) {
       const ejercicios = this.getEjercicios(i);
       if (ejercicios.length === 0) {
@@ -285,7 +279,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
         return false;
       }
 
-      // 3️⃣ Cada ejercicio debe tener series
       for (let j = 0; j < ejercicios.length; j++) {
         const series = this.getSeries(i, j);
         if (series.length === 0) {
@@ -328,12 +321,10 @@ export class CrearSesionesRutinaComponent implements OnInit {
         rutinaId: this.rutinaId
       };
 
-      // 🔹 Crear sesión
       this.sesionService.crear(sesionDto).subscribe({
         next: (sesionRes) => {
           const sesionId = sesionRes.id;
 
-          // 🔹 Crear ejercicios de esa sesión
           if (s.ejercicios && s.ejercicios.length > 0) {
             s.ejercicios.forEach((ej: any, i: number) => {
               const ejDto = {
@@ -347,7 +338,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
                 next: (ejRes) => {
                   const ejercicioAsignadoId = ejRes.id;
 
-                  // 🔹 Crear series del ejercicio
                   if (ej.series && ej.series.length > 0) {
                     ej.series.forEach((serie: any, k: number) => {
                       const serieDto = {
@@ -373,7 +363,6 @@ export class CrearSesionesRutinaComponent implements OnInit {
           sesionesGuardadas++;
           if (sesionesGuardadas === sesiones.length) {
 
-              // 🔹 Si hay solicitud asociada, marcala como completada
           if (this.solicitudId) {
             this.rutinaService.actualizarEstado(this.solicitudId).subscribe({
             next: () => {},
@@ -383,7 +372,7 @@ export class CrearSesionesRutinaComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: ' Rutina guardada',
-              imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+              imageUrl: 'assets/img/logo/logo-negro-lila.svg',
               imageWidth: 80,
               imageHeight: 80,
               imageAlt: 'FitRank Logo',
@@ -411,7 +400,6 @@ filtrarPorGrupo(grupoId: number): void {
   });
 }
 
-// crear-sesiones-rutina.component.ts
 recargarEjercicios() {
   this.ejercicioService.getAll().subscribe(res => {
     this.ejerciciosFiltrados = res;
@@ -429,25 +417,21 @@ abrirVideo(url: string) {
   convertirAEmbed(url: string): string {
     if (!url) return '';
 
-    // YouTube normal
     if (url.includes('watch?v=')) {
       const id = url.split('v=')[1].split('&')[0];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // YouTube short link
     if (url.includes('youtu.be/')) {
       const id = url.split('youtu.be/')[1].split('?')[0];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // YouTube shorts
     if (url.includes('/shorts/')) {
       const id = url.split('/shorts/')[1].split('?')[0];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // si ya es embed
     return url;
   }
 

@@ -12,7 +12,7 @@ import { SocioApiService } from "@app/api/services/socio/socioApiService";
 
 @Component({
   selector: 'app-formulario-rutina-asistida',
-  imports: [CommonModule, ReactiveFormsModule, GeneralLayoutComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './formulario-rutina-asistida.html',
   styleUrl: './formulario-rutina-asistida.css'
 })

@@ -78,7 +78,7 @@ export class ReportesAdmin implements OnInit {
               icon: 'success',
               confirmButtonColor: '#4caf50'
             });
-            // Recargar según filtro activo
+
             this.cargarReportesPorEstado(this.filtroSeleccionado);
           },
           error: () => {
@@ -96,10 +96,8 @@ export class ReportesAdmin implements OnInit {
 
   toggleDescripcion(reporteId: number): void {
     if (this.reporteAbiertoId === reporteId) {
-      // Si ya está abierto, ciérralo (establece a null)
       this.reporteAbiertoId = null;
     } else {
-      // Si está cerrado o es otro reporte, ábrelo (establece el ID)
       this.reporteAbiertoId = reporteId;
     }
   }

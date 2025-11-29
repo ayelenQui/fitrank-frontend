@@ -1,6 +1,3 @@
-/* ======================================================
-   PALETA FITRANK
-====================================================== */
 :root {
   --fit-violet: #7d3bea;
   --fit-violet-soft: #f3ecff;
@@ -17,17 +14,10 @@
   font-size: 50px;
 }
 
-
-/* ======================================================
-   CONTENEDOR
-====================================================== */
 .noti-wrapper {
   padding: 20px;
 }
 
-/* ======================================================
-   HEADER MODERNO
-====================================================== */
 .noti-header .titulo {
   font-size: 26px;
   font-weight: 700;
@@ -56,7 +46,6 @@
     color: var(--fit-violet);
   }
 
-/* CONTENEDOR */
 .fr-switch {
   display: flex;
   background: rgba(255,255,255,0.08);
@@ -68,7 +57,6 @@
   gap: 6px;
 }
 
-/* BOTÓN */
 .fr-switch-option {
   padding: 10px 18px;
   border: none;
@@ -89,7 +77,6 @@
     color: #fff;
   }
 
-  /* ACTIVO (FitRank Violet) */
   .fr-switch-option.active {
     background: linear-gradient(135deg, #7B3FE4, #9A63FF);
     color: #fff !important;
@@ -98,9 +85,6 @@
   }
 
 
-/* ======================================================
-   PANEL CARD GENERAL
-====================================================== */
 .panel-card {
   background: white;
   padding: 20px;
@@ -114,9 +98,6 @@
   color: var(--fit-light);
 }
 
-/* ======================================================
-   HISTORIAL
-====================================================== */
 .historial-scroll {
   max-height: 260px;
   overflow-y: auto;
@@ -154,9 +135,6 @@
   margin: 0;
 }
 
-/* ======================================================
-   LISTA DE USUARIOS (PROFESORES / SOCIOS)
-====================================================== */
 .section-title {
   font-size: 18px;
   font-weight: bold;
@@ -179,9 +157,6 @@
   margin-bottom: 10px;
 }
 
-/* ======================================================
-   TARJETA DE USUARIO (super moderna)
-====================================================== */
 .usuario-card {
   display: flex;
   align-items: center;
@@ -248,9 +223,6 @@
     box-shadow: var(--fitrank-violet);
   }
 
-/* ======================================================
-   FORMULARIO
-====================================================== */
 .form-label {
   font-weight: 600;
   color: var(--fit-black);
@@ -266,9 +238,6 @@
     box-shadow: 0 0 0 4px rgba(125,59,234,0.20);
   }
 
-/* ======================================================
-   BOTÓN PRINCIPAL
-====================================================== */
 .btn-fitrank {
   background: var(--fit-violet);
   border-radius: 14px;
@@ -282,9 +251,6 @@
     background: #692ad8;
   }
 
-/* ======================================================
-   BOTÓN SECUNDARIO (Masiva / Individual)
-====================================================== */
 .btn-warning {
   border-radius: 14px;
   padding: 10px;

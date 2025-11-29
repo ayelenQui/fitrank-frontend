@@ -21,7 +21,7 @@ export class PagoExitosoComponent implements OnInit {
     const user = this.authService.obtenerUser();
 
     if (user) {
-      this.redirigiendo = true; // Mostrar mensaje en pantalla
+      this.redirigiendo = true;
 
       const rol = user.rol?.toLowerCase();
 
@@ -40,7 +40,7 @@ export class PagoExitosoComponent implements OnInit {
           this.router.navigate(['/homeSocio']);
           return;
         }
-      }, 2000); // 2 segundos
+      }, 2000);
     }
   }
 

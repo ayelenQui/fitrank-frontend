@@ -8,7 +8,6 @@
     </div>
   </div>
 
-  <!-- Tabs -->
   <ul class="nav nav-tabs mb-4">
     <li class="nav-item">
       <button class="nav-link" [class.active]="activeTab === 'info'" (click)="setActive('info')">
@@ -27,9 +26,8 @@
     </li>
   </ul>
 
-  <!-- Contenido de pestañas -->
   <div [ngSwitch]="activeTab">
-    <!-- Info -->
+
     <div *ngSwitchCase="'info'">
       <div class="row g-4">
         <div class="col-md-4">
@@ -64,9 +62,6 @@
       </div>
     </div>
 
-    
-
-    <!-- Actividad -->
     <div *ngSwitchCase="'actividad'">
       <div class="card mt-3">
         <div class="card-body">

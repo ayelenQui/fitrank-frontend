@@ -1,19 +1,14 @@
 <div class="container-fluid dashboard-container">
   <div class="row">
 
-    <!-- ==========================================================
-         COLUMNA IZQUIERDA
-    =========================================================== -->
-    <div class="col-md-8">
+     <div class="col-md-8">
 
-      <!-- HEADER -->
       <div class="dashboard-header d-flex justify-content-between align-items-center mb-3">
         <div>
           <h2 class="text-titulo  fw-bold mb-4">PANEL GENERAL</h2>
           <p class="dashboard-sub text-black">Resumen del gimnasio</p>
         </div>
 
-        <!-- HEADER -->
         <div class="gestion-header">
           <div>
             <h2 class="titulo">Máquinas y ejercicios</h2>
@@ -35,12 +30,8 @@
         </div>
       </div>
 
-      <!-- ===============================
-       KPIs
-  =============================== -->
       <div class="row g-3 mb-4">
 
-        <!-- SOCIOS TOTALES + CRECIMIENTO -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Socios totales</div>
@@ -61,7 +52,6 @@
           </div>
         </div>
 
-        <!-- SOCIOS HOY -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Socios hoy</div>
@@ -69,7 +59,6 @@
           </div>
         </div>
 
-        <!-- PRÓXIMOS A VENCER -->
         <div class="col-md-3 col-6">
           <div class="kpi-box">
             <div class="kpi-label text-black">Próximos a vencer</div>
@@ -77,7 +66,6 @@
           </div>
         </div>
 
-        <!-- RIESGO ALTO -->
         <div class="col-md-3 col-6">
           <div class="kpi-box kpi-box-riesgo">
             <div class="kpi-label text-black">Riesgo alto</div>
@@ -86,28 +74,6 @@
         </div>
 
       </div>
-
-      <!-- ==========================
-       MINI-GRÁFICOS CON SWITCH
-  =========================== -->
-      <!-- SWITCH DE RUTINAS FAVORITAS DEL GIMNASIO -->
-      <!-- <div class="switch-group mb-3 mt-4">
-        <button class="switch-btn btn-secondary active">
-          Rutinas favoritas del gimnasio
-        </button>
-      </div>
-
-      <div *ngIf="rutinasFavoritasGimnasio.length === 0" class="no-data">
-        Aún no hay rutinas favoritas marcadas por los socios.
-      </div>
-
-      <div *ngFor="let r of rutinasFavoritasGimnasio" class="rutina-card">
-        <h4>{{ r.nombre }}</h4>
-        <p>{{ r.descripcion }}</p>
-        <small class="favoritos"> Elegida por {{ r.cantidadFavoritos }} socios</small>
-      </div> -->
-
-
     
       <div class="panel-box mb-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -204,7 +170,6 @@
         </div>
       </div>
 
-      <!-- ACTIVIDAD EN TIEMPO REAL (MAPA + LISTA) -->
       <div class="panel-box activity-panel mb-0 text-black">
 
         <div class="activity-header d-flex justify-content-between align-items-center">
@@ -220,14 +185,12 @@
 
         <div class="activity-content">
 
-          <!-- MAPA -->
           <div class="activity-map">
             <div class="activity-map-header">
               <span class="map-label">Personas dentro</span>
               <span class="map-count">{{ personasDentro }}</span>
             </div>
 
-            <!-- PINS -->
             <div *ngFor="let p of pins"
                  class="activity-pin-real"
                  [style.top.%]="p.top"
@@ -242,7 +205,6 @@
             </div>
           </div>
 
-          <!-- LISTA -->
           <div class="activity-list text-black">
             <div class="ocupacion-item"
                  *ngFor="let o of ocupacion | slice:0:6">
@@ -264,7 +226,7 @@
         </div>
       </div>
 
-    </div> <!-- FIN SIDEBAR DERECHO -->
+    </div>
 
-  </div> <!-- FIN ROW -->
-</div> <!-- FIN CONTAINER -->
+  </div>
+</div>

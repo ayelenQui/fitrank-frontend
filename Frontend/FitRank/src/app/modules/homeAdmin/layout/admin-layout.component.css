@@ -9,7 +9,7 @@
   background: white;
   color: #fff;
 }
-/* Botón logout */
+
 .btn-logout {
   background: #7b3fe4;
   border: none;
@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: auto; /* 🟣 SIEMPRE empuja a la derecha */
+  margin-left: auto;
 }
 
   .btn-logout:hover {
@@ -90,7 +90,6 @@
   animation: pulseLogo 1.8s infinite ease-in-out;
 }
 
-/* Animación muy suave del logo */
 @keyframes pulseLogo {
   0% {
     transform: scale(1);
@@ -160,20 +159,17 @@
   .toggle-dark:hover {
     background: rgba(0,0,0,0.25);
   }
-/* ===========================================================
-   📱 RESPONSIVE — CELULARES Y TABLETS (max 992px)
-   =========================================================== */
+
 @media (max-width: 992px) {
 
   .layout-wrapper {
     display: block !important;
   }
 
-  /* Sidebar pasa a ocultarse automaticamente */
   .layout-sidebar {
     position: fixed;
     width: 220px;
-    left: -220px; /* Oculta fuera de pantalla */
+    left: -220px;
     top: 0;
     height: 100vh;
     transition: left 0.3s ease;
@@ -181,12 +177,10 @@
     background: var(--color-principal, #000);
   }
 
-    /* Sidebar visible cuando tenga clase .open */
     .layout-sidebar.open {
       left: 0;
     }
 
-  /* HEADER siempre visible arriba */
   .layout-header {
     width: 100%;
     padding: 1rem;
@@ -199,7 +193,6 @@
     border-bottom: 1px solid #ddd;
   }
 
-  /* Empujar contenido hacia abajo por el header fijo */
   .layout-main {
     margin-left: 0 !important;
     padding-top: 80px;

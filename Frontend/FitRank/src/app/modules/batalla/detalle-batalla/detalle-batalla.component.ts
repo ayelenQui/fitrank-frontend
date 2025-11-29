@@ -181,7 +181,7 @@ intentarGraficar() {
             labels: ['Puntos A', 'Puntos B'],
             datasets: [{
                 data: [this.batalla.puntosGuardadosA, this.batalla.puntosGuardadosB],
-                backgroundColor: ['#e0d682', '#9b59b6'], // violetas
+                backgroundColor: ['#e0d682', '#9b59b6'],
                         borderWidth: 2,
                         borderRadius: 15
             }]

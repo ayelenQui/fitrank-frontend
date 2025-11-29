@@ -40,7 +40,7 @@ export class ResumenComponent implements OnInit, AfterViewInit
     sociosActivosHoy: number;
     cuotasPorVencer: number;
     sociosRiesgoAlto: number;
-    porcentajeCrecimiento?: number; // <-- le agregas esto
+    porcentajeCrecimiento?: number;
   } = {
       totalSocios: 0,
       sociosActivosHoy: 0,
@@ -68,7 +68,6 @@ export class ResumenComponent implements OnInit, AfterViewInit
 
   solicitudesPendientes: Solicitud[] = [];
 
-  // ---------- CALENDARIO ----------
   diasSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
   diasCalendario: any[] = [];
   mesActual: number = new Date().getMonth();
@@ -94,7 +93,6 @@ export class ResumenComponent implements OnInit, AfterViewInit
         if (socioId) {
           this.verDetalle(socioId);
 
-          // opcional scroll
           setTimeout(() => {
             const el = document.getElementById('socio-' + socioId);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });

@@ -4,7 +4,7 @@ import {
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
-import express, { Request, Response, NextFunction } from 'express';  // ← Agregado: Tipos de Express
+import express, { Request, Response, NextFunction } from 'express';
 import { join } from 'node:path';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();

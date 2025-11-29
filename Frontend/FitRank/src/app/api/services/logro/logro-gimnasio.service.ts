@@ -29,12 +29,11 @@ export interface LogroAdminView {
 })
 export class LogrosGimnasioService {
 
-  private baseUrl = `${environment.apiUrl}/gimnasios`; // api/LogroGimnasio
+  private baseUrl = `${environment.apiUrl}/gimnasios`;
 
   constructor(private http: HttpClient) {}
 
   obtenerPorGimnasio(gimnasioId: number): Observable<LogroGimnasio[]> {
-    // GET api/LogroGimnasio?gimnasioId=1
     return this.http.get<LogroGimnasio[]>(`${this.baseUrl}/${gimnasioId}/logrosgimnasio`);
   }
 
@@ -43,13 +42,12 @@ export class LogrosGimnasioService {
     logroId: number,
     estaActivo: boolean
   ): Observable<LogroGimnasio> {
-    // PUT api/LogroGimnasio/{logroId}?gimnasioId=1
     return this.http.put<LogroGimnasio>(
       `${this.baseUrl}/${gimnasioId}/logrosgimnasio/${logroId}`,
       {
         gimnasioId,
         logroId,
-        estaActivo // mapea con ActualizarLogroGimnasioDTO.EstaActivo
+        estaActivo
       }
     );
   }

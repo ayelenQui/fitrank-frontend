@@ -1,6 +1,5 @@
 <div class="rutina-layout" [class.expandido]="mostrarSesiones">
 
-  <!-- 🟣 HERO -->
   <section class="fit-hero">
     <div class="fit-hero__grid">
       <div class="fit-hero__media">
@@ -33,10 +32,8 @@
     </div>
   </section>
 
-  <!-- 🟣 CONTENIDO PRINCIPAL -->
   <div class="contenido" *ngIf="mostrarSesiones">
   <div class="main-panel">
-    <!-- TABS -->
     <div class="dias-tabs mb-4">
       <button *ngFor="let sesion of sesiones.controls; let i = index"
               (click)="seleccionarSesion(i)"
@@ -46,18 +43,15 @@
       </button>
     </div>
 
-    <!-- CONTENIDO DE LOS DÍAS -->
     <div class="dia-content">
       <form [formGroup]="form" (ngSubmit)="guardarSesionActual()">
         <div formArrayName="sesiones">
 
-          <!-- recorremos TODAS las sesiones, pero solo mostramos la activa -->
           <ng-container *ngFor="let sesion of sesiones.controls; let i = index">
             <div *ngIf="sesionActiva === i"
                  [formGroupName]="i"
                  class="bloques-container btn-secondary">
 
-              <!-- NOMBRE DE LA SESIÓN -->
               <div class="mb-3">
                 <label for="nombreSesion">Nombre de la sesión</label>
                 <input type="text"
@@ -66,7 +60,6 @@
                        formControlName="nombre" />
               </div>
 
-              <!-- LISTA DE EJERCICIOS -->
               <div formArrayName="ejercicios" class="ejercicios-dropzone">
 
                 <div *ngIf="getEjercicios(i).length === 0"
@@ -83,7 +76,7 @@
 
                   <div class="bloque-header">
                     <div class="d-flex align-items-center gap-2">
-                      <!-- MINI VIDEO YOUTUBE -->
+
                       <ng-container *ngIf="esYoutube(ejercicio.get('urlImagen')?.value); else imagenNormal">
                         <div class="video-mini">
                           <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(
@@ -95,7 +88,6 @@
                         </div>
                       </ng-container>
 
-                      <!-- SI ES IMAGEN NORMAL -->
                       <ng-template #imagenNormal>
                         <img [src]="ejercicio.get('urlImagen')?.value"
                              class="bloque-img"
@@ -118,7 +110,6 @@
                     </button>
                   </div>
 
-                  <!-- SERIES -->
                   <div class="bloque-body" formArrayName="series">
                     <div *ngFor="let serie of getSeries(i, j).controls; let k = index; trackBy: trackByIndex"
                          [formGroupName]="k"
@@ -149,18 +140,8 @@
                     </button>
                   </div>
 
-                </div> <!-- fin ejercicio -->
-              </div> <!-- fin formArrayName ejercicios -->
-
-              <!--<div class="text-end mt-4">
-                <button type="submit" class="btn-outline-primary">
-                  Guardar Día {{ i + 1 }}
-                </button>
-                <div class="text-end mt-3 fw-bold text-secondary">
-                  Duración total del día:
-                  <span class="text-dark">{{ getDuracionTotalSesion(i) }} min</span>
-                </div>
-              </div>-->
+                </div> 
+              </div> 
             </div>
           </ng-container>
 
@@ -168,7 +149,6 @@
       </form>
     </div>
 
-    <!-- TOTAL RUTINA -->
     <div class="text-center mt-4">
       <h5 class="fw-bold text-dark">
         Duración total estimada de la rutina:
@@ -176,7 +156,6 @@
       </h5>
     </div>
 
-    <!-- GUARDAR RUTINA -->
     <div class="text-center mt-5">
       <button type="button" class="btn-guardar-floating" (click)="guardarTodo()">
         Guardar Rutina
@@ -184,27 +163,22 @@
     </div>
   </div>
 
-    <!-- 🟣 SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-content">
         <h5 class="fw-bold mb-3 text-white">Haz click para agregar tus ejercicios</h5>
 
-        <!-- Input de búsqueda -->
         <input type="text"
                class="form-control mb-3"
                placeholder="Buscar Ejercicios..."
                [(ngModel)]="filtro"
                (input)="filtrarEjercicios()" />
 
-        <!-- Botones de grupos musculares -->
         <div class="grupo-muscular-list mb-3">
-          <!-- Botón "Todos" -->
           <button class="btn btn-outline-primary btn-sm me-2 mb-2"
                   (click)="recargarEjercicios()">
             Todos
           </button>
 
-          <!-- Botones de cada grupo muscular -->
           <button *ngFor="let g of gruposMusculares"
                   class="btn btn-outline-secondary btn-sm me-2 mb-2"
                   [class.active]="grupoSeleccionadoId === g.id"
@@ -214,19 +188,16 @@
         </div>
 
 
-        <!-- Listado de ejercicios filtrados -->
         <div class="ejercicio-list">
           <div *ngFor="let e of ejerciciosFiltrados"
                class="ejercicio-item"
                (click)="agregarEjercicio(e)">
 
-            <!-- IMAGEN DEL EJERCICIO -->
             <img *ngIf="e.urlImagen"
                  [src]="e.urlImagen"
                  alt="{{ e.nombre }}"
                  class="ej-img-thumb">
 
-            <!-- TEXTO -->
             <div class="ej-texto">
               <h6>{{ e.nombre }}</h6>
               <small>{{ e.nombreGrupoMuscular }}</small>
@@ -238,6 +209,6 @@
       </div>
     </div>
 
-  </div> <!-- cierre de "contenido" -->
+  </div>
 
 

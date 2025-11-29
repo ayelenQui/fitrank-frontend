@@ -8,7 +8,7 @@ import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.comp
 
 @Component({
   selector: 'app-crear-rutina',
-  imports: [CommonModule, HeaderSocioComponent],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './crear-rutina.html',
   styleUrls: ['./crear-rutina.css', '../../css-socio/socio-common.css'],
@@ -31,7 +31,6 @@ export class CrearRutinaComponent implements AfterViewInit {
     { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' }
   );
 
-  // Animación tarjetas
   gsap.fromTo(
     '.card',
     { y: 20, opacity: 0, scale: 0.95 },

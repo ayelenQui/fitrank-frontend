@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
-
-// 🔹 Importás ambos headers y sidebars
 import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.component';
 import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 import { HeaderProfesorComponent } from '@app/public/header-profesor/header-profesor-component';

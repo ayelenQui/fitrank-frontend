@@ -18,14 +18,12 @@ export class NotificacionService {
 
   constructor(private http: HttpClient) { }
 
-  // 🔹 Obtener mis notificaciones (Socio)
   getMisNotificaciones(): Observable<NotificacionesRespuestaDTO> {
     return this.http.get<NotificacionesRespuestaDTO>(
       `${this.apiUrl}/usuario`
     );
   }
 
-  // 🔹 Enviar notificación de retención (Admin → Socio)
   enviarNotificacionRetencion(socioId: number): Observable<{
     exito: boolean;
     mensaje: string;
@@ -41,7 +39,6 @@ export class NotificacionService {
     );
   }
 
-  // 🔹 Marcar como leída
   marcarComoLeida(notificacionId: number): Observable<{
     exito: boolean;
     mensaje: string;
@@ -52,8 +49,7 @@ export class NotificacionService {
     );
   }
 
-  // 🔹 Eliminar
-  eliminarNotificacion(notificacionId: number): Observable<{
+   eliminarNotificacion(notificacionId: number): Observable<{
     exito: boolean;
     mensaje: string;
   }> {

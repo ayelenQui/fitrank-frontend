@@ -17,7 +17,7 @@ import { SocioApiService } from '@app/api/services/socio/socioApiService';
 @Component({
   selector: 'app-mis-rutinas',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeaderSocioComponent, FilterRutinasPipe],
+  imports: [CommonModule, FilterRutinasPipe],
   templateUrl: './mis-rutinas.component.html',
   styleUrls: ['./mis-rutinas.component.css', '../../../css-socio/socio-common.css']
 })
@@ -123,7 +123,6 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // 🔥 IMPORTANTE: ahora usamos getRutinaCompletaPorSocio (como IniciarRutina)
   cargarRutinas(): void {
     this.loading = true;
 
@@ -131,10 +130,8 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       next: (data: RutinaCompletaDTO[]) => {
         this.rutinas = (data || []).map((r: any) => ({
           ...r,
-          // si el backend manda favorita / activa las respetamos, sino default
           esFavorita: r.favorita ?? false,
           activa: r.activa ?? true,
-          // 👇 clave: calculamos si tiene sesiones reales
           tieneSesiones: Array.isArray(r.sesiones) && r.sesiones.length > 0
         }));
 
@@ -157,7 +154,6 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
   }
 
   iniciarRutina(rutina: any): void {
-    // chequeamos en el front con los datos que ya tenemos
     if (!rutina.tieneSesiones) {
       Swal.fire({
         icon: 'warning',
@@ -168,7 +164,6 @@ export class MisRutinasComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    // navegamos igual que en IniciarRutina: pasando el id
     this.router.navigate(['/rutina/iniciar-rutina', rutina.id]);
   }
 

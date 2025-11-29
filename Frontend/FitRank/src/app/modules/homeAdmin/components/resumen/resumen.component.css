@@ -1,6 +1,3 @@
-/* ===========================================
-   LAYOUT GENERAL
-=========================================== */
 .dashboard-container {
   padding: 20px 40px;
 }
@@ -20,15 +17,13 @@
 .sidebar-right {
   margin-top: 10px;
 }
-/* ───────────────────────────────────────────────
-   MINI-CHART BOX — Mantiene tamaño PRO 
-──────────────────────────────────────────────── */
+
 .mini-chart-box {
   background: #fff;
   border-radius: 16px;
   padding: 20px;
   width: 100%;
-  min-height: 260px; /* Altura uniforme */
+  min-height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,14 +31,12 @@
   box-shadow: 0 4px 18px rgba(0,0,0,0.08);
 }
 
-  /* Para que NO se estire en vertical */
   .mini-chart-box canvas {
     max-height: 180px;
     width: 100% !important;
     height: 180px !important;
   }
 
-/* Título del mini gráfico */
 .mini-chart-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 22px;
@@ -52,7 +45,6 @@
   color: #000;
 }
 
-/* Switch group */
 .switch-group {
   display: flex;
   gap: 10px;
@@ -74,28 +66,23 @@
     color: #fff;
   }
 
-/* Ajuste para que cada gráfico no expanda la columna */
 .panel-box .row > div {
   width: 100%;
 }
 
-/* Espaciado perfecto entre mini-graficos */
 .panel-box .g-3 {
   margin-left: 0;
   margin-right: 0;
 }
 
 
-/* ===========================================
-   KPI BOXES
-=========================================== */
 .kpi-box,
 .kpi-box-riesgo {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px); /* efecto vidrio */
+  backdrop-filter: blur(10px); 
   -webkit-backdrop-filter: blur(10px);
 }
 
@@ -122,7 +109,7 @@
   font-weight: 600;
 }
 
-/* CONTENEDOR DE BOTONES */
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -131,11 +118,10 @@
   border-radius: 12px;
   padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px); /* efecto vidrio */
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/*  BOTÓN OUTLINE – estilo FitRank */
 .btn-outline {
   padding: 10px 18px;
   border-radius: 12px;
@@ -157,7 +143,6 @@
     transform: translateY(-1px);
   }
 
-/*  BOTÓN PRIMARY – violeta FitRank */
 .btn-primary {
   padding: 10px 18px;
   border-radius: 12px;
@@ -178,7 +163,6 @@
   }
 
 
-/* Barra progreso KPIs */
 .kpi-progress {
   height: 6px;
   background: #ece4ff;
@@ -192,9 +176,6 @@
   border-radius: 10px;
 }
 
-/* ===========================================
-   PANEL BOXES
-=========================================== */
 .panel-box {
   background: #D8BFD8;
   padding: 20px;
@@ -222,9 +203,6 @@
   color: #000;
 }
 
-/* ===========================================
-   TITULOS DE PANELES
-=========================================== */
 .panel-title {
   font-size: 18px;
   font-weight: 700;
@@ -236,28 +214,23 @@
   color: #777;
 }
 
-/* CONTENEDOR DEL GRÁFICO */
 .mini-chart-box {
   background: #fff;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-  height: 260px; /* 👈 Tamaño controlado */
+  height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-  /* CANVAS PEQUEÑO */
   .mini-chart-box canvas {
-    height: 180px !important; /* 👈 Tamaño real del gráfico */
+    height: 180px !important; 
     width: 100% !important;
   }
 
 
-/* ===========================================
-   LIST ITEMS (Socios riesgo / solicitudes)
-=========================================== */
 .list-item {
   padding: 12px 14px;
   border-radius: 12px;
@@ -277,9 +250,6 @@
   color: #777;
 }
 
-/* ===========================================
-   BADGES
-=========================================== */
 .badge {
   padding: 6px 10px;
   border-radius: 14px;
@@ -296,9 +266,6 @@
   color: #d43f3a;
 }
 
-/* ===========================================
-   BOTÓN LINK
-=========================================== */
 .btn-link {
   color: #7d3bea;
   font-weight: 600;
@@ -307,9 +274,6 @@
   background: transparent;
 }
 
-/* ===========================================
-   CALENDARIO
-=========================================== */
 .small-calendar-box {
   padding: 20px;
 
@@ -354,9 +318,6 @@
     font-weight: 700;
   }
 
-/* ===========================================
-   ACTIVIDAD EN TIEMPO REAL
-=========================================== */
 .activity-panel {
   padding: 0;
   overflow: hidden;
@@ -383,7 +344,6 @@
   padding: 15px;
 }
 
-/* Caja del mapa */
 .activity-map {
   position: relative;
   flex: 1;
@@ -411,7 +371,6 @@
   color: #5B29EC;
 }
 
-/* PINS */
 .activity-pin-real {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -434,7 +393,6 @@
   margin-top: 4px;
 }
 
-/* Lista actividad */
 .activity-list {
   flex: 1;
   max-height: 260px;
@@ -458,7 +416,7 @@
   border-radius: 12px;
   padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px); /* efecto vidrio */
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
@@ -471,14 +429,10 @@
   color: #777;
 }
 
-/* Badge en lista de actividad */
 .activity-badge {
   font-size: 11px;
 }
 
-/* ===========================================
-   RESPONSIVE
-=========================================== */
 @media (max-width: 991px) {
   .dashboard-container {
     padding: 16px;
@@ -493,7 +447,6 @@
     max-height: none;
   }
 }
-/* CONTENEDOR DEL SWITCH */
 .switch-group {
   display: inline-flex;
   background: #f3ecff;
@@ -502,7 +455,6 @@
   gap: 4px;
 }
 
-/* ======== SWITCH TABS (mismo estilo que Máquinas/Ejercicios) ======== */
 .switch-group {
   display: inline-flex;
   background: #f3ecff;
@@ -568,18 +520,13 @@
   color: #666;
   margin-bottom: 12px;
 }
-/* ===========================================
-   RESPONSIVE GENERAL (CELULAR Y TABLET)
-=========================================== */
 
 @media (max-width: 768px) {
 
-  /* Contenedor general más comprimido */
   .dashboard-container {
     padding: 12px;
   }
 
-  /* Títulos más chicos */
   .dashboard-title {
     font-size: 24px;
   }
@@ -588,39 +535,29 @@
     font-size: 13px;
   }
 
-  /* KPI BOX — columnas en una sola columna */
   .kpi-box,
   .kpi-box-riesgo {
     background: rgba(255, 255, 255, 0.06); 
     border-radius: 12px;
     padding: 10px 14px;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px); /* efecto vidrio */
+    backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
   }
 
   .whatsapp-glass {
-    background: rgba(255, 255, 255, 0.06); /* capa translúcida */
+    background: rgba(255, 255, 255, 0.06); 
     border-radius: 12px;
     padding: 10px 14px;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px); /* efecto vidrio */
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
 
-/* .row > div {
-  display: flex;
-}
-  .kpi-box{
-    flex: 1;
-  } */
-
-  /* Paneles ocupan toda la pantalla */
   .panel-box {
     padding: 16px;
   }
 
-  /* Mini chart: altura ajustada para celular */
   .mini-chart-box {
     min-height: 200px;
     padding: 12px;
@@ -630,7 +567,6 @@
       height: 150px !important;
     }
 
-  /* Switch group más compacto */
   .switch-group {
     width: 100%;
     justify-content: center;
@@ -642,7 +578,6 @@
     padding: 6px 14px;
   }
 
-  /* Actividad en tiempo real: se apilan */
   .activity-content {
     flex-direction: column;
   }
@@ -655,12 +590,10 @@
     max-height: 200px;
   }
 
-  /* Lista de actividad */
   .ocupacion-item {
     padding: 10px 4px;
   }
 
-  /* Calendario ordenador vertical */
   .calendar-grid {
     font-size: 11px;
     gap: 4px;
@@ -670,7 +603,6 @@
     padding: 5px 0;
   }
 
-  /* Botones */
   .btn-primary,
   .btn-outline {
     width: 100%;
@@ -678,7 +610,6 @@
     padding: 12px;
   }
 
-  /* Contenedor de botones en paneles */
   .header-actions {
     flex-direction: column;
     width: 100%;
@@ -687,9 +618,6 @@
   }
 }
 
-/* ===========================================
-   EXTRA SMALL (CELULAR MUY CHICO)
-=========================================== */
 @media (max-width: 480px) {
 
   .dashboard-title {
@@ -708,7 +636,6 @@
     font-size: 12px;
   }
 
-  /* Ajustar padding en paneles */
   .panel-box {
     padding: 14px;
   }
@@ -721,9 +648,7 @@
     height: 200px;
   }
 }
-/* ===============================
-    DRAWER LATERAL
-================================*/
+
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -733,9 +658,6 @@
   animation: fadeIn 0.3s;
 }
 
-/* ================================
-   DRAWER — glass, suave, sombra
-================================*/
 .drawer {
   position: fixed;
   top: 0;
@@ -754,7 +676,6 @@
   z-index: 101;
 }
 
-  /* Scroll estético */
   .drawer::-webkit-scrollbar {
     width: 8px;
   }
@@ -764,9 +685,6 @@
     border-radius: 10px;
   }
 
-  /* ================================
-   OVERLAY — suave + blur
-================================*/
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -778,17 +696,16 @@
 
 
 .btn-detalle {
-  background: var(--color-secundario); /* violeta FitRank */
-  color: #fff; /* texto blanco */
+  background: var(--color-secundario);
+  color: #fff;
   border: none;
   padding: 8px 18px;
-  border-radius: 12px; /* borde suave */
-  font-weight: 600;
+  border-radius: 12px; 
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: all 0.25s ease-in-out;
-  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35); /* sombra glow violeta */
+  box-shadow: 0 4px 12px rgba(139, 82, 255, 0.35);
 }
 
 .inasistencia-conteiner{

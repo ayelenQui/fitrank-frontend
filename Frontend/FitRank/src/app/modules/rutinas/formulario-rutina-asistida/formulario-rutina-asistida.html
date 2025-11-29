@@ -4,13 +4,11 @@
 
   <form [formGroup]="solicitudForm" (ngSubmit)="enviar()" class="formulario-fitrank">
 
-    <!-- Mensaje para el profesor -->
     <div class="mb-3">
       <label for="mensajeSocio" class="form-label">Mensaje para tu profesor</label>
       <textarea id="mensajeSocio" class="form-control" formControlName="mensajeSocio" rows="3"></textarea>
     </div>
 
-    <!-- Datos personales -->
     <h5>Datos personales</h5>
     <div class="row mb-3">
       <div class="col-md-6 mb-3">
@@ -31,7 +29,6 @@
       </div>
     </div>
 
-    <!-- Nivel y objetivo -->
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="nivel" class="form-label">Nivel</label>
@@ -54,7 +51,6 @@
           <option value="Resistencia">Resistencia</option>
         </select>
 
-        <!-- Texto dinámico -->
         <div *ngIf="textoObjetivo2" class="info-tooltip-box mt-2">
           {{ textoObjetivo2 }}
         </div>
@@ -62,10 +58,8 @@
 
     </div>
 
-    <!-- Sesiones y tiempo -->
     <div class="row mb-3">
 
-      <!-- Sesiones por semana -->
       <div class="col-md-6 mb-2">
         <label for="sesionesPorSemana" class="form-label">
           Sesiones por semana
@@ -89,7 +83,6 @@
         </div>
       </div>
 
-      <!-- Minutos por sesión -->
       <div class="col-md-6 mb-2">
         <label for="minutosPorSesion" class="form-label">
           Minutos por sesión
@@ -114,10 +107,8 @@
       </div>
     </div>
 
-    <!-- Alimentación y sueño -->
     <div class="row mb-3">
 
-      <!-- Calidad alimentación -->
       <div class="col-md-6 mb-2">
         <label for="calidadAlimentacion" class="form-label">
           Calidad de alimentación (1-5)
@@ -144,7 +135,6 @@
         </div>
       </div>
 
-      <!-- Horas sueño -->
       <div class="col-md-6 mb-2">
         <label for="horasSuenio" class="form-label">
           Horas de sueño
@@ -168,11 +158,7 @@
         </div>
       </div>
     </div>
-
-
     <hr>
-
-    <!-- Screening de salud -->
     <h5>Evaluación de salud</h5>
     <div class="row mb-3">
       <div class="col-md-3" *ngFor="let check of screeningChecks">

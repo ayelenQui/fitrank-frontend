@@ -42,13 +42,12 @@ export class SociosComponent implements OnInit {
   ngOnInit(): void {
     this.socioService.getTodosLosSocios().subscribe(data => {
       this.socios = data;
-      this.sociosFiltrados = data; // lista inicial
-      this.route.queryParams.subscribe(params => {
+      this.sociosFiltrados = data;
+        this.route.queryParams.subscribe(params => {
         const socioId = Number(params['socioId']);
         if (socioId) {
           this.verDetalle(socioId);
 
-          // opcional scroll
           setTimeout(() => {
             const el = document.getElementById('socio-' + socioId);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -83,7 +82,7 @@ export class SociosComponent implements OnInit {
   filtrarProximosVencimientos() {
     const hoy = new Date();
     const limite = new Date();
-    limite.setDate(hoy.getDate() + 7); // 7 dias adelante
+    limite.setDate(hoy.getDate() + 7);
 
     this.sociosFiltrados = this.socios.filter(s => {
       if (!s.cuotaPagadaHasta) return false;

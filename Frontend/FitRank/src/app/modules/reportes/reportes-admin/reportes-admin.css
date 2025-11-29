@@ -1,4 +1,3 @@
-/* Contenedor principal (Sin cambios) */
 .reportes-container {
  background: #1c1c1c;
  max-width: 950px;
@@ -7,7 +6,6 @@
  border-radius: 16px;
 }
 
-/* Títulos (Sin cambios) */
 .reportes-container h2 {
  font-family: "Poppins", sans-serif;
  font-weight: 800;
@@ -27,14 +25,12 @@
  border-radius: 3px;
 }
 
-/* Lista de reportes (Sin cambios) */
 .reportes-list {
  list-style: none;
  padding: 0;
  margin: 0;
 }
 
-/* 🚀 CAMBIOS CLAVE EN LI */
 .reportes-list li {
  background: rgba(255, 255, 255, 0.08);
  border: 1px solid rgba(255, 255, 255, 0.15);
@@ -45,14 +41,13 @@
  font-family: "Poppins", sans-serif;
  transition: all 0.3s ease;
   
-  /* Habilitamos Flexbox para alineación horizontal */
  display: flex;
- flex-direction: row; /* Coloca elementos uno al lado del otro */
- flex-wrap: wrap; /* Permite que la descripción baje a una nueva línea */
- justify-content: space-between; /* Manda el .reporte-main-info a la izquierda y el botón a la derecha */
- align-items: center; /* Alinea verticalmente el texto principal y el botón */
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ align-items: center;
  gap: 0.3rem;
-  cursor: pointer; /* Agregado para el click del desplegable */
+  cursor: pointer; 
 }
 
 .reportes-list li:hover {
@@ -60,44 +55,38 @@
  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* 🆕 Contenedor principal de la información */
 .reporte-main-info {
-    flex-grow: 1; /* Permite que tome el espacio disponible */
-    /* Usamos Flexbox verticalmente dentro para apilar Titulo sobre el resto */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* ⚙️ Ajuste para strong (título) */
 .reportes-list strong {
- display: block; /* Mantiene el título como un bloque */
- font-size: 1.1rem;
+ display: block;
+  font-size: 1.1rem;
  margin-bottom: 0.3rem;
 }
 
-/* ⚙️ Ajuste para small (estado y fecha) */
 .reportes-list small {
- display: inline; /* Hacemos que se muestren en la misma línea */
+ display: inline; 
  font-size: 0.85rem;
  color: rgba(255, 255, 255, 0.7);
-  /* Agregamos espacio entre las etiquetas small (estado y fecha) */
   margin-right: 15px; 
 }
 
 .reportes-list li small.estado-en-proceso {
- color: #ffb347 !important; /* naranja/dorado */
+ color: #ffb347 !important;
  font-weight: 600;
 }
 
 .reportes-list li small.estado-resuelto {
- color: #4caf50 !important; /* verde */
+ color: #4caf50 !important;
  font-weight: 600;
 }
 
-/* Botón de acción para el admin */
+
 .reportes-list li button {
- /* ELIMINAMOS align-self: flex-start; y margin-top: 0.5rem; */
-  flex-shrink: 0; /* Asegura que el botón no se encoja cuando hay mucho texto */
+  flex-shrink: 0; 
  background: #7b3fe4;
  color: #fff;
  border: none;
@@ -112,7 +101,6 @@ font-weight: 600;
  transform: translateY(-2px);
 }
 
-/* Separador (Sin cambios) */
 .reportes-container hr {
  border: 0;
  height: 1px;
@@ -120,7 +108,6 @@ font-weight: 600;
  margin: 2rem 0;
 }
 
-/* Contenedor de botones de filtro (Sin cambios, asegurando que .btn-resolver sea la clase usada) */
 .filtros {
  display: flex;
  justify-content: center;
@@ -151,9 +138,8 @@ font-weight: 600;
  transform: translateY(-3px);
 }
 
-/* Estilos para el desplegable de la descripción */
 .reporte-descripcion {
- width: 100%; /* Ocupa todo el ancho de la lista, forzando una nueva línea en Flexbox */
+ width: 100%;
  margin-top: 10px;
  padding: 10px;
  background-color: rgba(0, 0, 0, 0.2); 

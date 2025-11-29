@@ -11,11 +11,9 @@ import { environment } from 'src/environments/environment';
 export class SerieAsignadaService {
   private apiUrl = `${environment.apiUrl}/SerieAsignada`;
   constructor(private http: HttpClient) { }
-  // 🔹 Crear una nueva serie
   crearSerie(serie: SerieAsignadaCreateDTO): Observable<any> {
     return this.http.post(this.apiUrl, serie);
   }
-  // 🔹 Traer series de un ejercicio asignado
   listarSeriesPorEjercicioAsignado(id: number): Observable<SerieAsignadaCreateDTO[]> {
     return this.http.get<SerieAsignadaCreateDTO[]>(`${this.apiUrl}/por-ejercicio/${id}`);
   }

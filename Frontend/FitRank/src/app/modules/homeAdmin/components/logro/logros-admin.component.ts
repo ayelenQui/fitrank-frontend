@@ -26,7 +26,6 @@ export class LogrosAdminComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // si ya tenés esto en el token:
     const gymId = this.authService.obtenerGimnasioId?.();
 
     if (gymId == null) {
@@ -86,7 +85,6 @@ export class LogrosAdminComponent implements OnInit {
       nuevoEstado
     ).subscribe({
       next: (actualizado) => {
-        // si el back devuelve el dto actualizado
         logro.estaHabilitado = actualizado.estaHabilitado;
       },
       error: (err) => {

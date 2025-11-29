@@ -131,8 +131,6 @@ isAdmin(): boolean {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
 
-      // Antes buscabas gimnasioId → NO existe
-      // Ahora buscamos "groupsid" → SÍ existe
       return payload["groupsid"] ? Number(payload["groupsid"]) : null;
 
     } catch {

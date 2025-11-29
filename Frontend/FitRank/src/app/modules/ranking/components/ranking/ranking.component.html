@@ -1,7 +1,3 @@
-<!-- Agregar el header component -->
-<!-- <app-sidebar-socio></app-sidebar-socio>
-<app-header-socio></app-header-socio> -->
-<!-- Agregar el SidebarSocioComponent -->
 
 <div class="ranking-container" *ngIf="!cargando; else loading">
   <h2 class="titulo">
@@ -9,9 +5,7 @@
   </h2>
   
 <div class="filtros">
-  <!-- FILTROS PRINCIPALES -->
   <div class="filtros-superior">
-    <!-- Cantidad y Grupo muscular -->
     <div class="filtros-grupo">
       <div class="sub-filtro">  
         <label for="cantidad">Cantidad:</label>
@@ -27,7 +21,6 @@
       </div>
     </div>
 
-    <!-- Filtro por fechas -->
     <div class="filtros-fecha">
       <div class="sub-filtro">
         <label for="desde">Desde:</label>
@@ -40,7 +33,6 @@
     </div>
   </div>
 
-  <!-- Botones -->
   <div class="filtros-botones">
      <button class="btn-fitrank btn-secondary" (click)="filtrar()">Filtrar</button>
     <button class="btn-reset btn-secondary" (click)="resetFiltros()">Resetear Filtros</button>

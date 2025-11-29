@@ -1,7 +1,3 @@
-/* ==============================
-   🌟 FITRANK DASHBOARD (Socio / Profesor)
-   ============================== */
-
 .fit-dashboard-wrapper {
   display: flex;
   flex-direction: column;
@@ -10,7 +6,6 @@
   overflow-x: hidden;
 }
 
-/* Header fijo */
 app-header-socio,
 app-header-profesor {
   position: fixed;
@@ -23,7 +18,6 @@ app-header-profesor {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Layout general */
 .fit-dashboard-body {
   display: flex;
   flex: 1;
@@ -31,7 +25,6 @@ app-header-profesor {
   position: relative;
 }
 
-/* Sidebar */
 app-sidebar-socio,
 app-sidebar-profesor {
   position: fixed;
@@ -45,7 +38,6 @@ app-sidebar-profesor {
   transition: transform 0.3s ease-in-out;
 }
 
-/* Contenido */
 .fit-dashboard-main {
   flex: 1;
   margin-left: 250px;
@@ -54,7 +46,6 @@ app-sidebar-profesor {
   background: #fff;
 }
 
-/* Footer “detrás” del sidebar */
 app-footer {
   background: black;
   color: #fff;
@@ -67,7 +58,6 @@ app-footer {
   z-index: 3000;
 }
 
-  /* El truco: pseudo-elemento para tapar el espacio debajo del sidebar */
   app-footer::before {
     content: '';
     position: absolute;
@@ -75,11 +65,10 @@ app-footer {
     left: 0;
     width: 250px;
     height: 100%;
-    background: black; /* mismo color del sidebar */
+    background: black;
     z-index: -1;
   }
 
-/* Responsive */
 @media (max-width: 991px) {
   app-sidebar-socio,
   app-sidebar-profesor {
@@ -98,6 +87,6 @@ app-footer {
   }
 
   app-footer::before {
-    width: 0; /* el footer ocupa todo en móvil */
+    width: 0;
   }
 }

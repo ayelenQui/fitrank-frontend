@@ -16,9 +16,6 @@ export class EjercicioAsignadoService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * 🔹 Obtener todos los ejercicios asignados
-   */
   getEjerciciosAsignados(): Observable<EjercicioAsignadoDTO[]> {
     return this.http.get<EjercicioAsignadoDTO[]>(this.apiUrl);
   }

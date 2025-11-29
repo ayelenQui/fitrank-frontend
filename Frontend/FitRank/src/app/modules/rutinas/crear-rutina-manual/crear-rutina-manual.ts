@@ -12,7 +12,7 @@ import { HeaderSocioComponent } from '@app/public/header-socio/header-socio.comp
 @Component({
   selector: 'app-crear-rutina-manual',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderSocioComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './crear-rutina-manual.html',
   styleUrls: ['./crear-rutina-manual.css', '../../css-socio/socio-common.css']
 })
@@ -48,7 +48,6 @@ volverA?: string;
       usuarioId: [null, Validators.required]
     });
 
-      // Siempre seteamos el usuarioId al usuario logueado
       if (user) {
         this.rutinaForm.patchValue({
         usuarioId: user.id
@@ -83,7 +82,6 @@ volverA?: string;
     setTimeout(() => {
       const tl = gsap.timeline();
 
-      // Animación título
       tl.from('.titulo-form', {
         opacity: 0,
         y: -30,
@@ -91,7 +89,6 @@ volverA?: string;
         ease: 'power2.out'
       });
 
-      // Animación contenedor del formulario
       tl.from('.form-container', {
         opacity: 0,
         y: 40,

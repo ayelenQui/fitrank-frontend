@@ -1,13 +1,11 @@
 <div class="container-fluid py-4">
 
-  <!--  Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-titulo fw-bold  d-flex align-items-center gap-2">
       Gestión de Socios
     </h2>
 
   </div>
-  <!-- FILTROS (estilo pill moderno) -->
   <div class="filtros-switch mb-3">
 
     <button class="filtro-pill btn-secondary "
@@ -35,7 +33,6 @@
     </button>
 
   </div>
-  <!-- BUSCADOR -->
   <div class="input-group mb-3">
     <span class="input-group-text"><i class="bi bi-search"></i></span>
     <input type="text"
@@ -51,12 +48,8 @@
   </div>
 
 
-  <!-- ================================
-       LISTADO DE SOCIOS
-  ================================ -->
   <div class="panel-fitrank">
 
-    <!-- HEADER NEGRO -->
     <div class="panel-header-fitrank">
       <div>
         <h3 class="panel-title-fitrank">Socios</h3>
@@ -66,10 +59,8 @@
       <span class="panel-pill-fitrank">● Activos</span>
     </div>
 
-    <!-- CUERPO -->
     <div class="panel-body-fitrank">
 
-      <!-- TABLA -->
       <div class="table-wrapper-fitrank">
         <table class="table table-hover align-middle">
           <thead>
@@ -87,7 +78,6 @@
 
             <tr *ngFor="let socio of sociosFiltrados">
 
-              <!-- FOTO -->
               <td>
                 <img [src]="socio.fotoUrl || 'assets/default-user.png'"
                      class="rounded-circle shadow-sm"
@@ -95,12 +85,10 @@
                      style="object-fit: cover;">
               </td>
 
-              <!-- NOMBRE -->
               <td class="fw-semibold">
                 {{ socio.nombre }} {{ socio.apellido }}
               </td>
 
-              <!-- NIVEL -->
               <td>
                 <span class="text-black">
                   <i class="bi bi-star-fill"></i>
@@ -108,7 +96,6 @@
                 </span>
               </td>
 
-              <!-- ESTADO CUOTA -->
               <td>
                 <span class="badge px-3 py-2 d-flex align-items-center gap-1"
                       [ngClass]="{
@@ -129,7 +116,6 @@
 
              
 
-              <!-- ACCIONES -->
               <td>
                 <button class="btn-detalle d-flex align-items-center gap-1 btn-secondary" 
                         (click)="verDetalle(socio.id)">
@@ -151,7 +137,6 @@
 
 
 
-  <!--  DRAWER DETALLE DEL SOCIO -->
   <div *ngIf="socioSeleccionado" class="drawer-overlay " (click)="cerrarDrawer()"></div>
 
   <div class="drawer shadow-lg bg-black text-white" *ngIf="socioSeleccionado">
@@ -172,15 +157,13 @@
 
     <div class="drawer-content text-white">
 
-      <!-- FOTO -->
-      <div class="text-center mb-3">
+       <div class="text-center mb-3">
         <img [src]="socioSeleccionado?.fotoUrl || 'assets/default-user.png'"
              width="120" height="120"
              class="rounded-circle border shadow-sm"
              style="object-fit: cover;">
       </div>
 
-      <!-- DATOS -->
       <p> <strong>DNI:</strong> {{ socioSeleccionado?.dni }}</p>
       <p> <strong>Sexo:</strong> {{ socioSeleccionado?.sexo }}</p>
       <p>  <strong>Usuario:</strong> {{ socioSeleccionado?.nombreUsuario }}</p>

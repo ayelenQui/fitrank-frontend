@@ -10,17 +10,14 @@ export class SerieRealizadaService {
 
   constructor(private http: HttpClient) { }
 
-  // 🔹 Crear una serie realizada
   crear(payload: CrearSerieRealizadaDTO): Observable<SerieRealizadaDTO> {
     return this.http.post<SerieRealizadaDTO>(this.apiUrl, payload);
   }
 
-  // 🔹 Obtener todas
   getAll(): Observable<SerieRealizadaDTO[]> {
     return this.http.get<SerieRealizadaDTO[]>(this.apiUrl);
   }
 
-  // 🔹 Obtener por ejercicio realizado
   getByEjercicioRealizado(id: number): Observable<SerieRealizadaDTO[]> {
     return this.http.get<SerieRealizadaDTO[]>(`${this.apiUrl}/ejercicio/${id}`);
   }

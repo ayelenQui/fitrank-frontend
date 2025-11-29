@@ -18,7 +18,6 @@ export class GraficoProgreso implements AfterViewInit{
   ngAfterViewInit(): void {
     if (!this.progreso?.length) return;
 
-    // Mapear fechas y pesos
     const labels = this.progreso.map(p => new Date(p.fecha).toLocaleDateString());
     const data = this.progreso.map(p => p.peso ?? 0);
 
@@ -41,7 +40,7 @@ export class GraficoProgreso implements AfterViewInit{
           legend: {
             display: false,
             labels: {
-              color: '#fff' // color de la leyenda si la activas
+              color: '#fff'
             }
           },
           tooltip: {
@@ -53,14 +52,14 @@ export class GraficoProgreso implements AfterViewInit{
         scales: {
           x: {
             ticks: {
-              color: '#fff', // color texto eje X
+              color: '#fff',
               font: { size: 14 }
             },
           },
           y: {
             beginAtZero: true,
             ticks: {
-              color: '#fff', // color texto eje Y
+              color: '#fff',
               font: { size: 14 }
             },
           }
