@@ -1,20 +1,17 @@
-/* Fondo general */
 .invitacion-background {
   background: #111;
   min-height: 100vh;
   padding: 30px 12px;
 }
 
-/* CONTENEDOR PRINCIPAL */
 .generar-invitacion {
   max-width: 900px;
-  background: #000; /* 🔥 FORMULARIO NEGRO */
+  background: #000;
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
   color: #f5f5f5;
 }
 
-/* TITULOS */
 .titulo, .seccion-titulo {
   font-family: 'Bebas Neue', sans-serif;
   letter-spacing: 1px;
@@ -23,12 +20,11 @@
 
 .seccion-titulo {
   font-size: 26px;
-  border-left: 5px solid #8B52FF; /* 💜 VIOLETA FITRANK */
+  border-left: 5px solid #8B52FF;
   padding-left: 10px;
   margin-top: 20px;
 }
 
-/* BOTÓN VOLVER */
 .btn-volver {
   background: none;
   border: none;
@@ -42,7 +38,6 @@
     color: #b68aff;
   }
 
-/* INPUTS — estilo oscuro */
 .contenerdorLabelInput label {
   font-weight: 600;
   color: #ccc;
@@ -64,7 +59,6 @@
     box-shadow: 0 0 0 3px rgba(139, 82, 255, 0.25);
   }
 
-/* BOTÓN PRINCIPAL VIOLETA */
 .btn-generarInvitacion {
   background: #8B52FF;
   border: none;
@@ -79,7 +73,6 @@
     transform: translateY(-1px);
   }
 
-/* BOTÓN VIOLETA PARA LINKS */
 .btn-violeta {
   background: #8B52FF !important;
   border: none;
@@ -91,14 +84,12 @@
     background: #a06cff !important;
   }
 
-/* ALERTAS */
 .alert-success,
 .alert-danger {
   border-radius: 12px;
   font-size: 16px;
 }
 
-/* QR */
 img {
   border-radius: 12px;
 }

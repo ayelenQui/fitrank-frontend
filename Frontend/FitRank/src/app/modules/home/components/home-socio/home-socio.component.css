@@ -1,4 +1,3 @@
-/* Branding FitRank */
 .text-fitrank {
   color: #8B52FF !important;
   font-family: 'Bebas Neue', sans-serif !important;
@@ -14,12 +13,9 @@
   flex: 1;
 }
 
-
-
-
 .sidebar-noti {
   position: sticky;
-  top: 100px; /* queda fijo debajo del header */
+  top: 100px;
   max-height: calc(100vh - 130px);
   overflow-y: auto;
   border-radius: 18px;
@@ -31,7 +27,6 @@
   scrollbar-color: #c5b2ff #f4f4f4;
 }
 
-  /* Scrollbar más fino (Chrome) */
   .sidebar-noti::-webkit-scrollbar {
     width: 6px;
   }
@@ -41,7 +36,6 @@
     border-radius: 20px;
   }
 
-  /* Títulos */
   .sidebar-noti h4 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
@@ -49,7 +43,6 @@
     color: #5e35f2;
   }
 
-  /* Items */
   .sidebar-noti .list-group-item {
     border-radius: 12px;
     margin-bottom: 8px;
@@ -62,16 +55,12 @@
      
     }
 
-  /* Iconos */
   .sidebar-noti .material-symbols-outlined {
     font-size: 28px;
   
     transition: 0.2s;
   }
 
- 
-
-  /* Botones “Ver todas” */
   .sidebar-noti button {
     font-family: 'Bebas Neue', sans-serif;
     border-radius: 14px;
@@ -80,7 +69,6 @@
     letter-spacing: 0.5px;
   }
 
-  /* Logout dentro del sidebar */
   .sidebar-noti .btn-outline-fitrank {
     border-radius: 14px;
     padding: 10px;
@@ -88,11 +76,6 @@
     font-size: 1.1rem;
     width: 100%;
   }
-
-
-/* =============================== */
-/* 📱 RESPONSIVE (MÓVIL)          */
-/* =============================== */
 
 @media (max-width: 992px) {
   .sidebar-noti {
@@ -108,20 +91,17 @@
   background: rgba(40, 40, 40, 0.55);
 }
 
-  /* Título */
   .panel-perfil h3 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 26px;
     letter-spacing: 1px;
   }
 
-  /* Foto */
   .panel-perfil img {
     border: 3px solid #8c52ff;
     padding: 4px;
   }
 
-  /* Botones */
   .panel-perfil .btn-fitrank,
   .panel-perfil .btn-secondary {
     padding: 8px 14px;
@@ -131,15 +111,11 @@
     font-size: 16px;
   }
 
-  /* Datos */
   .panel-perfil p {
     margin: 4px 0;
     font-size: 16px;
   }
 
-/* ============================
-   MODO EDITAR PERFIL
-============================= */
 .editar-perfil-card {
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -151,37 +127,26 @@
     font-size: 22px;
   }
 
-/* ============================
-   MODO MEDIDAS
-============================= */
 .panel-perfil input,
 .panel-perfil select {
   border-radius: 8px !important;
 }
 
-/* ============================
-   RESPONSIVE — MÓVIL
-============================= */
 @media (max-width: 768px) {
-
-  /* Panel principal */
   .panel-perfil {
     padding: 20px 16px !important;
   }
 
-    /* Centrar todo */
     .panel-perfil .row {
       text-align: center;
     }
 
-    /* FOTO CENTRADA Y MÁS GRANDE */
     .panel-perfil img {
       width: 140px !important;
       height: 140px !important;
       margin-bottom: 10px;
     }
 
-    /* BOTONES AL 100% */
     .panel-perfil .btn-fitrank,
     .panel-perfil .btn-secondary {
       width: 100%;
@@ -189,30 +154,25 @@
       padding: 12px;
     }
 
-    /* Espacio entre botones */
     .panel-perfil .d-flex.gap-2 {
       flex-direction: column !important;
     }
 
-    /* Datos debajo de la foto */
     .panel-perfil .col-md-9 {
       margin-top: 15px;
     }
 
-  /* Editar Perfil */
   .editar-perfil-card {
     padding: 14px !important;
     background: #D3D3D3;
   }
 
-    /* Inputs */
     .editar-perfil- input,
     .editar-perfil-card select {
       font-size: 16px;
       padding: 10px;
     }
 
-  /* Tablas más pequeñas */
   table {
     font-size: 14px;
   }
@@ -251,7 +211,6 @@
     color: #fff;
   }
 
-/* WRAPPER */
 .ocupacion-wrapper {
   max-width: 600px;
   margin: 2rem auto;
@@ -260,7 +219,6 @@
   gap: 2rem;
 }
 
-/* TARJETA OCUPACIÓN */
 .ocupacion-card {
   background: rgba(40, 40, 40, 0.55);
   padding: 1.5rem;
@@ -285,49 +243,43 @@
   color: #666;
   margin-top: .3rem;
 }
-/* Contenedor tipo historias de Instagram */
+
 .movimientos-row {
   display: flex;
   gap: 12px;
   overflow-x: auto;
   padding: 10px 5px;
   scroll-snap-type: x mandatory;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
   background: #D3D3D3;
 }
 
-  /* Oculta barra de scroll en Chrome/Safari */
   .movimientos-row::-webkit-scrollbar {
     display: none;
   }
 
-/* Cada burbuja */
 .movimiento-foto {
   flex: 0 0 auto;
   scroll-snap-align: start;
   text-align: center;
 }
 
-  /* Avatar tipo historia */
   .movimiento-foto .avatar {
     width: 58px;
     height: 58px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #8c52ff; /* borde violeta */
+    border: 3px solid #8c52ff;
     padding: 2px;
     background: white;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     transition: transform 0.2s ease;
   }
 
-    /* Animación al tocar */
     .movimiento-foto .avatar:active {
       transform: scale(0.9);
     }
 
-
-/* TARJETA LISTA MOVIMIENTOS */
 .movimientos-card {
   background: rgba(40, 40, 40, 0.55);
   padding: 1.2rem;
@@ -335,15 +287,13 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-/* SCROLLABLE */
 .lista-movimientos {
-  max-height: 250px; /* 👈 altura controlada */
+  max-height: 250px;
   overflow-y: auto;
   margin-top: 1rem;
   padding-right: .5rem;
 }
 
-/* ITEM MOVIMIENTO */
 .movimiento {
   display: flex;
   align-items: center;
@@ -353,7 +303,7 @@
 }
 
 .avatar {
-  width: 45px; /* 👈 tamaño avatar */
+  width: 45px;
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
@@ -454,7 +404,6 @@
     transform: scale(1.03);
   }
 
-/* ENTRADA/SALIDA */
 .tipo {
   font-size: .9rem;
   font-weight: 600;
@@ -481,9 +430,6 @@
   gap: 10px;
 }
 
-
-
-/* 🔥 Acciones rápidas protagonistas */
 .quick-action {
   background: #8B52FF;
   color: white !important;
@@ -504,7 +450,6 @@
     box-shadow: 0 10px 22px rgba(139,82,255,.35);
   }
 
-/* Tarjetas clickeables secundarias (si las agregás luego) */
 .action-card {
   transition: transform .2s ease, box-shadow .2s ease;
   cursor: pointer;
@@ -534,7 +479,6 @@
     transform: scale(1.05);
   }
 
-/* Botón logout */
 .btn-outline-fitrank {
   color: #8B52FF;
   border: 2px solid #8B52FF;
@@ -565,7 +509,7 @@
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(139,82,255,0.3);
   }
-/* 🔹 Tarjeta de retención */
+
 .card-retencion {
   background: rgba(40, 40, 40, 0.55);
   color: #fff;
@@ -578,7 +522,6 @@
   animation: fadeInUp 0.8s ease-out;
 }
 
-  /* 🔹 Título */
   .card-retencion h5 {
     color: #c59aff;
     font-weight: 700;
@@ -587,14 +530,12 @@
     margin-bottom: 1rem;
   }
 
-  /* 🔹 Texto */
   .card-retencion p {
     color: #ddd;
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
   }
 
-  /* 🔹 Botones */
   .card-retencion .btn {
     font-weight: 600;
     border: none;
@@ -633,7 +574,6 @@
       transform: translateY(-2px);
     }
 
-/* 🔹 Animación suave */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -655,7 +595,7 @@
     font-size: 0.9rem;
     padding: 10px;
   }
-/* 🚨 Cartel FitRank estilo formulario-fitrank */
+
 .alerta-fitrank {
   background: black;
   border: 1px solid rgba(123, 63, 228, 0.35);
@@ -669,7 +609,6 @@
   animation: alertaGlow 2s ease-in-out infinite;
 }
 
-  /* Texto principal */
   .alerta-fitrank .alerta-texto {
     font-size: 1.05rem;
     font-weight: 700;
@@ -677,7 +616,6 @@
     margin: 0;
   }
 
-  /* Flecha señalando al botón */
   .alerta-fitrank .alerta-flecha {
     font-size: 2rem;
     margin: 5px 0;
@@ -685,13 +623,11 @@
     animation: flechaUpDown 1.3s infinite ease-in-out;
   }
 
-  /* Subtexto */
   .alerta-fitrank .alerta-sub {
     font-size: 0.9rem;
     color: #ffffff;
   }
 
-/* ✨ Glow violeta FitRank */
 @keyframes alertaGlow {
   0% {
     box-shadow: 0 0 0px rgba(123, 63, 228, 0.3);
@@ -706,7 +642,6 @@
   }
 }
 
-/* Flecha animada */
 @keyframes flechaUpDown {
   0% {
     transform: translateY(0);

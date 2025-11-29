@@ -8,7 +8,6 @@ canvas {
   height: auto !important;
 }
 
-/* Ajustes para pantallas muy pequeñas */
 @media (max-width: 576px) {
   .grafico-progreso {
     width: 100%; 

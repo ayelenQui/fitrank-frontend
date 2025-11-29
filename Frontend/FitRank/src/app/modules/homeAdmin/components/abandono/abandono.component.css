@@ -1,6 +1,3 @@
-/* ===========================
-   CONTENEDOR GENERAL
-=========================== */
 .gestion-container {
   padding: 20px 40px;
 }
@@ -21,7 +18,6 @@
   padding: 30px;
   font-family: 'Inter', sans-serif;
 }
-/* TÍTULO */
 
 .titulo-seccion {
   text-align: center;
@@ -29,7 +25,6 @@
   font-weight: 800;
   margin-bottom: 25px;
 }
-/* BOTONES SUPERIORES */
 
 .top-actions {
   display: flex;
@@ -56,7 +51,6 @@
     color: white;
     box-shadow: 0px 4px 10px rgba(139,75,255,0.4);
   }
-/* BUSCADOR */
 
 .buscador-con-contenedor {
   margin-bottom: 25px;
@@ -76,7 +70,6 @@
     border-color: #8b4bff;
     box-shadow: 0px 0px 6px rgba(139, 75, 255, 0.4);
   }
-/* CONTENEDOR PRINCIPAL */
 
 .contenedor-tabla {
   background: white;
@@ -84,7 +77,6 @@
   padding: 0;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
-/* ENCABEZADO NEGRO */
 
 .encabezado-tabla {
   background: black;
@@ -115,7 +107,6 @@ span {
   font-weight: 600;
   color: #111;
 }
-/* TABLA */
 
 .tabla-logros {
   width: 100%;
@@ -137,7 +128,6 @@ span {
   .tabla-logros tr:hover td {
     background: #fafafa;
   }
-/* IMAGEN DEL LOGRO */
 
 .logro-img {
   width: 48px;
@@ -145,7 +135,6 @@ span {
   border-radius: 10px;
   object-fit: contain;
 }
-/* TOGGLE */
 
 .switch {
   position: relative;
@@ -193,13 +182,11 @@ input:checked + .slider {
   input:checked + .slider:before {
     transform: translateX(22px);
   }
-/* ===========================
-   TITULOS
-=========================== */
+
 .titulo {
   font-size: 32px;
   font-weight: 700;
-  color: #5B29EC; /* violeta FitRank */
+  color: #5B29EC;
   margin: 0;
 }
 
@@ -209,9 +196,6 @@ input:checked + .slider {
   margin-top: 4px;
 }
 
-/* ===========================
-   HEADER SUPERIOR
-=========================== */
 .gestion-header {
   display: flex;
   justify-content: space-between;
@@ -219,9 +203,6 @@ input:checked + .slider {
   margin-bottom: 25px;
 }
 
-/* ===========================
-   BOTONES ACCIONES HEADER
-=========================== */
 .header-actions {
   display: flex;
   gap: 12px;
@@ -259,9 +240,6 @@ input:checked + .slider {
     background: #7d3bea;
   }
 
-/* ===========================
-   TABS
-=========================== */
 .tabs {
   display: flex;
   gap: 12px;
@@ -291,9 +269,6 @@ input:checked + .slider {
     font-weight: 600;
   }
 
-/* ===========================
-   GRID DE TARJETAS
-=========================== */
 .grid,
 .grid-ejercicios {
   display: grid;
@@ -301,9 +276,6 @@ input:checked + .slider {
   gap: 22px;
 }
 
-/* ===========================
-   CARDS
-=========================== */
 .card-maquina,
 .card-ejercicio-pro {
   background: white;
@@ -341,9 +313,6 @@ input:checked + .slider {
   padding: 0 12px;
 }
 
-/* ===========================
-   BOTONES DENTRO DE CARDS
-=========================== */
 .btn-sm {
   padding: 8px 14px;
   border-radius: 10px;
@@ -371,9 +340,6 @@ input:checked + .slider {
       background: #d8d8d8;
     }
 
-/* ===========================
-   EJERCICIOS
-=========================== */
 .ej-body-pro {
   padding: 14px;
 }
@@ -405,9 +371,6 @@ input:checked + .slider {
   margin-top: 10px;
 }
 
-/* ===========================
-   MODALES
-=========================== */
 .modal-backdrop {
   position: fixed;
   top: 0;

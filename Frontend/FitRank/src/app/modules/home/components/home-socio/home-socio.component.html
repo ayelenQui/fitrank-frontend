@@ -3,7 +3,6 @@
   <app-header-socio></app-header-socio>
 
 
-  <!-- SALUDO -->
   <div class="text-titulo fw-bold mb-4">
     <h2 class="display-6 fw-bold text-dark">¡Hola, {{ user.nombre }}!</h2>
     <p class="text-muted fs-5">Tu progreso te está llevando al siguiente nivel </p>
@@ -15,19 +14,14 @@
 
   <div class="row g-4">
 
-    <!-- ========================= -->
-    <!--  COLUMNA IZQUIERDA -->
-    <!-- ========================= -->
     <div class="col-lg-4 col-md-12">
 
-      <!-- Ocupación -->
       <div class="ocupacion-card bg-white shadow rounded-4 p-4 mb-4">
         <h2 class="titulo-ocu text-center">Ocupación Actual</h2>
         <div class="contador text-center">{{ personasDentro }}</div>
         <p class="sub text-center">personas dentro del gimnasio</p>
       </div>
 
-      <!-- Movimientos -->
       <div class="movimientos-card bg-white shadow rounded-4 p-4 mb-4">
         <h3 class="fw-bold text-center">Movimientos Recientes</h3>
 
@@ -37,7 +31,7 @@
           </div>
         </div>
       </div>
-      <!-- RESUMEN DE CUOTA -->
+
       <div class="cuota-card bg-white shadow rounded-4 p-4 mb-4">
 
         <h3 class="fw-bold text-center mb-3">
@@ -63,10 +57,6 @@
           </div>
         </div>
 
-
-
-
-        <!-- BOTÓN RENOVAR -->
         <div class="text-center mt-3">
           <button class="btn btn-fitrank btn-secondary"
                   (click)="renovarCuota()">
@@ -75,7 +65,6 @@
           </button>
         </div>
 
-        <!-- BOTÓN PARA PAGAR CON LINK (SIEMPRE VISIBLE) -->
         <div class="text-center mt-2">
           <button class="btn btn-outline-secondary w-100"
                   (click)="abrirLinkPago()">
@@ -104,17 +93,11 @@
 
     </div>
 
-
-
-    <!-- ========================= -->
-    <!-- COLUMNA CENTRAL -->
-    <!-- ========================= -->
     <div class="col-lg-5 col-md-12">
 
-      <!-- PERFIL COMPLETO -->
       <div class="panel-perfil bg-white shadow rounded-4 p-4 mb-4 text-black">
         <h3 class="fw-bold text-titulo m-0">Mi Perfil</h3><br />
-        <!-- CABECERA -->
+
         <div class="d-flex justify-content-between align-items-center mb-3">
 
           <div class="d-flex gap-2">
@@ -132,7 +115,6 @@
           </div>
         </div>
 
-        <!-- FOTO + DATOS -->
         <div class="row g-3">
           <div class="col-md-4 text-center">
             <img [src]="socio?.fotoUrl || 'assets/img/perfil/user-sin-foto.png'"
@@ -149,14 +131,12 @@
 
         </div>
 
-        <!-- EDITAR PERFIL -->
         <div *ngIf="mostrarEditarPerfil" class="editar-perfil-card mt-4 p-4">
           <h4 class="fw-bold mb-4 titulo-seccion"> <i class="bi bi-pencil-square me-2"></i> Editar Perfil </h4> 
-          <div class="row g-4"> <!-- FOTO --> 
+          <div class="row g-4">
             <div class="col-md-6"> 
               <label>Foto de Perfil</label> 
               <input type="file" class="form-control" accept="image/*" (change)="onSeleccionarFoto($event)"> </div> 
-              <!-- CAMPOS --> 
                <div class="col-md-8"> 
                 <div class="row g-3"> 
                   <div class="col-md-6"> 
@@ -198,22 +178,20 @@
                     <button (click)="onToggleRankingManual()" class="btn btn-agregar-ranking mt-4">
                       {{ socio?.participaEnRanking ? 'Quitar del ranking' : 'Añadir al ranking' }}
                     </button>
-                    <!-- BOTÓN GUARDAR --> 
                     <div class="text-end mt-4"> 
                       <button class="btn-guardar" (click)="guardarPerfil()"> <i class="bi bi-save me-2"></i> Guardar </button> 
                     </div>
 
         </div>
 
-        <!-- MEDIDAS -->
         <div *ngIf="mostrarMedidas" class="mt-4 p-3 border rounded-3 text-black">
-          <h4 class="fw-bold mb-3">Medidas Corporales</h4> <!-- Formulario nueva medida --> <!-- Formulario nueva medida -->
+          <h4 class="fw-bold mb-3">Medidas Corporales</h4>
           <div class="row g-3"> <div class="col-md-4"> <label>Pecho (cm)</label> <input class="form-control" placeholder="Ej: 95" [(ngModel)]="formMedida.pechoCm">
             <small class="text-muted"> ➤ Medí la circunferencia pasando la cinta por la parte más alta del pecho. </small> </div> <div class="col-md-4"> <label>Cintura (cm)</label>
             <input class="form-control" placeholder="Ej: 72" [(ngModel)]="formMedida.cinturaCm"> <small class="text-muted"> ➤ Medí alrededor del ombligo sin apretar la cinta. </small> </div> <div class="col-md-4"> <label>Cadera (cm)</label> <input class="form-control" placeholder="Ej: 98" [(ngModel)]="formMedida.caderaCm">
             <small class="text-muted"> ➤ Medí la zona más ancha de la cadera y glúteos. </small> </div> <div class="col-md-4"> <label>Brazo Derecho (cm)</label> <input class="form-control" placeholder="Ej: 28" [(ngModel)]="formMedida.brazoDerechoCm"> <small class="text-muted"> ➤ Rodeá el brazo por el punto medio entre hombro y codo. </small>
                              </div> <div class="col-md-4"> <label>Brazo Izquierdo (cm)</label> <input class="form-control" placeholder="Ej: 27.5" [(ngModel)]="formMedida.brazoIzquierdoCm"> <small class="text-muted"> ➤ Misma técnica que brazo derecho, siempre relajado. </small> </div> <div class="col-md-4"> <label>Peso (kg)</label> <input class="form-control" placeholder="Ej: 63.2" [(ngModel)]="formMedida.pesoKg"> <small class="text-muted"> ➤ Preferiblemente en ayunas o mismo horario cada día. </small> </div> </div> <div class="text-end mt-3">
-          <button class="btn btn-success btn-secondary" (click)="guardarMedida()">➕ Agregar Medida</button> </div> <!-- Historial --> <h5 class="mt-4">Historial</h5> <table class="table table-striped mt-2"> <thead> <tr> <th>Fecha</th> <th>Pecho</th> <th>Cintura</th> <th>Cadera</th> <th>Peso</th> </tr> </thead> <tbody> <tr *ngFor="let m of historialMedidas"> <td>{{ m.fecha | date:'dd/MM/yyyy' }}</td> <td>{{ m.pechoCm }}</td> <td>{{ m.cinturaCm }}</td> <td>{{ m.caderaCm }}</td> <td>{{ m.pesoKg }}</td> </tr> </tbody> </table>
+          <button class="btn btn-success btn-secondary" (click)="guardarMedida()">➕ Agregar Medida</button> </div>  <h5 class="mt-4">Historial</h5> <table class="table table-striped mt-2"> <thead> <tr> <th>Fecha</th> <th>Pecho</th> <th>Cintura</th> <th>Cadera</th> <th>Peso</th> </tr> </thead> <tbody> <tr *ngFor="let m of historialMedidas"> <td>{{ m.fecha | date:'dd/MM/yyyy' }}</td> <td>{{ m.pechoCm }}</td> <td>{{ m.cinturaCm }}</td> <td>{{ m.caderaCm }}</td> <td>{{ m.pesoKg }}</td> </tr> </tbody> </table>
 
         </div>
 
@@ -222,40 +200,28 @@
 
 
 
-      <!-- ACCIONES RÁPIDAS -->
       <section class="mb-4">
         <div class="row g-3 justify-content-center"> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/ranking')"> <span class="material-symbols-outlined me-2">emoji_events</span> Ranking </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/crear/')"> <span class="material-symbols-outlined me-2">add_circle</span> Crear rutina </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/rutina/mis-rutinas')"> <span class="material-symbols-outlined me-2">list_alt</span> Mis rutinas </button> </div> <div class="col-12 col-md-3"> <button class="quick-action w-100 btn-secondary" (click)="navegarA('/socios/1/gimnasios/1/logros')"> <span class="material-symbols-outlined me-2">military_tech</span> Mis logros </button> </div> </div>
       </section>
 
-      <!-- TARJETA RETENCIÓN -->
       <div *ngIf="mostrarRetencion" class="card-retencion text-center mb-4">
         <h5 class="text-fitrank fw-bold mb-3"> ¡Te extrañamos en FitRank!</h5> <p>Hace algunos días que no registramos tus entrenamientos. ¿Querés retomar con energía?</p> <div class="d-flex flex-column gap-2 mt-3"> <button class="btn btn-primary w-100 btn-secondary" (click)="responder('cambiar-rutina')"> 🔄 Cambiar rutina </button> <button class="btn btn-success w-100 btn-secondary" (click)="responder('estoy-bien')"> ✅ Estoy bien </button> <button class="btn btn-warning w-100 btn-secondary" (click)="responder('contactar-profesor')"> Que me contacte un profesor </button> </div>
-      </div> <!--  Tarjeta de retención (solo visible si hay notificación) --> <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
+      </div>  <div *ngIf="mostrarRetencion" class="card-retencion text-center"> <h5 class="text-fitrank fw-bold mb-3">¡Te extrañamos en FitRank!</h5> <p> Hace algunos días que no registramos tus entrenamientos.<br /> ¿Querés retomar con energía? </p> </div>
 
 
 
 
     </div>
 
-
-
-
-
-    <!-- ========================= -->
-    <!--  COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
-    <!-- ========================= -->
-    <!--  COLUMNA DERECHA (SIDEBAR NOTIFICACIONES) -->
     <div class="col-lg-3 col-md-12">
       <div class="sidebar-noti bg-white shadow rounded-4 p-3 mb-4">
 
         <h4 class="fw-bold text-titulo mb-3">Notificaciones</h4>
 
-        <!-- Si no hay notificaciones -->
         <div *ngIf="notificaciones.length === 0" class="text-center text-muted mb-3">
           No tenés notificaciones por ahora.
         </div>
 
-        <!-- Si hay notificaciones -->
         <div class="list-group small" *ngIf="notificaciones.length > 0">
           <div class="list-group-item border-0 border-bottom bg-light d-flex pointer"
                *ngFor="let n of notificaciones"
@@ -275,7 +241,6 @@
           </div>
         </div>
 
-        <!-- Siempre visible — incluso sin notificaciones -->
         <div class="text-center mt-3">
           <button class="btn btn-secondary " (click)="navegarNotificaciones()">
             Ver todas
@@ -289,7 +254,6 @@
 </div>
 <app-footer *ngIf="!esProfesor"></app-footer>
 
-<!--  PANEL DEL PROFESOR -->
 <div *ngIf="esProfesor" class="fondo container-fluid bg-light py-4">
   <app-header-profesor [user]="user"></app-header-profesor><br />
   <div class="container py-5 text-center"> 

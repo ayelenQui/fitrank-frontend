@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 export class CrearBatallaComponent implements OnInit, AfterViewInit {
 
   user = this.auth.obtenerUser()
-  socioActualId = this.user?.id; // Temporal hasta integrar login
+  socioActualId = this.user?.id;
   socios: any[] = [];
   usuarioSeleccionado!: number;
     BatallaTipo = BatallaTipo;
@@ -58,7 +58,6 @@ crear(): void {
 
   this.batallaService.crear(dto).subscribe({
     next: (res) => {
-      // this.mensaje = "Batalla creada correctamente 🎉";
       Swal.fire({
         icon: 'success',
         title: '¡Batalla creada correctamente! ',
@@ -67,7 +66,6 @@ crear(): void {
         confirmButtonColor: '#8c52ff',
       });
 
-      // Animación GSAP del mensaje
       setTimeout(() => {
         const alerta = document.querySelector('.alerta-exito');
         if (alerta) {
@@ -78,9 +76,8 @@ crear(): void {
         }
       });
 
-      // Redirigir después de mostrar el mensaje
       setTimeout(() => {
-        this.location.back(); // <- volver a "Mis Batallas"
+        this.location.back();
       }, 1500);
 
     },
@@ -105,7 +102,6 @@ crear(): void {
       { scale: 1, opacity: 1, duration: 0.4, delay: 0.5, ease: 'power3.out' }
     );
 
-    // Hover botón
     const btnCrear = document.querySelector('.btn-crear');
     btnCrear?.addEventListener('mouseenter', () => gsap.to(btnCrear, { scale: 1.1, duration: 0.1 }));
     btnCrear?.addEventListener('mouseleave', () => gsap.to(btnCrear, { scale: 1, duration: 0.1 }));

@@ -40,7 +40,6 @@ export class MisBatallasComponent implements OnInit, AfterViewInit, AfterViewChe
     this.cargasCompletadas = 0;
     this.animacionHecha = false;
 
-    // ACTIVAS
     this.batallasService.obtenerActivas(this.socioActualId).subscribe({
       next: data => {
         this.animacionHecha = false;
@@ -50,7 +49,6 @@ export class MisBatallasComponent implements OnInit, AfterViewInit, AfterViewChe
       error: err => console.error(err)
     });
 
-    // PENDIENTES
     this.batallasService.obtenerPendientes(this.socioActualId).subscribe({
       next: data => {
         this.animacionHecha = false;
@@ -60,7 +58,6 @@ export class MisBatallasComponent implements OnInit, AfterViewInit, AfterViewChe
       error: err => console.error(err)
     });
 
-    // HISTORIAL
     this.batallasService.historial(this.socioActualId).subscribe({
       next: data => {
         this.animacionHecha = false;
@@ -74,9 +71,7 @@ export class MisBatallasComponent implements OnInit, AfterViewInit, AfterViewChe
   verificarCargaCompleta() {
     this.cargasCompletadas++;
 
-    // Cuando terminaron las 3 peticiones
     if (this.cargasCompletadas === 3) {
-      // Dejar que Angular pinte el DOM
       setTimeout(() => {
         this.animarTarjetas();
         this.animacionHecha = true;
@@ -116,20 +111,15 @@ export class MisBatallasComponent implements OnInit, AfterViewInit, AfterViewChe
     });
   }
 
-  // -----------------------------------
-  //        ANIMACIONES GSAP
-  // -----------------------------------
 
   ngAfterViewInit() {
     this.animarTitulosYBotones();
   }
 
   ngAfterViewChecked() {
-  // Espera a que Angular agregue las tarjetas al DOM
   setTimeout(() => {
     const tarjetas = document.querySelectorAll('.tarjeta');
 
-    // Si hay tarjetas y aún no las animamos todas
     if (tarjetas.length > 0 && !this.animacionHecha) {
       this.animarTarjetas();
       this.animacionHecha = true;

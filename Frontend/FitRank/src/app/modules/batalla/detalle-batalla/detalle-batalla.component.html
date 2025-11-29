@@ -10,15 +10,11 @@
 
 
   <div class="card-detalle">
-    <!-- <p><strong>ID:</strong> {{ batalla.batallaId }}</p> -->
     <p>Batalla contra <span class="resaltar">{{ oponente }}</span></p>
     <p><strong>Estado:</strong> {{ batalla.estado }}</p>
-    <!-- <p><strong>Fecha de inicio:</strong> {{ batalla.fechaInicio | date: 'short' }}</p> -->
 
-    <!-- Si la batalla tiene fecha de fin y si tiene estado activa -->
 
     <p *ngIf="batalla.fechaFin && batalla.estado === 'Activa'">
-      <!-- <strong>Fecha de fin:</strong> {{ batalla.fechaFin | date: 'short' }} -->
     <strong>Días restantes:</strong> {{ diasRestantes() }}
     </p>
     <p *ngIf="batalla.estado === 'Finalizada'">
@@ -38,7 +34,6 @@
       <canvas #graficoPuntosCanvas></canvas>
     </div>
     
-    <!-- Solo si la batalla está activa -->
     <button 
       class="btn-finalizar btn-secondary"
       *ngIf="batalla.estado === 'Activa'"

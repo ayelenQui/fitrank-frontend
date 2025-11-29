@@ -1,6 +1,3 @@
-/* ============================
-   CONTENEDOR PRINCIPAL
-   ============================ */
 .batallas-container {
   background: #1c1c1c;
   max-width: 950px;
@@ -12,9 +9,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* ============================
-   TÍTULO
-   ============================ */
 .batallas-container .titulo {
   font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
         font-weight: bold;
@@ -35,9 +29,6 @@
   border-radius: 3px;
 }
 
-/* ============================
-   SUBTÍTULOS
-   ============================ */
 .subtitulo {
   font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
   font-weight: 700;
@@ -46,9 +37,6 @@
   margin-bottom: 2rem;
 }
 
-/* ============================
-   TARJETAS (glass) 
-   ============================ */
 .tarjetas {
   display: flex;
   flex-wrap: wrap;
@@ -77,9 +65,6 @@
 .activa { border-left: 5px solid #4caf50; }
 .historial { border-left: 5px solid #607d8b; }
 
-/* ============================
-   BOTONES
-   ============================ */
 .btn-volver,
 .btn-crear,
 .btn-detalle,
@@ -141,24 +126,18 @@
 
 .acciones-superior {
   display: flex;
-  justify-content: center; /* centra el contenido horizontalmente */
+  justify-content: center;
   margin-bottom: 1.5rem;
 }
 
-/* ============================
-   MENSAJE VACÍO
-   ============================ */
 .mensaje-vacio {
   font-style: italic;
   color: #aaa;
-  text-align: center;      /* centra el texto */
+  text-align: center;  
   width: 100%;
   margin-bottom: 2rem; 
 }
 
-/* ============================
-   RESPONSIVE
-   ============================ */
 @media (max-width: 768px) {
   .tarjetas { justify-content: center; }
   .tarjeta { flex: 1 1 80%; max-width: 350px; }

@@ -9,7 +9,7 @@ import { GraficoProgreso } from './grafico-progreso/grafico-progreso';
 interface ActividadAgrupada {
   nombre: string;
   progresoHistorico: ProgresoEjercicioDTO[];
-  actividades: any[]; // mantiene reps, peso, puntos por serie
+  actividades: any[];
   urlImagen?: string;
 }
 
@@ -37,7 +37,6 @@ export class HistorialEntrenamientos implements OnInit {
 
     this.entrenamientoService.getHistorialDeSocio(this.socioId).subscribe({
       next: (data) => {
-        // Pre-procesar y agrupar actividades por ejercicio
         this.historial = data.map(sesion => ({
           ...sesion,
           ejerciciosAgrupados: this.agruparActividades(sesion.actividades)
@@ -67,8 +66,6 @@ export class HistorialEntrenamientos implements OnInit {
     return this.graficosMostrados.has(nombreEjercicio);
   }
 
-  // Agrupa actividades por ejercicio y conserva datos de cada serie
-// 1) agruparActividades — permite múltiples puntos y aplica offset por fecha
 private agruparActividades(actividades: any[]): ActividadAgrupada[] {
   const map = new Map<
     string,
@@ -105,7 +102,6 @@ private agruparActividades(actividades: any[]): ActividadAgrupada[] {
         timestamp: base + offsetMs
       };
 
-      // 🚫 FILTRO: evitar duplicar puntos exactos
       const exists = entry.progresoHistorico.some(x =>
         x.fecha === p.fecha &&
         x.peso === p.peso &&

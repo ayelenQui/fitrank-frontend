@@ -1,16 +1,15 @@
 :root{
-  --brand:#8B52FF;       /* morado FitRank */
-  --accent:#FAEB92;      /* amarillo FitRank */
-  --text:#1f2937;        /* gris oscuro */
-  --muted:#6b7280;       /* gris medio */
-  --ok:#22c55e;          /* verde */
+  --brand:#8B52FF;       
+  --accent:#FAEB92;     
+  --text:#1f2937;        
+  --muted:#6b7280;      
+  --ok:#22c55e;         
   --border:#e5e7eb;
   --panel:#ffffff;
   --shadow:0 10px 30px rgba(17,24,39,.08);
   --br:14px;
 }
 
-/* ===== Contenedor principal ===== */
 .wrap{
   max-width: 900px;
   margin: 40px auto 60px;
@@ -23,13 +22,12 @@
   color: var(--text);
 }
 
-/* ===== Header interno ===== */
 .header{
   background: linear-gradient(180deg, #fff, #fafafa);
   border: 1px solid var(--border);
   border-top: 4px solid var(--brand);
   border-radius: 10px;
-  padding: 12px 16px 20px;  /* más compacto */
+  padding: 12px 16px 20px;
   margin-bottom: 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
@@ -42,7 +40,6 @@
   text-align: center;
 }
 
-/* ===== Toolbar ===== */
 .toolbar{
   display: grid;
   grid-template-columns: 1fr 160px;
@@ -73,7 +70,6 @@
   outline: none;
 }
 
-/* ===== Mensaje de error o cargando ===== */
 .alert{
   margin: 12px 0 18px;
   padding: 10px 12px;
@@ -83,7 +79,6 @@
   color: #991b1b;
 }
 
-/* ===== Grid de logros ===== */
 .grid{
   list-style: none;
   padding: 0;
@@ -93,7 +88,6 @@
   gap: 16px;
 }
 
-/* ===== Tarjeta ===== */
 .card{
   background: #fff;
   border: 1.5px solid var(--border);
@@ -109,7 +103,6 @@
   border-color: #e3d6ff;
 }
 
-/* ===== Cabecera de tarjeta ===== */
 .card-head{
   display: flex;
   align-items: center;
@@ -136,14 +129,12 @@
   box-shadow: 0 2px 6px rgba(250,235,146,.35);
 }
 
-/* ===== Descripción ===== */
 .desc{
   margin: 8px 0 10px;
   color: var(--muted);
   line-height: 1.45;
 }
 
-/* ===== Meta (estado) ===== */
 .meta{
   display: flex;
   align-items: center;
@@ -178,7 +169,6 @@
   color: #9f1239;
 }
 
-/* ===== Responsividad ===== */
 @media (max-width: 560px){
   .toolbar{
     grid-template-columns: 1fr;

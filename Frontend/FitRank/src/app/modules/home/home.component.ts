@@ -26,11 +26,9 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.user = this.authService.obtenerUser();
         if (!this.user) {
-            // Si no hay user (JWT inválido), redirige a login
             this.router.navigate(['/login']);
         }
 
-        // Si el usuario es admin, redirige a homeAdmin
         if (this.authService.isAdmin()) {
             this.router.navigate(['/homeAdmin']);
       }

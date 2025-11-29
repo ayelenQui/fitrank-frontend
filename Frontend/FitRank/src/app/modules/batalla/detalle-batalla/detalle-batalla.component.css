@@ -1,26 +1,22 @@
-/* ---------- REGLAS GLOBALES ÚTILES ---------- */
 *,
 *::before,
 *::after {
-  box-sizing: border-box; /* evita que padding/border aumenten el ancho real */
+  box-sizing: border-box;
 }
 
-/* evita overflow horizontal por elementos anchos */
 html, body {
   width: 100%;
   overflow-x: hidden;
 }
 
-/* ---------- CONTENEDOR PRINCIPAL ---------- */
 .detalle-container {
   width: 100%;
-  max-width: 640px;              /* límite razonable en desktop */
+  max-width: 640px;             
   margin: 0 auto;
-  padding: 12px;                 /* espacio para mobiles */
+  padding: 12px;                
   color: white;
 }
 
-/* ---------- TARJETA ---------- */
 .card-detalle {
   font-family: var(--font-secundaria);
   background: #1c1c1c;
@@ -28,12 +24,11 @@ html, body {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   margin-bottom: 16px;
-  width: 100%;                   /* asegurar que no salga del contenedor */
-  overflow: hidden;              /* evita que su contenido sobresalga */
+  width: 100%;                  
+  overflow: hidden;           
   word-wrap: break-word;
 }
 
-/* ---------- GRAFICO ---------- */
 .grafico-container {
   background-color: #1c1c1c;
   padding: clamp(12px, 2.5vw, 20px);
@@ -44,7 +39,6 @@ html, body {
 }
 
 
-/* IMPORTANT: forzar que el canvas sea responsive */
 .grafico-container canvas,
 .grafico-container canvas > * {
   display: block;
@@ -53,8 +47,6 @@ html, body {
   max-width: 100%;
 }
 
-/* ---------- BOTÓN ---------- */
-/* ---------- BOTÓN FINALIZAR ---------- */
 .btn-finalizar {
   font-family: var(--font-titulo);
   padding: 0.5rem 2rem;
@@ -86,23 +78,19 @@ html, body {
 .resaltar {
   font-weight: bold;
   color: #8B52FF;
-  /* font-family: var(--font-titulo); */
   font-size: 1.2rem;
 }
 
 .subtitulo{
   font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  /* font-weight: bold; */
   text-align: center;
   color: var(--color-texto);
   margin-bottom: 12px;
   font-family: var(--font-titulo);
 }
 
-/* ---------- TEXTO ---------- */
 .resaltar { font-size: clamp(1rem, 2.2vw, 1.3rem); }
 
-/* ---------- AJUSTES PARA PANTALLAS PEQUEÑAS ---------- */
 @media (max-width: 420px) {
   .detalle-container { padding: 10px; }
   .card-detalle { padding: 12px; border-radius: 10px; }
@@ -110,7 +98,6 @@ html, body {
   .btn-finalizar { padding: 0.45rem 1rem; font-size: 1rem; }
 }
 
-/* Si tenés algún grid/row con dos columnas en mobile, forzalas a columna */
 .row, .flex-row {
   display: flex;
   gap: 12px;
@@ -118,9 +105,8 @@ html, body {
 }
 .row > * {
   flex: 1 1 100%;
-  min-width: 0; /* importante para evitar overflow con flex items */
+  min-width: 0; 
 }
 @media (min-width: 720px) {
-  /* ejemplo: dos columnas en desktop */
   .row > * { flex: 1 1 48%; }
 }

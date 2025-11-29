@@ -24,7 +24,6 @@ export class RegistrarEntrenamientoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Obtengo usuario logueado del localStorage
     const usuario = this.authService.obtenerUser();
     if (usuario && usuario.id) {
       this.usuarioId = usuario.id;

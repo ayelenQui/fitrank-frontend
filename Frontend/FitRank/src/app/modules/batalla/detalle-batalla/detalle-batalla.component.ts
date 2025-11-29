@@ -56,7 +56,7 @@ export class DetalleBatallaComponent implements OnInit, AfterViewInit {
         this.batallaCargada = true;
         this.intentarGraficar();
         this.usuarioActualId = this.user?.id;
-        setTimeout(() => this.animarDetalle(), 50); // Espera a que Angular renderice
+        setTimeout(() => this.animarDetalle(), 50);
       },
       error: (e) => console.error(e)
     });
@@ -82,23 +82,19 @@ export class DetalleBatallaComponent implements OnInit, AfterViewInit {
     this.vistaCargada = true;
     this.intentarGraficar();
 
-    // Animar título y subtítulo
     gsap.fromTo('.titulo', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
     gsap.fromTo('.subtitulo', { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, delay: 0.2, ease: 'power3.out' });
 
-    // Animar card detalle
     gsap.fromTo('.card-detalle', 
       { y: 20, opacity: 0, scale: 0.95 },
       { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: 'power3.out' }
     );
 
-    // Animar gráfico
     gsap.fromTo('.grafico-container', 
       { y: 20, opacity: 0, scale: 0.95 },
       { y: 0, opacity: 1, scale: 1, duration: 0.5, delay: 0.3, ease: 'power3.out' }
     );
 
-    // Botón finalizar
     const btnFinalizar = document.querySelector('.btn-finalizar');
     btnFinalizar?.addEventListener('mouseenter', () => gsap.to(btnFinalizar, { scale: 1.1, duration: 0.1 }));
     btnFinalizar?.addEventListener('mouseleave', () => gsap.to(btnFinalizar, { scale: 1, duration: 0.1 }));
@@ -109,7 +105,7 @@ ngAfterViewChecked() {
 }
 
 intentarGraficar() {
-  if (this.graficoCreado) return; // evita loops infinitos
+  if (this.graficoCreado) return;
   if (!this.batallaCargada) return;
   if (!this.graficoCanvas) return;
 

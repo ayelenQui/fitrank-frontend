@@ -105,7 +105,6 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // 🔹 Enviar notificación de retención
   retenerSocio(socioId: number): void {
     const token = this.authService.obtenerToken();
     if (!token) {
@@ -124,7 +123,6 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
           confirmButtonColor: '#8c52ff'
         });
         this.cargarSociosInactivos();
-        // actualiza lista de inactivos
         this.cargarSociosInactivos();
       },
       error: (err) => {
@@ -149,7 +147,7 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
     Swal.fire({
       title: `Enviar mensaje a ${nombre}`,
       text: '¿Querés abrir WhatsApp para contactarlo?',
-      imageUrl: 'assets/img/logo/logo-negro-lila.svg', // 🟣 tu logo FitRank
+      imageUrl: 'assets/img/logo/logo-negro-lila.svg',
       imageWidth: 80,
       imageHeight: 80,
       imageAlt: 'FitRank Logo',
@@ -231,7 +229,6 @@ Si necesitás ajustar tu rutina o una charla con un entrenador, contanos
     const ctx = document.getElementById('graficoAsistencias') as HTMLCanvasElement;
     if (!ctx) return;
 
-    // Fechas base
     const fechas = Array.from({ length: 7 }, (_, i) => {
       const d = new Date();
       d.setDate(d.getDate() - (6 - i));

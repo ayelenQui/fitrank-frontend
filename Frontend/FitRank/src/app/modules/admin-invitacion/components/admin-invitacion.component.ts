@@ -17,7 +17,7 @@ interface InvitacionResponse {
   success: boolean;
   invitacionId: number;
   qrImage?: string | null;
-  url?: string | null;     // link de pago para online
+  url?: string | null;   
   mensaje: string;
 }
 
@@ -79,7 +79,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
   generarInvitacion() {
     if (this.form.invalid) {
       this.error = 'Completa el formulario correctamente.';
-      // Opcional: avisar también con Swal si querés
       Swal.fire({
         icon: 'warning',
         title: 'Formulario incompleto',
@@ -135,7 +134,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
 
             this.mensaje = 'Podés pagar escaneando el QR o usando el enlace.';
 
-            // ✅ Swal de éxito
             Swal.fire({
               icon: 'success',
               title: 'Invitación creada',
@@ -147,7 +145,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
           } else {
             this.mensaje = '✔ Invitación generada correctamente.';
 
-            // ✅ Swal para efectivo
             Swal.fire({
               icon: 'success',
               title: 'Invitación creada',
@@ -157,7 +154,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
             });
           }
 
-          // ✅ Limpiar formulario y dejar valores por defecto
           this.form.reset({
             nombre: '',
             apellidos: '',
@@ -177,7 +173,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
           const backendMsg = err.error?.mensaje;
           const socioId = err.error?.socioId;
 
-          // Email duplicado
           if (backendMsg === "EMAIL_DUPLICADO") {
             Swal.fire({
               icon: 'warning',
@@ -194,7 +189,6 @@ export class AdminInvitacionComponent implements OnInit, AfterViewInit {
             return;
           }
 
-          // DNI duplicado
           if (backendMsg === "DNI_DUPLICADO") {
             Swal.fire({
               icon: 'warning',
