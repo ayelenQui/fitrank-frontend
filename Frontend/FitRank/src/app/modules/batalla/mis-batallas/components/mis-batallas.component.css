@@ -16,12 +16,13 @@
    TÍTULO
    ============================ */
 .batallas-container .titulo {
-  font-size: 2rem;
-  font-weight: 800;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  color: #fff;
+  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+        font-weight: bold;
+        text-align: center;
+        color: var(--color-texto);
+        margin-bottom: 20px;
+        font-family: var(--font-titulo);
+      color: white;
 }
 
 .batallas-container .titulo::after {

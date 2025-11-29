@@ -27,16 +27,17 @@
 
 
 /* Títulos */
-.reportes-container h2{
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  color: #fff;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
+.reportes-container .titulo{
+  font-size: clamp(2rem, 2.5vw + 1rem, 4rem);
+        font-weight: bold;
+        text-align: center;
+        color: var(--color-texto);
+        margin-bottom: 20px;
+        font-family: var(--font-titulo);
+      color: white;
 }
 
-.reportes-container h2::after{
+.reportes-container .titulo::after{
   content: "";
   display: block;
   width: 60px;
