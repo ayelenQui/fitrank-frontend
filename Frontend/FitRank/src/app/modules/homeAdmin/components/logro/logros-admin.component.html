@@ -1,23 +1,47 @@
-<div class="logros-wrapper">
+<div class="logros-admin-wrapper">
 
-  <h2 class="text-titulo fw-bold mb-4">Logros del Gimnasio</h2>
-  <p class="subtitulo">Activá o desactivá los logros disponibles</p>
+  <h1 class="text-titulo">GESTIÓN DE LOGROS</h1>
 
-  <div *ngIf="cargando" class="loading">Cargando logros...</div>
-
-  <div class="logro-card" *ngFor="let logro of logros">
-
-    <div class="info-logro">
-      <h4>{{ logro.nombre }}</h4>
-      <p>{{ logro.descripcion }}</p>
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="contenedor-tabla">
+    <div class="encabezado-tabla">
+      <div>
+        <h3>Listado completo del sistema</h3>
+      </div>
+      <span class="badge-activos">• Configuración</span>
     </div>
 
-    <label class="switch">
-      <input type="checkbox"
-             [checked]="logro.estaHabilitado"
-             (change)="toggleLogro(logro)">
-      <span class="slider round"></span>
-    </label>
+    <!-- TABLA -->
+    <table class="tabla-logros">
+
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Activo en gimnasio</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let logro of logros">
+          <td>{{ logro.nombre }}</td>
+          <td>{{ logro.descripcion }}</td>
+
+          <!-- TOGGLE -->
+          <td>
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="logro.estaHabilitado"
+                (change)="onToggleEstado(logro)"
+              />
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
 
   </div>
 

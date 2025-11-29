@@ -1,65 +1,99 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LogrosGimnasioService } from '@app/api/services/logro/logro-gimnasio.service';
+import { LogroAdminView, LogroGimnasio, LogrosGimnasioService } from '@app/api/services/logro/logro-gimnasio.service';
 import { AuthService } from '@app/api/services/activacion/AuthService.service';
+import { forkJoin } from 'rxjs';
+import { Logro, LogroService } from '@app/api/services/logro/logro.service';
 
 @Component({
   selector: 'app-logros-admin',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './logros-admin.component.html',
   styleUrls: ['./logros-admin.component.css']
 })
 export class LogrosAdminComponent implements OnInit {
 
-  logros: any[] = [];
-  cargando = true;
-  gimnasioId!: number; // <<-- LO DEFINIMOS
+  logros: LogroAdminView[] = [];
+  cargando = false;
+  error?: string;
+
+  private gimnasioId!: number;
 
   constructor(
-    private logrosService: LogrosGimnasioService,
+    private logroService: LogroService,
+    private logrosGimnasioService: LogrosGimnasioService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    /* OBTENER EL GIMNASIO ID DEL LOGIN */
-    this.gimnasioId = this.authService.obtenerGimnasioId() ?? 0;
+    // si ya tenés esto en el token:
+    const gymId = this.authService.obtenerGimnasioId?.();
 
-    if (!this.gimnasioId || this.gimnasioId <= 0) {
-      console.error("⚠ No se encontró gimnasioId del usuario logueado");
-      this.cargando = false;
+    if (gymId == null) {
+      this.error = 'No se encontró el gimnasio en el token.';
       return;
     }
 
+    this.gimnasioId = gymId;
     this.cargarLogros();
   }
 
-  cargarLogros(): void {
-    this.logrosService.obtenerLogros(this.gimnasioId).subscribe({
-      next: (data) => {
-        this.logros = data;
+  private cargarLogros(): void {
+    this.cargando = true;
+    this.error = undefined;
+
+    forkJoin({
+      globales: this.logroService.obtenerTodos(),
+      gimnasio: this.logrosGimnasioService.obtenerPorGimnasio(this.gimnasioId)
+    }).subscribe({
+      next: ({ globales, gimnasio }) => {
+        this.logros = this.combinarLogros(globales, gimnasio);
         this.cargando = false;
       },
       error: (err) => {
-        console.error('Error cargando logros', err);
+        console.error('Error cargando logros:', err);
+        this.error = 'Ocurrió un error al cargar los logros.';
         this.cargando = false;
       }
     });
   }
 
-  toggleLogro(logro: any): void {
+  private combinarLogros(globales: Logro[], gimnasio: LogroGimnasio[]): LogroAdminView[] {
+    return globales.map((lg) => {
+      const lgGym = gimnasio.find(x => x.logroId === lg.id);
+
+      return {
+        gimnasioId: this.gimnasioId,
+        logroId: lg.id,
+        nombre: lg.nombre,
+        nombreClave: lg.nombreClave,
+        descripcion: lg.descripcion,
+        imagen: lg.imagen,
+        estaHabilitado: lgGym?.estaHabilitado ?? false
+      };
+    });
+  }
+
+  onToggleEstado(logro: LogroAdminView): void {
     const nuevoEstado = !logro.estaHabilitado;
+    const estadoAnterior = logro.estaHabilitado;
 
-    const payload = {
-      estaHabilitado: nuevoEstado
-    };
+    logro.estaHabilitado = nuevoEstado;
 
-    this.logrosService.actualizarLogro(this.gimnasioId, logro.logroId, payload)
-      .subscribe({
-        next: (resp) => {
-          logro.estaHabilitado = resp.estaHabilitado;
-        },
-        error: (err) => console.error('Error actualizando logro', err)
-      });
+    this.logrosGimnasioService.actualizarEstado(
+      this.gimnasioId,
+      logro.logroId,
+      nuevoEstado
+    ).subscribe({
+      next: (actualizado) => {
+        // si el back devuelve el dto actualizado
+        logro.estaHabilitado = actualizado.estaHabilitado;
+      },
+      error: (err) => {
+        console.error('Error actualizando estado logro:', err);
+        logro.estaHabilitado = estadoAnterior;
+        this.error = 'No se pudo actualizar el estado del logro.';
+      }
+    });
   }
 }

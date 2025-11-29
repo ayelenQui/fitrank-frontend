@@ -19,8 +19,8 @@ export class MercadoPagoService {
     return this.http.post<any>(
       `${this.apiUrl}/renovar-cuota`,
       {
-        SocioId: socioId,
-        Email: email
+        socioId: socioId,
+        email: email
       }
     );
   }

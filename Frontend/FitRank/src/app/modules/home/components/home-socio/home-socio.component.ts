@@ -44,6 +44,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
 
   diasRestantesCuota: number | null = null;
   notificaciones: NotificacionDTO[] = [];
+  linkDePago: string | null = null;
 
 
   ocupacion: Array<{
@@ -234,6 +235,24 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
         error: (err) => console.error('Error al obtener notificaciones:', err)
       });
     }
+
+    this.signalRNoti.pagoAcreditado$.subscribe(ev => {
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Pago acreditado 💜',
+        text: `Tu pago fue aprobado. Monto: $${ev.monto}`,
+        timer: 3000,
+        showConfirmButton: false
+      });
+
+    
+      this.cargarDatosSocio();
+      this.mostrarQR = false;
+     
+ 
+    });
+
   }
 
   responder(opcion: string) {
@@ -452,8 +471,9 @@ onToggleRankingManual() {
     this.pagosService.renovarCuota(this.user.id, email)
       .subscribe({
         next: (res) => {
-          this.qrImage = res.qrImage;   // trae el base64
-          this.mostrarQR = true;        // abre el modal
+          this.qrImage = res.qrImage;
+          this.linkDePago = res.linkPago;
+          this.mostrarQR = true;        
         },
         error: (err) => console.error("MP error:", err)
       });
@@ -506,5 +526,21 @@ onToggleRankingManual() {
       width: 350
     });
   }
+
+  abrirLinkPago() {
+    if (!this.linkDePago) {
+      Swal.fire({
+        icon: "info",
+        title: "Generando enlace...",
+        text: "Presioná 'Renovar cuota' si aún no generaste tu link.",
+        timer: 2000,
+        showConfirmButton: false
+      });
+      return;
+    }
+
+    window.open(this.linkDePago, "_blank");
+  }
+
 
 }

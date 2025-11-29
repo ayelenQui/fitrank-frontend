@@ -1,92 +1,26 @@
-<!--<app-header-socio [user]="user"></app-header-socio> -->
+<div class="mis-logros">
 
-<section class="wrap">
-  <header class="header">
-    <h1>Mis logros</h1>
+  <h2 class="text-titulo">Mis logros</h2>
 
-    <!--<div class="toolbar">
-      <input #q type="search" placeholder="Buscar por nombre…" (input)="onBuscar(q.value)" />
-      <select #sel (change)="setOrden(sel.value)">
-        <option value="recientes" selected>Más recientes</option>
-        <option value="antiguos">Más antiguos</option>
-        <option value="puntos">Más puntos</option>
-      </select>
-    </div>-->
-  </header>
+  <div *ngIf="cargando">Cargando tus logros...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <!-- <div *ngIf="loading()">Cargando…</div> -->
-  <div *ngIf="!loading() && error()" class="alert">{{ error() }}</div>
+  <div class="logros-grid" *ngIf="!cargando && logros.length > 0">
+    <div class="logro-card" *ngFor="let logro of logros">
 
-  <ng-container>
+      <h3>{{ logro.nombre }}</h3>
+      <p class="descripcion">{{ logro.descripcion }}</p>
+      <div class="meta">
+        <span class="puntos">{{ logro.puntos }} pts</span>
+        <span class="fecha" *ngIf="logro.fechaOtorgado">
+          Obtenido: {{ logro.fechaOtorgado | date:'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </div>
+  </div>
 
-    <ul class="grid">
-    <!--<ul class="grid" *ngIf="logrosFiltrados().length > 0">
-      <li class="card" *ngFor="let l of logrosFiltrados(); trackBy: trackBylogroId">-->
-  <li class="card">
-        
-        <div class="card-head">
-          <h3>Primer ingreso</h3>
-          <span class="badge">15 pts</span>
-        </div><br>
-        <div>
-          Realizá tu primer ingreso al gimnasio con tu QR
-        </div>
-        <div class="meta">
-          Obtenido: <strong>01/10/2025</strong>
-        </div>
-      </li>
-        <li class="card">
-        
-        <div class="card-head">
-          <h3>Primera rutina creada</h3>
-          <span class="badge">5 pts</span>
-        </div><br>
-        <div>
-          Creá tu primer rutina
-        </div>
-        <div class="meta">
-          Obtenido: <strong>01/10/2025</strong>
-        </div>
-      </li>
-        <li class="card">
-        
-        <div class="card-head">
-          <h3>Rompepechos</h3>
-          <span class="badge">7 pts</span>
-        </div><br>
-        <div>
-          10 entrenamientos de pecho completados.
-        </div>
-        <div class="meta">
-          Obtenido: <strong>25/09/2025</strong>
-        </div>
-      </li>
-        <li class="card">
-        
-        <div class="card-head">
-          <h3>Primer Ranking</h3>
-          <span class="badge">10 pts</span>
-        </div><br>
-        <div>
-          Entrá al Top 10 del ranking global.
-        </div>
-        <div class="meta">
-          Obtenido: <strong>01/10/2025</strong>
-        </div>
-      </li>
-        <li class="card">
-        
-        <div class="card-head">
-          <h3>Subí el Peso</h3>
-          <span class="badge">15 pts</span>
-        </div><br>
-        <div>
-          Aumentá la carga en 5 ejercicios distintos.
-        </div>
-        <div class="meta">
-          Obtenido: <strong>01/10/2025</strong>
-        </div>
-      </li>
-    </ul>
-  </ng-container>
-</section>
+  <div *ngIf="!cargando && logros.length === 0">
+    Todavía no obtuviste ningún logro. ¡Seguí entrenando! 💪
+  </div>
+
+</div>
