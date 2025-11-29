@@ -39,6 +39,8 @@ grupos: ObtenerGrupoMuscularDTO[] = [];
   ngOnInit(): void {
     this.cargarRanking();
     this.cargarGruposMusculares();
+    this.user.id = this.user.id 
+    
   }
 
   public cargarRanking(): void {
@@ -79,7 +81,7 @@ grupos: ObtenerGrupoMuscularDTO[] = [];
       gsap.fromTo(
         '.card-ranking',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out', clearProps: 'all' }
+        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out', clearProps: 'opacity,transform' }
       );
     });
   }
@@ -128,7 +130,7 @@ private handleResponse() {
       this.animarRanking();
     },
     error: (err: any) => {
-      console.error("❌ Error filtrando:", err);
+      console.error(" Error filtrando:", err);
       this.cargando = false;
       this.mensaje = "Ocurrió un error al filtrar.";
     }
@@ -138,7 +140,7 @@ private handleResponse() {
 private cargarGruposMusculares(): void {
   this.grupoMuscularService.obtenerTodos().subscribe({
     next: (data) => this.grupos = data ?? [],
-    error: (err) => console.error("❌ Error obteniendo grupos musculares:", err)
+    error: (err) => console.error(" Error obteniendo grupos musculares:", err)
   });
 }
 

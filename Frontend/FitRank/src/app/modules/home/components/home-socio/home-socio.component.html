@@ -140,14 +140,13 @@
                  width="120" height="120" />
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-8" style="text-transform: uppercase;">
             <p><strong>Nombre:</strong> {{ socio?.nombre }} {{ socio?.apellido }}</p>
             <p><strong>Sexo:</strong> {{ socio?.sexo }}</p>
             <p><strong>Altura:</strong> {{ socio?.altura }} cm</p>
             <p><strong>Peso:</strong> {{ socio?.peso }} kg</p>
-            <p><strong>Inicio:</strong> {{ socio?.fechaRegistro | date:'dd/MM/yyyy' }}</p>
-
           </div>
+
         </div>
 
         <!-- EDITAR PERFIL -->

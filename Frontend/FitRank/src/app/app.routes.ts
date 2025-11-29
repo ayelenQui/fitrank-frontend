@@ -43,7 +43,7 @@ export const appRoutes: Route[] = [
   { path: 'visitante-home', component: VisitanteHome },
   { path: 'home/home-socio', component: HomeSocioComponent, canActivate: [AuthGuard] },
   { path: 'homeAdmin', canActivate: [AuthGuard],children: homeAdminRoutes },
-  { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
+  // { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
    { path: 'admin-invitacion', component: AdminInvitacionComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'activar-cuenta', component: ActivacionComponent },// si dejamos sin loguear 
   { path: 'rutina/editar/:id', component: CrearRutinaComponent, canActivate: [AuthGuard] },
@@ -52,6 +52,14 @@ export const appRoutes: Route[] = [
 
   { path: 'acceso', component: AccesoGimnasioComponent, canActivate: [AuthGuard] },
 
+  {
+  path: 'ranking',
+  component: GeneralLayoutComponent,
+  canActivate: [AuthGuard],
+  children: [
+    { path: '', component: RankingComponent }
+  ]
+},
   {
   path: 'solicitudes-profesor',
   component: GeneralLayoutComponent,
