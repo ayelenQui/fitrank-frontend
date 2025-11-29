@@ -1,6 +1,6 @@
 <!-- Agregar el header component -->
-<app-sidebar-socio></app-sidebar-socio>
-<app-header-socio></app-header-socio>
+<!-- <app-sidebar-socio></app-sidebar-socio>
+<app-header-socio></app-header-socio> -->
 <!-- Agregar el SidebarSocioComponent -->
 
 <div class="ranking-container" *ngIf="!cargando; else loading">
@@ -54,6 +54,7 @@
     <div
       *ngFor="let socio of ranking; let i = index"
       class="card-ranking"
+  [ngClass]="{ 'mi-usuario': +socio.socioId === +user.id }"
     >
       <div class="posicion">
         {{ getMedalla(i) || (i + 1) + '.' }}
