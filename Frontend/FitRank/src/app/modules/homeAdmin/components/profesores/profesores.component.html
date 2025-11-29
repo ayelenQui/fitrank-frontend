@@ -1,7 +1,7 @@
-<div class="container  p-2 m-2">
-
-  <h2 class="text-titulo  fw-bold mb-4">Gestión de Profesores</h2>
-
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="text-titulo  fw-bold d-flex align-items-center gap-4">Gestión de Profesores</h2>
+  </div>
   <div class="fr-switch mb-4">
 
     <button class="fr-switch-option btn-secondary"
@@ -101,7 +101,7 @@
     </button>
   </div>
 
-  <div *ngIf="vista === 'nuevo'" class="card-form-fitrank p-4 mb-4">
+  <div *ngIf="vista === 'nuevo'" class="texto card-form-fitrank p-4 mb-4">
     <h4 class="text-formu mb-3 ">
       {{ profesorSeleccionado ? '✏️ Editar Profesor' : ' Agregar Profesor' }}
     </h4>
@@ -272,8 +272,7 @@
 
       </div>
 
-    </div>
 
   </div>
-
+</div>
 </div>

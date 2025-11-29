@@ -143,13 +143,14 @@
 
     .table-wrapper-fitrank thead th {
       padding: 14px;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 18px !important;
     }
 
   /* FILAS */
   .table-wrapper-fitrank tbody td {
     padding: 14px;
-    font-size: 14px;
+    font-size: 15px !important;
     border-bottom: 1px solid #eaeaea;
     border-color: black;
   }
@@ -233,13 +234,14 @@
 .btn-tag-info,
 .btn-tag-light,
 .btn-tag-danger {
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   border: none;
   transition: all .25s ease;
+  color: white !important;
 }
 
 .btn-tag-info {
@@ -349,19 +351,74 @@
 
 
   /* =============== TABLA =============== */
-  .table-wrapper-fitrank {
-    overflow-x: auto;
-  }
+ /* Dentro de @media (max-width: 768px) { ... } */
 
-    .table-wrapper-fitrank thead th {
-      padding: 10px;
-      font-size: 13px;
-    }
+/* Hace que la tabla no se peque a los bordes */
+.table-wrapper-fitrank {
+  padding: 10px;
+  overflow-x: auto;
+}
 
-    .table-wrapper-fitrank tbody td {
-      padding: 10px;
-      font-size: 13px;
-    }
+/* Encabezado más limpio */
+.table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Filas */
+.table tbody tr {
+  vertical-align: middle !important;
+}
+
+/* Botones dentro de la tabla */
+.table .btn-tag-light,
+.table .btn-tag-danger {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* Hover de los botones */
+.table .btn-tag-light:hover {
+  filter: brightness(0.95);
+}
+
+.table .btn-tag-danger:hover {
+  filter: brightness(0.9);
+}
+
+/* Iconos dentro de los botones */
+.table .action-icon {
+  font-size: 1rem;
+}
+
+/* Estilo para la fila "expandida" */
+.rutinas-box {
+  background: #f2f4f7;
+  border-left: 4px solid #6c757d;
+}
+
+/* Alineación del panel + tabla */
+.panel-fitrank {
+  width: 100%;
+}
+
+.panel-body-fitrank {
+  padding: 1rem;
+}
+
+/* Esto asegura que la tabla quede alineada y centrada con respecto al sidebar */
+.col-12.col-md-10.col-lg-8.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 
   /* =============== CARD ESTADISTICAS =============== */

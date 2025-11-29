@@ -3,13 +3,9 @@
   <!--  Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-titulo fw-bold  d-flex align-items-center gap-2">
-      Gestion de Socios
+      Gestión de Socios
     </h2>
 
-    <button class="btn text-black d-flex align-items-center gap-2" (click)="generarInvitacion()">
-      <i class="bi bi-person-plus btn-secondary"></i>
-      Nuevo socio
-    </button>
   </div>
   <!-- FILTROS (estilo pill moderno) -->
   <div class="filtros-switch mb-3">
@@ -47,6 +43,11 @@
            placeholder="Buscar socio..."
            [(ngModel)]="searchTerm"
            (ngModelChange)="onSearchChange()" />
+
+    <button class="btn btn-secondary d-flex align-items-center gap-2" (click)="generarInvitacion()">
+      <i class="bi bi-person-plus btn-secondary"></i>
+      Nuevo socio
+    </button>
   </div>
 
 
