@@ -567,17 +567,43 @@ private finalizarEjercicio(): void {
       }
     }, 1000);
   }
-  finalizarSesionParcial(): void {
-    const confirmar = confirm(
-      '¿Querés finalizar la sesión por hoy? Solo se guardarán los ejercicios ya realizados.'
-    );
-    if (confirmar) {
+
+
+finalizarSesionParcial(): void {
+
+  Swal.fire({
+    title: '¿Finalizar sesión?',
+    html: `
+      Solo se guardarán los ejercicios que ya completaste.<br>
+      Podés continuar más tarde cuando quieras.
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, finalizar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#8b4bff',   // color FitRank
+    cancelButtonColor: '#6c757d',
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+
       this.actividadesRealizadas = [];
       localStorage.removeItem(`actividades_${this.socioId}`);
-      
+
+      // Redirige
       this.router.navigate(['/rutina/mis-rutinas']);
+
+      Swal.fire({
+        title: 'Sesión finalizada',
+        text: 'Tus progresos fueron guardados correctamente.',
+        icon: 'success',
+        timer: 1800,
+        showConfirmButton: false,
+      });
     }
-  }
+  });
+}
+
   calcularDuracionTotal(ejerciciosAsignados: any[]): number {
     if (!ejerciciosAsignados || ejerciciosAsignados.length === 0) return 0;
 
