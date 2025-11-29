@@ -5,7 +5,7 @@
   Cargando batalla...
 </div>
 
-<h2 class="titulo">Detalle </h2>
+<h2 class="titulo">Detalle de batalla</h2>
 <div *ngIf="!cargando && batalla" class="detalle-container">
 
 
@@ -27,8 +27,8 @@
     <p *ngIf="batalla.estado === 'Finalizada'">
       <strong>Fecha de finalización:</strong> {{ batalla.fechaFin | date: 'short' }}
     </p>
-    <p><strong>Mis puntos: </strong> <span class="puntosUsuario">{{ batalla.usuarioEsA ? batalla.puntosGuardadosB : batalla.puntosGuardadosA }}</span></p>
-    <p><strong>Puntos del oponente: </strong> <span class="puntosOponente">{{ batalla.usuarioEsA ? batalla.puntosGuardadosA : batalla.puntosGuardadosB }}</span></p>
+    <p><strong>Mis puntos: </strong> <span class="puntosUsuario">{{ (batalla.usuarioEsA ? batalla.puntosGuardadosB : batalla.puntosGuardadosA) | number:'1.2-2' }}</span></p>
+    <p><strong>Puntos del oponente: </strong> <span class="puntosOponente">{{ (batalla.usuarioEsA ? batalla.puntosGuardadosA : batalla.puntosGuardadosB) | number:'1.2-2' }}</span></p>
   </div>
 
   
@@ -38,7 +38,7 @@
       <canvas #graficoPuntosCanvas></canvas>
     </div>
     
-    <!-- ⚠ Solo si la batalla está activa -->
+    <!-- Solo si la batalla está activa -->
     <button 
       class="btn-finalizar btn-secondary"
       *ngIf="batalla.estado === 'Activa'"

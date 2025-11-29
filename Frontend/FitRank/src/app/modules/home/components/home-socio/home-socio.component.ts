@@ -21,6 +21,8 @@ import { FooterComponent } from '@app/modules/footer/components/footer.component
 import { SidebarSocioComponent } from '@app/public/sidebar-socio/sidebar-socio.component';
 import { MercadoPagoService } from '@app/api/services/mercado-pago/mercado-pago.service';
 import { AsistenciaService } from '@app/api/services/asistencia/asistencia.service'; 
+import { Footer } from '@app/public/footer/footer';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +31,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home-socio.component.html',
   styleUrls: ['./home-socio.component.css'],
   standalone: true,
-  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule, FooterComponent, SidebarSocioComponent]
+  imports: [HeaderSocioComponent, CommonModule, HeaderProfesorComponent, FormsModule, SidebarSocioComponent, Footer]
 })
 export class HomeSocioComponent implements OnInit, AfterViewInit {
   user: any = null;
