@@ -36,7 +36,7 @@
             <button class="btn-rechazar btn-secondary" (click)="rechazar( p.batallaId)">Rechazar</button>
         </div>
         <!-- <div class="acciones-pendiente">
-            <button class="btn-aceptar" (click)="aceptar( p.batallaId)">Aceptar</button>
+            <button class="btn-aceptar" (click)="a  ceptar( p.batallaId)">Aceptar</button>
             <button class=
             "btn-rechazar" (click)="rechazar( p.batallaId)">Rechazar</button>
         </div> -->
@@ -61,8 +61,8 @@
       <!-- <h3>{{ a.oponente }}</h3> -->
 
       <p><strong>Oponente:</strong> {{ a.oponente }}</p>
-    <p><strong>Mis puntos:</strong> {{ a.usuarioEsA ? a.puntosA : a.puntosB }}</p>
-    <p><strong>Puntos del oponente:</strong> {{ a.usuarioEsA ? a.puntosB : a.puntosA }}</p>
+    <p><strong>Mis puntos:</strong> {{ (a.usuarioEsA ? a.puntosA : a.puntosB) | number:'1.2-2' }}</p>
+    <p><strong>Puntos del oponente:</strong> {{ (a.usuarioEsA ? a.puntosB : a.puntosA) | number:'1.2-2' }}</p>
 
       <p>
         <strong>Finaliza:</strong> {{ a.fechaFin | date:'shortDate' }}
@@ -91,10 +91,10 @@
         <p><strong>Oponente:</strong> {{ h.oponente }}</p>
         <p><strong>Estado:</strong> {{ h.estado }}</p>
         <p *ngIf="h.estado === 'Finalizada' || h.estado === 'Activa'">
-          <strong>Mis puntos:</strong> {{ h.usuarioEsA ? h.puntosA : h.puntosB }}
+          <strong>Mis puntos:</strong> {{ (h.usuarioEsA ? h.puntosA : h.puntosB) | number:'1.2-2' }}
         </p>
         <p *ngIf="h.estado === 'Finalizada' || h.estado === 'Activa'">
-          <strong>Puntos del oponente:</strong> {{ h.usuarioEsA ? h.puntosB : h.puntosA }}
+          <strong>Puntos del oponente:</strong> {{ (h.usuarioEsA ? h.puntosB : h.puntosA) | number:'1.2-2' }}
         </p>
         <p><strong>Inicio:</strong> {{ h.fechaInicio | date:'shortDate' }}</p>
         <p><strong>Fin:</strong> {{ h.fechaFin | date:'shortDate' }}</p>
