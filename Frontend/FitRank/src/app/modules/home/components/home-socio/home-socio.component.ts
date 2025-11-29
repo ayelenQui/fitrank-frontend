@@ -155,7 +155,7 @@ export class HomeSocioComponent implements OnInit, AfterViewInit {
     this.signalRNoti.ocupacion$.subscribe(evento => {
       if (!evento) return;
 
-      this.mostrarCartelitoOcupacion(evento);
+      
       if (evento.tipo === "entrada") {
 
         this.personasDentro++;

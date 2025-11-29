@@ -9,7 +9,7 @@
       (input)="buscarHistorial()"
       placeholder="Buscar por nombre del alumno..."
     />
-    <button (click)="buscarHistorial()" class="btn-fitrank">Buscar</button>
+    <button (click)="buscarHistorial()" class="btn-fitrank btn-secondary">Buscar</button>
   </div>
 
   <div *ngIf="historial.length === 0 && !cargando" class="sin-resultados">

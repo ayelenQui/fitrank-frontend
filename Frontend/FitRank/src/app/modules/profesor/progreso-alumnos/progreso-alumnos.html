@@ -10,7 +10,7 @@
   placeholder="Buscar por nombre del alumno..."
 >
 
-  <button (click)="buscarHistorial()" class="btn-fitrank">Buscar</button>
+  <button (click)="buscarHistorial()" class="btn-fitrank btn-secondary">Buscar</button>
 </div>
 
 
@@ -31,7 +31,7 @@
         <p><strong>Fecha:</strong> {{ item.fecha | date:'dd/MM/yyyy' }}</p>
       </div>
 
-      <button class="btn-fitrank" (click)="toggleExpand(i)">
+      <button class="btn-fitrank btn-secondary" (click)="toggleExpand(i)">
         {{ expandedIndex === i ? 'Ocultar detalles' : 'Ver detalles' }}
       </button>
     </div>

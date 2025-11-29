@@ -2,9 +2,9 @@
  <h2>Reportes del Gimnasio</h2>
 
  <div class="filtros">
- <button (click)="cargarReportesPorEstado('todos')" [class.active]="filtroSeleccionado === 'todos'">Todos</button>
-<button (click)="cargarReportesPorEstado('activos')" [class.active]="filtroSeleccionado === 'activos'">Activos</button>
- <button (click)="cargarReportesPorEstado('inactivos')" [class.active]="filtroSeleccionado === 'inactivos'">Inactivos</button>
+ <button (click)="cargarReportesPorEstado('todos')" class="btn-secondary" [class.active]="filtroSeleccionado === 'todos'">Todos</button>
+<button (click)="cargarReportesPorEstado('activos')" class="btn-secondary"[class.active]="filtroSeleccionado === 'activos'">Activos</button>
+ <button (click)="cargarReportesPorEstado('inactivos')"class="btn-secondary" [class.active]="filtroSeleccionado === 'inactivos'">Inactivos</button>
  </div>
 
  <div *ngIf="cargando">Cargando reportes...</div>
@@ -27,7 +27,7 @@
  <button 
  *ngIf="rep.activo" 
  (click)="$event.stopPropagation(); cambiarEstado(rep)"
-class="btn-resolver"
+class="btn-resolver btn-secondary"
  >
  Marcar como resuelto
  </button>

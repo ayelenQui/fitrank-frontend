@@ -12,9 +12,7 @@
   --fondo-gimnasio: #f7f7f7;
 }
 
-/* ================================
-   BOTONES DE ACCIÓN (SECONDARY)
-================================ */
+
 .btn-secondary {
   background-color: var(--color-secundario) !important;
   border-color: var(--color-secundario) !important;
